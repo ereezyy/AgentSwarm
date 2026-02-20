@@ -1,0 +1,5022 @@
+[
+  {
+    "timestamp": "2026-02-10T11:15:18.759Z",
+    "agent": "LIBRARIAN_OPERATIVE_2509",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:15:20.529Z",
+    "agent": "CALLER_OPERATIVE_4370",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:16:47.225Z",
+    "agent": "LIBRARIAN_OPERATIVE_5633",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:16:50.191Z",
+    "agent": "CALLER_OPERATIVE_7561",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:18:10.802Z",
+    "agent": "LIBRARIAN_OPERATIVE_2904",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:18:12.845Z",
+    "agent": "CALLER_OPERATIVE_7836",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:19:26.938Z",
+    "agent": "LIBRARIAN_OPERATIVE_4060",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:19:28.937Z",
+    "agent": "CALLER_OPERATIVE_4459",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:20:34.769Z",
+    "agent": "LIBRARIAN_OPERATIVE_5706",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:20:36.799Z",
+    "agent": "CALLER_OPERATIVE_2104",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:21:09.984Z",
+    "agent": "LIBRARIAN_OPERATIVE_8943",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:21:12.016Z",
+    "agent": "CALLER_OPERATIVE_9551",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:23:32.037Z",
+    "agent": "LIBRARIAN_OPERATIVE_8270",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:23:33.902Z",
+    "agent": "CALLER_OPERATIVE_3527",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:26:23.019Z",
+    "agent": "SNIPER_OPERATIVE_7925",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:26:24.901Z",
+    "agent": "CRYPTO_OPERATIVE_7219",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:26:26.930Z",
+    "agent": "SIREN_OPERATIVE_6969",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:26:28.902Z",
+    "agent": "GHOST_OPERATIVE_6756",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:26:31.013Z",
+    "agent": "LIBRARIAN_OPERATIVE_8688",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:26:33.360Z",
+    "agent": "CALLER_OPERATIVE_4579",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:34:34.889Z",
+    "agent": "SNIPER_OPERATIVE_1820",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:34:37.439Z",
+    "agent": "CRYPTO_OPERATIVE_3874",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:34:38.813Z",
+    "agent": "SIREN_OPERATIVE_1134",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:34:42.023Z",
+    "agent": "GHOST_OPERATIVE_2752",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:34:43.166Z",
+    "agent": "LIBRARIAN_OPERATIVE_1580",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:34:45.286Z",
+    "agent": "CALLER_OPERATIVE_9718",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:39:17.763Z",
+    "agent": "SNIPER_OPERATIVE_1322",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:39:20.520Z",
+    "agent": "CRYPTO_OPERATIVE_9836",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:39:21.905Z",
+    "agent": "SIREN_OPERATIVE_9686",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:39:24.033Z",
+    "agent": "GHOST_OPERATIVE_8290",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:39:25.515Z",
+    "agent": "LIBRARIAN_OPERATIVE_9461",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:39:28.052Z",
+    "agent": "CALLER_OPERATIVE_9597",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:44:14.336Z",
+    "agent": "SNIPER_OPERATIVE_4947",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:44:17.964Z",
+    "agent": "CRYPTO_OPERATIVE_7182",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:44:20.692Z",
+    "agent": "SIREN_OPERATIVE_9272",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:44:22.131Z",
+    "agent": "GHOST_OPERATIVE_5286",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:44:23.123Z",
+    "agent": "LIBRARIAN_OPERATIVE_1982",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:44:24.423Z",
+    "agent": "CALLER_OPERATIVE_3950",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:48:55.428Z",
+    "agent": "SNIPER_OPERATIVE_6628",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:48:57.512Z",
+    "agent": "CRYPTO_OPERATIVE_3457",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:48:59.756Z",
+    "agent": "SIREN_OPERATIVE_3883",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:49:01.068Z",
+    "agent": "GHOST_OPERATIVE_5369",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:49:04.078Z",
+    "agent": "LIBRARIAN_OPERATIVE_5973",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:49:05.094Z",
+    "agent": "CALLER_OPERATIVE_7980",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:51:35.876Z",
+    "agent": "SNIPER_OPERATIVE_8381",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:51:37.774Z",
+    "agent": "CRYPTO_OPERATIVE_7631",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:51:40.213Z",
+    "agent": "SIREN_OPERATIVE_3101",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:51:42.090Z",
+    "agent": "GHOST_OPERATIVE_8220",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:51:44.218Z",
+    "agent": "LIBRARIAN_OPERATIVE_6240",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:51:46.001Z",
+    "agent": "CALLER_OPERATIVE_2876",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:54:43.605Z",
+    "agent": "SNIPER_OPERATIVE_6727",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:54:45.884Z",
+    "agent": "CRYPTO_OPERATIVE_8016",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:54:47.602Z",
+    "agent": "SIREN_OPERATIVE_2141",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:54:50.793Z",
+    "agent": "GHOST_OPERATIVE_8219",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:54:51.721Z",
+    "agent": "LIBRARIAN_OPERATIVE_6384",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:54:53.705Z",
+    "agent": "CALLER_OPERATIVE_8809",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:57:22.196Z",
+    "agent": "SNIPER_OPERATIVE_4835",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:57:24.749Z",
+    "agent": "CRYPTO_OPERATIVE_7222",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:57:25.965Z",
+    "agent": "SIREN_OPERATIVE_1909",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:57:28.537Z",
+    "agent": "GHOST_OPERATIVE_6336",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:57:29.765Z",
+    "agent": "LIBRARIAN_OPERATIVE_7149",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T11:57:31.776Z",
+    "agent": "CALLER_OPERATIVE_6021",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T12:05:05.294Z",
+    "agent": "SNIPER_OPERATIVE_3335",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T12:05:07.131Z",
+    "agent": "CRYPTO_OPERATIVE_6754",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T12:05:09.248Z",
+    "agent": "SIREN_OPERATIVE_5111",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T12:05:11.159Z",
+    "agent": "GHOST_OPERATIVE_9124",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T12:05:13.888Z",
+    "agent": "LIBRARIAN_OPERATIVE_3265",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T12:05:15.714Z",
+    "agent": "CALLER_OPERATIVE_7172",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:13:50.505Z",
+    "agent": "SNIPER_OPERATIVE_8446",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:13:52.362Z",
+    "agent": "CRYPTO_OPERATIVE_9947",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:13:54.447Z",
+    "agent": "SIREN_OPERATIVE_1651",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:13:56.378Z",
+    "agent": "GHOST_OPERATIVE_9606",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:13:58.439Z",
+    "agent": "LIBRARIAN_OPERATIVE_4750",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:14:00.601Z",
+    "agent": "CALLER_OPERATIVE_4558",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:47:14.252Z",
+    "agent": "SNIPER_OPERATIVE_2223",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:47:16.216Z",
+    "agent": "CRYPTO_OPERATIVE_2265",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:47:18.561Z",
+    "agent": "SIREN_OPERATIVE_4465",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:47:24.067Z",
+    "agent": "GHOST_OPERATIVE_5553",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:47:24.764Z",
+    "agent": "CALLER_OPERATIVE_8604",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:47:25.273Z",
+    "agent": "LIBRARIAN_OPERATIVE_8647",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:50:44.249Z",
+    "agent": "SNIPER_OPERATIVE_3736",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:50:46.326Z",
+    "agent": "CRYPTO_OPERATIVE_8000",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:50:48.538Z",
+    "agent": "SIREN_OPERATIVE_6666",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:50:50.586Z",
+    "agent": "GHOST_OPERATIVE_4885",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:50:52.652Z",
+    "agent": "LIBRARIAN_OPERATIVE_5216",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:50:54.960Z",
+    "agent": "CALLER_OPERATIVE_2572",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:53:46.368Z",
+    "agent": "SNIPER_OPERATIVE_1711",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:53:48.456Z",
+    "agent": "CRYPTO_OPERATIVE_4186",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:53:50.785Z",
+    "agent": "SIREN_OPERATIVE_9543",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:53:52.318Z",
+    "agent": "GHOST_OPERATIVE_1010",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:53:54.350Z",
+    "agent": "LIBRARIAN_OPERATIVE_5605",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T13:53:56.532Z",
+    "agent": "CALLER_OPERATIVE_5832",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T14:25:04.738Z",
+    "agent": "SNIPER_OPERATIVE_5187",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T14:25:06.680Z",
+    "agent": "CRYPTO_OPERATIVE_5816",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T14:25:08.578Z",
+    "agent": "SIREN_OPERATIVE_6042",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T14:25:10.764Z",
+    "agent": "GHOST_OPERATIVE_9383",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T14:25:12.829Z",
+    "agent": "LIBRARIAN_OPERATIVE_9369",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T14:25:15.062Z",
+    "agent": "CALLER_OPERATIVE_6669",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T19:08:52.408Z",
+    "agent": "SNIPER_OPERATIVE_4110",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T19:08:54.139Z",
+    "agent": "CRYPTO_OPERATIVE_1549",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T19:08:56.460Z",
+    "agent": "SIREN_OPERATIVE_9847",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T19:08:58.243Z",
+    "agent": "GHOST_OPERATIVE_6034",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T19:09:00.564Z",
+    "agent": "LIBRARIAN_OPERATIVE_6618",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T19:09:02.836Z",
+    "agent": "CALLER_OPERATIVE_4219",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T19:17:39.387Z",
+    "agent": "SNIPER_OPERATIVE_7783",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T19:17:41.706Z",
+    "agent": "CRYPTO_OPERATIVE_6270",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T19:17:43.270Z",
+    "agent": "SIREN_OPERATIVE_3870",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T19:17:45.562Z",
+    "agent": "GHOST_OPERATIVE_2684",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T19:17:46.664Z",
+    "agent": "INFLUENCER_OPERATIVE_4780",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T19:17:47.652Z",
+    "agent": "LIBRARIAN_OPERATIVE_4440",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T19:17:49.746Z",
+    "agent": "CALLER_OPERATIVE_7270",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T20:17:40.966Z",
+    "agent": "SNIPER_OPERATIVE_9845",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T20:17:42.832Z",
+    "agent": "CRYPTO_OPERATIVE_9994",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T20:17:44.877Z",
+    "agent": "SIREN_OPERATIVE_4242",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T20:17:47.115Z",
+    "agent": "GHOST_OPERATIVE_5316",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T20:17:47.919Z",
+    "agent": "INFLUENCER_OPERATIVE_5370",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T20:17:48.895Z",
+    "agent": "LIBRARIAN_OPERATIVE_7304",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T20:17:51.190Z",
+    "agent": "CALLER_OPERATIVE_1433",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:36:36.762Z",
+    "agent": "SNIPER_OPERATIVE_2238",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:36:38.918Z",
+    "agent": "CRYPTO_OPERATIVE_3577",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:36:40.749Z",
+    "agent": "SIREN_OPERATIVE_6792",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:36:42.740Z",
+    "agent": "GHOST_OPERATIVE_8813",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:36:43.742Z",
+    "agent": "INFLUENCER_OPERATIVE_6205",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:36:44.423Z",
+    "agent": "SCAVENGER_OPERATIVE_9701",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:36:45.079Z",
+    "agent": "LIBRARIAN_OPERATIVE_2887",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:36:46.774Z",
+    "agent": "CALLER_OPERATIVE_4794",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:37:59.963Z",
+    "agent": "SNIPER_OPERATIVE_7985",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:38:02.097Z",
+    "agent": "CRYPTO_OPERATIVE_2278",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:38:04.005Z",
+    "agent": "SIREN_OPERATIVE_1150",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:38:06.097Z",
+    "agent": "GHOST_OPERATIVE_5106",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:38:07.007Z",
+    "agent": "INFLUENCER_OPERATIVE_3830",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:38:08.108Z",
+    "agent": "SCAVENGER_OPERATIVE_2981",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:38:08.428Z",
+    "agent": "LIBRARIAN_OPERATIVE_9803",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-10T23:38:10.826Z",
+    "agent": "CALLER_OPERATIVE_1256",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:05:21.350Z",
+    "agent": "SNIPER_OPERATIVE_7952",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:05:23.314Z",
+    "agent": "CRYPTO_OPERATIVE_6150",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:05:25.179Z",
+    "agent": "SIREN_OPERATIVE_9184",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:05:27.329Z",
+    "agent": "GHOST_OPERATIVE_4786",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:05:28.351Z",
+    "agent": "INFLUENCER_OPERATIVE_4307",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:05:29.109Z",
+    "agent": "SCAVENGER_OPERATIVE_4832",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:05:29.730Z",
+    "agent": "LIBRARIAN_OPERATIVE_4898",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:05:31.462Z",
+    "agent": "CALLER_OPERATIVE_4485",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:49:14.660Z",
+    "agent": "SNIPER_OPERATIVE_6999",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:49:16.661Z",
+    "agent": "CRYPTO_OPERATIVE_8376",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:49:18.703Z",
+    "agent": "SIREN_OPERATIVE_8739",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:49:20.774Z",
+    "agent": "GHOST_OPERATIVE_4478",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:49:21.748Z",
+    "agent": "INFLUENCER_OPERATIVE_9462",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:49:22.491Z",
+    "agent": "SCAVENGER_OPERATIVE_4539",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:49:23.071Z",
+    "agent": "LIBRARIAN_OPERATIVE_7906",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:49:24.722Z",
+    "agent": "CALLER_OPERATIVE_4043",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:57:51.018Z",
+    "agent": "SNIPER_OPERATIVE_2384",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:57:52.827Z",
+    "agent": "CRYPTO_OPERATIVE_2469",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:57:55.453Z",
+    "agent": "SIREN_OPERATIVE_6562",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:57:56.823Z",
+    "agent": "GHOST_OPERATIVE_9424",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:57:57.810Z",
+    "agent": "INFLUENCER_OPERATIVE_4487",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:57:58.748Z",
+    "agent": "SCAVENGER_OPERATIVE_5794",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:57:59.261Z",
+    "agent": "LIBRARIAN_OPERATIVE_4418",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T00:58:01.938Z",
+    "agent": "CALLER_OPERATIVE_6646",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:11:42.910Z",
+    "agent": "SNIPER_OPERATIVE_3801",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:11:45.005Z",
+    "agent": "CRYPTO_OPERATIVE_5016",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:11:46.976Z",
+    "agent": "SIREN_OPERATIVE_8404",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:11:48.914Z",
+    "agent": "GHOST_OPERATIVE_2650",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:11:49.891Z",
+    "agent": "INFLUENCER_OPERATIVE_7112",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:11:50.488Z",
+    "agent": "SCAVENGER_OPERATIVE_1924",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:11:50.904Z",
+    "agent": "LIBRARIAN_OPERATIVE_8174",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:11:52.881Z",
+    "agent": "CALLER_OPERATIVE_1635",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:16:08.335Z",
+    "agent": "SNIPER_OPERATIVE_8287",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:16:10.320Z",
+    "agent": "CRYPTO_OPERATIVE_1458",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:16:12.322Z",
+    "agent": "SIREN_OPERATIVE_6669",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:16:14.428Z",
+    "agent": "GHOST_OPERATIVE_8614",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:16:15.298Z",
+    "agent": "INFLUENCER_OPERATIVE_7043",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:16:15.948Z",
+    "agent": "SCAVENGER_OPERATIVE_1007",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:16:16.354Z",
+    "agent": "LIBRARIAN_OPERATIVE_8734",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:16:18.312Z",
+    "agent": "CALLER_OPERATIVE_3557",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:18:02.170Z",
+    "agent": "SNIPER_OPERATIVE_6558",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:18:04.259Z",
+    "agent": "CRYPTO_OPERATIVE_7906",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:18:06.176Z",
+    "agent": "SIREN_OPERATIVE_9467",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:18:08.248Z",
+    "agent": "GHOST_OPERATIVE_8598",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:18:09.180Z",
+    "agent": "INFLUENCER_OPERATIVE_4546",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:18:09.682Z",
+    "agent": "SCAVENGER_OPERATIVE_9214",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:18:10.190Z",
+    "agent": "LIBRARIAN_OPERATIVE_6383",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:18:12.210Z",
+    "agent": "CALLER_OPERATIVE_5469",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:19:14.886Z",
+    "agent": "SNIPER_OPERATIVE_6066",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:19:16.947Z",
+    "agent": "CRYPTO_OPERATIVE_4746",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:19:19.114Z",
+    "agent": "SIREN_OPERATIVE_3721",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:19:20.882Z",
+    "agent": "GHOST_OPERATIVE_7449",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:19:22.122Z",
+    "agent": "INFLUENCER_OPERATIVE_7693",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:19:22.659Z",
+    "agent": "SCAVENGER_OPERATIVE_2676",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:19:22.965Z",
+    "agent": "LIBRARIAN_OPERATIVE_9794",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:19:25.171Z",
+    "agent": "CALLER_OPERATIVE_4822",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:20:15.124Z",
+    "agent": "SNIPER_OPERATIVE_5733",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:20:17.606Z",
+    "agent": "CRYPTO_OPERATIVE_2617",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:20:20.068Z",
+    "agent": "SIREN_OPERATIVE_9489",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:20:21.755Z",
+    "agent": "GHOST_OPERATIVE_6801",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:20:22.601Z",
+    "agent": "INFLUENCER_OPERATIVE_5643",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:20:23.679Z",
+    "agent": "SCAVENGER_OPERATIVE_6865",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:20:24.111Z",
+    "agent": "LIBRARIAN_OPERATIVE_4135",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:20:25.502Z",
+    "agent": "CALLER_OPERATIVE_1468",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:57:12.119Z",
+    "agent": "SNIPER_OPERATIVE_2657",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:57:14.407Z",
+    "agent": "CRYPTO_OPERATIVE_9092",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:57:20.266Z",
+    "agent": "SIREN_OPERATIVE_1906",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:57:21.023Z",
+    "agent": "INFLUENCER_OPERATIVE_2255",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:57:21.074Z",
+    "agent": "SCAVENGER_OPERATIVE_8574",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:57:21.147Z",
+    "agent": "LIBRARIAN_OPERATIVE_7995",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:57:21.389Z",
+    "agent": "GHOST_OPERATIVE_9060",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T01:57:22.074Z",
+    "agent": "CALLER_OPERATIVE_3835",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T05:18:24.797Z",
+    "agent": "SNIPER_OPERATIVE_7395",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T05:18:27.942Z",
+    "agent": "CRYPTO_OPERATIVE_7847",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T05:18:28.625Z",
+    "agent": "SIREN_OPERATIVE_6349",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T05:18:33.812Z",
+    "agent": "GHOST_OPERATIVE_4416",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T05:18:37.308Z",
+    "agent": "LIBRARIAN_OPERATIVE_7719",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T05:18:37.507Z",
+    "agent": "INFLUENCER_OPERATIVE_9708",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T05:18:40.860Z",
+    "agent": "CALLER_OPERATIVE_1765",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:39:35.860Z",
+    "agent": "SNIPER_OPERATIVE_6519",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:39:37.835Z",
+    "agent": "CRYPTO_OPERATIVE_5891",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:39:39.873Z",
+    "agent": "SIREN_OPERATIVE_1062",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:39:41.901Z",
+    "agent": "GHOST_OPERATIVE_8769",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:39:42.876Z",
+    "agent": "INFLUENCER_OPERATIVE_9902",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:39:43.382Z",
+    "agent": "SCAVENGER_OPERATIVE_8041",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:39:43.894Z",
+    "agent": "LIBRARIAN_OPERATIVE_1668",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:39:44.348Z",
+    "agent": "FORGER_OPERATIVE_1256",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:39:44.887Z",
+    "agent": "SHADOW_OPERATIVE_9720",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:39:46.129Z",
+    "agent": "CALLER_OPERATIVE_1484",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:41:24.977Z",
+    "agent": "SNIPER_OPERATIVE_3471",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:41:27.011Z",
+    "agent": "CRYPTO_OPERATIVE_1152",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:41:28.996Z",
+    "agent": "SIREN_OPERATIVE_5199",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:41:31.024Z",
+    "agent": "GHOST_OPERATIVE_5214",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:41:31.989Z",
+    "agent": "INFLUENCER_OPERATIVE_2024",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:41:32.557Z",
+    "agent": "SCAVENGER_OPERATIVE_6130",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:41:33.004Z",
+    "agent": "LIBRARIAN_OPERATIVE_9184",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:41:33.514Z",
+    "agent": "FORGER_OPERATIVE_7681",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:41:33.993Z",
+    "agent": "SHADOW_OPERATIVE_6445",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:41:35.021Z",
+    "agent": "CALLER_OPERATIVE_9596",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:42:24.712Z",
+    "agent": "SNIPER_OPERATIVE_4336",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:42:26.774Z",
+    "agent": "CRYPTO_OPERATIVE_7961",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:42:28.727Z",
+    "agent": "SIREN_OPERATIVE_7851",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:42:30.740Z",
+    "agent": "GHOST_OPERATIVE_4444",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:42:31.717Z",
+    "agent": "INFLUENCER_OPERATIVE_8755",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:42:32.294Z",
+    "agent": "SCAVENGER_OPERATIVE_7741",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:42:32.760Z",
+    "agent": "LIBRARIAN_OPERATIVE_8129",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:42:33.385Z",
+    "agent": "FORGER_OPERATIVE_5601",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:42:33.779Z",
+    "agent": "SHADOW_OPERATIVE_6730",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:42:34.725Z",
+    "agent": "CALLER_OPERATIVE_7424",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:44:41.298Z",
+    "agent": "SNIPER_OPERATIVE_6639",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:44:43.286Z",
+    "agent": "CRYPTO_OPERATIVE_4627",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:44:45.303Z",
+    "agent": "SIREN_OPERATIVE_3610",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:44:47.301Z",
+    "agent": "GHOST_OPERATIVE_4102",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:44:48.295Z",
+    "agent": "INFLUENCER_OPERATIVE_2102",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:44:48.862Z",
+    "agent": "SCAVENGER_OPERATIVE_5555",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:44:49.298Z",
+    "agent": "LIBRARIAN_OPERATIVE_2103",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:44:49.846Z",
+    "agent": "FORGER_OPERATIVE_9767",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:44:50.385Z",
+    "agent": "SHADOW_OPERATIVE_7220",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:44:50.857Z",
+    "agent": "WATCHER_OPERATIVE_6577",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:44:51.291Z",
+    "agent": "CALLER_OPERATIVE_4930",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:29.169Z",
+    "agent": "SNIPER_OPERATIVE_9521",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:31.160Z",
+    "agent": "CRYPTO_OPERATIVE_7737",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:33.161Z",
+    "agent": "SIREN_OPERATIVE_2029",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:35.195Z",
+    "agent": "GHOST_OPERATIVE_3114",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:36.209Z",
+    "agent": "INFLUENCER_OPERATIVE_7141",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:36.844Z",
+    "agent": "SCAVENGER_OPERATIVE_7735",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:37.280Z",
+    "agent": "LIBRARIAN_OPERATIVE_8570",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:37.712Z",
+    "agent": "FORGER_OPERATIVE_8506",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:38.289Z",
+    "agent": "SHADOW_OPERATIVE_6576",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:38.734Z",
+    "agent": "WATCHER_OPERATIVE_5083",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:39.381Z",
+    "agent": "CALLER_OPERATIVE_4333",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:39.875Z",
+    "agent": "BANKER_OPERATIVE_9697",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:41.253Z",
+    "agent": "TWILIO_OPERATIVE_8018",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:51:42.121Z",
+    "agent": "ARCHITECT_OPERATIVE_8671",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:11.414Z",
+    "agent": "SNIPER_OPERATIVE_2070",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:13.433Z",
+    "agent": "CRYPTO_OPERATIVE_5000",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:15.629Z",
+    "agent": "SIREN_OPERATIVE_1864",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:17.520Z",
+    "agent": "GHOST_OPERATIVE_7361",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:18.613Z",
+    "agent": "INFLUENCER_OPERATIVE_1448",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:19.298Z",
+    "agent": "SCAVENGER_OPERATIVE_5701",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:19.579Z",
+    "agent": "LIBRARIAN_OPERATIVE_4485",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:19.965Z",
+    "agent": "FORGER_OPERATIVE_2320",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:20.755Z",
+    "agent": "SHADOW_OPERATIVE_2839",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:21.553Z",
+    "agent": "WATCHER_OPERATIVE_2555",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:22.056Z",
+    "agent": "CALLER_OPERATIVE_4837",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:22.207Z",
+    "agent": "BANKER_OPERATIVE_6141",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:23.389Z",
+    "agent": "TWILIO_OPERATIVE_2189",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T13:53:24.742Z",
+    "agent": "ARCHITECT_OPERATIVE_1855",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:43.214Z",
+    "agent": "SNIPER_OPERATIVE_1163",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:46.045Z",
+    "agent": "CRYPTO_OPERATIVE_7909",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:47.602Z",
+    "agent": "SIREN_OPERATIVE_6772",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:49.420Z",
+    "agent": "GHOST_OPERATIVE_8893",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:50.610Z",
+    "agent": "INFLUENCER_OPERATIVE_6289",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:51.437Z",
+    "agent": "SCAVENGER_OPERATIVE_3197",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:51.953Z",
+    "agent": "LIBRARIAN_OPERATIVE_4924",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:52.856Z",
+    "agent": "FORGER_OPERATIVE_2575",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:53.320Z",
+    "agent": "SHADOW_OPERATIVE_1585",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:53.865Z",
+    "agent": "CALLER_OPERATIVE_5649",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:54.040Z",
+    "agent": "WATCHER_OPERATIVE_1808",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:56.004Z",
+    "agent": "BANKER_OPERATIVE_4209",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:57.171Z",
+    "agent": "TWILIO_OPERATIVE_5663",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:05:58.537Z",
+    "agent": "ARCHITECT_OPERATIVE_8599",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:03.029Z",
+    "agent": "SNIPER_OPERATIVE_2261",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:04.959Z",
+    "agent": "CRYPTO_OPERATIVE_6515",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:06.963Z",
+    "agent": "SIREN_OPERATIVE_4210",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:09.099Z",
+    "agent": "GHOST_OPERATIVE_8814",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:10.217Z",
+    "agent": "INFLUENCER_OPERATIVE_5455",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:10.987Z",
+    "agent": "SCAVENGER_OPERATIVE_4344",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:11.332Z",
+    "agent": "LIBRARIAN_OPERATIVE_7678",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:11.898Z",
+    "agent": "FORGER_OPERATIVE_3759",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:12.385Z",
+    "agent": "SHADOW_OPERATIVE_8829",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:13.097Z",
+    "agent": "WATCHER_OPERATIVE_6417",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:13.504Z",
+    "agent": "CALLER_OPERATIVE_1594",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:14.499Z",
+    "agent": "BANKER_OPERATIVE_7868",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:15.319Z",
+    "agent": "TWILIO_OPERATIVE_4883",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T14:08:16.401Z",
+    "agent": "ARCHITECT_OPERATIVE_8087",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:26.524Z",
+    "agent": "SNIPER_OPERATIVE_7679",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:28.703Z",
+    "agent": "CRYPTO_OPERATIVE_9636",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:30.502Z",
+    "agent": "SIREN_OPERATIVE_5303",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:32.647Z",
+    "agent": "GHOST_OPERATIVE_5756",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:33.539Z",
+    "agent": "INFLUENCER_OPERATIVE_1790",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:34.114Z",
+    "agent": "SCAVENGER_OPERATIVE_3488",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:34.785Z",
+    "agent": "LIBRARIAN_OPERATIVE_8474",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:35.279Z",
+    "agent": "FORGER_OPERATIVE_6066",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:36.014Z",
+    "agent": "SHADOW_OPERATIVE_8779",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:36.226Z",
+    "agent": "WATCHER_OPERATIVE_3304",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:37.469Z",
+    "agent": "CALLER_OPERATIVE_4600",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:37.830Z",
+    "agent": "BANKER_OPERATIVE_7661",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:39.521Z",
+    "agent": "TWILIO_OPERATIVE_9309",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:39.734Z",
+    "agent": "ARCHITECT_OPERATIVE_4874",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T20:52:53.118Z",
+    "agent": "CAPITAL_GENERATOR_OPERATIVE_7536",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:36:41.347Z",
+    "agent": "SNIPER_OPERATIVE_4689",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:36:42.868Z",
+    "agent": "CRYPTO_OPERATIVE_1472",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:36:44.986Z",
+    "agent": "SIREN_OPERATIVE_7827",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:36:46.811Z",
+    "agent": "GHOST_OPERATIVE_6789",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:36:47.777Z",
+    "agent": "INFLUENCER_OPERATIVE_4253",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:36:48.574Z",
+    "agent": "SCAVENGER_OPERATIVE_9263",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:36:49.018Z",
+    "agent": "LIBRARIAN_OPERATIVE_6202",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:36:50.808Z",
+    "agent": "FORGER_OPERATIVE_1854",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:36:51.333Z",
+    "agent": "SHADOW_OPERATIVE_2832",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:36:52.198Z",
+    "agent": "CALLER_OPERATIVE_1203",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:36:52.207Z",
+    "agent": "WATCHER_OPERATIVE_8888",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:36:53.416Z",
+    "agent": "BANKER_OPERATIVE_3793",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:36:55.017Z",
+    "agent": "TWILIO_OPERATIVE_7608",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:37:03.891Z",
+    "agent": "ARCHITECT_OPERATIVE_9780",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-11T22:37:20.093Z",
+    "agent": "CAPITAL_GENERATOR_OPERATIVE_9203",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:00:48.697Z",
+    "agent": "SNIPER_OPERATIVE_6964",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:00:50.842Z",
+    "agent": "CRYPTO_OPERATIVE_7005",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:00:52.487Z",
+    "agent": "SIREN_OPERATIVE_3571",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:00:54.735Z",
+    "agent": "GHOST_OPERATIVE_3083",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:00:56.618Z",
+    "agent": "SCAVENGER_OPERATIVE_4649",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:00:56.984Z",
+    "agent": "LIBRARIAN_OPERATIVE_8241",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:00:58.030Z",
+    "agent": "FORGER_OPERATIVE_7723",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:00:58.297Z",
+    "agent": "SHADOW_OPERATIVE_1367",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:00:58.538Z",
+    "agent": "WATCHER_OPERATIVE_9564",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:00:59.702Z",
+    "agent": "CALLER_OPERATIVE_9734",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:00:59.735Z",
+    "agent": "ORACLE_OPERATIVE_9963",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:01:00.016Z",
+    "agent": "BANKER_OPERATIVE_5426",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:01:01.925Z",
+    "agent": "TWILIO_OPERATIVE_7978",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:01:02.510Z",
+    "agent": "ARCHITECT_OPERATIVE_3767",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:02.108Z",
+    "agent": "SNIPER_OPERATIVE_9409",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:04.072Z",
+    "agent": "CRYPTO_OPERATIVE_9542",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:06.049Z",
+    "agent": "SIREN_OPERATIVE_6880",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:08.132Z",
+    "agent": "GHOST_OPERATIVE_3590",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:09.375Z",
+    "agent": "INFLUENCER_OPERATIVE_4839",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:09.782Z",
+    "agent": "SCAVENGER_OPERATIVE_7090",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:10.280Z",
+    "agent": "LIBRARIAN_OPERATIVE_2501",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:10.610Z",
+    "agent": "FORGER_OPERATIVE_6432",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:11.225Z",
+    "agent": "SHADOW_OPERATIVE_9689",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:11.816Z",
+    "agent": "WATCHER_OPERATIVE_3440",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:12.928Z",
+    "agent": "ORACLE_OPERATIVE_7883",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:13.088Z",
+    "agent": "CALLER_OPERATIVE_3103",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:13.251Z",
+    "agent": "ORACLE_OPERATIVE_6673",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:14.238Z",
+    "agent": "BANKER_OPERATIVE_2730",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:15.228Z",
+    "agent": "TWILIO_OPERATIVE_6030",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:15.604Z",
+    "agent": "INCUBATOR_OPERATIVE_5288",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:02:15.980Z",
+    "agent": "ARCHITECT_OPERATIVE_1973",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:11.270Z",
+    "agent": "SNIPER_OPERATIVE_2004",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:13.421Z",
+    "agent": "CRYPTO_OPERATIVE_5023",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:15.225Z",
+    "agent": "SIREN_OPERATIVE_3115",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:17.231Z",
+    "agent": "GHOST_OPERATIVE_2101",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:18.728Z",
+    "agent": "INFLUENCER_OPERATIVE_2272",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:19.799Z",
+    "agent": "SCAVENGER_OPERATIVE_4603",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:22.288Z",
+    "agent": "LIBRARIAN_OPERATIVE_3592",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:22.361Z",
+    "agent": "FORGER_OPERATIVE_6173",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:22.708Z",
+    "agent": "SHADOW_OPERATIVE_7515",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:23.875Z",
+    "agent": "ORACLE_OPERATIVE_4878",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:23.995Z",
+    "agent": "CALLER_OPERATIVE_9278",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:24.011Z",
+    "agent": "ORACLE_OPERATIVE_2610",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:24.055Z",
+    "agent": "BANKER_OPERATIVE_5384",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:26.252Z",
+    "agent": "TWILIO_OPERATIVE_8133",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:26.864Z",
+    "agent": "INCUBATOR_OPERATIVE_4048",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:26.898Z",
+    "agent": "ARCHITECT_OPERATIVE_2701",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:03:58.558Z",
+    "agent": "SNIPER_OPERATIVE_6605",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:00.637Z",
+    "agent": "CRYPTO_OPERATIVE_7593",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:02.707Z",
+    "agent": "SIREN_OPERATIVE_4996",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:04.605Z",
+    "agent": "GHOST_OPERATIVE_3598",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:05.536Z",
+    "agent": "INFLUENCER_OPERATIVE_9643",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:06.181Z",
+    "agent": "SCAVENGER_OPERATIVE_7915",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:07.007Z",
+    "agent": "LIBRARIAN_OPERATIVE_8565",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:07.201Z",
+    "agent": "FORGER_OPERATIVE_9775",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:08.036Z",
+    "agent": "SHADOW_OPERATIVE_3512",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:08.491Z",
+    "agent": "WATCHER_OPERATIVE_8178",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:09.029Z",
+    "agent": "ORACLE_OPERATIVE_7885",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:09.395Z",
+    "agent": "CALLER_OPERATIVE_5066",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:09.510Z",
+    "agent": "ORACLE_OPERATIVE_2416",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:10.733Z",
+    "agent": "BANKER_OPERATIVE_4846",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:11.404Z",
+    "agent": "TWILIO_OPERATIVE_4382",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:12.225Z",
+    "agent": "INCUBATOR_OPERATIVE_8126",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:12.489Z",
+    "agent": "ARCHITECT_OPERATIVE_2565",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:38.855Z",
+    "agent": "SNIPER_OPERATIVE_2587",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:40.832Z",
+    "agent": "CRYPTO_OPERATIVE_1034",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:42.871Z",
+    "agent": "SIREN_OPERATIVE_4535",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:44.745Z",
+    "agent": "GHOST_OPERATIVE_4530",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:45.541Z",
+    "agent": "INFLUENCER_OPERATIVE_3421",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:46.375Z",
+    "agent": "SCAVENGER_OPERATIVE_8500",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:47.541Z",
+    "agent": "LIBRARIAN_OPERATIVE_8771",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:47.725Z",
+    "agent": "FORGER_OPERATIVE_3465",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:48.006Z",
+    "agent": "SHADOW_OPERATIVE_4709",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:49.289Z",
+    "agent": "WATCHER_OPERATIVE_2723",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:49.677Z",
+    "agent": "CALLER_OPERATIVE_7594",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:49.835Z",
+    "agent": "ORACLE_OPERATIVE_8981",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:49.841Z",
+    "agent": "ORACLE_OPERATIVE_8604",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:50.341Z",
+    "agent": "BANKER_OPERATIVE_3551",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:51.129Z",
+    "agent": "TWILIO_OPERATIVE_6476",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:52.709Z",
+    "agent": "INCUBATOR_OPERATIVE_6842",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T05:04:52.864Z",
+    "agent": "ARCHITECT_OPERATIVE_9696",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T06:03:46.729Z",
+    "agent": "SNIPER_OPERATIVE_9279",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T06:03:48.784Z",
+    "agent": "CRYPTO_OPERATIVE_7083",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T06:03:51.216Z",
+    "agent": "SIREN_OPERATIVE_2857",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T06:03:52.730Z",
+    "agent": "GHOST_OPERATIVE_1797",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T06:03:53.812Z",
+    "agent": "INFLUENCER_OPERATIVE_2376",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T06:03:56.393Z",
+    "agent": "SCAVENGER_OPERATIVE_3995",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T06:03:56.465Z",
+    "agent": "FORGER_OPERATIVE_6535",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T06:03:57.056Z",
+    "agent": "LIBRARIAN_OPERATIVE_6671",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T06:05:11.701Z",
+    "agent": "SHADOW_OPERATIVE_5166",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T06:05:11.741Z",
+    "agent": "ORACLE_OPERATIVE_9210",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T06:05:11.845Z",
+    "agent": "ORACLE_OPERATIVE_7898",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T06:05:15.020Z",
+    "agent": "ARCHITECT_OPERATIVE_9739",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T06:05:15.057Z",
+    "agent": "DEEPFAKER_OPERATIVE_2591",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:25.148Z",
+    "agent": "SNIPER_OPERATIVE_5602",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:27.285Z",
+    "agent": "CRYPTO_OPERATIVE_5748",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:29.428Z",
+    "agent": "SIREN_OPERATIVE_5975",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:31.230Z",
+    "agent": "GHOST_OPERATIVE_9456",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:32.440Z",
+    "agent": "INFLUENCER_OPERATIVE_8400",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:32.820Z",
+    "agent": "SCAVENGER_OPERATIVE_6743",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:33.506Z",
+    "agent": "LIBRARIAN_OPERATIVE_9326",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:33.865Z",
+    "agent": "FORGER_OPERATIVE_1511",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:34.714Z",
+    "agent": "SHADOW_OPERATIVE_7282",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:35.437Z",
+    "agent": "WATCHER_OPERATIVE_4162",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:35.970Z",
+    "agent": "ORACLE_OPERATIVE_5855",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:36.436Z",
+    "agent": "ORACLE_OPERATIVE_1159",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:36.487Z",
+    "agent": "CALLER_OPERATIVE_3792",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:37.445Z",
+    "agent": "BANKER_OPERATIVE_2017",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:38.956Z",
+    "agent": "TWILIO_OPERATIVE_4509",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:40.200Z",
+    "agent": "ARCHITECT_OPERATIVE_5981",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:40.233Z",
+    "agent": "DEEPFAKER_OPERATIVE_7551",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T07:15:40.248Z",
+    "agent": "INCUBATOR_OPERATIVE_1334",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:36.623Z",
+    "agent": "SNIPER_OPERATIVE_6518",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:38.619Z",
+    "agent": "CRYPTO_OPERATIVE_8127",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:40.605Z",
+    "agent": "SIREN_OPERATIVE_3220",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:42.624Z",
+    "agent": "GHOST_OPERATIVE_9670",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:43.741Z",
+    "agent": "INFLUENCER_OPERATIVE_6051",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:44.263Z",
+    "agent": "SCAVENGER_OPERATIVE_9848",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:44.695Z",
+    "agent": "LIBRARIAN_OPERATIVE_2489",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:45.211Z",
+    "agent": "FORGER_OPERATIVE_1381",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:45.710Z",
+    "agent": "SHADOW_OPERATIVE_9466",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:46.474Z",
+    "agent": "WATCHER_OPERATIVE_8951",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:46.967Z",
+    "agent": "ORACLE_OPERATIVE_5202",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:47.086Z",
+    "agent": "ORACLE_OPERATIVE_5654",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:47.452Z",
+    "agent": "CALLER_OPERATIVE_8277",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:47.673Z",
+    "agent": "BANKER_OPERATIVE_7082",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:48.428Z",
+    "agent": "TWILIO_OPERATIVE_4161",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:48.790Z",
+    "agent": "INCUBATOR_OPERATIVE_5395",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:49.384Z",
+    "agent": "ARCHITECT_OPERATIVE_2699",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:31:49.853Z",
+    "agent": "DEEPFAKER_OPERATIVE_5581",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:09.912Z",
+    "agent": "SNIPER_OPERATIVE_9294",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:11.963Z",
+    "agent": "CRYPTO_OPERATIVE_1953",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:14.171Z",
+    "agent": "SIREN_OPERATIVE_2506",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:16.403Z",
+    "agent": "GHOST_OPERATIVE_5752",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:16.959Z",
+    "agent": "INFLUENCER_OPERATIVE_3398",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:17.756Z",
+    "agent": "SCAVENGER_OPERATIVE_3536",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:18.286Z",
+    "agent": "LIBRARIAN_OPERATIVE_8440",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:18.988Z",
+    "agent": "FORGER_OPERATIVE_2363",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:19.425Z",
+    "agent": "SHADOW_OPERATIVE_1898",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:20.217Z",
+    "agent": "WATCHER_OPERATIVE_9741",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:21.520Z",
+    "agent": "CALLER_OPERATIVE_3516",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:21.548Z",
+    "agent": "ORACLE_OPERATIVE_4845",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:22.066Z",
+    "agent": "BANKER_OPERATIVE_7516",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:22.731Z",
+    "agent": "INCUBATOR_OPERATIVE_4960",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:23.344Z",
+    "agent": "TWILIO_OPERATIVE_4817",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:23.620Z",
+    "agent": "ARCHITECT_OPERATIVE_5108",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-12T21:38:23.865Z",
+    "agent": "DEEPFAKER_OPERATIVE_2016",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:18.349Z",
+    "agent": "SNIPER_OPERATIVE_8450",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:20.349Z",
+    "agent": "CRYPTO_OPERATIVE_4330",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:22.353Z",
+    "agent": "SIREN_OPERATIVE_7762",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:24.361Z",
+    "agent": "GHOST_OPERATIVE_5210",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:25.355Z",
+    "agent": "INFLUENCER_OPERATIVE_6855",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:25.810Z",
+    "agent": "SCAVENGER_OPERATIVE_9662",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:26.366Z",
+    "agent": "LIBRARIAN_OPERATIVE_3771",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:27.043Z",
+    "agent": "FORGER_OPERATIVE_7273",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:27.412Z",
+    "agent": "SHADOW_OPERATIVE_7545",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:27.846Z",
+    "agent": "WATCHER_OPERATIVE_4026",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:28.417Z",
+    "agent": "CALLER_OPERATIVE_7905",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:28.428Z",
+    "agent": "ORACLE_OPERATIVE_5524",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:28.856Z",
+    "agent": "BANKER_OPERATIVE_4255",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:29.811Z",
+    "agent": "TWILIO_OPERATIVE_7800",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:30.433Z",
+    "agent": "INCUBATOR_OPERATIVE_1023",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:30.886Z",
+    "agent": "ARCHITECT_OPERATIVE_5499",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:31.370Z",
+    "agent": "DEEPFAKER_OPERATIVE_7112",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:07:31.863Z",
+    "agent": "HEADHUNTER_OPERATIVE_7287",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:25.812Z",
+    "agent": "SNIPER_OPERATIVE_3916",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:27.837Z",
+    "agent": "CRYPTO_OPERATIVE_6157",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:29.817Z",
+    "agent": "SIREN_OPERATIVE_5239",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:31.815Z",
+    "agent": "GHOST_OPERATIVE_9405",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:32.805Z",
+    "agent": "INFLUENCER_OPERATIVE_7690",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:33.355Z",
+    "agent": "SCAVENGER_OPERATIVE_2285",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:33.812Z",
+    "agent": "LIBRARIAN_OPERATIVE_3531",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:34.333Z",
+    "agent": "FORGER_OPERATIVE_1877",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:34.823Z",
+    "agent": "SHADOW_OPERATIVE_4993",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:35.362Z",
+    "agent": "WATCHER_OPERATIVE_6966",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:35.877Z",
+    "agent": "ORACLE_OPERATIVE_6026",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:35.961Z",
+    "agent": "CALLER_OPERATIVE_9568",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:36.365Z",
+    "agent": "BANKER_OPERATIVE_7392",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:37.458Z",
+    "agent": "TWILIO_OPERATIVE_3492",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:37.951Z",
+    "agent": "INCUBATOR_OPERATIVE_4784",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:38.548Z",
+    "agent": "ARCHITECT_OPERATIVE_9559",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:38.946Z",
+    "agent": "DEEPFAKER_OPERATIVE_4333",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:20:39.645Z",
+    "agent": "HEADHUNTER_OPERATIVE_5227",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:21.225Z",
+    "agent": "SNIPER_OPERATIVE_6102",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:23.306Z",
+    "agent": "CRYPTO_OPERATIVE_5637",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:25.224Z",
+    "agent": "SIREN_OPERATIVE_5838",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:27.201Z",
+    "agent": "GHOST_OPERATIVE_3487",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:28.219Z",
+    "agent": "INFLUENCER_OPERATIVE_3283",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:28.733Z",
+    "agent": "SCAVENGER_OPERATIVE_3495",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:29.237Z",
+    "agent": "LIBRARIAN_OPERATIVE_4931",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:29.748Z",
+    "agent": "FORGER_OPERATIVE_4123",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:30.247Z",
+    "agent": "SHADOW_OPERATIVE_8150",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:30.934Z",
+    "agent": "WATCHER_OPERATIVE_3745",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:31.404Z",
+    "agent": "ORACLE_OPERATIVE_4671",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:31.516Z",
+    "agent": "CALLER_OPERATIVE_6257",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:31.822Z",
+    "agent": "BANKER_OPERATIVE_8029",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:32.827Z",
+    "agent": "TWILIO_OPERATIVE_2548",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:33.362Z",
+    "agent": "INCUBATOR_OPERATIVE_4428",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:33.846Z",
+    "agent": "ARCHITECT_OPERATIVE_5857",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:34.367Z",
+    "agent": "DEEPFAKER_OPERATIVE_8572",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:22:34.852Z",
+    "agent": "HEADHUNTER_OPERATIVE_3527",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:33.856Z",
+    "agent": "SNIPER_OPERATIVE_2696",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:35.990Z",
+    "agent": "CRYPTO_OPERATIVE_8086",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:37.844Z",
+    "agent": "SIREN_OPERATIVE_1503",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:39.848Z",
+    "agent": "GHOST_OPERATIVE_9657",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:40.852Z",
+    "agent": "INFLUENCER_OPERATIVE_4962",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:41.377Z",
+    "agent": "SCAVENGER_OPERATIVE_4595",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:41.854Z",
+    "agent": "LIBRARIAN_OPERATIVE_9800",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:42.366Z",
+    "agent": "FORGER_OPERATIVE_2591",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:42.976Z",
+    "agent": "SHADOW_OPERATIVE_6388",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:43.454Z",
+    "agent": "WATCHER_OPERATIVE_8172",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:44.049Z",
+    "agent": "ORACLE_OPERATIVE_9736",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:44.054Z",
+    "agent": "CALLER_OPERATIVE_7013",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:44.535Z",
+    "agent": "BANKER_OPERATIVE_1856",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:45.826Z",
+    "agent": "TWILIO_OPERATIVE_7713",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:46.456Z",
+    "agent": "INCUBATOR_OPERATIVE_7107",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:46.598Z",
+    "agent": "ARCHITECT_OPERATIVE_5883",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:47.007Z",
+    "agent": "DEEPFAKER_OPERATIVE_5914",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T05:26:47.601Z",
+    "agent": "HEADHUNTER_OPERATIVE_4226",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:10.918Z",
+    "agent": "SNIPER_OPERATIVE_8086",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:13.262Z",
+    "agent": "CRYPTO_OPERATIVE_8646",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:15.024Z",
+    "agent": "SIREN_OPERATIVE_5382",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:16.977Z",
+    "agent": "GHOST_OPERATIVE_8938",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:18.313Z",
+    "agent": "INFLUENCER_OPERATIVE_6102",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:19.142Z",
+    "agent": "SCAVENGER_OPERATIVE_7155",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:20.198Z",
+    "agent": "LIBRARIAN_OPERATIVE_8650",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:21.173Z",
+    "agent": "FORGER_OPERATIVE_6969",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:22.630Z",
+    "agent": "SHADOW_OPERATIVE_1790",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:24.640Z",
+    "agent": "WATCHER_OPERATIVE_9668",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:25.557Z",
+    "agent": "CALLER_OPERATIVE_7305",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:26.063Z",
+    "agent": "ORACLE_OPERATIVE_5943",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:26.132Z",
+    "agent": "BANKER_OPERATIVE_8399",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:27.238Z",
+    "agent": "TWILIO_OPERATIVE_8805",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:27.803Z",
+    "agent": "INCUBATOR_OPERATIVE_9973",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:28.665Z",
+    "agent": "DEEPFAKER_OPERATIVE_1812",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:28.943Z",
+    "agent": "ARCHITECT_OPERATIVE_5458",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:15:31.349Z",
+    "agent": "HEADHUNTER_OPERATIVE_7400",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:29.928Z",
+    "agent": "SNIPER_OPERATIVE_2212",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:31.946Z",
+    "agent": "CRYPTO_OPERATIVE_7297",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:33.920Z",
+    "agent": "SIREN_OPERATIVE_5117",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:35.930Z",
+    "agent": "GHOST_OPERATIVE_5084",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:37.041Z",
+    "agent": "INFLUENCER_OPERATIVE_9433",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:37.516Z",
+    "agent": "SCAVENGER_OPERATIVE_6700",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:38.021Z",
+    "agent": "LIBRARIAN_OPERATIVE_6262",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:38.517Z",
+    "agent": "FORGER_OPERATIVE_2498",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:39.016Z",
+    "agent": "SHADOW_OPERATIVE_3514",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:40.129Z",
+    "agent": "WATCHER_OPERATIVE_3880",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:40.889Z",
+    "agent": "ORACLE_OPERATIVE_2202",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:40.897Z",
+    "agent": "CALLER_OPERATIVE_5365",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:41.435Z",
+    "agent": "BANKER_OPERATIVE_3411",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:42.525Z",
+    "agent": "INCUBATOR_OPERATIVE_7746",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:42.887Z",
+    "agent": "TWILIO_OPERATIVE_9190",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:44.046Z",
+    "agent": "DEEPFAKER_OPERATIVE_4645",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:44.141Z",
+    "agent": "ARCHITECT_OPERATIVE_4857",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:25:44.561Z",
+    "agent": "HEADHUNTER_OPERATIVE_3647",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:15.990Z",
+    "agent": "SNIPER_OPERATIVE_6664",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:18.009Z",
+    "agent": "CRYPTO_OPERATIVE_3445",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:19.980Z",
+    "agent": "SIREN_OPERATIVE_8712",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:22.050Z",
+    "agent": "GHOST_OPERATIVE_4080",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:23.006Z",
+    "agent": "INFLUENCER_OPERATIVE_9315",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:23.786Z",
+    "agent": "SCAVENGER_OPERATIVE_7541",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:24.109Z",
+    "agent": "LIBRARIAN_OPERATIVE_6903",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:24.526Z",
+    "agent": "FORGER_OPERATIVE_9046",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:25.440Z",
+    "agent": "SHADOW_OPERATIVE_6077",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:26.408Z",
+    "agent": "WATCHER_OPERATIVE_1509",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:26.837Z",
+    "agent": "BANKER_OPERATIVE_9002",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:26.974Z",
+    "agent": "ORACLE_OPERATIVE_8253",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:27.134Z",
+    "agent": "CALLER_OPERATIVE_2362",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:27.917Z",
+    "agent": "TWILIO_OPERATIVE_8571",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:28.809Z",
+    "agent": "INCUBATOR_OPERATIVE_6364",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:29.123Z",
+    "agent": "ARCHITECT_OPERATIVE_9718",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:29.875Z",
+    "agent": "DEEPFAKER_OPERATIVE_9824",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:27:30.234Z",
+    "agent": "HEADHUNTER_OPERATIVE_8220",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:34:57.102Z",
+    "agent": "SNIPER_OPERATIVE_7162",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:34:58.757Z",
+    "agent": "CRYPTO_OPERATIVE_2183",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:00.651Z",
+    "agent": "SIREN_OPERATIVE_4322",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:02.737Z",
+    "agent": "GHOST_OPERATIVE_5821",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:03.682Z",
+    "agent": "INFLUENCER_OPERATIVE_4678",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:04.466Z",
+    "agent": "SCAVENGER_OPERATIVE_3832",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:04.784Z",
+    "agent": "LIBRARIAN_OPERATIVE_2709",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:05.199Z",
+    "agent": "FORGER_OPERATIVE_8790",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:05.821Z",
+    "agent": "SHADOW_OPERATIVE_3205",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:06.238Z",
+    "agent": "WATCHER_OPERATIVE_4475",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:10.053Z",
+    "agent": "BANKER_OPERATIVE_7257",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:12.913Z",
+    "agent": "CALLER_OPERATIVE_2037",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:13.277Z",
+    "agent": "ORACLE_OPERATIVE_1048",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:13.833Z",
+    "agent": "INCUBATOR_OPERATIVE_4870",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:14.628Z",
+    "agent": "ARCHITECT_OPERATIVE_3811",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:14.634Z",
+    "agent": "DEEPFAKER_OPERATIVE_1756",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:35:15.332Z",
+    "agent": "HEADHUNTER_OPERATIVE_6582",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:14.438Z",
+    "agent": "SNIPER_OPERATIVE_2368",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:17.301Z",
+    "agent": "CRYPTO_OPERATIVE_2423",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:18.564Z",
+    "agent": "SIREN_OPERATIVE_6932",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:20.733Z",
+    "agent": "GHOST_OPERATIVE_7473",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:21.745Z",
+    "agent": "INFLUENCER_OPERATIVE_4351",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:23.747Z",
+    "agent": "SCAVENGER_OPERATIVE_2472",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:24.945Z",
+    "agent": "LIBRARIAN_OPERATIVE_7677",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:26.709Z",
+    "agent": "WATCHER_OPERATIVE_2309",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:26.728Z",
+    "agent": "FORGER_OPERATIVE_3057",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:26.775Z",
+    "agent": "SHADOW_OPERATIVE_8537",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:28.323Z",
+    "agent": "BANKER_OPERATIVE_8265",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:29.079Z",
+    "agent": "CALLER_OPERATIVE_1887",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:31.444Z",
+    "agent": "INCUBATOR_OPERATIVE_4607",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:31.846Z",
+    "agent": "TWILIO_OPERATIVE_9380",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:32.316Z",
+    "agent": "ARCHITECT_OPERATIVE_4088",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:32.395Z",
+    "agent": "DEEPFAKER_OPERATIVE_4727",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T06:39:33.326Z",
+    "agent": "HEADHUNTER_OPERATIVE_4760",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:36.879Z",
+    "agent": "SNIPER_OPERATIVE_9133",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:38.906Z",
+    "agent": "CRYPTO_OPERATIVE_3954",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:40.892Z",
+    "agent": "SIREN_OPERATIVE_2869",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:42.904Z",
+    "agent": "GHOST_OPERATIVE_6017",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:44.001Z",
+    "agent": "INFLUENCER_OPERATIVE_5698",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:44.541Z",
+    "agent": "SCAVENGER_OPERATIVE_1971",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:44.935Z",
+    "agent": "LIBRARIAN_OPERATIVE_6804",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:45.475Z",
+    "agent": "FORGER_OPERATIVE_5418",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:46.019Z",
+    "agent": "SHADOW_OPERATIVE_2226",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:46.550Z",
+    "agent": "WATCHER_OPERATIVE_9019",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:47.361Z",
+    "agent": "ORACLE_OPERATIVE_4908",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:47.428Z",
+    "agent": "CALLER_OPERATIVE_5372",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:47.737Z",
+    "agent": "BANKER_OPERATIVE_1305",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:48.642Z",
+    "agent": "TWILIO_OPERATIVE_9451",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:49.370Z",
+    "agent": "INCUBATOR_OPERATIVE_2724",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:49.835Z",
+    "agent": "ARCHITECT_OPERATIVE_5761",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:50.214Z",
+    "agent": "DEEPFAKER_OPERATIVE_6285",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T07:16:50.663Z",
+    "agent": "HEADHUNTER_OPERATIVE_8025",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:18:57.715Z",
+    "agent": "SNIPER_OPERATIVE_6195",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:18:59.733Z",
+    "agent": "CRYPTO_OPERATIVE_5005",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:01.707Z",
+    "agent": "SIREN_OPERATIVE_5696",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:03.739Z",
+    "agent": "GHOST_OPERATIVE_8359",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:04.708Z",
+    "agent": "INFLUENCER_OPERATIVE_7092",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:05.209Z",
+    "agent": "SCAVENGER_OPERATIVE_9952",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:05.715Z",
+    "agent": "LIBRARIAN_OPERATIVE_8415",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:06.607Z",
+    "agent": "FORGER_OPERATIVE_3955",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:06.790Z",
+    "agent": "SHADOW_OPERATIVE_7914",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:07.250Z",
+    "agent": "WATCHER_OPERATIVE_2562",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:07.785Z",
+    "agent": "ORACLE_OPERATIVE_5398",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:07.893Z",
+    "agent": "CALLER_OPERATIVE_4629",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:08.262Z",
+    "agent": "BANKER_OPERATIVE_3970",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:09.223Z",
+    "agent": "TWILIO_OPERATIVE_3163",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:09.794Z",
+    "agent": "INCUBATOR_OPERATIVE_3957",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:10.268Z",
+    "agent": "ARCHITECT_OPERATIVE_6761",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:10.734Z",
+    "agent": "DEEPFAKER_OPERATIVE_9971",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-16T18:19:11.201Z",
+    "agent": "HEADHUNTER_OPERATIVE_3508",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:16:57.374Z",
+    "agent": "SHADOW_OPERATIVE_5340",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:17:07.921Z",
+    "agent": "SHADOW_OPERATIVE_4307",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:17:18.324Z",
+    "agent": "SHADOW_OPERATIVE_8503",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:17:28.767Z",
+    "agent": "SHADOW_OPERATIVE_6173",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:17:39.587Z",
+    "agent": "SHADOW_OPERATIVE_6930",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:17:50.068Z",
+    "agent": "SHADOW_OPERATIVE_1703",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:18:00.596Z",
+    "agent": "SHADOW_OPERATIVE_3905",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:18:11.024Z",
+    "agent": "SHADOW_OPERATIVE_6671",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:18:21.457Z",
+    "agent": "SHADOW_OPERATIVE_6390",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:18:31.821Z",
+    "agent": "SHADOW_OPERATIVE_3923",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:18:42.284Z",
+    "agent": "SHADOW_OPERATIVE_8926",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:18:52.709Z",
+    "agent": "SHADOW_OPERATIVE_4993",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:19:03.198Z",
+    "agent": "SHADOW_OPERATIVE_2336",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:19:13.711Z",
+    "agent": "SHADOW_OPERATIVE_8417",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:19:24.323Z",
+    "agent": "SHADOW_OPERATIVE_2533",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:19:34.701Z",
+    "agent": "SHADOW_OPERATIVE_5588",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:19:45.074Z",
+    "agent": "SHADOW_OPERATIVE_7436",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:19:55.541Z",
+    "agent": "SHADOW_OPERATIVE_1136",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:20:06.083Z",
+    "agent": "SHADOW_OPERATIVE_4524",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:20:16.694Z",
+    "agent": "SHADOW_OPERATIVE_5086",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:20:27.703Z",
+    "agent": "SHADOW_OPERATIVE_7466",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:20:38.168Z",
+    "agent": "SHADOW_OPERATIVE_7328",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:20:48.626Z",
+    "agent": "SHADOW_OPERATIVE_6120",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:20:59.166Z",
+    "agent": "SHADOW_OPERATIVE_1211",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:21:10.106Z",
+    "agent": "SHADOW_OPERATIVE_8675",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:35:53.758Z",
+    "agent": "SNIPER_OPERATIVE_4633",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:35:55.474Z",
+    "agent": "CRYPTO_OPERATIVE_7642",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:35:57.486Z",
+    "agent": "SIREN_OPERATIVE_7832",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:35:59.295Z",
+    "agent": "GHOST_OPERATIVE_8438",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:01.112Z",
+    "agent": "INFLUENCER_OPERATIVE_7144",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:04.409Z",
+    "agent": "SCAVENGER_OPERATIVE_9811",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:07.904Z",
+    "agent": "FORGER_OPERATIVE_7477",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:07.913Z",
+    "agent": "WATCHER_OPERATIVE_5571",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:07.922Z",
+    "agent": "CALLER_OPERATIVE_9699",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:07.930Z",
+    "agent": "SHADOW_OPERATIVE_7039",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:07.952Z",
+    "agent": "ORACLE_OPERATIVE_4010",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:07.960Z",
+    "agent": "INCUBATOR_OPERATIVE_7840",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:08.072Z",
+    "agent": "BANKER_OPERATIVE_5103",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:08.092Z",
+    "agent": "TWILIO_OPERATIVE_3580",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:08.106Z",
+    "agent": "LIBRARIAN_OPERATIVE_1839",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:09.118Z",
+    "agent": "DEEPFAKER_OPERATIVE_2363",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:09.779Z",
+    "agent": "ARCHITECT_OPERATIVE_6601",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:09.815Z",
+    "agent": "HEADHUNTER_OPERATIVE_9473",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:19.008Z",
+    "agent": "INFLUENCER_OPERATIVE_4953",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:30.943Z",
+    "agent": "INFLUENCER_OPERATIVE_3540",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:41.590Z",
+    "agent": "INFLUENCER_OPERATIVE_1975",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:36:52.532Z",
+    "agent": "INFLUENCER_OPERATIVE_2136",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:37:03.755Z",
+    "agent": "INFLUENCER_OPERATIVE_8297",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:37:17.211Z",
+    "agent": "INFLUENCER_OPERATIVE_3987",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:37:30.912Z",
+    "agent": "INFLUENCER_OPERATIVE_8003",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:37:41.358Z",
+    "agent": "INFLUENCER_OPERATIVE_5294",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:37:52.568Z",
+    "agent": "INFLUENCER_OPERATIVE_7900",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:38:04.934Z",
+    "agent": "INFLUENCER_OPERATIVE_2578",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:38:15.757Z",
+    "agent": "INFLUENCER_OPERATIVE_9936",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:38:26.402Z",
+    "agent": "INFLUENCER_OPERATIVE_5711",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:38:36.912Z",
+    "agent": "INFLUENCER_OPERATIVE_5961",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:38:52.618Z",
+    "agent": "SNIPER_OPERATIVE_8416",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:38:54.607Z",
+    "agent": "CRYPTO_OPERATIVE_6647",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:38:56.943Z",
+    "agent": "SIREN_OPERATIVE_6089",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:38:58.988Z",
+    "agent": "GHOST_OPERATIVE_8122",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:38:59.869Z",
+    "agent": "INFLUENCER_OPERATIVE_6030",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:00.967Z",
+    "agent": "SCAVENGER_OPERATIVE_5527",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:09.389Z",
+    "agent": "WATCHER_OPERATIVE_2464",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:09.447Z",
+    "agent": "CALLER_OPERATIVE_6200",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:09.979Z",
+    "agent": "SHADOW_OPERATIVE_1255",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:10.378Z",
+    "agent": "FORGER_OPERATIVE_5432",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:11.476Z",
+    "agent": "ORACLE_OPERATIVE_1145",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:12.636Z",
+    "agent": "BANKER_OPERATIVE_8062",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:14.087Z",
+    "agent": "DEEPFAKER_OPERATIVE_2483",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:14.093Z",
+    "agent": "ARCHITECT_OPERATIVE_1994",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:14.736Z",
+    "agent": "TWILIO_OPERATIVE_5139",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:14.851Z",
+    "agent": "INCUBATOR_OPERATIVE_1922",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:16.849Z",
+    "agent": "HEADHUNTER_OPERATIVE_1607",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:18.486Z",
+    "agent": "INFLUENCER_OPERATIVE_9106",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:29.136Z",
+    "agent": "INFLUENCER_OPERATIVE_3859",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:40.025Z",
+    "agent": "INFLUENCER_OPERATIVE_9996",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:39:50.514Z",
+    "agent": "INFLUENCER_OPERATIVE_8051",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:40:00.880Z",
+    "agent": "INFLUENCER_OPERATIVE_6684",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:40:11.470Z",
+    "agent": "INFLUENCER_OPERATIVE_4674",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:40:22.036Z",
+    "agent": "INFLUENCER_OPERATIVE_3827",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:40:32.936Z",
+    "agent": "INFLUENCER_OPERATIVE_5063",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:41.458Z",
+    "agent": "SNIPER_OPERATIVE_1622",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:43.476Z",
+    "agent": "CRYPTO_OPERATIVE_1288",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:45.448Z",
+    "agent": "SIREN_OPERATIVE_5355",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:47.473Z",
+    "agent": "GHOST_OPERATIVE_5317",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:48.492Z",
+    "agent": "INFLUENCER_OPERATIVE_9229",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:49.074Z",
+    "agent": "SCAVENGER_OPERATIVE_6605",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:49.606Z",
+    "agent": "LIBRARIAN_OPERATIVE_1992",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:49.986Z",
+    "agent": "FORGER_OPERATIVE_4508",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:50.445Z",
+    "agent": "SHADOW_OPERATIVE_3988",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:50.935Z",
+    "agent": "WATCHER_OPERATIVE_7221",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:51.562Z",
+    "agent": "ORACLE_OPERATIVE_6269",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:51.582Z",
+    "agent": "CALLER_OPERATIVE_6978",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:52.820Z",
+    "agent": "BANKER_OPERATIVE_4233",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:54.237Z",
+    "agent": "TWILIO_OPERATIVE_2256",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:55.668Z",
+    "agent": "INCUBATOR_OPERATIVE_1893",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:56.214Z",
+    "agent": "ARCHITECT_OPERATIVE_4911",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:56.505Z",
+    "agent": "DEEPFAKER_OPERATIVE_3263",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T03:46:56.669Z",
+    "agent": "HEADHUNTER_OPERATIVE_1979",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:06.288Z",
+    "agent": "SNIPER_OPERATIVE_8981",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:08.523Z",
+    "agent": "CRYPTO_OPERATIVE_9253",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:10.318Z",
+    "agent": "SIREN_OPERATIVE_9707",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:12.284Z",
+    "agent": "GHOST_OPERATIVE_6987",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:13.297Z",
+    "agent": "INFLUENCER_OPERATIVE_1811",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:13.830Z",
+    "agent": "SCAVENGER_OPERATIVE_8809",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:14.317Z",
+    "agent": "LIBRARIAN_OPERATIVE_9105",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:14.819Z",
+    "agent": "FORGER_OPERATIVE_4763",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:15.330Z",
+    "agent": "SHADOW_OPERATIVE_9808",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:15.804Z",
+    "agent": "WATCHER_OPERATIVE_2699",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:16.473Z",
+    "agent": "CALLER_OPERATIVE_8990",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:16.526Z",
+    "agent": "ORACLE_OPERATIVE_6920",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:16.865Z",
+    "agent": "BANKER_OPERATIVE_3065",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:17.845Z",
+    "agent": "TWILIO_OPERATIVE_7841",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:18.403Z",
+    "agent": "INCUBATOR_OPERATIVE_8941",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:18.868Z",
+    "agent": "ARCHITECT_OPERATIVE_9332",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:19.345Z",
+    "agent": "DEEPFAKER_OPERATIVE_4930",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T08:10:19.906Z",
+    "agent": "HEADHUNTER_OPERATIVE_1012",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-17T14:11:04.435Z",
+    "agent": "SNIPER_OPERATIVE_2240",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:20.200Z",
+    "agent": "SNIPER_OPERATIVE_7163",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:22.192Z",
+    "agent": "CRYPTO_OPERATIVE_1841",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:24.199Z",
+    "agent": "SIREN_OPERATIVE_9231",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:26.193Z",
+    "agent": "GHOST_OPERATIVE_3222",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:27.178Z",
+    "agent": "INFLUENCER_OPERATIVE_7779",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:27.685Z",
+    "agent": "SCAVENGER_OPERATIVE_7178",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:28.215Z",
+    "agent": "LIBRARIAN_OPERATIVE_9043",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:28.689Z",
+    "agent": "FORGER_OPERATIVE_4519",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:29.700Z",
+    "agent": "SHADOW_OPERATIVE_2184",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:29.823Z",
+    "agent": "WATCHER_OPERATIVE_3097",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:30.217Z",
+    "agent": "ORACLE_OPERATIVE_2392",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:30.244Z",
+    "agent": "CALLER_OPERATIVE_2410",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:30.896Z",
+    "agent": "BANKER_OPERATIVE_4526",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:31.714Z",
+    "agent": "TWILIO_OPERATIVE_7479",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:32.353Z",
+    "agent": "INCUBATOR_OPERATIVE_6429",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:33.082Z",
+    "agent": "ARCHITECT_OPERATIVE_8497",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:33.312Z",
+    "agent": "DEEPFAKER_OPERATIVE_7502",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:04:33.817Z",
+    "agent": "HEADHUNTER_OPERATIVE_4298",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:05:35.403Z",
+    "agent": "SNIPER_OPERATIVE_3254",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:05:47.439Z",
+    "agent": "SNIPER_OPERATIVE_9810",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:06:04.237Z",
+    "agent": "SNIPER_OPERATIVE_3096",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:06:21.724Z",
+    "agent": "SNIPER_OPERATIVE_8621",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:06:38.917Z",
+    "agent": "SNIPER_OPERATIVE_9328",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:06:48.340Z",
+    "agent": "BANKER_OPERATIVE_4969",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:06:50.418Z",
+    "agent": "SNIPER_OPERATIVE_6353",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:07:06.422Z",
+    "agent": "SNIPER_OPERATIVE_1010",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:07:17.966Z",
+    "agent": "SNIPER_OPERATIVE_5396",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:07:29.323Z",
+    "agent": "SNIPER_OPERATIVE_4759",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:07:40.882Z",
+    "agent": "SNIPER_OPERATIVE_9303",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:07:52.260Z",
+    "agent": "SNIPER_OPERATIVE_8478",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:08:03.592Z",
+    "agent": "SNIPER_OPERATIVE_9172",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:08:14.989Z",
+    "agent": "SNIPER_OPERATIVE_6018",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:08:26.492Z",
+    "agent": "SNIPER_OPERATIVE_5541",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:08:37.885Z",
+    "agent": "SNIPER_OPERATIVE_3820",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:08:49.370Z",
+    "agent": "SNIPER_OPERATIVE_4604",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:09:00.652Z",
+    "agent": "SNIPER_OPERATIVE_7897",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:09:11.987Z",
+    "agent": "SNIPER_OPERATIVE_8392",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:09:23.214Z",
+    "agent": "SNIPER_OPERATIVE_3173",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:09:34.819Z",
+    "agent": "SNIPER_OPERATIVE_7234",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:09:46.420Z",
+    "agent": "SNIPER_OPERATIVE_4121",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:09:57.779Z",
+    "agent": "SNIPER_OPERATIVE_1591",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:10:07.204Z",
+    "agent": "BANKER_OPERATIVE_2128",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:10:09.049Z",
+    "agent": "SNIPER_OPERATIVE_8653",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:10:20.311Z",
+    "agent": "SNIPER_OPERATIVE_8994",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:10:31.542Z",
+    "agent": "SNIPER_OPERATIVE_8952",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:10:42.874Z",
+    "agent": "SNIPER_OPERATIVE_4841",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:10:54.163Z",
+    "agent": "SNIPER_OPERATIVE_7467",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:11:05.414Z",
+    "agent": "SNIPER_OPERATIVE_7964",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:11:16.947Z",
+    "agent": "SNIPER_OPERATIVE_5321",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:11:28.690Z",
+    "agent": "SNIPER_OPERATIVE_1955",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:11:40.354Z",
+    "agent": "SNIPER_OPERATIVE_9501",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:11:54.854Z",
+    "agent": "SNIPER_OPERATIVE_5325",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:12:06.223Z",
+    "agent": "SNIPER_OPERATIVE_3611",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:12:18.124Z",
+    "agent": "SNIPER_OPERATIVE_8271",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:12:24.859Z",
+    "agent": "BANKER_OPERATIVE_9300",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:12:29.362Z",
+    "agent": "SNIPER_OPERATIVE_8550",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:12:40.739Z",
+    "agent": "SNIPER_OPERATIVE_9843",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:12:51.929Z",
+    "agent": "SNIPER_OPERATIVE_4297",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:13:03.465Z",
+    "agent": "SNIPER_OPERATIVE_1401",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:14:43.091Z",
+    "agent": "BANKER_OPERATIVE_7932",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:01.040Z",
+    "agent": "SNIPER_OPERATIVE_4113",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:03.044Z",
+    "agent": "CRYPTO_OPERATIVE_4499",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:05.041Z",
+    "agent": "SIREN_OPERATIVE_8497",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:07.087Z",
+    "agent": "GHOST_OPERATIVE_8823",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:08.037Z",
+    "agent": "INFLUENCER_OPERATIVE_3956",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:08.543Z",
+    "agent": "SCAVENGER_OPERATIVE_5366",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:09.056Z",
+    "agent": "LIBRARIAN_OPERATIVE_3078",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:09.538Z",
+    "agent": "FORGER_OPERATIVE_5754",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:10.064Z",
+    "agent": "SHADOW_OPERATIVE_6291",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:10.578Z",
+    "agent": "WATCHER_OPERATIVE_7410",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:11.162Z",
+    "agent": "ORACLE_OPERATIVE_8918",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:11.191Z",
+    "agent": "CALLER_OPERATIVE_5842",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:11.602Z",
+    "agent": "BANKER_OPERATIVE_7555",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:12.552Z",
+    "agent": "TWILIO_OPERATIVE_9109",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:13.071Z",
+    "agent": "INCUBATOR_OPERATIVE_6702",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:13.561Z",
+    "agent": "ARCHITECT_OPERATIVE_9064",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:14.090Z",
+    "agent": "DEEPFAKER_OPERATIVE_4916",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-18T15:17:14.542Z",
+    "agent": "HEADHUNTER_OPERATIVE_1005",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:42.719Z",
+    "agent": "SNIPER_OPERATIVE_3319",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:44.917Z",
+    "agent": "CRYPTO_OPERATIVE_5990",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:46.812Z",
+    "agent": "SIREN_OPERATIVE_3227",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:49.311Z",
+    "agent": "GHOST_OPERATIVE_6565",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:50.067Z",
+    "agent": "INFLUENCER_OPERATIVE_3978",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:51.323Z",
+    "agent": "SCAVENGER_OPERATIVE_2925",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:51.446Z",
+    "agent": "LIBRARIAN_OPERATIVE_7502",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:51.620Z",
+    "agent": "FORGER_OPERATIVE_8667",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:52.770Z",
+    "agent": "SHADOW_OPERATIVE_1878",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:53.198Z",
+    "agent": "WATCHER_OPERATIVE_4263",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:53.645Z",
+    "agent": "CALLER_OPERATIVE_8636",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:53.696Z",
+    "agent": "ORACLE_OPERATIVE_7535",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:54.008Z",
+    "agent": "BANKER_OPERATIVE_4643",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:56.699Z",
+    "agent": "TWILIO_OPERATIVE_3506",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:57.049Z",
+    "agent": "INCUBATOR_OPERATIVE_6292",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:57.333Z",
+    "agent": "HEADHUNTER_OPERATIVE_6778",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:57.402Z",
+    "agent": "ARCHITECT_OPERATIVE_4865",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:57.417Z",
+    "agent": "DEEPFAKER_OPERATIVE_4951",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:58.201Z",
+    "agent": "HYDRA_OPERATIVE_4902",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:13:59.409Z",
+    "agent": "PIRATE_OPERATIVE_3796",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:20:38.486Z",
+    "agent": "SNIPER_OPERATIVE_8431",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:20:40.526Z",
+    "agent": "CRYPTO_OPERATIVE_3227",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:20:42.604Z",
+    "agent": "SIREN_OPERATIVE_7832",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:20:44.899Z",
+    "agent": "GHOST_OPERATIVE_1771",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:20:45.878Z",
+    "agent": "INFLUENCER_OPERATIVE_9823",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:20:46.338Z",
+    "agent": "SCAVENGER_OPERATIVE_1069",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:20:47.813Z",
+    "agent": "FORGER_OPERATIVE_4211",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:20:48.883Z",
+    "agent": "LIBRARIAN_OPERATIVE_6380",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:20:52.595Z",
+    "agent": "SHADOW_OPERATIVE_1521",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:20:56.773Z",
+    "agent": "WATCHER_OPERATIVE_9952",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:21:01.182Z",
+    "agent": "ORACLE_OPERATIVE_2262",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:21:02.934Z",
+    "agent": "CALLER_OPERATIVE_2752",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:21:05.368Z",
+    "agent": "DEEPFAKER_OPERATIVE_9841",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:21:05.729Z",
+    "agent": "INCUBATOR_OPERATIVE_3036",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:21:06.079Z",
+    "agent": "ARCHITECT_OPERATIVE_6450",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:21:07.244Z",
+    "agent": "PIRATE_OPERATIVE_7804",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:21:07.610Z",
+    "agent": "TWILIO_OPERATIVE_4283",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:21:07.659Z",
+    "agent": "HEADHUNTER_OPERATIVE_8819",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:21:07.819Z",
+    "agent": "HYDRA_OPERATIVE_7700",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:21:07.890Z",
+    "agent": "BANKER_OPERATIVE_3628",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:30.257Z",
+    "agent": "SNIPER_OPERATIVE_3692",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:34.420Z",
+    "agent": "CRYPTO_OPERATIVE_4982",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:34.756Z",
+    "agent": "SIREN_OPERATIVE_7198",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:35.977Z",
+    "agent": "GHOST_OPERATIVE_9045",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:37.015Z",
+    "agent": "INFLUENCER_OPERATIVE_9492",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:37.509Z",
+    "agent": "SCAVENGER_OPERATIVE_7491",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:38.190Z",
+    "agent": "LIBRARIAN_OPERATIVE_2448",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:38.665Z",
+    "agent": "FORGER_OPERATIVE_4211",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:39.629Z",
+    "agent": "SHADOW_OPERATIVE_5736",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:39.995Z",
+    "agent": "WATCHER_OPERATIVE_7604",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:40.213Z",
+    "agent": "ORACLE_OPERATIVE_2688",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:41.043Z",
+    "agent": "CALLER_OPERATIVE_9969",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:41.203Z",
+    "agent": "BANKER_OPERATIVE_2331",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:42.145Z",
+    "agent": "TWILIO_OPERATIVE_1539",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:42.302Z",
+    "agent": "INCUBATOR_OPERATIVE_7143",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:42.649Z",
+    "agent": "ARCHITECT_OPERATIVE_2358",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:43.120Z",
+    "agent": "DEEPFAKER_OPERATIVE_4928",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:43.604Z",
+    "agent": "HEADHUNTER_OPERATIVE_7599",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:44.043Z",
+    "agent": "HYDRA_OPERATIVE_7245",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:36:44.977Z",
+    "agent": "PIRATE_OPERATIVE_7931",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:26.674Z",
+    "agent": "SNIPER_OPERATIVE_3073",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:28.679Z",
+    "agent": "CRYPTO_OPERATIVE_6475",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:30.778Z",
+    "agent": "SIREN_OPERATIVE_2516",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:32.931Z",
+    "agent": "GHOST_OPERATIVE_3672",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:33.912Z",
+    "agent": "INFLUENCER_OPERATIVE_8524",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:34.343Z",
+    "agent": "SCAVENGER_OPERATIVE_5530",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:35.787Z",
+    "agent": "LIBRARIAN_OPERATIVE_6657",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:35.944Z",
+    "agent": "FORGER_OPERATIVE_1333",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:36.054Z",
+    "agent": "SHADOW_OPERATIVE_1368",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:36.785Z",
+    "agent": "WATCHER_OPERATIVE_1722",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:37.152Z",
+    "agent": "ORACLE_OPERATIVE_5640",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:37.404Z",
+    "agent": "CALLER_OPERATIVE_2342",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:38.073Z",
+    "agent": "BANKER_OPERATIVE_7761",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:38.700Z",
+    "agent": "TWILIO_OPERATIVE_9374",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:38.990Z",
+    "agent": "INCUBATOR_OPERATIVE_6894",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:40.185Z",
+    "agent": "ARCHITECT_OPERATIVE_7482",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:40.207Z",
+    "agent": "DEEPFAKER_OPERATIVE_2950",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:40.571Z",
+    "agent": "HEADHUNTER_OPERATIVE_1902",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:40.844Z",
+    "agent": "HYDRA_OPERATIVE_8106",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:44:41.778Z",
+    "agent": "PIRATE_OPERATIVE_3623",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:29.596Z",
+    "agent": "SNIPER_OPERATIVE_9420",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:31.660Z",
+    "agent": "CRYPTO_OPERATIVE_4491",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:34.431Z",
+    "agent": "SIREN_OPERATIVE_7099",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:35.643Z",
+    "agent": "GHOST_OPERATIVE_1339",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:36.586Z",
+    "agent": "INFLUENCER_OPERATIVE_6193",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:37.061Z",
+    "agent": "SCAVENGER_OPERATIVE_5233",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:37.862Z",
+    "agent": "LIBRARIAN_OPERATIVE_6661",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:38.151Z",
+    "agent": "FORGER_OPERATIVE_2014",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:39.277Z",
+    "agent": "SHADOW_OPERATIVE_4739",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:39.926Z",
+    "agent": "WATCHER_OPERATIVE_9999",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:40.273Z",
+    "agent": "ORACLE_OPERATIVE_9693",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:40.370Z",
+    "agent": "CALLER_OPERATIVE_2753",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:40.575Z",
+    "agent": "BANKER_OPERATIVE_2971",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:41.199Z",
+    "agent": "TWILIO_OPERATIVE_8236",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:41.748Z",
+    "agent": "INCUBATOR_OPERATIVE_2363",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:42.195Z",
+    "agent": "ARCHITECT_OPERATIVE_7061",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:42.747Z",
+    "agent": "DEEPFAKER_OPERATIVE_6517",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:43.096Z",
+    "agent": "HEADHUNTER_OPERATIVE_3053",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:43.686Z",
+    "agent": "HYDRA_OPERATIVE_6300",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T03:49:44.636Z",
+    "agent": "PIRATE_OPERATIVE_1922",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:11.680Z",
+    "agent": "SNIPER_OPERATIVE_8116",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:13.749Z",
+    "agent": "CRYPTO_OPERATIVE_8042",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:15.844Z",
+    "agent": "SIREN_OPERATIVE_1327",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:17.710Z",
+    "agent": "GHOST_OPERATIVE_8158",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:18.860Z",
+    "agent": "INFLUENCER_OPERATIVE_5325",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:19.552Z",
+    "agent": "SCAVENGER_OPERATIVE_8294",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:19.953Z",
+    "agent": "LIBRARIAN_OPERATIVE_1242",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:20.437Z",
+    "agent": "FORGER_OPERATIVE_1878",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:22.269Z",
+    "agent": "SHADOW_OPERATIVE_9718",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:23.059Z",
+    "agent": "WATCHER_OPERATIVE_6082",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:23.117Z",
+    "agent": "CALLER_OPERATIVE_6268",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:23.654Z",
+    "agent": "ORACLE_OPERATIVE_4501",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:24.930Z",
+    "agent": "BANKER_OPERATIVE_2327",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:26.098Z",
+    "agent": "INCUBATOR_OPERATIVE_6534",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:26.157Z",
+    "agent": "ARCHITECT_OPERATIVE_4089",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:27.363Z",
+    "agent": "TWILIO_OPERATIVE_6646",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:27.818Z",
+    "agent": "DEEPFAKER_OPERATIVE_1548",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:28.319Z",
+    "agent": "HEADHUNTER_OPERATIVE_7072",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:28.407Z",
+    "agent": "HYDRA_OPERATIVE_9902",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:29.446Z",
+    "agent": "PIRATE_OPERATIVE_9321",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:30.042Z",
+    "agent": "ZERO_RUG_OPERATIVE_8858",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:30.314Z",
+    "agent": "DEFI_FARMER_OPERATIVE_8092",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:30.455Z",
+    "agent": "MIRROR_OPERATIVE_1188",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:30.463Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_1209",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-19T05:21:30.902Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_4760",
+    "status": "ENGAGED"
+  }
+]

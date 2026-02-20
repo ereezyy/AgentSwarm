@@ -1,0 +1,22 @@
+{
+  "signals": [
+    {
+      "id": "sig-1771478517172-11wcv",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-19T05:21:57.172Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 372Mov6PgGXwcKSU...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1771478548371-vnww5",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-19T05:22:28.371Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: cjVcyAFn2F7UPPMq...",
+      "telegramSent": false
+    }
+  ],
+  "stats": {
+    "totalSignals": 2,
+    "totalTelegramSent": 0
+  }
+}

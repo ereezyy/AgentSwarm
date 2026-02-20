@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+/package-lock.json
+
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Temporary Assets
+*.wav
+*.mp3
+temp_voice_*
+
+# Data & Scavenged Assets
+loot/
+identities/
+missions/scavenge_leads.md
+missions/scavenge_report.md
+missions/upwork_leads.json
+missions/upwork_leads.md
+
+# OS/System files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Build/Logs
+dist/
+build/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
