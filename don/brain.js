@@ -234,14 +234,24 @@ async function askJSON(prompt, systemPrompt, options = {}) {
     });
 
     // Extract JSON from potentially messy responses
-    const jsonMatch = result.match(/\{[\s\S]*\}/);
+    return parseJSONFromText(result);
+}
+
+/**
+ * Parses JSON from a string, handling markdown blocks and prose.
+ * @param {string} text - The raw text from an LLM response.
+ * @returns {Object} The parsed JSON object.
+ */
+function parseJSONFromText(text) {
+    // Extract JSON from potentially messy responses
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (jsonMatch) return JSON.parse(jsonMatch[0]);
-    return JSON.parse(result);
+    return JSON.parse(text);
 }
 
 // ─── Export ────────────────────────────────────────────────
 
-module.exports = { askBrain, ask, askJSON, PROVIDERS };
+module.exports = { askBrain, ask, askJSON, parseJSONFromText, PROVIDERS };
 
 // Self-test when run directly
 if (require.main === module) {
