@@ -1,7 +1,6 @@
 // Quick Pi5 + Hailo diagnostics
+require('dotenv').config();
 const { Client } = require('ssh2');
-
-const conn = new Client();
 
 const COMMANDS = [
     'echo "=== HOSTNAME ==="',
@@ -32,28 +31,52 @@ const COMMANDS = [
 
 const bigCmd = COMMANDS.join(' && ');
 
-conn.on('ready', () => {
-    console.log('SSH CONNECTED TO PI5\n');
-    conn.exec(bigCmd, (err, stream) => {
-        if (err) { console.log('Exec error:', err.message); conn.end(); return; }
-        let output = '';
-        stream.on('data', (data) => { output += data.toString(); });
-        stream.stderr.on('data', (data) => { output += data.toString(); });
-        stream.on('close', () => {
-            console.log(output);
-            conn.end();
+function checkPi(ClientConstructor = Client) {
+    const conn = new ClientConstructor();
+
+    const host = process.env.PI_HOST || '192.168.1.78';
+    const port = parseInt(process.env.PI_PORT || '22', 10);
+    const username = process.env.PI_USER || 'ed';
+    const password = process.env.PI_PASSWORD;
+
+    if (!password) {
+        console.error('Error: PI_PASSWORD environment variable is not set.');
+        // If testing, throw error instead of exit so we can catch it
+        if (process.env.NODE_ENV === 'test') {
+            throw new Error('PI_PASSWORD environment variable is not set.');
+        }
+        process.exit(1);
+    }
+
+    conn.on('ready', () => {
+        console.log('SSH CONNECTED TO PI5\n');
+        conn.exec(bigCmd, (err, stream) => {
+            if (err) { console.log('Exec error:', err.message); conn.end(); return; }
+            let output = '';
+            stream.on('data', (data) => { output += data.toString(); });
+            stream.stderr.on('data', (data) => { output += data.toString(); });
+            stream.on('close', () => {
+                console.log(output);
+                conn.end();
+            });
         });
+    }).on('keyboard-interactive', (name, instr, lang, prompts, finish) => {
+        finish([password]);
+    }).on('error', (err) => {
+        console.log('SSH ERROR:', err.message);
+        if (process.env.NODE_ENV !== 'test') process.exit(1);
+    }).connect({
+        host,
+        port,
+        username,
+        password,
+        tryKeyboard: true,
+        readyTimeout: 30000
     });
-}).on('keyboard-interactive', (name, instr, lang, prompts, finish) => {
-    finish(['1234qwer']);
-}).on('error', (err) => {
-    console.log('SSH ERROR:', err.message);
-    process.exit(1);
-}).connect({
-    host: '192.168.1.78',
-    port: 22,
-    username: 'ed',
-    password: '1234qwer',
-    tryKeyboard: true,
-    readyTimeout: 30000
-});
+}
+
+if (require.main === module) {
+    checkPi();
+}
+
+module.exports = { checkPi };
