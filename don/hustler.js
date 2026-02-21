@@ -18,7 +18,18 @@ let lastAlertTime = 0;
 const ALERT_THRESHOLD = 3;     // 3% move = alert
 const CRITICAL_THRESHOLD = 7;  // 7% move = critical alert + phone call
 
+let isWatching = false;
+let watchTimeout = null;
+
 async function watchMarkets() {
+    if (isWatching) return;
+    isWatching = true;
+
+    if (watchTimeout) {
+        clearTimeout(watchTimeout);
+        watchTimeout = null;
+    }
+
     try {
         const response = await axios.get(
             'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true&include_24hr_vol=true',
@@ -101,14 +112,16 @@ async function watchMarkets() {
     } catch (e) {
         if (e.response?.status === 429) {
             console.log(chalk.yellow(`[HUSTLER #${id}]: CoinGecko rate limited. Cooling 60s...`));
-            setTimeout(watchMarkets, 60000);
+            watchTimeout = setTimeout(watchMarkets, 60000);
+            isWatching = false;
             return;
         }
         console.error(chalk.red(`[HUSTLER #${id}]: Market scan error: ${e.message}`));
     }
 
     // Check every 30 seconds
-    setTimeout(watchMarkets, 30000);
+    watchTimeout = setTimeout(watchMarkets, 30000);
+    isWatching = false;
 }
 
 function calculateTrend(coin) {
@@ -179,4 +192,8 @@ process.on('message', async (msg) => {
     }
 });
 
-watchMarkets();
+if (require.main === module) {
+    watchMarkets();
+}
+
+module.exports = { watchMarkets };
