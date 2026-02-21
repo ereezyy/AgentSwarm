@@ -16,17 +16,21 @@ class DonCore {
     constructor() {
         this.crew = [];
         this.profit = 0;
+        this.telemetry = {
+            start_time: new Date().toISOString(),
+            sessions: 0,
+            errors: {},
+            agents_spawned: 0,
+            uptime: 0,
+            profit: 0
+        };
+        this.saveTelemetry();
         this.skimRate = 0.15;
         this.activeMissions = [];
         this.processes = {}; // Registry of active child processes
         this.agentComms = []; // Agent Communication Board
         this.restartState = {}; // Per-agent restart backoff tracking
         this.agentHealth = {}; // Per-agent health status for dashboard
-        this.telemetry = {
-            errors: {},
-            profits: {},
-            lastUpdated: Date.now()
-        };
 
         // Start WebSocket Server
         this.wss = new WebSocket.Server({ port: 8080 });
@@ -161,9 +165,10 @@ class DonCore {
         console.log(color(`[${icons[type] || ''} ${type}] ${msg}`));
         this.broadcast({ type: 'LOG', msg, level: type, timestamp: new Date().toISOString() });
 
-        // Update Telemetry on Errors
-        if (type === 'ERROR') {
-            this.telemetry.errors['SYSTEM'] = (this.telemetry.errors['SYSTEM'] || 0) + 1;
+        // Update Telemetry on Errors/Profits
+        if (type === 'ERROR' || type === 'MONEY' || type === 'CRYPTO') {
+            if (type === 'ERROR') this.telemetry.errors['SYSTEM'] = (this.telemetry.errors['SYSTEM'] || 0) + 1;
+            this.telemetry.lastUpdated = Date.now();
             this.saveTelemetry();
         }
     }

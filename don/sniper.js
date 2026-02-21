@@ -51,9 +51,10 @@ try {
 // ============================================================
 async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1000) {
     try {
+        console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Requesting Jupiter Quote...`));
         // 1. Get Quote
         const quoteUrl = `https://quote-api.jup.ag/v6/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
-        const quoteResponse = await axios.get(quoteUrl);
+        const quoteResponse = await axios.get(quoteUrl, { timeout: 10000 }); // 10s timeout
         const quoteData = quoteResponse.data;
 
         if (!quoteData || quoteData.error) throw new Error(quoteData.error || 'No quote found');
@@ -66,7 +67,7 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
             prioritizationFeeLamports: 100000 // Priority fee
-        });
+        }, { timeout: 10000 });
 
         const { swapTransaction } = swapResponse.data;
 
@@ -77,26 +78,51 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
 
         // 4. Send (Prefer Bundler if available, else RPC)
         let sig;
-        if (bundler) {
-             console.log(chalk.magenta(`[SNIPER #${id}]: 🛡️ Sending Jupiter Swap via Jito...`));
-             // Jito usually takes Legacy Transactions, but modern bundles support Versioned.
-             // Our MevBundler might need update. Assuming standard send for now if Jito fails/unsupported.
-             // Actually, simplest is to use RPC for Jupiter as it handles its own routing complexity.
-             // To use Jito with Jupiter, we need to wrap the instructions. Jupiter API returns a fully built tx.
-             // We'll use standard RPC for Jupiter Swaps to be safe, or try connection.sendTransaction.
-             sig = await connection.sendTransaction(transaction, { skipPreflight: true, maxRetries: 2 });
-        } else {
-             sig = await connection.sendTransaction(transaction, { skipPreflight: true, maxRetries: 2 });
-        }
+        sig = await connection.sendTransaction(transaction, { skipPreflight: true, maxRetries: 2 });
 
         console.log(chalk.green.bold(`[SNIPER #${id}]: 🪐 Jupiter Swap Sent: ${sig}`));
-        await connection.confirmTransaction(sig, 'confirmed');
+
+        // Confirm with timeout
+        const confirmation = await connection.confirmTransaction(sig, 'confirmed');
+        if (confirmation.value.err) throw new Error(`TX Failed: ${JSON.stringify(confirmation.value.err)}`);
+
         return { success: true, sig, outAmount: quoteData.outAmount };
 
     } catch (e) {
-        console.error(chalk.red(`[SNIPER #${id}]: Jupiter Swap Failed: ${e.message}`));
-        return { success: false, error: e.message };
+        const errorMsg = e.code === 'ECONNABORTED' ? 'Jupiter API Timeout (DNS/Network)' : e.message;
+        console.error(chalk.red(`[SNIPER #${id}]: Jupiter Swap Failed: ${errorMsg}`));
+        return { success: false, error: errorMsg };
     }
+}
+
+async function fetchCurrentPrice(mint, amount) {
+    // 1. Try Jupiter first (preferred for accuracy)
+    try {
+        const quoteUrl = `https://quote-api.jup.ag/v6/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
+        const res = await axios.get(quoteUrl, { timeout: 8000 });
+        if (res.data && res.data.outAmount) {
+            const solValue = Number(res.data.outAmount) / 1e9;
+            const currentPrice = solValue / Number(amount);
+            return { solValue, currentPrice, source: 'JUPITER' };
+        }
+    } catch (e) {
+        // console.log(chalk.gray(`[SNIPER]: Jupiter price fetch failed, trying DexScreener...`));
+    }
+
+    // 2. Try DexScreener (Reliable fallback)
+    try {
+        const res = await axios.get(`https://api.dexscreener.com/latest/dex/tokens/${mint}`, { timeout: 8000 });
+        if (res.data && res.data.pairs && res.data.pairs.length > 0) {
+            const pair = res.data.pairs.find(p => p.quoteToken.address === WSOL_MINT.toString()) || res.data.pairs[0];
+            const priceInSol = parseFloat(pair.priceNative); // Price in SOL
+            const solValue = priceInSol * Number(amount);
+            return { solValue, currentPrice: priceInSol, source: 'DEXSCREENER' };
+        }
+    } catch (e) {
+        console.error(chalk.red(`[SNIPER]: Price fetch failed for ${mint}: ${e.message}`));
+    }
+
+    return null;
 }
 
 // ============================================================
@@ -182,23 +208,23 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
 
         // ── JUPITER ROUTE (Post-Migration) ──
         if (!curve || curve.complete) {
-             console.log(chalk.blue(`[SNIPER #${id}]: Bonding curve complete/gone. Routing via JUPITER...`));
-             const result = await executeJupiterSwap(WSOL_MINT.toString(), mint.toString(), Math.floor(SOL_AMOUNT * 1e9));
+            console.log(chalk.blue(`[SNIPER #${id}]: Bonding curve complete/gone. Routing via JUPITER...`));
+            const result = await executeJupiterSwap(WSOL_MINT.toString(), mint.toString(), Math.floor(SOL_AMOUNT * 1e9));
 
-             if (result.success) {
-                 const trades = loadTrades();
-                 trades.push({
-                     mint: mint.toString(),
-                     entryPrice: 0, // Need to fetch price
-                     amount: result.outAmount, // From quote
-                     timestamp: Date.now(),
-                     moonbagSecured: false,
-                     source: 'JUPITER'
-                 });
-                 saveTrades(trades);
-                 if (process.send) process.send({ type: 'TRADE_EXECUTED', mint: mint.toString(), amount: SOL_AMOUNT, source: 'JUPITER' });
-             }
-             return;
+            if (result.success) {
+                const trades = loadTrades();
+                trades.push({
+                    mint: mint.toString(),
+                    entryPrice: 0, // Need to fetch price
+                    amount: result.outAmount, // From quote
+                    timestamp: Date.now(),
+                    moonbagSecured: false,
+                    source: 'JUPITER'
+                });
+                saveTrades(trades);
+                if (process.send) process.send({ type: 'TRADE_EXECUTED', mint: mint.toString(), amount: SOL_AMOUNT, source: 'JUPITER' });
+            }
+            return;
         }
 
         // ── PUMP.FUN ROUTE (Pre-Migration) ──
@@ -211,7 +237,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
 
         const accountInfo = await connection.getAccountInfo(ata);
         if (!accountInfo) {
-             transaction.add(createAssociatedTokenAccountInstruction(wallet.publicKey, ata, wallet.publicKey, mint));
+            transaction.add(createAssociatedTokenAccountInstruction(wallet.publicKey, ata, wallet.publicKey, mint));
         }
 
         const data = Buffer.alloc(24);
@@ -283,14 +309,14 @@ async function sellToken(mint, amount, reason) {
 
         // ── JUPITER ROUTE (Post-Migration) ──
         if (!curve || curve.complete) {
-             console.log(chalk.blue(`[SNIPER #${id}]: Curve complete. Selling via JUPITER...`));
-             // Swap Input: Token -> Output: SOL
-             const result = await executeJupiterSwap(mint.toString(), WSOL_MINT.toString(), amount);
+            console.log(chalk.blue(`[SNIPER #${id}]: Curve complete. Selling via JUPITER...`));
+            // Swap Input: Token -> Output: SOL
+            const result = await executeJupiterSwap(mint.toString(), WSOL_MINT.toString(), amount);
 
-             if (result.success) {
-                 if (process.send) process.send({ type: 'KICK_UP', amount: Number(result.outAmount)/1e9, source: 'TRADE_EXIT_JUPITER' });
-             }
-             return;
+            if (result.success) {
+                if (process.send) process.send({ type: 'KICK_UP', amount: Number(result.outAmount) / 1e9, source: 'TRADE_EXIT_JUPITER' });
+            }
+            return;
         }
 
         // ── PUMP.FUN ROUTE (Pre-Migration) ──
@@ -445,12 +471,12 @@ async function checkPositions() {
 
     try {
         for (const trade of trades) {
+            let currentSolValue = 0;
+            let pnl = 0;
+
             const mintPub = new PublicKey(trade.mint);
             const bondingCurve = getBondingCurvePDA(mintPub);
             const curve = await getBondingCurveAccount(bondingCurve);
-
-            let currentSolValue = 0;
-            let pnl = 0;
 
             if (curve && !curve.complete) {
                 // Pump.fun Pricing
@@ -460,21 +486,14 @@ async function checkPositions() {
                 const entryPrice = trade.entryPrice || currentPrice;
                 pnl = ((currentPrice - entryPrice) / entryPrice) * 100;
             } else {
-                // Jupiter Pricing (Bonding curve gone)
-                // Need to fetch price from Jupiter API if not too heavy
-                // For now, assume we skip precise PnL check unless we implement price fetcher
-                // Or try to fetch a quote for selling ALL to see value
-                try {
-                    const quoteUrl = `https://quote-api.jup.ag/v6/quote?inputMint=${trade.mint}&outputMint=${WSOL_MINT.toString()}&amount=${trade.amount}&slippageBps=100`;
-                    const res = await axios.get(quoteUrl);
-                    if (res.data && res.data.outAmount) {
-                         currentSolValue = Number(res.data.outAmount) / 1e9;
-                         const currentPrice = Number(res.data.outAmount) / Number(trade.amount);
-                         const entryPrice = trade.entryPrice || currentPrice;
-                         pnl = ((currentPrice - entryPrice) / entryPrice) * 100;
-                    }
-                } catch(e) {
-                    continue; // Skip if cant fetch price
+                // FALLBACK PRICING (Jupiter -> DexScreener)
+                const priceData = await fetchCurrentPrice(trade.mint, trade.amount);
+                if (priceData) {
+                    currentSolValue = priceData.solValue;
+                    const entryPrice = trade.entryPrice || priceData.currentPrice;
+                    pnl = ((priceData.currentPrice - entryPrice) / entryPrice) * 100;
+                } else {
+                    continue; // Skip if no price available
                 }
             }
 
@@ -553,27 +572,27 @@ process.on('message', async (msg) => {
             break;
 
         case 'EMERGENCY_SELL':
-             const trades = loadTrades();
-             const trade = trades.find(t => t.mint === msg.mint);
-             if (trade) {
-                 await sellToken(msg.mint, trade.amount, 'EMERGENCY_SELL');
-                 trades.splice(trades.indexOf(trade), 1);
-                 saveTrades(trades);
-             }
-             break;
+            const trades = loadTrades();
+            const trade = trades.find(t => t.mint === msg.mint);
+            if (trade) {
+                await sellToken(msg.mint, trade.amount, 'EMERGENCY_SELL');
+                trades.splice(trades.indexOf(trade), 1);
+                saveTrades(trades);
+            }
+            break;
 
         case 'USER_CHAT':
-             if (msg.text && msg.text.startsWith('/snipe')) {
-                 const parts = msg.text.split(' ');
-                 if (parts.length > 1) {
-                     const mint = parts[1];
-                     console.log(chalk.magenta(`[SNIPER #${id}]: ⚡ MANUAL SNIPE: ${mint}`));
-                     const mintPub = new PublicKey(mint);
-                     const bondingCurve = getBondingCurvePDA(mintPub);
-                     const associatedBondingCurve = await getAssociatedTokenAddress(mintPub, bondingCurve, true);
-                     await buyToken(mintPub, bondingCurve, associatedBondingCurve);
-                 }
-             }
-             break;
+            if (msg.text && msg.text.startsWith('/snipe')) {
+                const parts = msg.text.split(' ');
+                if (parts.length > 1) {
+                    const mint = parts[1];
+                    console.log(chalk.magenta(`[SNIPER #${id}]: ⚡ MANUAL SNIPE: ${mint}`));
+                    const mintPub = new PublicKey(mint);
+                    const bondingCurve = getBondingCurvePDA(mintPub);
+                    const associatedBondingCurve = await getAssociatedTokenAddress(mintPub, bondingCurve, true);
+                    await buyToken(mintPub, bondingCurve, associatedBondingCurve);
+                }
+            }
+            break;
     }
 });

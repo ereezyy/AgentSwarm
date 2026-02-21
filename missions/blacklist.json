@@ -1,0 +1,18 @@
+{
+  "tokens": {},
+  "deployers": {},
+  "patterns": [
+    "PUMP_AND_DUMP",
+    "HONEYPOT",
+    "MINT_AUTHORITY",
+    "FREEZE_AUTHORITY",
+    "WHALE_CONCENTRATION",
+    "ZERO_LIQUIDITY",
+    "COPYCAT_NAME"
+  ],
+  "stats": {
+    "blocked": 0,
+    "approved": 2,
+    "rugsStopped": 0
+  }
+}

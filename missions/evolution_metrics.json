@@ -1,7 +1,7 @@
 {
-  "totalAttempts": 38,
+  "totalAttempts": 45,
   "applied": 0,
-  "rejected": 8,
+  "rejected": 15,
   "blocked": 0,
   "rolledBack": 0,
   "brainFailures": 60,

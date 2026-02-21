@@ -1,19 +1,24 @@
 
 ══════════════════════════════════════════════════════════════════════
-📡 SIGNAL BOT REPORT — 2/19/2026, 3:21:31 AM
+📡 SIGNAL BOT REPORT — 2/21/2026, 12:06:22 AM
 ══════════════════════════════════════════════════════════════════════
 
-Session Start: 2026-02-19T05:21:31.448Z
-Total Signals: 2
+Session Start: 2026-02-21T05:06:22.883Z
+Total Signals: 5
 Telegram Sent: 0 | Failed: 0
-Copy-Trade Signals: 0
-Whale Movements: 2
-All-Time Signals: 2
+Copy-Trade Signals: 2
+Whale Movements: 3
+All-Time Signals: 7
 All-Time TG Sent: 0
 
 📋 RECENT SIGNALS:
 ──────────────────────────────────────────────────
   📋 [11:21:57 PM] WHALE_MOVEMENT: "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 372Mov6PgGXwcKSU..."...
   📋 [11:22:28 PM] WHALE_MOVEMENT: "WHALE Whale Alpha: SENT 0 SOL. Sig: cjVcyAFn2F7UPPMq..."...
+  📋 [11:06:44 PM] WHALE_MOVEMENT: "WHALE Whale Alpha: SENT 0.0011 SOL. Sig: 4Yq4NrAkv8hGXrDv..."...
+  📋 [11:06:45 PM] COPY_TRADE_SIGNAL: {"type":"COPY_TRADE_SIGNAL","whale":"Whale Alpha","mint":"8TVr3U85V3Uazkxd5DJbmz...
+  📋 [11:07:15 PM] WHALE_MOVEMENT: "WHALE Whale Alpha: RECEIVED 0.1905 SOL. Sig: 2oBRr2VXRqzWcxJn..."...
+  📋 [11:07:46 PM] WHALE_MOVEMENT: "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 45xvnwAJDTBut3Hm..."...
+  📋 [11:07:46 PM] COPY_TRADE_SIGNAL: {"type":"COPY_TRADE_SIGNAL","whale":"Whale Alpha","mint":"5Jr9hGmJgxBRjjF8XGcGgQ...
 
 ══════════════════════════════════════════════════════════════════════

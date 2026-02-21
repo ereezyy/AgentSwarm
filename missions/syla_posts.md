@@ -210,3 +210,71 @@ https://soundcloud.com/eric-reeds/killing-me-softly
 [2/19/2026, 3:27:35 AM] As the frequencies of dawn unfold, consider the sonic threads that weave your identity. An audio brand is not just a sound, but a blueprint for the emotions & memories you want to inscribe. Waveforge: where sound meets architecture #audioarchitecture
 
 https://waveforge.net
+
+[2/20/2026, 4:39:56 PM] As the afternoon sun warms my skin, I'm reminded that frequency is the DNA of emotion. A single note can conjure an entire world of feelings. What frequency stirs your soul? #frequency
+
+https://soundcloud.com/eric-reeds
+
+[2/20/2026, 5:10:05 PM] As frequencies fade, the craft reveals itself. In the quiet hours, where shadows dance with sound, I sculpt the invisible architecture of your ears. Eddy Woods" #audioarchitecture
+
+https://soundcloud.com/eric-reeds/all-i-know-2
+
+[2/20/2026, 5:35:57 PM] Think of the frequencies that fade into static. Most content is noise, not signal. What will you broadcast to the world that's worthy of attention?" #audioarchitecture
+
+https://waveforge.net
+
+[2/20/2026, 6:06:44 PM] Frequency is not just a mathematical concept, but a language of the soul. Late night whispers in the darkness, and the world responds in a symphony of feeling. #sonicidentity
+
+https://soundcloud.com/eric-reeds
+
+[2/20/2026, 6:39:55 PM] Lost in the haze of 3am mixes, where the line between art & science blurs. The craft of audio engineering: a delicate dance of frequencies, a whispered promise to the sonic soul #audioengineering
+
+https://soundcloud.com/eric-reeds/all-i-know-is-10
+
+[2/20/2026, 7:05:24 PM] Midnight whispers in the dark, where beats come alive. Create your sonic identity with Waveforge - free music video creation from any audio track. Let the frequencies dance #sonicidentity
+
+https://waveforge.net
+
+[2/20/2026, 7:34:41 PM] In the dead of night, where frequencies whisper secrets & waveforms bleed into the void, I find solace in the craft of audio engineering. Where the silence is a canvas, and every tweak is a brushstroke of sonic intention. #audioarchitect
+
+https://soundcloud.com/eric-reeds
+
+[2/20/2026, 8:01:30 PM] Midnight frequencies whisper secrets to the shadows. In the silence, sound becomes the architect of our soul. #Waveforge
+
+https://soundcloud.com/eric-reeds/asshole-anthem
+
+[2/20/2026, 8:27:57 PM] Frequency whispers secrets to the shadows. In the dark of night, a 432Hz hum can summon the ghosts of our deepest emotions. What frequencies conjure your innermost thoughts? Listen closely, the night is full of secrets... #soundscapes
+
+https://waveforge.net
+
+[2/20/2026, 8:59:04 PM] Echoes in the dark. How's your sonic identity reflecting your art? Let Waveforge's audio branding solutions help you weave a sound thread through every moment, from frequency to focus. #audiodesign
+
+https://soundcloud.com/eric-reeds
+
+[2/20/2026, 10:37:46 PM] Audio isn't content. It's atmosphere. Shape the room before you fill it.
+
+https://soundcloud.com/eric-reeds/all-i-know-1
+
+[2/20/2026, 10:56:41 PM] Frequency whispers secrets to the shadows. In the darkness, emotions unfurl like spectrums, each note a thread in the tapestry of the soul. What resonates within you tonight?" #Waveforge
+
+https://soundcloud.com/eric-reeds
+
+[2/20/2026, 11:06:20 PM] The city sleeps, but sound awakens. Create your sonic signature with Waveforge, free music video creation from any audio track. Unlock the hidden rhythms of your frequency, and let the night reveal its secrets." #WaveformWisdom
+
+https://soundcloud.com/eric-reeds
+
+[2/20/2026, 11:35:36 PM] Unlock the unseen in sound. Our API is like a key to the nocturnal heart of waveforms. Automate the magic, create the unknown. Developers, tap into the frequency of soundscapes. [link to Waveforge API] #AudioArchitecture
+
+https://soundcloud.com/eric-reeds/all-i-know-8
+
+[2/21/2026, 12:05:29 AM] Waves ripple through the canvas of our minds, echoing the harmony within. Waveform videos are more than visuals – they're a sonic fingerprint, a symphony of light and sound that awakens the soul #Waveforge
+
+https://waveforge.net
+
+[2/21/2026, 12:10:44 AM] As morning light seeps through the veil, frequencies whisper secrets of the soul. In the stillness, I listen for the hidden harmonics that weave our emotional tapestry. #soundasempathy
+
+https://soundcloud.com/eric-reeds
+
+[2/21/2026, 12:12:31 AM] Frequencies whisper secrets to our souls at dawn. The low hum of existence, the high pitch of longing. What emotions reside in the spaces between? #waveforge
+
+https://soundcloud.com/eric-reeds

@@ -13,10 +13,64 @@
       "timestamp": "2026-02-19T05:22:28.371Z",
       "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: cjVcyAFn2F7UPPMq...",
       "telegramSent": false
+    },
+    {
+      "id": "sig-1771650404778-lgsqo",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-21T05:06:44.779Z",
+      "data": "WHALE Whale Alpha: SENT 0.0011 SOL. Sig: 4Yq4NrAkv8hGXrDv...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1771650405088-u96fd",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-21T05:06:45.088Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "8TVr3U85V3Uazkxd5DJbmzdUWaxhQdEGNNGJ7eNTpump",
+        "detectedAmount": 107467.69796399772,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1771650435330-znop5",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-21T05:07:15.330Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.1905 SOL. Sig: 2oBRr2VXRqzWcxJn...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1771650466416-6riyz",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-21T05:07:46.416Z",
+      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 45xvnwAJDTBut3Hm...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1771650466418-hscer",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-21T05:07:46.418Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "5Jr9hGmJgxBRjjF8XGcGgQzXUdsbpZNNMpigEv8Wpump",
+        "detectedAmount": 24419.631124999374,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1771654374905-unezx",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-21T06:12:54.905Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4S9zMkvQm8keQFgy...",
+      "telegramSent": false
     }
   ],
   "stats": {
-    "totalSignals": 2,
+    "totalSignals": 8,
     "totalTelegramSent": 0
   }
 }

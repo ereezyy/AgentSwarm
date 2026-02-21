@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ZR-MLVUWP7V",
+    "timestamp": "2026-02-21T05:06:44.779Z",
+    "mint": "8TVr3U85V3Ua...",
+    "fullMint": "8TVr3U85V3Uazkxd5DJbmzdUWaxhQdEGNNGJ7eNTpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MLVUY0S5",
+    "timestamp": "2026-02-21T05:07:46.421Z",
+    "mint": "5Jr9hGmJgxBR...",
+    "fullMint": "5Jr9hGmJgxBRjjF8XGcGgQzXUdsbpZNNMpigEv8Wpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  }
+]
