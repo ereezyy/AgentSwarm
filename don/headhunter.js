@@ -154,11 +154,12 @@ async function searchRealSources() {
     try {
         console.log(hh('  • Scanning Hacker News (Job Stories)...'));
         const storyIds = (await axios.get('https://hacker-news.firebaseio.com/v0/jobstories.json')).data.slice(0, 10);
-        for (const id of storyIds) {
+
+        const hnJobs = (await Promise.all(storyIds.map(async (id) => {
             try {
                 const item = (await axios.get(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)).data;
                 if (item && !item.deleted && !item.dead) {
-                    jobs.push({
+                    return {
                         id: `hn-${item.id}`,
                         title: item.title,
                         url: item.url || `https://news.ycombinator.com/item?id=${item.id}`,
@@ -170,14 +171,16 @@ async function searchRealSources() {
                         category: 'Startup',
                         clientInfo: { source: 'HackerNews', paymentVerified: true },
                         applicants: 0
-                    });
+                    };
                 }
-                await sleep(100);
-            } catch (err) { /* skip item */ }
-        }
+            } catch (err) { return null; }
+        }))).filter(j => j !== null);
+
+        jobs.push(...hnJobs);
     } catch (e) {
         console.log(chalk.red(`  ❌ HN Scan Error: ${e.message}`));
     }
+
 
     // 3. WeWorkRemotely RSS
     try {
