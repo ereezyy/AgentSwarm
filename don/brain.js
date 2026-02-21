@@ -75,6 +75,15 @@ function setCooldown(providerName, durationMs = 60000) {
 
 // ─── Provider-specific call implementations ────────────────
 
+async function executeRequest(url, body, options = {}) {
+    const { headers = {}, timeout = 30000 } = options;
+    const response = await axios.post(url, body, {
+        headers,
+        timeout
+    });
+    return response.data;
+}
+
 async function callOpenAICompat(provider, messages, options = {}) {
     const body = {
         model: options.model || provider.model,
@@ -84,11 +93,11 @@ async function callOpenAICompat(provider, messages, options = {}) {
     };
     if (options.response_format) body.response_format = options.response_format;
 
-    const resp = await axios.post(`${provider.baseUrl}/chat/completions`, body, {
+    const data = await executeRequest(`${provider.baseUrl}/chat/completions`, body, {
         headers: { 'Authorization': `Bearer ${provider.apiKey}` },
-        timeout: provider.timeout || 30000,
+        timeout: provider.timeout
     });
-    return resp.data.choices[0].message.content;
+    return data.choices[0].message.content;
 }
 
 async function callGemini(provider, messages, options = {}) {
@@ -118,17 +127,17 @@ async function callGemini(provider, messages, options = {}) {
     }
 
     const model = options.model || provider.model;
-    const resp = await axios.post(
+    const data = await executeRequest(
         `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${provider.apiKey}`,
         body,
-        { timeout: provider.timeout || 30000 }
+        { timeout: provider.timeout }
     );
 
-    return resp.data.candidates[0].content.parts[0].text;
+    return data.candidates[0].content.parts[0].text;
 }
 
 async function callOllama(provider, messages, options = {}) {
-    const resp = await axios.post(`${provider.baseUrl}/api/chat`, {
+    const data = await executeRequest(`${provider.baseUrl}/api/chat`, {
         model: options.model || provider.model,
         messages,
         stream: false,
@@ -136,8 +145,8 @@ async function callOllama(provider, messages, options = {}) {
             temperature: options.temperature ?? 0.7,
             num_predict: options.max_tokens ?? 2048,
         }
-    }, { timeout: provider.timeout || 30000 });
-    return resp.data.message.content;
+    }, { timeout: provider.timeout });
+    return data.message.content;
 }
 
 // ─── Main Brain Function ───────────────────────────────────
@@ -196,7 +205,7 @@ async function askBrain(messages, options = {}) {
                 console.log(chalk.gray(`${agentTag} ${provider.name} error: ${msg.substring(0, 80)}`));
             }
 
-            errors.push(`${provider.name}: ${status || err.code || 'ERR'}`);
+            console.error('DEBUG ERROR:', err); errors.push(`${provider.name}: ${status || err.code || 'ERR'}`);
         }
     }
 
@@ -225,14 +234,24 @@ async function askJSON(prompt, systemPrompt, options = {}) {
     });
 
     // Extract JSON from potentially messy responses
-    const jsonMatch = result.match(/\{[\s\S]*\}/);
+    return parseJSONFromText(result);
+}
+
+/**
+ * Parses JSON from a string, handling markdown blocks and prose.
+ * @param {string} text - The raw text from an LLM response.
+ * @returns {Object} The parsed JSON object.
+ */
+function parseJSONFromText(text) {
+    // Extract JSON from potentially messy responses
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (jsonMatch) return JSON.parse(jsonMatch[0]);
-    return JSON.parse(result);
+    return JSON.parse(text);
 }
 
 // ─── Export ────────────────────────────────────────────────
 
-module.exports = { askBrain, ask, askJSON, PROVIDERS };
+module.exports = { askBrain, ask, askJSON, parseJSONFromText, PROVIDERS };
 
 // Self-test when run directly
 if (require.main === module) {

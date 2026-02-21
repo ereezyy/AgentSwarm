@@ -1,4 +1,3 @@
-
 // OPTIMIZED BY LIBRARIAN: Distributed Swarm Coordination
 // Integration of advanced logic from Moltbook ecosystem.
 // don/syndicate_logic.js - THE DON (NO SIMULATIONS)
@@ -33,29 +32,34 @@ class DonCore {
         this.agentHealth = {}; // Per-agent health status for dashboard
 
         // Start WebSocket Server
-        this.wss = new WebSocket.Server({ port: 8080 });
-        this.wss.on('connection', ws => {
-            this.log('New client connected to The Front', 'INFO');
-            const trades = this.loadTradeHistory();
-            ws.send(JSON.stringify({
-                type: 'INIT',
-                profit: this.profit,
-                crew: this.crew,
-                agentComms: this.agentComms.slice(-50),
-                trades: trades
-            }));
+        if (process.env.NODE_ENV !== "test") {
+            this.wss = new WebSocket.Server({ port: 8080 });
+            this.wss.on("connection", ws => {
+                this.log("New client connected to The Front", "INFO");
+                const trades = this.loadTradeHistory();
+                ws.send(JSON.stringify({
+                    type: "INIT",
+                    profit: this.profit,
+                    crew: this.crew,
+                    agentComms: this.agentComms.slice(-50),
+                    trades: trades
+                }));
 
-            // Handle incoming dashboard commands
-            ws.on('message', (message) => {
-                try {
-                    const cmd = JSON.parse(message);
-                    this.handleCommand(cmd);
-                } catch (e) {
-                    console.error('WS Error:', e.message);
-                }
+                // Handle incoming dashboard commands
+                ws.on("message", (message) => {
+                    try {
+                        const cmd = JSON.parse(message);
+                        this.handleCommand(cmd);
+                    } catch (e) {
+                        console.error("WS Error:", e.message);
+                    }
+                });
             });
-        });
-        this.log('WebSocket Server running on port 8080', 'INFO');
+            this.log("WebSocket Server running on port 8080", "INFO");
+        } else {
+             // Mock WSS for testing
+             this.wss = { clients: [], on: () => {} };
+        }
     }
 
     loadTradeHistory() {
@@ -316,6 +320,11 @@ class DonCore {
 
         // Fallback for Architect-generated agents
         if (!scriptName) {
+            // SECURITY FIX: Prevent path traversal
+            if (type.includes('..') || type.includes('/') || type.includes('\\')) {
+                this.log(`Security Alert: Invalid agent type '${type}' rejected.`, 'ERROR');
+                return;
+            }
             scriptName = type.toLowerCase();
             if (!scriptName.endsWith('.js')) scriptName += '.js';
         }
@@ -713,15 +722,18 @@ class DonCore {
 }
 
 const don = new DonCore();
-don.hustle();
 
-// ── Autonomous Council Schedule ────────────────────────────────
-// Triggers a Strategy Meeting every 6 hours
-const COUNCIL_INTERVAL = 21600000; // 6 hours
-// Schedule the Council
-setInterval(() => {
-    don.handleCommand({ type: 'COUNCIL_MEETING', topic: 'Scheduled Strategy Review & Profit Check' });
-}, COUNCIL_INTERVAL);
+if (process.env.NODE_ENV !== "test") {
+    don.hustle();
+
+    // ── Autonomous Council Schedule ────────────────────────────────
+    // Triggers a Strategy Meeting every 6 hours
+    const COUNCIL_INTERVAL = 21600000; // 6 hours
+    // Schedule the Council
+    setInterval(() => {
+        don.handleCommand({ type: "COUNCIL_MEETING", topic: "Scheduled Strategy Review & Profit Check" });
+    }, COUNCIL_INTERVAL);
+}
 
 
 module.exports = don;

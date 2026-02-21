@@ -32,18 +32,27 @@ console.log(CL('💰 The Closer ONLINE. Revenue pipeline active.'));
 // ============================================================
 const STAGES = ['LEAD', 'PROPOSAL_SENT', 'INTERVIEW', 'WON', 'PAID', 'REINVESTED'];
 
-function loadPipeline() {
+let pipelineCache = null;
+
+async function loadPipeline() {
+    if (pipelineCache) return pipelineCache;
+
     try {
-        if (fs.existsSync(PIPELINE_PATH)) {
-            return JSON.parse(fs.readFileSync(PIPELINE_PATH, 'utf8'));
-        }
+        const data = await fs.promises.readFile(PIPELINE_PATH, 'utf8');
+        pipelineCache = JSON.parse(data);
+        return pipelineCache;
     } catch (e) {
-        console.log(chalk.red(`[CLOSER #${id}]: Pipeline load error: ${e.message}`));
+        if (e.code !== 'ENOENT') {
+            console.log(chalk.red(`[CLOSER #${id}]: Pipeline load error: ${e.message}`));
+        }
     }
-    return { deals: [], stats: { totalLeads: 0, proposalsSent: 0, interviews: 0, won: 0, paid: 0, totalRevenue: 0, totalRevenueSOL: 0 } };
+    // Default structure
+    pipelineCache = { deals: [], stats: { totalLeads: 0, proposalsSent: 0, interviews: 0, won: 0, paid: 0, totalRevenue: 0, totalRevenueSOL: 0 } };
+    return pipelineCache;
 }
 
 function savePipeline(pipeline) {
+    pipelineCache = pipeline; // Update cache reference
     fs.writeFileSync(PIPELINE_PATH, JSON.stringify(pipeline, null, 2));
 }
 
@@ -64,9 +73,9 @@ function saveRevenueLedger(ledger) {
 // ============================================================
 // INGEST: Pull new leads from Headhunter reports
 // ============================================================
-function ingestHeadhunterLeads() {
+async function ingestHeadhunterLeads() {
     console.log(cl('📥 Scanning Headhunter reports for new leads...'));
-    const pipeline = loadPipeline();
+    const pipeline = await loadPipeline();
 
     try {
         if (!fs.existsSync(LEADS_JSON)) {
@@ -135,7 +144,7 @@ function ingestHeadhunterLeads() {
 // ADVANCE: Use AI to evaluate deal progression
 // ============================================================
 async function evaluatePipeline() {
-    const pipeline = loadPipeline();
+    const pipeline = await loadPipeline();
     const activeDeals = pipeline.deals.filter(d => d.stage !== 'PAID' && d.stage !== 'REINVESTED');
 
     if (activeDeals.length === 0) {
@@ -276,8 +285,8 @@ function setPayment(pipeline, dealId, amount, currency = 'USD') {
 // ============================================================
 // REPORTING
 // ============================================================
-function generateReport() {
-    const pipeline = loadPipeline();
+async function generateReport() {
+    const pipeline = await loadPipeline();
     const ledger = loadRevenueLedger();
     const ts = new Date().toLocaleString();
 
@@ -355,42 +364,46 @@ function generateReport() {
 // ============================================================
 // IPC MESSAGE HANDLER (from The Don)
 // ============================================================
-process.on('message', (msg) => {
-    const pipeline = loadPipeline();
+process.on('message', async (msg) => {
+    try {
+        const pipeline = await loadPipeline();
 
-    switch (msg.type) {
-        case 'ADVANCE_DEAL':
-            // advance a deal: { dealId, newStage, note }
-            if (msg.dealId && msg.newStage) {
-                advanceDeal(pipeline, msg.dealId, msg.newStage, msg.note || '');
-                savePipeline(pipeline);
-            }
-            break;
+        switch (msg.type) {
+            case 'ADVANCE_DEAL':
+                // advance a deal: { dealId, newStage, note }
+                if (msg.dealId && msg.newStage) {
+                    advanceDeal(pipeline, msg.dealId, msg.newStage, msg.note || '');
+                    savePipeline(pipeline);
+                }
+                break;
 
-        case 'SET_PAYMENT':
-            // set payment for a deal: { dealId, amount, currency }
-            if (msg.dealId && msg.amount) {
-                setPayment(pipeline, msg.dealId, msg.amount, msg.currency || 'USD');
-                savePipeline(pipeline);
-            }
-            break;
+            case 'SET_PAYMENT':
+                // set payment for a deal: { dealId, amount, currency }
+                if (msg.dealId && msg.amount) {
+                    setPayment(pipeline, msg.dealId, msg.amount, msg.currency || 'USD');
+                    savePipeline(pipeline);
+                }
+                break;
 
-        case 'PIPELINE_STATUS':
-            generateReport();
-            break;
+            case 'PIPELINE_STATUS':
+                await generateReport();
+                break;
 
-        case 'INGEST_NOW':
-            ingestHeadhunterLeads();
-            break;
+            case 'INGEST_NOW':
+                await ingestHeadhunterLeads();
+                break;
 
-        case 'HEADHUNTER_REPORT':
-            // Auto-ingest when Headhunter sends new data
-            console.log(cl('📨 Received fresh Headhunter data. Ingesting...'));
-            ingestHeadhunterLeads();
-            break;
+            case 'HEADHUNTER_REPORT':
+                // Auto-ingest when Headhunter sends new data
+                console.log(cl('📨 Received fresh Headhunter data. Ingesting...'));
+                await ingestHeadhunterLeads();
+                break;
 
-        default:
-            break;
+            default:
+                break;
+        }
+    } catch (e) {
+        console.error(chalk.red(`[CLOSER #${id}]: Message handling error: ${e.message}`));
     }
 });
 
@@ -404,13 +417,13 @@ async function closerLoop() {
         console.log(CL('═══════════════════════════════════\n'));
 
         // 1. Ingest new leads
-        ingestHeadhunterLeads();
+        await ingestHeadhunterLeads();
 
         // 2. Evaluate and advance pipeline
         await evaluatePipeline();
 
         // 3. Generate report
-        generateReport();
+        await generateReport();
 
         console.log(cl('✅ Closer cycle complete.'));
     } catch (e) {

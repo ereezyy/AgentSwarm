@@ -83,23 +83,28 @@ async function speak(text) {
 }
 
 // Global cleanup: Purge files older than 7 days
-function weeklyCleanup() {
-    const files = fs.readdirSync(path.resolve(__dirname, '../'));
-    const now = Date.now();
-    const oneWeek = 7 * 24 * 60 * 60 * 1000;
+async function weeklyCleanup() {
+    const dir = path.resolve(__dirname, "../");
+    try {
+        const files = await fs.promises.readdir(dir);
+        const now = Date.now();
+        const oneWeek = 7 * 24 * 60 * 60 * 1000;
 
-    files.forEach(file => {
-        if (file.startsWith('temp_voice_') && file.endsWith('.wav')) {
-            const filePath = path.resolve(__dirname, '../', file);
-            const stats = fs.statSync(filePath);
-            if (now - stats.mtimeMs > oneWeek) {
+        await Promise.all(files.map(async (file) => {
+            if (file.startsWith("temp_voice_") && (file.endsWith(".wav") || file.endsWith(".mp3"))) {
+                const filePath = path.join(dir, file);
                 try {
-                    fs.unlinkSync(filePath);
-                    console.log(chalk.gray(`[CALLER] Weekly Purge: Deleted ${file}`));
+                    const stats = await fs.promises.stat(filePath);
+                    if (now - stats.mtimeMs > oneWeek) {
+                        await fs.promises.unlink(filePath);
+                        console.log(chalk.gray(`[CALLER] Weekly Purge: Deleted ${file}`));
+                    }
                 } catch (e) { }
             }
-        }
-    });
+        }));
+    } catch (err) {
+        console.error(chalk.red(`[CALLER] Cleanup error: ${err.message}`));
+    }
 }
 
 // Run cleanup on launch and every 24 hours
