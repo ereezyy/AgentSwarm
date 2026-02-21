@@ -63,6 +63,7 @@ async function scourMoltbook() {
 
         return null;
     } catch (e) {
+        console.error(chalk.red('[MOLTBOOK]: Scour failed: ' + e.message));
         return null; // Silent fail
     }
 }
