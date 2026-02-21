@@ -1,7 +1,7 @@
 // don/ghost.js - THE GHOST (NETWORK RECON & STEALTH SCANNING)
 // Gracefully handles missing nmap and provides alternative recon methods
 const chalk = require('chalk');
-const { exec } = require('child_process');
+const { exec, execFile } = require('child_process');
 const os = require('os');
 require('dotenv').config();
 
@@ -89,8 +89,15 @@ function checkNmap() {
 }
 
 async function nmapScan(target) {
+    // Validation: Allow only valid IPv4 addresses or CIDR blocks
+    const ipRegex = /^(\d{1,3}\.){3}\d{1,3}(\/\d{1,2})?$/;
+    if (!ipRegex.test(target)) {
+        console.error(chalk.red(`[GHOST #${id}]: Invalid nmap target format: ${target}`));
+        return null;
+    }
+
     return new Promise((resolve) => {
-        exec(`nmap -sn -T4 ${target}`, { timeout: 30000 }, (err, stdout) => {
+        execFile('nmap', ['-sn', '-T4', target], { timeout: 30000 }, (err, stdout) => {
             if (err) { resolve(null); return; }
             resolve(stdout);
         });
@@ -165,27 +172,33 @@ async function runRecon() {
 }
 
 // ── Boot ─────────────────────────────────────────────────────
-(async () => {
-    nmapAvailable = await checkNmap();
-    if (nmapAvailable) {
-        console.log(chalk.green(`[GHOST #${id}]: nmap detected. Full recon mode.`));
-    } else {
-        console.log(chalk.yellow(`[GHOST #${id}]: nmap not found. Running lightweight recon (ARP + port probes).`));
-    }
-    runRecon();
-})();
-
-// IPC Listener
-process.on('message', (msg) => {
-    if (msg.type === 'RECON_NOW') {
-        console.log(chalk.gray.bold(`[GHOST #${id}]: On-demand recon triggered.`));
+if (require.main === module) {
+    (async () => {
+        nmapAvailable = await checkNmap();
+        if (nmapAvailable) {
+            console.log(chalk.green(`[GHOST #${id}]: nmap detected. Full recon mode.`));
+        } else {
+            console.log(chalk.yellow(`[GHOST #${id}]: nmap not found. Running lightweight recon (ARP + port probes).`));
+        }
         runRecon();
-    } else if (msg.type === 'PROBE_HOST') {
-        quickPortScan(msg.host).then(ports => {
-            console.log(chalk.gray(`[GHOST #${id}]: Probe ${msg.host}: ${ports.length > 0 ? ports.join(', ') : 'No open ports'}`));
-            if (process.send) {
-                process.send({ type: 'GHOST_PROBE', host: msg.host, ports });
-            }
-        });
-    }
-});
+    })();
+
+    // IPC Listener
+    process.on('message', (msg) => {
+        if (msg.type === 'RECON_NOW') {
+            console.log(chalk.gray.bold(`[GHOST #${id}]: On-demand recon triggered.`));
+            runRecon();
+        } else if (msg.type === 'PROBE_HOST') {
+            quickPortScan(msg.host).then(ports => {
+                console.log(chalk.gray(`[GHOST #${id}]: Probe ${msg.host}: ${ports.length > 0 ? ports.join(', ') : 'No open ports'}`));
+                if (process.send) {
+                    process.send({ type: 'GHOST_PROBE', host: msg.host, ports });
+                }
+            });
+        }
+    });
+}
+
+module.exports = {
+    nmapScan
+};
