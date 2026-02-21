@@ -55,6 +55,10 @@ const server = http.createServer((req, res) => {
         const status = fs.existsSync(STATUS_FILE)
             ? JSON.parse(fs.readFileSync(STATUS_FILE, 'utf8'))
             : { active: false, activeRequests: 0, totalRequests: 0 };
+
+        // Inject current uptime
+        status.uptime = process.uptime();
+
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(status));
     }

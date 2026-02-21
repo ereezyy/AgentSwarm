@@ -130,7 +130,23 @@ function launchCampaign(msg) {
         });
     }
 
+    // Stage 5: Social Signal Boost (Phone Farm)
+    const farm = require('../muscle/farm_bridge');
+    farm.getDevices().then(devices => {
+        if (devices.length > 0) {
+            console.log(ec(`  📱 Triggering Social Signal Boost on ${devices.length} devices`));
+            devices.forEach(d => {
+                // Simulating engagement: open token on DexScanner or Twitter
+                const url = `https://dexscanner.io/solana/${mint}`; // Placeholder
+                farm.openUrl(d.id, url).then(() => {
+                    setTimeout(() => farm.emulateEngagement(d.id), 5000);
+                });
+            });
+        }
+    }).catch(e => console.log(chalk.red(`  ⚠️ Farm Boost failed: ${e.message}`)));
+
     campaigns.campaigns.push(campaign);
+
     campaigns.stats.total++;
     saveCampaigns(campaigns);
 

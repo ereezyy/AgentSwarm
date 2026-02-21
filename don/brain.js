@@ -151,11 +151,30 @@ async function callOllama(provider, messages, options = {}) {
 
 // ─── Main Brain Function ───────────────────────────────────
 
+// ─── Cost Arbitrage Integration ────────────────────────────
+const { execSync } = require('child_process');
+
+function getOptimalProvider(messages, strategy = 'balanced') {
+    try {
+        // Simple heuristic for now: if message is long, prioritize Groq or Gemini (free)
+        const totalLength = messages.reduce((acc, m) => acc + m.content.length, 0);
+
+        // Optionally invoke the Python bridge for a detailed decision
+        // const result = execSync(`python muscle/cost_arbitrage.py --strategy ${strategy} --length ${totalLength}`).toString();
+        // const decision = JSON.parse(result);
+
+        if (totalLength > 1000) return 'Gemini'; // Long context, use Gemini
+        return 'Groq'; // Short stuff, use Groq
+    } catch (e) {
+        return PROVIDERS[0].name;
+    }
+}
+
 /**
  * Ask the brain a question with automatic provider fallback.
  * 
  * @param {Array} messages - OpenAI-format messages [{role, content}]
- * @param {Object} options - Optional: { model, temperature, max_tokens, response_format, agentName }
+ * @param {Object} options - Optional: { model, temperature, max_tokens, response_format, agentName, strategy }
  * @returns {string} The AI response content
  * @throws {Error} If all providers fail
  */
@@ -163,7 +182,16 @@ async function askBrain(messages, options = {}) {
     const agentTag = options.agentName ? `[${options.agentName}]` : '[BRAIN]';
     const errors = [];
 
-    for (const provider of PROVIDERS) {
+    // Prioritize provider based on cost arbitrage
+    const prioritizedName = getOptimalProvider(messages, options.strategy);
+    const sortedProviders = [...PROVIDERS].sort((a, b) => {
+        if (a.name === prioritizedName) return -1;
+        if (b.name === prioritizedName) return 1;
+        return 0;
+    });
+
+    for (const provider of sortedProviders) {
+
         if (isOnCooldown(provider.name)) {
             continue; // Skip providers on cooldown
         }

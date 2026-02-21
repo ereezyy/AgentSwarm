@@ -1,6 +1,6 @@
 # 🌾 DeFi Farmer — Yield Report
 
-**Generated:** 2/21/2026, 12:13:07 AM
+**Generated:** 2/21/2026, 2:12:59 AM
 
 ## 📊 Lifetime Stats
 
@@ -11,9 +11,9 @@
 
 | Protocol | Pool | APY | TVL | Risk |
 |---|---|---|---|---|
-| Raydium (Top Pools) | WSOL/LABUBU | 80.5% | $396K | 🟡 MEDIUM |
-| Raydium (Top Pools) | WSOL/pippin | 78.7% | $14.1M | 🟡 MEDIUM |
-| Raydium (Top Pools) | SpaceX/WSOL | 76.3% | $136K | 🟡 MEDIUM |
+| Raydium (Top Pools) | SpaceX/WSOL | 96.3% | $133K | 🟡 MEDIUM |
+| Raydium (Top Pools) | WSOL/LABUBU | 86.6% | $416K | 🟡 MEDIUM |
+| Raydium (Top Pools) | WSOL/pippin | 77.8% | $14.1M | 🟡 MEDIUM |
 
 ---
 *DeFi Farmer — Automated Yield Intelligence*

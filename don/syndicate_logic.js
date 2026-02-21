@@ -279,6 +279,30 @@ class DonCore {
         }
     }
 
+    commandTrade(agentId, params) {
+        const EXECUTOR_PATH = path.join(__dirname, '../muscle/executor.py');
+        const inputData = JSON.stringify({ ...params, rpcUrl: process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com' });
+
+        return new Promise((resolve) => {
+            const child = exec(`python "${EXECUTOR_PATH}"`, (error, stdout, stderr) => {
+                if (error || stderr) {
+                    this.log(`Trade Executor Error: ${stderr || error.message}`, 'ERROR');
+                    resolve({ success: false, error: stderr || error.message });
+                    return;
+                }
+                try {
+                    const result = JSON.parse(stdout);
+                    resolve(result);
+                } catch (e) {
+                    this.log(`Trade Executor Parse Error: ${e.message}`, 'ERROR');
+                    resolve({ success: false, error: e.message });
+                }
+            });
+            child.stdin.write(inputData);
+            child.stdin.end();
+        });
+    }
+
     spawnSoldier(type = 'STREET') {
         // Prevent duplicate spawns
         if (this.processes[type] && this.processes[type].connected) {
@@ -591,6 +615,11 @@ class DonCore {
                         }, 2000 + Math.random() * 3000);
                     }
                 }
+            } else if (msg.type === 'EXECUTE_TRADE') {
+                this.log(`Executing Trade for ${type} #${id}: ${msg.params.command} ${msg.params.mint}`, 'POWER');
+                this.commandTrade(id, { ...msg.params, privateKey: process.env.SOLANA_PRIVATE_KEY }).then(result => {
+                    child.send({ type: 'TRADE_RESULT', requestId: msg.requestId, ...result });
+                });
             } else if (msg.type === 'EVOLUTION_STATUS' || msg.type === 'ROLLBACK') {
                 if (this.processes['ARCHITECT'] && this.processes['ARCHITECT'].connected) {
                     this.processes['ARCHITECT'].send(msg);

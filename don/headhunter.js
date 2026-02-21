@@ -286,6 +286,107 @@ function extractCat(d) {
 }
 
 // ============================================================
+// AGENTSYSTEM RESEARCH MUSCLE (New Bridge)
+// ============================================================
+async function deepResearch(job) {
+    console.log(hh(`🔍 Performing Deep Background Research for: "${job.title}"...`));
+
+    const leadData = {
+        id: job.id,
+        company: job.clientInfo?.source === 'Reddit' ? job.clientInfo.author : (job.title.split('at')[1] || job.title).trim(),
+        title: job.title,
+        description: job.description,
+        industry: job.category
+    };
+
+    return new Promise((resolve) => {
+        const researchPath = path.join(__dirname, '../muscle/research_agent.py');
+        execFile('python', [researchPath, JSON.stringify(leadData)], {
+            timeout: 30000
+        }, async (error, stdout, stderr) => {
+            if (error) {
+                console.log(chalk.red(`  ❌ Research Muscle failed: ${error.message}`));
+                resolve(null);
+                return;
+            }
+            try {
+                // NEW: Use Summarizer Bridge if data is too large for industrial-grade processing
+                if (stdout.length > 3000) {
+                    console.log(hh(`🧠 Input data too large (${stdout.length} chars). Summarizing...`));
+                    const summary = await summarizeResearch(stdout);
+                    resolve(summary);
+                } else {
+                    const research = JSON.parse(stdout);
+                    console.log(hh(`🧬 Deep Research Complete. Tech: ${research.technology_stack?.join(', ') || 'N/A'}`));
+                    resolve(research);
+                }
+            } catch (e) {
+                console.log(chalk.red(`  ❌ Research Muscle parse error: ${e.message}`));
+                resolve(null);
+            }
+        });
+    });
+}
+
+async function summarizeResearch(content) {
+    return new Promise((resolve) => {
+        const summarizerPath = path.join(__dirname, '../muscle/summarizer_bridge.py');
+        const child = exec(`python ${summarizerPath}`, (err, stdout) => {
+            if (err) {
+                console.log(chalk.red(`  ❌ Summarization failed: ${err.message}`));
+                resolve({ summary: "Summarization failed", key_signals: ["ERROR"] });
+                return;
+            }
+            try {
+                resolve(JSON.parse(stdout));
+            } catch (e) {
+                resolve({ summary: "Parse failed during summarization", key_signals: ["ERROR"] });
+            }
+        });
+        child.stdin.write(JSON.stringify({ content }));
+        child.stdin.end();
+    });
+}
+
+
+// ============================================================
+// AGENTSYSTEM CRM & VISIBILITY (New Bridges)
+// ============================================================
+async function logToHubSpot(leads) {
+    if (!leads || leads.length === 0) return;
+    console.log(hh(`📊 Syncing ${leads.length} leads to HubSpot...`));
+
+    return new Promise((resolve) => {
+        const hubspotPath = path.join(__dirname, '../muscle/hubspot_engine.py');
+        const child = execFile('python', [hubspotPath, JSON.stringify(leads)], {
+            timeout: 30000
+        }, (error, stdout, stderr) => {
+            if (error) {
+                console.log(chalk.red(`  ❌ HubSpot Engine failed: ${error.message}`));
+                resolve(null);
+                return;
+            }
+            try {
+                const results = JSON.parse(stdout);
+                console.log(hh(`✅ HubSpot Sync Complete. ${results.length} records processed.`));
+                resolve(results);
+            } catch (e) {
+                resolve(null);
+            }
+        });
+    });
+}
+
+async function relayAlert(message, level = 'INFO') {
+    return new Promise((resolve) => {
+        const relayPath = path.join(__dirname, '../muscle/status_relay.py');
+        execFile('python', [relayPath, JSON.stringify({ message, level })], (err) => {
+            resolve(!err);
+        });
+    });
+}
+
+// ============================================================
 // GROK AI (EVALUATION & PROPOSALS)
 // ============================================================
 async function evaluateJobs(jobs) {
@@ -399,8 +500,15 @@ async function runHuntLoop() {
         const proposals = [];
 
         for (const snipe of snipes.slice(0, 3)) {
+            // RESEARCH ENRICHMENT
+            const research = await deepResearch(snipe);
+            if (research) {
+                snipe.research = research;
+                console.log(hh(`💎 Enriched "${snipe.title}" with AgentSystem context.`));
+            }
+
             const proposal = await generateProposal(snipe);
-            if (proposal) proposals.push({ jobTitle: snipe.title, text: proposal });
+            if (proposal) proposals.push({ jobTitle: snipe.title, text: proposal, research: snipe.research });
             await sleep(2000);
         }
 
@@ -408,6 +516,20 @@ async function runHuntLoop() {
         const leadsData = { timestamp: new Date().toISOString(), source, evaluated: evaluatedJobs, proposals, raw: jobs.length };
         fs.writeFileSync(LEADS_JSON, JSON.stringify(leadsData, null, 2));
         writeReport(evaluatedJobs, source, jobs.length);
+
+        // AGENTSYSTEM CRM SYNC
+        if (snipes.length > 0) {
+            await logToHubSpot(snipes.map(s => ({
+                id: s.id,
+                first_name: "Lead",
+                last_name: "Prospect",
+                company: s.research?.company_info?.name || "Unknown",
+                title: s.title,
+                email: `lead_${s.id.slice(-6)}@syndicate.box` // Placeholder email
+            })));
+
+            await relayAlert(`🎯 Headhunter found ${snipes.length} SNIPE opportunities!`, 'SUCCESS');
+        }
 
         if (process.send) {
             process.send({ type: 'INTEL_DATA', data: `${source.toUpperCase()}: ${jobs.length} REAL jobs found | ${snipes.length} TARGETS`, source: 'HEADHUNTER' });

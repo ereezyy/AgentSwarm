@@ -227,70 +227,55 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
             return;
         }
 
-        // ── PUMP.FUN ROUTE (Pre-Migration) ──
-        const quote = calculateBuyQuote(curve, SOL_AMOUNT);
-        console.log(chalk.green(`[SNIPER #${id}]: 📊 Curve Active. Buying on Pump.fun.`));
-        console.log(chalk.cyan(`[SNIPER #${id}]: 💰 Est: ${quote.tokenAmount} tokens`));
+        // ── PUMP.FUN ROUTE (Phase 1: Python Muscle) ──
+        console.log(chalk.green(`[SNIPER #${id}]: 📊 Curve Active. Requesting Python Execution...`));
 
-        const ata = await getAssociatedTokenAddress(mint, wallet.publicKey);
-        const transaction = new Transaction();
+        const requestId = Date.now();
+        if (process.send) {
+            process.send({
+                type: 'EXECUTE_TRADE',
+                requestId,
+                params: {
+                    command: 'buy',
+                    mint: mint.toString(),
+                    amount: SOL_AMOUNT,
+                    slippage: 0.15
+                }
+            });
 
-        const accountInfo = await connection.getAccountInfo(ata);
-        if (!accountInfo) {
-            transaction.add(createAssociatedTokenAccountInstruction(wallet.publicKey, ata, wallet.publicKey, mint));
+            // Wait for result via IPC
+            return new Promise((resolve) => {
+                const handler = (m) => {
+                    if (m.type === 'TRADE_RESULT' && m.requestId === requestId) {
+                        process.off('message', handler);
+                        if (m.success) {
+                            console.log(chalk.green.bold(`[SNIPER #${id}]: 🔫 PYTHON SNIPE SUCCESS! TX: ${m.tx.substring(0, 16)}...`));
+                            const trades = loadTrades();
+                            trades.push({
+                                mint: mint.toString(),
+                                entryPrice: Number(quote.solAmount) / Number(quote.tokenAmount),
+                                amount: quote.tokenAmount.toString(),
+                                timestamp: Date.now(),
+                                moonbagSecured: false,
+                                source: 'PUMP_FUN_PYTHON'
+                            });
+                            saveTrades(trades);
+                            process.send({ type: 'TRADE_EXECUTED', mint: mint.toString(), amount: SOL_AMOUNT, source: 'PUMP_FUN_PYTHON' });
+                            resolve({ success: true });
+                        } else {
+                            console.error(chalk.red(`[SNIPER #${id}]: Python Snipe Failed: ${m.error}`));
+                            resolve({ success: false, error: m.error });
+                        }
+                    }
+                };
+                process.on('message', handler);
+                // Timeout after 30s
+                setTimeout(() => {
+                    process.off('message', handler);
+                    resolve({ success: false, error: 'Python Execution Timeout' });
+                }, 30000);
+            });
         }
-
-        const data = Buffer.alloc(24);
-        data.set([102, 6, 61, 18, 1, 218, 235, 234], 0); // global:buy
-        const maxSolCost = quote.solAmount * 115n / 100n; // 15% slippage
-        data.writeBigUInt64LE(quote.tokenAmount, 8);
-        data.writeBigUInt64LE(maxSolCost, 16);
-
-        const keys = [
-            { pubkey: GLOBAL, isSigner: false, isWritable: false },
-            { pubkey: FEE_RECIPIENT, isSigner: false, isWritable: true },
-            { pubkey: mint, isSigner: false, isWritable: false },
-            { pubkey: bondingCurve, isSigner: false, isWritable: true },
-            { pubkey: associatedBondingCurve, isSigner: false, isWritable: true },
-            { pubkey: ata, isSigner: false, isWritable: true },
-            { pubkey: wallet.publicKey, isSigner: true, isWritable: true },
-            { pubkey: new PublicKey("11111111111111111111111111111111"), isSigner: false, isWritable: false },
-            { pubkey: TOKEN_PROGRAM_ID, isSigner: false, isWritable: false },
-            { pubkey: new PublicKey("SysvarRent111111111111111111111111111111111"), isSigner: false, isWritable: false },
-            { pubkey: EVENT_AUTHORITY, isSigner: false, isWritable: false },
-            { pubkey: PUMP_FUN_PROGRAM_ID, isSigner: false, isWritable: false },
-        ];
-
-        const instruction = new TransactionInstruction({ keys, programId: PUMP_FUN_PROGRAM_ID, data });
-        transaction.add(ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 150000 }), instruction);
-
-        const { blockhash } = await connection.getLatestBlockhash();
-        transaction.recentBlockhash = blockhash;
-        transaction.feePayer = wallet.publicKey;
-        transaction.sign(wallet);
-
-        let sig;
-        if (bundler) {
-            console.log(chalk.magenta(`[SNIPER #${id}]: 🛡️ Sending Buy via Jito...`));
-            sig = await bundler.sendBundle(transaction);
-        } else {
-            sig = await sendAndConfirmTransaction(connection, transaction, [wallet]);
-        }
-
-        console.log(chalk.green.bold(`[SNIPER #${id}]: 🔫 SNIPED! Sig: ${sig}`));
-
-        const trades = loadTrades();
-        trades.push({
-            mint: mint.toString(),
-            entryPrice: Number(quote.solAmount) / Number(quote.tokenAmount),
-            amount: quote.tokenAmount.toString(),
-            timestamp: Date.now(),
-            moonbagSecured: false,
-            source: 'PUMP_FUN'
-        });
-        saveTrades(trades);
-
-        if (process.send) process.send({ type: 'TRADE_EXECUTED', mint: mint.toString(), amount: SOL_AMOUNT, source: 'PUMP_FUN' });
 
     } catch (e) {
         console.error(chalk.red(`[SNIPER #${id}]: Buy Failed: ${e.message}`));
@@ -303,68 +288,56 @@ async function sellToken(mint, amount, reason) {
     try {
         const mintPub = new PublicKey(mint);
         const bondingCurve = getBondingCurvePDA(mintPub);
-
-        // 1. Check Curve Status for Routing
         const curve = await getBondingCurveAccount(bondingCurve);
 
         // ── JUPITER ROUTE (Post-Migration) ──
         if (!curve || curve.complete) {
             console.log(chalk.blue(`[SNIPER #${id}]: Curve complete. Selling via JUPITER...`));
-            // Swap Input: Token -> Output: SOL
             const result = await executeJupiterSwap(mint.toString(), WSOL_MINT.toString(), amount);
-
             if (result.success) {
                 if (process.send) process.send({ type: 'KICK_UP', amount: Number(result.outAmount) / 1e9, source: 'TRADE_EXIT_JUPITER' });
             }
             return;
         }
 
-        // ── PUMP.FUN ROUTE (Pre-Migration) ──
-        const associatedBondingCurve = await getAssociatedTokenAddress(mintPub, bondingCurve, true);
-        const ata = await getAssociatedTokenAddress(mintPub, wallet.publicKey);
+        // ── PUMP.FUN ROUTE (Phase 1: Python Muscle) ──
+        console.log(chalk.magenta(`[SNIPER #${id}]: 📊 Curve Active. Requesting Python Sell Execution...`));
 
-        const amountBigInt = BigInt(amount);
-        const quote = calculateSellQuote(curve, amountBigInt);
+        const quote = calculateSellQuote(curve, BigInt(amount));
+        const requestId = Date.now();
+        if (process.send) {
+            process.send({
+                type: 'EXECUTE_TRADE',
+                requestId,
+                params: {
+                    command: 'sell',
+                    mint: mint.toString(),
+                    amount: amount,
+                    slippage: 0.15
+                }
+            });
 
-        const data = Buffer.alloc(24);
-        data.set([51, 230, 133, 164, 1, 127, 131, 173], 0); // global:sell
-        data.writeBigUInt64LE(amountBigInt, 8);
-        data.writeBigUInt64LE(quote.minSolAmount, 16);
-
-        const keys = [
-            { pubkey: GLOBAL, isSigner: false, isWritable: false },
-            { pubkey: FEE_RECIPIENT, isSigner: false, isWritable: true },
-            { pubkey: mintPub, isSigner: false, isWritable: false },
-            { pubkey: bondingCurve, isSigner: false, isWritable: true },
-            { pubkey: associatedBondingCurve, isSigner: false, isWritable: true },
-            { pubkey: ata, isSigner: false, isWritable: true },
-            { pubkey: wallet.publicKey, isSigner: true, isWritable: true },
-            { pubkey: new PublicKey("11111111111111111111111111111111"), isSigner: false, isWritable: false },
-            { pubkey: ASSOCIATED_TOKEN_PROGRAM_ID, isSigner: false, isWritable: false },
-            { pubkey: TOKEN_PROGRAM_ID, isSigner: false, isWritable: false },
-            { pubkey: EVENT_AUTHORITY, isSigner: false, isWritable: false },
-            { pubkey: PUMP_FUN_PROGRAM_ID, isSigner: false, isWritable: false },
-        ];
-
-        const instruction = new TransactionInstruction({ keys, programId: PUMP_FUN_PROGRAM_ID, data });
-        const transaction = new Transaction().add(ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 200000 }), instruction);
-
-        const { blockhash } = await connection.getLatestBlockhash();
-        transaction.recentBlockhash = blockhash;
-        transaction.feePayer = wallet.publicKey;
-        transaction.sign(wallet);
-
-        let sig;
-        if (bundler) {
-            console.log(chalk.magenta(`[SNIPER #${id}]: 🛡️ Sending Sell via Jito...`));
-            sig = await bundler.sendBundle(transaction);
-        } else {
-            sig = await sendAndConfirmTransaction(connection, transaction, [wallet]);
+            return new Promise((resolve) => {
+                const handler = (m) => {
+                    if (m.type === 'TRADE_RESULT' && m.requestId === requestId) {
+                        process.off('message', handler);
+                        if (m.success) {
+                            console.log(chalk.green.bold(`[SNIPER #${id}]: 💸 PYTHON SELL SUCCESS! TX: ${m.tx.substring(0, 16)}...`));
+                            process.send({ type: 'KICK_UP', amount: Number(quote.solAmount) / 1e9, source: 'TRADE_EXIT_PYTHON' });
+                            resolve({ success: true });
+                        } else {
+                            console.error(chalk.red(`[SNIPER #${id}]: Python Sell Failed: ${m.error}`));
+                            resolve({ success: false, error: m.error });
+                        }
+                    }
+                };
+                process.on('message', handler);
+                setTimeout(() => {
+                    process.off('message', handler);
+                    resolve({ success: false, error: 'Python Execution Timeout' });
+                }, 30000);
+            });
         }
-
-        console.log(chalk.green.bold(`[SNIPER #${id}]: 💸 SOLD! Sig: ${sig}`));
-        if (process.send) process.send({ type: 'KICK_UP', amount: Number(quote.solAmount) / 1e9, source: 'TRADE_EXIT' });
-
     } catch (e) {
         console.error(chalk.red(`[SNIPER #${id}]: Sell Failed: ${e.message}`));
     }
@@ -410,9 +383,7 @@ async function startSurveillance() {
                 if (!tx || !tx.meta) continue;
 
                 const logs = tx.meta.logMessages || [];
-                // Check Pump.fun Buy
                 const isPumpBuy = logs.some(l => l.includes("Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P") && l.includes("Instruction: Buy"));
-                // Check Jupiter/Raydium Swap
                 const isSwap = logs.some(l => l.includes("Instruction: Swap") || l.includes("JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4"));
 
                 if (isPumpBuy || isSwap) {
@@ -479,28 +450,24 @@ async function checkPositions() {
             const curve = await getBondingCurveAccount(bondingCurve);
 
             if (curve && !curve.complete) {
-                // Pump.fun Pricing
                 const quote = calculateSellQuote(curve, BigInt(trade.amount));
                 currentSolValue = Number(quote.solAmount) / 1e9;
                 const currentPrice = Number(quote.solAmount) / Number(trade.amount);
                 const entryPrice = trade.entryPrice || currentPrice;
                 pnl = ((currentPrice - entryPrice) / entryPrice) * 100;
             } else {
-                // FALLBACK PRICING (Jupiter -> DexScreener)
                 const priceData = await fetchCurrentPrice(trade.mint, trade.amount);
                 if (priceData) {
                     currentSolValue = priceData.solValue;
                     const entryPrice = trade.entryPrice || priceData.currentPrice;
                     pnl = ((priceData.currentPrice - entryPrice) / entryPrice) * 100;
                 } else {
-                    continue; // Skip if no price available
+                    continue;
                 }
             }
 
             console.log(chalk.blue(`  💎 ${trade.mint.substring(0, 6)}: ${pnl > 0 ? '+' : ''}${pnl.toFixed(2)}% | Val: ${currentSolValue.toFixed(4)} SOL`));
 
-            // Strategy:
-            // 1. MOONBAG: Sell 50% at +100% (2x)
             if (!trade.moonbagSecured && pnl >= 100) {
                 console.log(chalk.green.bold(`[SNIPER #${id}]: 🚀 MOONBAG SECURED: ${trade.mint} (+${pnl.toFixed(2)}%)`));
                 const halfAmount = BigInt(trade.amount) / 2n;
@@ -510,14 +477,12 @@ async function checkPositions() {
                 trade.moonbagSecured = true;
                 saveTrades(trades);
             }
-            // 2. TAKE PROFIT: At +400% (5x), sell ALL.
             else if (pnl >= 400) {
                 console.log(chalk.green.bold(`[SNIPER #${id}]: 💰 MAX PROFIT: ${trade.mint} (+${pnl.toFixed(2)}%) - DUMPING.`));
                 await sellToken(trade.mint, trade.amount, 'MAX_PROFIT');
                 trades.splice(trades.indexOf(trade), 1);
                 saveTrades(trades);
             }
-            // 3. TRAILING STOP: If we have moonbag, stop at +50%. If not, stop at -15%.
             else if (trade.moonbagSecured && pnl < 50) {
                 console.log(chalk.red.bold(`[SNIPER #${id}]: 📉 TRAILING STOP (Moonbag): ${trade.mint} (+${pnl.toFixed(2)}%)`));
                 await sellToken(trade.mint, trade.amount, 'TRAILING_STOP');
@@ -536,7 +501,6 @@ async function checkPositions() {
     }
 }
 
-// ── Autonomous Reporting ──
 setInterval(() => {
     const activeTargets = TARGET_WALLETS.length;
     const lastSigCount = Object.keys(lastSeenSigs).length;
@@ -550,17 +514,11 @@ setInterval(() => {
             timestamp: new Date().toISOString()
         });
     }
-}, 3600000); // Hourly report
+}, 3600000);
 
-// Start surveillance
 startSurveillance();
-
-// Monitor Trades every 30s
 setInterval(checkPositions, 30000);
 
-// ============================================================
-// IPC MESSAGE HANDLER
-// ============================================================
 process.on('message', async (msg) => {
     switch (msg.type) {
         case 'COPY_TRADE_SIGNAL':
