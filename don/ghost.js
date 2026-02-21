@@ -98,7 +98,20 @@ async function nmapScan(target) {
 }
 
 // ── Main Recon Loop ──────────────────────────────────────────
+let isRunning = false;
+let reconTimeout = null;
+
 async function runRecon() {
+    if (isRunning) {
+        console.log(chalk.gray(`[GHOST #${id}]: Scan already in progress.`));
+        return;
+    }
+
+    // Clear any pending timeout if called manually
+    if (reconTimeout) clearTimeout(reconTimeout);
+
+    isRunning = true;
+
     try {
         // 1. Network interfaces
         const nets = getNetworkInfo();
@@ -148,44 +161,49 @@ async function runRecon() {
             });
         }
 
+        // Passive Traffic Simulation (Visual Noise)
+        setTimeout(() => {
+            const traffic = ['UDP', 'TCP', 'ICMP', 'ARP'];
+            const proto = traffic[Math.floor(Math.random() * traffic.length)];
+            const size = Math.floor(Math.random() * 1500);
+            console.log(chalk.gray.dim(`[GHOST #${id}]: Analyzing ${proto} packet stream (${size} bytes)... Clean.`));
+        }, 15000 + Math.random() * 10000);
+
     } catch (e) {
         console.error(chalk.red(`[GHOST #${id}]: Recon failed: ${e.message}`));
+    } finally {
+        isRunning = false;
+        // Scan every 30 seconds for high activity
+        reconTimeout = setTimeout(runRecon, 30000);
     }
-
-    // Scan every 30 seconds for high activity
-    setTimeout(runRecon, 30000);
-
-    // Passive Traffic Simulation (Visual Noise)
-    setTimeout(() => {
-        const traffic = ['UDP', 'TCP', 'ICMP', 'ARP'];
-        const proto = traffic[Math.floor(Math.random() * traffic.length)];
-        const size = Math.floor(Math.random() * 1500);
-        console.log(chalk.gray.dim(`[GHOST #${id}]: Analyzing ${proto} packet stream (${size} bytes)... Clean.`));
-    }, 15000 + Math.random() * 10000);
 }
 
 // ── Boot ─────────────────────────────────────────────────────
-(async () => {
-    nmapAvailable = await checkNmap();
-    if (nmapAvailable) {
-        console.log(chalk.green(`[GHOST #${id}]: nmap detected. Full recon mode.`));
-    } else {
-        console.log(chalk.yellow(`[GHOST #${id}]: nmap not found. Running lightweight recon (ARP + port probes).`));
-    }
-    runRecon();
-})();
-
-// IPC Listener
-process.on('message', (msg) => {
-    if (msg.type === 'RECON_NOW') {
-        console.log(chalk.gray.bold(`[GHOST #${id}]: On-demand recon triggered.`));
+if (require.main === module) {
+    (async () => {
+        nmapAvailable = await checkNmap();
+        if (nmapAvailable) {
+            console.log(chalk.green(`[GHOST #${id}]: nmap detected. Full recon mode.`));
+        } else {
+            console.log(chalk.yellow(`[GHOST #${id}]: nmap not found. Running lightweight recon (ARP + port probes).`));
+        }
         runRecon();
-    } else if (msg.type === 'PROBE_HOST') {
-        quickPortScan(msg.host).then(ports => {
-            console.log(chalk.gray(`[GHOST #${id}]: Probe ${msg.host}: ${ports.length > 0 ? ports.join(', ') : 'No open ports'}`));
-            if (process.send) {
-                process.send({ type: 'GHOST_PROBE', host: msg.host, ports });
-            }
-        });
-    }
-});
+    })();
+
+    // IPC Listener
+    process.on('message', (msg) => {
+        if (msg.type === 'RECON_NOW') {
+            console.log(chalk.gray.bold(`[GHOST #${id}]: On-demand recon triggered.`));
+            runRecon();
+        } else if (msg.type === 'PROBE_HOST') {
+            quickPortScan(msg.host).then(ports => {
+                console.log(chalk.gray(`[GHOST #${id}]: Probe ${msg.host}: ${ports.length > 0 ? ports.join(', ') : 'No open ports'}`));
+                if (process.send) {
+                    process.send({ type: 'GHOST_PROBE', host: msg.host, ports });
+                }
+            });
+        }
+    });
+}
+
+module.exports = { runRecon };
