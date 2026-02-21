@@ -38,6 +38,31 @@ const rl = readline.createInterface({
     prompt: chalk.red.bold('\n  [THE DON] > ')
 });
 
+/**
+ * Helper to safely send a command to a connected agent process.
+ * Handles the connection check and standard logging.
+ * @param {string} agentName - Name of the agent in don.processes
+ * @param {object} payload - Message payload to send
+ * @param {string} [successLog] - Message to log on success (optional)
+ * @param {string} [errorLog] - Custom error message (optional)
+ * @returns {boolean} - True if sent, false if not connected
+ */
+function sendCommand(agentName, payload, successLog, errorLog) {
+    const agent = don.processes[agentName];
+    if (agent && agent.connected) {
+        agent.send(payload);
+        if (successLog) console.log(successLog);
+        return true;
+    } else {
+        if (errorLog) {
+            console.log(errorLog);
+        } else {
+            console.log(chalk.red(`  ❌ ${agentName.replace('_', ' ')} not online. Use: spawn ${agentName}`));
+        }
+        return false;
+    }
+}
+
 function showHelp() {
     console.log(chalk.green.bold('\n  ═══════════════════════════════════════'));
     console.log(chalk.green.bold('  SYNDICATE COMMAND REFERENCE'));
@@ -236,215 +261,115 @@ rl.on('line', (input) => {
             break;
 
         case 'signals':
-            if (don.processes['SIGNAL_BOT'] && don.processes['SIGNAL_BOT'].connected) {
-                don.processes['SIGNAL_BOT'].send({ type: 'SIGNAL_STATUS' });
-                console.log(chalk.hex('#FFD700')('  📡 Requesting Signal Bot status...'));
-            } else {
-                console.log(chalk.red('  ❌ Signal Bot not online. Use: spawn SIGNAL_BOT'));
-            }
+            sendCommand('SIGNAL_BOT', { type: 'SIGNAL_STATUS' }, chalk.hex('#FFD700')('  📡 Requesting Signal Bot status...'));
             break;
 
         case 'digest':
-            if (don.processes['SIGNAL_BOT'] && don.processes['SIGNAL_BOT'].connected) {
-                don.processes['SIGNAL_BOT'].send({ type: 'SEND_DIGEST' });
-                console.log(chalk.hex('#FFD700')('  📊 Sending daily signal digest...'));
-            } else {
-                console.log(chalk.red('  ❌ Signal Bot not online. Use: spawn SIGNAL_BOT'));
-            }
+            sendCommand('SIGNAL_BOT', { type: 'SEND_DIGEST' }, chalk.hex('#FFD700')('  📊 Sending daily signal digest...'));
             break;
 
         case 'broadcast':
-            if (arg && don.processes['SIGNAL_BOT'] && don.processes['SIGNAL_BOT'].connected) {
-                don.processes['SIGNAL_BOT'].send({ type: 'BROADCAST', text: arg });
-                console.log(chalk.hex('#FFD700')(`  📢 Broadcasting to Telegram: "${arg}"`));
-            } else if (!arg) {
-                console.log(chalk.yellow('  Usage: broadcast <message>'));
+            if (arg) {
+                sendCommand('SIGNAL_BOT', { type: 'BROADCAST', text: arg }, chalk.hex('#FFD700')(`  📢 Broadcasting to Telegram: "${arg}"`));
             } else {
-                console.log(chalk.red('  ❌ Signal Bot not online. Use: spawn SIGNAL_BOT'));
+                console.log(chalk.yellow('  Usage: broadcast <message>'));
             }
             break;
 
         case 'quote':
-            if (arg && don.processes['SERVICE_FORGE'] && don.processes['SERVICE_FORGE'].connected) {
-                don.processes['SERVICE_FORGE'].send({ type: 'GENERATE_QUOTE', request: arg });
-                console.log(chalk.hex('#FF69B4')(`  \uD83D\uDCCB Generating quote for: "${arg}"`));
-            } else if (!arg) {
-                console.log(chalk.yellow('  Usage: quote <client request description>'));
+            if (arg) {
+                sendCommand('SERVICE_FORGE', { type: 'GENERATE_QUOTE', request: arg }, chalk.hex('#FF69B4')(`  📋 Generating quote for: "${arg}"`));
             } else {
-                console.log(chalk.red('  \u274c Service Forge not online. Use: spawn SERVICE_FORGE'));
+                console.log(chalk.yellow('  Usage: quote <client request description>'));
             }
             break;
 
         case 'portfolio':
-            if (don.processes['SERVICE_FORGE'] && don.processes['SERVICE_FORGE'].connected) {
-                don.processes['SERVICE_FORGE'].send({ type: 'GENERATE_PORTFOLIO' });
-                console.log(chalk.hex('#FF69B4')('  \uD83D\uDCC2 Generating services portfolio...'));
-            } else {
-                console.log(chalk.red('  \u274c Service Forge not online. Use: spawn SERVICE_FORGE'));
-            }
+            sendCommand('SERVICE_FORGE', { type: 'GENERATE_PORTFOLIO' }, chalk.hex('#FF69B4')('  📂 Generating services portfolio...'));
             break;
 
         case 'services':
-            if (don.processes['SERVICE_FORGE'] && don.processes['SERVICE_FORGE'].connected) {
-                don.processes['SERVICE_FORGE'].send({ type: 'SERVICE_STATUS' });
-                console.log(chalk.hex('#FF69B4')('  \uD83C\uDFED Requesting Service Forge status...'));
-            } else {
-                console.log(chalk.red('  \u274c Service Forge not online. Use: spawn SERVICE_FORGE'));
-            }
+            sendCommand('SERVICE_FORGE', { type: 'SERVICE_STATUS' }, chalk.hex('#FF69B4')('  🏭 Requesting Service Forge status...'));
             break;
 
         case 'scan':
-            if (don.processes['TREND_HUNTER'] && don.processes['TREND_HUNTER'].connected) {
-                don.processes['TREND_HUNTER'].send({ type: 'SCAN_NOW' });
-                console.log(chalk.hex('#00FF88')('  \uD83C\uDFAF Trend Hunter scan triggered...'));
-            } else {
-                console.log(chalk.red('  \u274c Trend Hunter not online. Use: spawn TREND_HUNTER'));
-            }
+            sendCommand('TREND_HUNTER', { type: 'SCAN_NOW' }, chalk.hex('#00FF88')('  🎯 Trend Hunter scan triggered...'));
             break;
 
         case 'callers':
         case 'trends':
-            if (don.processes['TREND_HUNTER'] && don.processes['TREND_HUNTER'].connected) {
-                don.processes['TREND_HUNTER'].send({ type: 'TREND_STATUS' });
-                console.log(chalk.hex('#00FF88')('  \uD83D\uDCCA Requesting Trend Hunter status...'));
-            } else {
-                console.log(chalk.red('  \u274c Trend Hunter not online. Use: spawn TREND_HUNTER'));
-            }
+            sendCommand('TREND_HUNTER', { type: 'TREND_STATUS' }, chalk.hex('#00FF88')('  📊 Requesting Trend Hunter status...'));
             break;
 
         case 'addcaller':
-            if (arg && don.processes['TREND_HUNTER'] && don.processes['TREND_HUNTER'].connected) {
+            if (arg) {
                 const handle = arg.replace('@', '');
-                don.processes['TREND_HUNTER'].send({ type: 'ADD_CALLER', handle, tier: 'B' });
-                console.log(chalk.hex('#00FF88')(`  \u2795 Adding @${handle} to caller watchlist...`));
-            } else if (!arg) {
-                console.log(chalk.yellow('  Usage: addcaller @handle'));
+                sendCommand('TREND_HUNTER', { type: 'ADD_CALLER', handle, tier: 'B' }, chalk.hex('#00FF88')(`  ➕ Adding @${handle} to caller watchlist...`));
             } else {
-                console.log(chalk.red('  \u274c Trend Hunter not online. Use: spawn TREND_HUNTER'));
+                console.log(chalk.yellow('  Usage: addcaller @handle'));
             }
             break;
 
         case 'treasury':
-            if (don.processes['OMEGA'] && don.processes['OMEGA'].connected) {
-                don.processes['OMEGA'].send({ type: 'TREASURY_STATUS' });
-                console.log(chalk.hex('#FFD700')('  \u26A1 Requesting treasury status...'));
-            } else {
-                console.log(chalk.red('  \u274c Protocol Omega not online. Use: spawn OMEGA'));
-            }
+            sendCommand('OMEGA', { type: 'TREASURY_STATUS' }, chalk.hex('#FFD700')('  ⚡ Requesting treasury status...'));
             break;
 
         case 'treport':
-            if (don.processes['OMEGA'] && don.processes['OMEGA'].connected) {
-                don.processes['OMEGA'].send({ type: 'TREASURY_REPORT' });
-                console.log(chalk.hex('#FFD700')('  \uD83D\uDCCA Generating treasury report...'));
-            } else {
-                console.log(chalk.red('  \u274c Protocol Omega not online. Use: spawn OMEGA'));
-            }
+            sendCommand('OMEGA', { type: 'TREASURY_REPORT' }, chalk.hex('#FFD700')('  📊 Generating treasury report...'));
             break;
 
         case 'shield':
         case 'zerorug':
-            if (don.processes['ZERO_RUG'] && don.processes['ZERO_RUG'].connected) {
-                don.processes['ZERO_RUG'].send({ type: 'ZERO_RUG_STATUS' });
-                console.log(chalk.red('  \uD83D\uDEE1\uFE0F Requesting Zero-Rug defense status...'));
-            } else {
-                console.log(chalk.red('  \u274c Zero-Rug not online. Use: spawn ZERO_RUG'));
-            }
+            sendCommand('ZERO_RUG', { type: 'ZERO_RUG_STATUS' }, chalk.red('  🛡️ Requesting Zero-Rug defense status...'));
             break;
 
         case 'mirror':
-            if (don.processes['MIRROR'] && don.processes['MIRROR'].connected) {
-                don.processes['MIRROR'].send({ type: 'MIRROR_STATUS' });
-                console.log(chalk.hex('#00BFFF')('  \uD83E\uDE9E Requesting Mirror Protocol status...'));
-            } else {
-                console.log(chalk.red('  \u274c Mirror Protocol not online. Use: spawn MIRROR'));
-            }
+            sendCommand('MIRROR', { type: 'MIRROR_STATUS' }, chalk.hex('#00BFFF')('  🪞 Requesting Mirror Protocol status...'));
             break;
 
         case 'leaderboard':
-            if (don.processes['MIRROR'] && don.processes['MIRROR'].connected) {
-                don.processes['MIRROR'].send({ type: 'LEADERBOARD' });
-                console.log(chalk.hex('#00BFFF')('  \uD83C\uDFC6 Requesting whale leaderboard...'));
-            } else {
-                console.log(chalk.red('  \u274c Mirror Protocol not online. Use: spawn MIRROR'));
-            }
+            sendCommand('MIRROR', { type: 'LEADERBOARD' }, chalk.hex('#00BFFF')('  🏆 Requesting whale leaderboard...'));
             break;
 
         case 'echo':
-            if (don.processes['ECHO_CHAMBER'] && don.processes['ECHO_CHAMBER'].connected) {
-                don.processes['ECHO_CHAMBER'].send({ type: 'ECHO_STATUS' });
-                console.log(chalk.hex('#FF69B4')('  \uD83D\uDCE2 Requesting Echo Chamber status...'));
-            } else {
-                console.log(chalk.red('  \u274c Echo Chamber not online. Use: spawn ECHO_CHAMBER'));
-            }
+            sendCommand('ECHO_CHAMBER', { type: 'ECHO_STATUS' }, chalk.hex('#FF69B4')('  📢 Requesting Echo Chamber status...'));
             break;
 
         case 'farm':
-            if (don.processes['DEFI_FARMER'] && don.processes['DEFI_FARMER'].connected) {
-                don.processes['DEFI_FARMER'].send({ type: 'FARM_STATUS' });
-                console.log(chalk.hex('#32CD32')('  \uD83C\uDF3E Requesting DeFi Farmer status...'));
-            } else {
-                console.log(chalk.red('  \u274c DeFi Farmer not online. Use: spawn DEFI_FARMER'));
-            }
+            sendCommand('DEFI_FARMER', { type: 'FARM_STATUS' }, chalk.hex('#32CD32')('  🌾 Requesting DeFi Farmer status...'));
             break;
 
         case 'yields':
-            if (don.processes['DEFI_FARMER'] && don.processes['DEFI_FARMER'].connected) {
-                don.processes['DEFI_FARMER'].send({ type: 'FARM_SCAN' });
-                console.log(chalk.hex('#32CD32')('  \uD83D\uDD0D Scanning DeFi yields...'));
-            } else {
-                console.log(chalk.red('  \u274c DeFi Farmer not online. Use: spawn DEFI_FARMER'));
-            }
+            sendCommand('DEFI_FARMER', { type: 'FARM_SCAN' }, chalk.hex('#32CD32')('  🔍 Scanning DeFi yields...'));
             break;
 
         case 'evolve':
-            if (don.processes['ARCHITECT'] && don.processes['ARCHITECT'].connected) {
-                const evolveMsg = { type: 'EVOLVE_NOW' };
-                if (arg) evolveMsg.target = arg.endsWith('.js') ? arg : `${arg.toLowerCase()}.js`;
-                don.processes['ARCHITECT'].send(evolveMsg);
-                console.log(chalk.magenta(`  🧬 Architect evolution triggered${arg ? ' targeting ' + arg : ''}...`));
-            } else {
-                console.log(chalk.red('  ❌ Architect not online.'));
-            }
+            const evolveMsg = { type: 'EVOLVE_NOW' };
+            if (arg) evolveMsg.target = arg.endsWith('.js') ? arg : `${arg.toLowerCase()}.js`;
+            sendCommand('ARCHITECT', evolveMsg, chalk.magenta(`  🧬 Architect evolution triggered${arg ? ' targeting ' + arg : ''}...`), chalk.red('  ❌ Architect not online.'));
             break;
 
         case 'evolve-status':
-            if (don.processes['ARCHITECT'] && don.processes['ARCHITECT'].connected) {
-                don.processes['ARCHITECT'].send({ type: 'EVOLUTION_STATUS' });
-                console.log(chalk.magenta('  📊 Requested evolution metrics from Architect...'));
-            } else {
-                console.log(chalk.red('  ❌ Architect not online.'));
-            }
+            sendCommand('ARCHITECT', { type: 'EVOLUTION_STATUS' }, chalk.magenta('  📊 Requested evolution metrics from Architect...'), chalk.red('  ❌ Architect not online.'));
             break;
 
         case 'rollback':
             if (!arg) {
                 console.log(chalk.yellow('  Usage: rollback <AGENT_TYPE>  (e.g. rollback HUSTLER)'));
-            } else if (don.processes['ARCHITECT'] && don.processes['ARCHITECT'].connected) {
-                don.processes['ARCHITECT'].send({ type: 'ROLLBACK', agentType: arg.toUpperCase() });
-                console.log(chalk.yellow(`  🔄 Rollback requested for ${arg.toUpperCase()}...`));
             } else {
-                console.log(chalk.red('  ❌ Architect not online.'));
+                sendCommand('ARCHITECT', { type: 'ROLLBACK', agentType: arg.toUpperCase() }, chalk.yellow(`  🔄 Rollback requested for ${arg.toUpperCase()}...`), chalk.red('  ❌ Architect not online.'));
             }
             break;
 
         case 'recon':
-            if (don.processes['GHOST'] && don.processes['GHOST'].connected) {
-                don.processes['GHOST'].send({ type: 'RECON_NOW' });
-                console.log(chalk.gray('  👻 Ghost recon triggered...'));
-            } else {
-                console.log(chalk.red('  ❌ Ghost not online.'));
-            }
+            sendCommand('GHOST', { type: 'RECON_NOW' }, chalk.gray('  👻 Ghost recon triggered...'));
             break;
 
         case 'probe':
-            if (arg && don.processes['GHOST'] && don.processes['GHOST'].connected) {
-                don.processes['GHOST'].send({ type: 'PROBE_HOST', host: arg });
-                console.log(chalk.gray(`  👻 Probing ${arg}...`));
-            } else if (!arg) {
-                console.log(chalk.yellow('  Usage: probe <ip_address>'));
+            if (arg) {
+                sendCommand('GHOST', { type: 'PROBE_HOST', host: arg }, chalk.gray(`  👻 Probing ${arg}...`));
             } else {
-                console.log(chalk.red('  ❌ Ghost not online.'));
+                console.log(chalk.yellow('  Usage: probe <ip_address>'));
             }
             break;
 
