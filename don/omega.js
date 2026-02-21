@@ -24,11 +24,41 @@ console.log(OM('⚡ Protocol Omega ONLINE. Treasury management active.'));
 // ============================================================
 // TREASURY STATE
 // ============================================================
-function loadTreasury() {
+let treasuryState = null;
+let isSaving = false;
+let savePending = false;
+
+async function persistTreasury() {
+    if (isSaving) {
+        savePending = true;
+        return;
+    }
+    isSaving = true;
+
     try {
-        if (fs.existsSync(TREASURY_PATH)) return JSON.parse(fs.readFileSync(TREASURY_PATH, 'utf8'));
+        await fs.promises.writeFile(TREASURY_PATH, JSON.stringify(treasuryState, null, 2));
+    } catch (err) {
+        console.error(chalk.red(`[OMEGA]: Failed to save treasury: ${err.message}`));
+    } finally {
+        isSaving = false;
+        if (savePending) {
+            savePending = false;
+            persistTreasury();
+        }
+    }
+}
+
+function loadTreasury() {
+    if (treasuryState) return treasuryState;
+
+    try {
+        if (fs.existsSync(TREASURY_PATH)) {
+            treasuryState = JSON.parse(fs.readFileSync(TREASURY_PATH, 'utf8'));
+            return treasuryState;
+        }
     } catch { }
-    return {
+
+    treasuryState = {
         balances: {
             vault: 0,       // 40% — untouchable war chest
             reinvest: 0,    // 40% — active trading capital
@@ -49,10 +79,12 @@ function loadTreasury() {
             lastAllocation: null,
         }
     };
+    return treasuryState;
 }
 
 function saveTreasury(data) {
-    fs.writeFileSync(TREASURY_PATH, JSON.stringify(data, null, 2));
+    treasuryState = data;
+    persistTreasury();
 }
 
 // ============================================================
@@ -156,7 +188,7 @@ function spendRnD(amount, purpose = 'INFRASTRUCTURE') {
 // ============================================================
 // TREASURY REPORT
 // ============================================================
-function generateReport() {
+async function generateReport() {
     const treasury = loadTreasury();
     const b = treasury.balances;
     const s = treasury.stats;
@@ -194,8 +226,12 @@ function generateReport() {
 
     report += `\n---\n*Protocol Omega — The Syndicate Treasury*\n`;
 
-    fs.writeFileSync(TREASURY_REPORT, report);
-    console.log(om(`📊 Treasury report saved to ${TREASURY_REPORT}`));
+    try {
+        await fs.promises.writeFile(TREASURY_REPORT, report);
+        console.log(om(`📊 Treasury report saved to ${TREASURY_REPORT}`));
+    } catch (err) {
+        console.error(chalk.red(`[OMEGA]: Failed to save report: ${err.message}`));
+    }
     return report;
 }
 
