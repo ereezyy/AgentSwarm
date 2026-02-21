@@ -5,13 +5,17 @@ const chalk = require('chalk');
 // Scours the Moltbook registry for new Skills and Souls (Alpha)
 
 const REPO_API = 'https://api.github.com/repos/moltbook/clawhub/contents';
+const API_BASE = new URL(REPO_API);
 const USER_AGENT = 'Syndicate-Spider/1.0';
 
 async function fetchRepoContent(path = '') {
+    const cleanPath = path.replace(/^\/+/, '');
+    const fullPath = cleanPath ? `${API_BASE.pathname}/${cleanPath}` : API_BASE.pathname;
+
     return new Promise((resolve, reject) => {
         const options = {
-            hostname: 'api.github.com',
-            path: `/repos/moltbook/clawhub/contents/${path}`,
+            hostname: API_BASE.hostname,
+            path: fullPath,
             method: 'GET',
             headers: { 'User-Agent': USER_AGENT }
         };
