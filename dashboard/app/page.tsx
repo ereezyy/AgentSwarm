@@ -122,7 +122,9 @@ export default function SyndicateDashboard() {
   // WebSocket connection
   useEffect(() => {
     const connect = () => {
-      const ws = new WebSocket("ws://localhost:8080");
+      const wsUrl = process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8080";
+      const wsSecret = process.env.NEXT_PUBLIC_WS_SECRET || "";
+      const ws = new WebSocket(`${wsUrl}?token=${wsSecret}`);
       wsRef.current = ws;
 
       ws.onopen = () => {

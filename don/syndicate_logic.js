@@ -7,6 +7,8 @@ const path = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
 const WebSocket = require('ws');
+const crypto = require('crypto');
+const url = require('url');
 let SolanaWeb3 = null;
 try { SolanaWeb3 = require('@solana/web3.js'); } catch (e) { /* optional */ }
 
@@ -32,10 +34,29 @@ class DonCore {
         this.restartState = {}; // Per-agent restart backoff tracking
         this.agentHealth = {}; // Per-agent health status for dashboard
 
+        // Security: WebSocket Authentication
+        this.authToken = process.env.WS_SECRET;
+        if (!this.authToken) {
+            this.authToken = crypto.randomBytes(32).toString('hex');
+            console.log(chalk.red.bold('WARNING: WS_SECRET not set. Generated secure token: ') + chalk.yellow.bold(this.authToken));
+            console.log(chalk.red.bold('Set WS_SECRET environment variable for persistent authentication.'));
+        } else {
+             console.log(chalk.green.bold('WS_SECRET loaded from environment. WebSocket secured.'));
+        }
+
         // Start WebSocket Server
         this.wss = new WebSocket.Server({ port: 8080 });
-        this.wss.on('connection', ws => {
-            this.log('New client connected to The Front', 'INFO');
+        this.wss.on('connection', (ws, req) => {
+            const parameters = new URL(req.url, "http://localhost").searchParams;
+            const token = parameters.get("token");
+
+            if (!token || token !== this.authToken) {
+                this.log('Unauthorized WebSocket connection attempt blocked.', 'DANGER');
+                ws.close(1008, 'Unauthorized');
+                return;
+            }
+
+            this.log('New authenticated client connected to The Front', 'INFO');
             const trades = this.loadTradeHistory();
             ws.send(JSON.stringify({
                 type: 'INIT',
