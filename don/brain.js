@@ -196,7 +196,7 @@ async function askBrain(messages, options = {}) {
                 console.log(chalk.gray(`${agentTag} ${provider.name} error: ${msg.substring(0, 80)}`));
             }
 
-            errors.push(`${provider.name}: ${status || err.code || 'ERR'}`);
+            console.error('DEBUG ERROR:', err); errors.push(`${provider.name}: ${status || err.code || 'ERR'}`);
         }
     }
 
