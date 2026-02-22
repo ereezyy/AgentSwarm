@@ -2,8 +2,22 @@
 # No external libs. Just raw power.
 import sys
 import time
-import ctypes
 import random
+
+# Platform Check
+IS_WINDOWS = sys.platform == 'win32'
+
+try:
+    import ctypes
+except ImportError:
+    ctypes = None
+
+# Optional dependency for cross-platform support
+try:
+    import pyautogui
+    HAS_PYAUTOGUI = True
+except ImportError:
+    HAS_PYAUTOGUI = False
 
 # Windows API Constants
 MOUSEEVENTF_MOVE = 0x0001
@@ -15,27 +29,51 @@ MOUSEEVENTF_RIGHTUP = 0x0010
 
 class Enforcer:
     def __init__(self):
-        self.user32 = ctypes.windll.user32
-        self.screen_width = self.user32.GetSystemMetrics(0)
-        self.screen_height = self.user32.GetSystemMetrics(1)
-        print(f"💪 THE ENFORCER IS ONLINE. Screen: {self.screen_width}x{self.screen_height}")
+        self.use_native_windows = (IS_WINDOWS and ctypes is not None)
+        self.use_pyautogui = HAS_PYAUTOGUI
+
+        if self.use_native_windows:
+            self.user32 = ctypes.windll.user32
+            self.screen_width = self.user32.GetSystemMetrics(0)
+            self.screen_height = self.user32.GetSystemMetrics(1)
+        elif self.use_pyautogui:
+            self.screen_width, self.screen_height = pyautogui.size()
+        else:
+            # Fallback mock dimensions
+            self.screen_width = 1920
+            self.screen_height = 1080
+
+        print(f"💪 THE ENFORCER IS ONLINE. Platform: {sys.platform}. Screen: {self.screen_width}x{self.screen_height}")
 
     def speak(self, msg):
         print(f"[THE ENFORCER]: {msg}")
 
     def _mouse_event(self, flags, x, y, data, extra_info):
-        self.user32.mouse_event(flags, x, y, data, extra_info)
+        if self.use_native_windows:
+            self.user32.mouse_event(flags, x, y, data, extra_info)
 
     def move_to(self, x, y):
-        # Normalize coordinates
-        abs_x = int(x * 65535 / self.screen_width)
-        abs_y = int(y * 65535 / self.screen_height)
-        self._mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE, abs_x, abs_y, 0, 0)
-    
+        if self.use_native_windows:
+            # Normalize coordinates
+            abs_x = int(x * 65535 / self.screen_width)
+            abs_y = int(y * 65535 / self.screen_height)
+            self._mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE, abs_x, abs_y, 0, 0)
+        elif self.use_pyautogui:
+            pyautogui.moveTo(x, y)
+        else:
+            # Mock behavior
+            pass
+
     def click(self):
-        self._mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
-        time.sleep(0.05)
-        self._mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+        if self.use_native_windows:
+            self._mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+            time.sleep(0.05)
+            self._mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+        elif self.use_pyautogui:
+            pyautogui.click()
+        else:
+            # Mock click
+            pass
 
     def shake_down(self):
         self.speak("Shaking down the desktop...")
@@ -53,9 +91,11 @@ class Enforcer:
 
     def type_threat(self, text):
         self.speak(f"Typing threat: {text}")
-        # Simple simulated typing (complex char mapping requires more code, keeping it simple for verification)
-        # This is a placeholder for actual keystroke injection if needed
-        pass
+        if self.use_pyautogui:
+            pyautogui.typewrite(text)
+        else:
+            # Mock typing
+            pass
 
 if __name__ == "__main__":
     muscle = Enforcer()
