@@ -84,55 +84,68 @@ async function analyzeWalletPnL(address) {
 
             const signatures = resp.data?.result || [];
 
-            // Analyze recent trades (simplified: check for token-related transactions)
-            for (const sig of signatures.slice(0, 10)) {
-                const tradeHash = sig.signature.substring(0, 16);
+            // Analyze recent trades (Optimized: Batch RPC Request)
+            const recentSigs = signatures.slice(0, 10);
+            const neededSigs = recentSigs.filter(sig => !whale.trades.some(t => t.hash === sig.signature.substring(0, 16)));
 
-                // Skip already-processed trades
-                if (whale.trades.some(t => t.hash === tradeHash)) continue;
+            if (neededSigs.length > 0) {
+                const batch = neededSigs.map((sig, idx) => ({
+                    jsonrpc: '2.0',
+                    id: idx + 1,
+                    method: 'getTransaction',
+                    params: [sig.signature, { encoding: 'jsonParsed', maxSupportedTransactionVersion: 0 }]
+                }));
 
-                // Look at transaction details for swap/trade signals
                 try {
-                    const txResp = await axios.post(SOLANA_RPC, {
-                        jsonrpc: '2.0', id: 1,
-                        method: 'getTransaction',
-                        params: [sig.signature, { encoding: 'jsonParsed', maxSupportedTransactionVersion: 0 }]
-                    }, { timeout: 10000 });
+                    const txResp = await axios.post(SOLANA_RPC, batch, { timeout: 15000 });
+                    // Handle both batch array and single response (if only 1 item sent, some RPCs return object, but standard is array for batch)
+                    // We forced it to look like a batch, so it should be an array.
+                    const results = Array.isArray(txResp.data) ? txResp.data : [txResp.data];
 
-                    const tx = txResp.data?.result;
-                    if (!tx || !tx.meta) continue;
+                    for (const res of results) {
+                        if (!res.result || !res.result.meta) continue;
 
-                    // Calculate SOL change (simple PnL proxy)
-                    const preBalances = tx.meta.preBalances || [];
-                    const postBalances = tx.meta.postBalances || [];
-                    const accountKeys = tx.transaction?.message?.accountKeys || [];
+                        // Match response to signature using ID
+                        // id corresponds to index + 1
+                        const sigIndex = res.id - 1;
+                        if (sigIndex < 0 || sigIndex >= neededSigs.length) continue;
+                        const sig = neededSigs[sigIndex];
 
-                    // Find the whale's account index
-                    const whaleIndex = accountKeys.findIndex(k =>
-                        (typeof k === 'string' ? k : k.pubkey) === address
-                    );
+                        const tradeHash = sig.signature.substring(0, 16);
+                        const tx = res.result;
 
-                    if (whaleIndex >= 0 && preBalances[whaleIndex] !== undefined) {
-                        const solChange = (postBalances[whaleIndex] - preBalances[whaleIndex]) / 1e9;
+                        // Calculate SOL change (simple PnL proxy)
+                        const preBalances = tx.meta.preBalances || [];
+                        const postBalances = tx.meta.postBalances || [];
+                        const accountKeys = tx.transaction?.message?.accountKeys || [];
 
-                        // Only track significant trades (> 0.01 SOL change)
-                        if (Math.abs(solChange) > 0.01) {
-                            const trade = {
-                                hash: tradeHash,
-                                timestamp: new Date((sig.blockTime || 0) * 1000).toISOString(),
-                                solChange: parseFloat(solChange.toFixed(4)),
-                                profitable: solChange > 0,
-                            };
+                        // Find the whale's account index
+                        const whaleIndex = accountKeys.findIndex(k =>
+                            (typeof k === 'string' ? k : k.pubkey) === address
+                        );
 
-                            whale.trades.push(trade);
-                            if (trade.profitable) { whale.stats.wins++; } else { whale.stats.losses++; }
-                            whale.stats.totalPnL += trade.solChange;
+                        if (whaleIndex >= 0 && preBalances[whaleIndex] !== undefined) {
+                            const solChange = (postBalances[whaleIndex] - preBalances[whaleIndex]) / 1e9;
+
+                            // Only track significant trades (> 0.01 SOL change)
+                            if (Math.abs(solChange) > 0.01) {
+                                const trade = {
+                                    hash: tradeHash,
+                                    timestamp: new Date((sig.blockTime || 0) * 1000).toISOString(),
+                                    solChange: parseFloat(solChange.toFixed(4)),
+                                    profitable: solChange > 0,
+                                };
+
+                                whale.trades.push(trade);
+                                if (trade.profitable) { whale.stats.wins++; } else { whale.stats.losses++; }
+                                whale.stats.totalPnL += trade.solChange;
+                            }
                         }
                     }
-                } catch { /* tx fetch failed, skip */ }
-
-                // Rate limiting
-                await new Promise(r => setTimeout(r, 200));
+                } catch (e) {
+                     /* Batch fetch failed, skip */
+                     console.log(chalk.yellow(`[MIRROR]: Batch RPC failed for ${address.substring(0, 8)}: ${e.message}`));
+                }
             }
         } catch (e) {
             console.log(chalk.yellow(`[MIRROR]: RPC analysis failed for ${address.substring(0, 8)}: ${e.message}`));
@@ -284,6 +297,12 @@ process.on('message', (msg) => {
 // ============================================================
 // BOOT
 // ============================================================
-const sc = loadScorecard();
-console.log(MP(`🪞 Tracking ${Object.keys(sc.whales).length} whales. Qualification gate active.`));
-setInterval(() => { }, 100000);
+if (require.main === module) {
+    const sc = loadScorecard();
+    console.log(MP(`🪞 Tracking ${Object.keys(sc.whales).length} whales. Qualification gate active.`));
+    setInterval(() => { }, 100000);
+}
+
+module.exports = {
+    analyzeWalletPnL
+};
