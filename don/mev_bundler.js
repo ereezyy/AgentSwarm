@@ -25,9 +25,8 @@ class MevBundler {
         this.client = null;
 
         // Jito Client Initialization
-        // FIX: Removed authKeypair (2nd arg) as Jito mainnet no longer requires it for standard bundles
+        // Initialize Jito client without authKeypair as it is no longer required for standard bundles on mainnet
         try {
-            // No authKeypair needed for standard bundles now
             this.client = searcherClient(BLOCK_ENGINE_URL, undefined, {
                 grpcOptions: { 'grpc.keepalive_time_ms': 10000 }
             });
