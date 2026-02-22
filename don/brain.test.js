@@ -1,4 +1,18 @@
-jest.mock('axios');
+const mockAxios = { post: jest.fn(), get: jest.fn(), defaults: { headers: { common: {} } } };
+jest.mock('axios', () => mockAxios, { virtual: true });
+
+const mockChalk = {
+    red: jest.fn(m => m),
+    yellow: jest.fn(m => m),
+    green: jest.fn(m => m),
+    blue: jest.fn(m => m),
+    gray: jest.fn(m => m),
+    cyan: jest.fn(m => m),
+};
+jest.mock('chalk', () => mockChalk, { virtual: true });
+
+jest.mock('dotenv', () => ({ config: jest.fn() }), { virtual: true });
+jest.mock('child_process', () => ({ execSync: jest.fn() }));
 
 describe('askBrain', () => {
     let askBrain;
@@ -6,6 +20,9 @@ describe('askBrain', () => {
     let axios;
 
     beforeEach(() => {
+        // Clear mocks on the shared mock object
+        jest.clearAllMocks();
+
         jest.resetModules();
 
         // Re-require axios to ensure we are configuring the same instance as the module under test
@@ -33,7 +50,8 @@ describe('askBrain', () => {
         baseUrl: `http://${id}.com`,
         apiKey: id,
         model: id,
-        color
+        color,
+        timeout: 1000
     });
 
     test('should succeed with the first provider', async () => {
@@ -54,9 +72,12 @@ describe('askBrain', () => {
         PROVIDERS.push(createProvider('Provider1', 'provider1'));
         PROVIDERS.push(createProvider('Provider2', 'provider2'));
 
-        axios.post.mockRejectedValueOnce({
-            response: { status: 500 }
-        });
+        // First call fails
+        const err = new Error('500 Error');
+        err.response = { status: 500 };
+        axios.post.mockRejectedValueOnce(err);
+
+        // Second call succeeds
         axios.post.mockResolvedValueOnce({
             data: {
                 choices: [{ message: { content: 'Response from Provider2' } }]
@@ -73,9 +94,10 @@ describe('askBrain', () => {
         PROVIDERS.push(createProvider('Provider2', 'provider2'));
 
         // First call: Provider1 429, Provider2 200
-        axios.post.mockRejectedValueOnce({
-            response: { status: 429 }
-        });
+        const err429 = new Error('Rate Limit');
+        err429.response = { status: 429 };
+        axios.post.mockRejectedValueOnce(err429);
+
         axios.post.mockResolvedValueOnce({
             data: {
                 choices: [{ message: { content: 'Response from Provider2' } }]
@@ -86,7 +108,7 @@ describe('askBrain', () => {
         expect(response1).toBe('Response from Provider2');
         expect(axios.post).toHaveBeenCalledTimes(2);
 
-        // Second call: Provider1 should be skipped, so mock only one response
+        // Second call: Provider1 should be skipped (on cooldown), so mock only one response for Provider2
         axios.post.mockResolvedValueOnce({
             data: {
                 choices: [{ message: { content: 'Response from Provider2 again' } }]
@@ -130,9 +152,9 @@ describe('askBrain', () => {
     test('should throw error if all providers fail', async () => {
         PROVIDERS.push(createProvider('Provider1', 'provider1'));
 
-        axios.post.mockRejectedValueOnce({
-            response: { status: 500 }
-        });
+        const err = new Error('500 Error');
+        err.response = { status: 500 };
+        axios.post.mockRejectedValueOnce(err);
 
         await expect(askBrain([{ role: 'user', content: 'hello' }]))
             .rejects.toThrow('All brain providers failed');
