@@ -104,9 +104,7 @@ async function analyzeAndReact(loot) {
             process.send({
                 type: 'POST_TWEET',
                 text: reaction,
-                // TODO: Upload media if we implement media upload in Shadow
-                // For now, we just quote/link or post text.
-                // If we want to attach the video, Shadow needs media upload logic.
+                mediaPath: loot.path
             });
 
             // Log for manual review
