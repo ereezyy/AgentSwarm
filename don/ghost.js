@@ -67,14 +67,13 @@ async function probePort(host, port, timeout = 2000) {
 
 async function quickPortScan(host) {
     const commonPorts = [22, 80, 443, 3000, 3001, 5000, 8080, 8443, 8888, 9090, 11434];
-    const open = [];
 
-    for (const port of commonPorts) {
+    const results = await Promise.all(commonPorts.map(async (port) => {
         const isOpen = await probePort(host, port);
-        if (isOpen) open.push(port);
-    }
+        return isOpen ? port : null;
+    }));
 
-    return open;
+    return results.filter(port => port !== null);
 }
 
 // ── Nmap Integration (Optional) ──────────────────────────────
