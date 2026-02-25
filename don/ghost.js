@@ -56,6 +56,65 @@ function runNetworkScan() {
     });
 }
 
+// ── Port Probe (Lightweight, No nmap Needed) ─────────────────
+async function probePort(host, port, timeout = 2000) {
+    return new Promise((resolve) => {
+        const net = require('net');
+        const socket = new net.Socket();
+        let status = false;
+
+        socket.setTimeout(timeout);
+        socket.on('connect', () => { status = true; socket.destroy(); });
+        socket.on('timeout', () => { socket.destroy(); });
+        socket.on('error', () => { /* silent */ });
+        socket.on('close', () => { resolve(status); });
+        socket.connect(port, host);
+    });
+}
+
+async function quickPortScan(host) {
+    const commonPorts = [22, 80, 443, 3000, 3001, 5000, 8080, 8443, 8888, 9090, 11434];
+
+    const results = await Promise.all(commonPorts.map(async (port) => {
+        const isOpen = await probePort(host, port);
+        return isOpen ? port : null;
+    }));
+
+    return results.filter(port => port !== null);
+}
+
+// ── Nmap Integration (Optional) ──────────────────────────────
+let nmapAvailable = false;
+
+function checkNmap() {
+    return new Promise((resolve) => {
+        exec('nmap --version', { timeout: 5000 }, (err) => {
+            resolve(!err);
+        });
+    });
+}
+
+async function nmapScan(target) {
+    return new Promise((resolve) => {
+        exec(`nmap -sn -T4 ${target}`, { timeout: 30000 }, (err, stdout) => {
+            if (err) { resolve(null); return; }
+            resolve(stdout);
+        });
+    });
+}
+
+// ── Main Recon Loop ──────────────────────────────────────────
+let isRunning = false;
+let reconTimeout = null;
+
+async function runRecon() {
+    if (isRunning) {
+        console.log(chalk.gray(`[GHOST #${id}]: Scan already in progress.`));
+        return;
+    }
+    // Add custom recon logic if needed
+}
+
 function probeHost(host) {
     if (!host) {
         console.log(chalk.yellow(`[GHOST #${id}]: No host specified for probing.`));

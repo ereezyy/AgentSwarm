@@ -348,7 +348,15 @@ async function evolve(forceTarget = null) {
         const { telemetry, scores, target } = analyzeTelemetry();
 
         const targetAgent = forceTarget || target.file;
-        const targetPath = path.join(DON_DIR, targetAgent);
+        const targetPath = path.resolve(DON_DIR, targetAgent);
+
+        // Security check: Ensure target is within DON_DIR
+        const resolvedDonDir = path.resolve(DON_DIR);
+        if (!targetPath.startsWith(resolvedDonDir + path.sep)) {
+            console.log(chalk.red.bold(`[ARCHITECT #${id}]: 🚨 SECURITY ALERT: Path traversal attempted (${targetAgent}). Aborting.`));
+            logEvolution('SYSTEM', 'BLOCKED', `Path traversal attempt: ${targetAgent}`, cycleId);
+            metrics.blocked++; saveMetrics(); return;
+        }
         const agentType = targetAgent.replace('.js', '').toUpperCase();
 
         // Show scoring
