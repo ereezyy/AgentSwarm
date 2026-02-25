@@ -1,15 +1,32 @@
 // don/scavenger.js - THE SCAVENGER (FULLY AUTONOMOUS REVENUE GRIND)
-// This agent EXECUTES: it opens browsers, claims faucets, and deposits SOL.
+// This agent EXECUTES: it opens browsers, claims faucets, and hunts BOUNTIES.
 const { Keypair } = require('@solana/web3.js');
 const axios = require('axios');
 const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
-const { exec } = require('child_process');
+const { exec, execSync } = require('child_process');
 require('dotenv').config();
 
 const id = process.argv[2] || 'Scavenger';
 const { ask } = require('./brain');
+const { SyndicateCore } = require('./SyndicateCore');
+const core = new SyndicateCore();
+
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 5000;
+
+async function runWithRetry(fn, label) {
+    for (let i = 0; i < MAX_RETRIES; i++) {
+        try {
+            return await fn();
+        } catch (e) {
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ ${label} attempt ${i + 1} failed: ${e.message}. Retrying...`));
+            if (i < MAX_RETRIES - 1) await new Promise(r => setTimeout(r, RETRY_DELAY));
+        }
+    }
+    throw new Error(`${label} failed after ${MAX_RETRIES} attempts.`);
+}
 
 // Derive Wallet from .env
 const secretKey = Buffer.from(process.env.SOLANA_PRIVATE_KEY, 'hex');
@@ -17,191 +34,162 @@ const keypair = Keypair.fromSecretKey(secretKey);
 const WALLET = keypair.publicKey.toString();
 
 const REPORT_PATH = path.resolve(__dirname, '../missions/scavenge_leads.md');
+const BOUNTY_TRACKER = path.resolve(__dirname, '../missions/bounty_tracker.json');
 
-console.log(chalk.green.bold(`[SCAVENGER #${id}]: 🦾 AUTONOMOUS MODE. Wallet: ${WALLET}`));
+console.log(chalk.green.bold(`[SCAVENGER #${id}]: 🦾 BOUNTY HUNTER MODE. Wallet: ${WALLET}`));
 
 const SYSTEM_PROMPT = `You are 'The Scavenger', a ruthless automated agent for The Syndicate.
-Your ONLY goal: Find ways to get FREE Solana (SOL) RIGHT NOW. No speculation, no "maybe."
+Your ONLY goal: Find ways to get FREE Solana (SOL) or high-value bounties RIGHT NOW. 
 Focus on:
-1. Active Solana devnet/testnet faucets that give real tokens
-2. Airdrop claim pages that are live TODAY
-3. Crypto task platforms (Galxe, Layer3, Zealy) with active SOL rewards
-4. Bounty programs paying in SOL
-5. Browser extension rewards or cashback in crypto
+1. Technical bounties on Bountycaster, Gitcoin, or Superteam Earn.
+2. Active Solana devnet/testnet faucets (if balance is low).
+3. Airdrop claim pages that are live TODAY.
 
-For each opportunity, provide:
-- EXACT URL to claim
-- Steps to complete
-- Estimated reward amount
-- Whether it can be automated
+For each bounty, identify if the Syndicate (or Jules) can complete it automatically.
+Provide EXACT details for Jules to generate a solution.`;
 
-Be brutally honest about which ones actually work vs scams.`;
-
-// Known faucet endpoints to try automatically
-const FAUCETS = [
-    { name: 'SolFaucet', url: 'https://solfaucet.com/api/faucet', method: 'POST', body: { wallet: WALLET } },
-    { name: 'DevFaucet', url: 'https://api.devnet.solana.com', method: 'POST', body: { jsonrpc: '2.0', id: 1, method: 'requestAirdrop', params: [WALLET, 1000000000] } },
-];
-
-// Automatically attempt to claim from known faucets
-async function claimFaucets() {
-    for (const faucet of FAUCETS) {
-        try {
-            console.log(chalk.green(`[SCAVENGER #${id}]: 🔄 Attempting ${faucet.name}...`));
-            const response = await axios({
-                method: faucet.method,
-                url: faucet.url,
-                data: faucet.body,
-                timeout: 10000,
-                headers: { 'Content-Type': 'application/json' }
-            });
-
-            if (response.data) {
-                const result = JSON.stringify(response.data).substring(0, 200);
-                console.log(chalk.green.bold(`[SCAVENGER #${id}]: ✅ ${faucet.name} RESPONSE: ${result}`));
-
-                if (process.send) {
-                    process.send({ type: 'SIREN_SPEAK', text: `Scavenger got a response from ${faucet.name}. Checking if funds arrived.` });
-                }
-            }
-
-            // Launch Shadow fleet for browser-based claiming
-            if (faucet.url.includes('solfaucet')) {
-                if (process.send) {
-                    process.send({
-                        type: 'EXECUTE_SHADOW',
-                        url: faucet.url,
-                        task: `Claim SOL from ${faucet.name}`
-                    });
-                }
-            }
-        } catch (e) {
-            console.log(chalk.gray(`[SCAVENGER #${id}]: ${faucet.name} failed: ${e.message.substring(0, 60)}`));
-        }
-    }
+// Initialize Tracker
+if (!fs.existsSync(BOUNTY_TRACKER)) {
+    fs.writeFileSync(BOUNTY_TRACKER, JSON.stringify({ found: [], submitted: [], paid: [] }, null, 2));
 }
 
-// Check wallet balance
 async function checkBalance() {
-    try {
-        const response = await axios.post(process.env.SOLANA_RPC_URL, {
-            jsonrpc: '2.0', id: 1, method: 'getBalance', params: [WALLET]
-        });
-        const balance = (response.data.result.value / 1e9).toFixed(4);
-        console.log(chalk.green(`[SCAVENGER #${id}]: 💰 Current Balance: ${balance} SOL`));
-
-        if (process.send) {
-            process.send({ type: 'INTEL_DATA', data: `Wallet Balance: ${balance} SOL`, source: 'SCAVENGER_BALANCE' });
-        }
-
-        return parseFloat(balance);
-    } catch (e) {
+    return runWithRetry(async () => {
+        const connection = core.connection;
+        const lamports = await connection.getBalance(keypair.publicKey);
+        const sol = (lamports / 1e9).toFixed(4);
+        console.log(chalk.green(`[SCAVENGER #${id}]: 💰 Balance: ${sol} SOL`));
+        return parseFloat(sol);
+    }, 'Balance Check').catch(e => {
+        console.error(chalk.red(`[SCAVENGER #${id}]: Error checking balance: ${e.message}`));
         return 0;
-    }
+    });
 }
 
-// AI-powered lead discovery
-async function discoverLeads() {
-    try {
-        console.log(chalk.green(`[SCAVENGER #${id}]: 🔍 AI scanning for new revenue opportunities...`));
+async function scrapeBounties() {
+    return runWithRetry(async () => {
+        console.log(chalk.cyan(`[SCAVENGER #${id}]: 🔍 Triggering Shadow Scraper (Bounty Mode)...`));
+        const scraperPath = path.join(__dirname, 'shadow_scraper.js');
+        const output = execSync(`node "${scraperPath}" "Solana Web3 Bounty" 10 --bounty`, { encoding: 'utf8' });
 
-        const content = await ask(
-            `My Solana wallet is ${WALLET}. Find me 5 ways to get free SOL or crypto RIGHT NOW. Today is ${new Date().toLocaleDateString()}. Only give me things that are actually working today.`,
-            SYSTEM_PROMPT,
-            { agentName: `SCAVENGER #${id}` }
-        );
+        // Extract JSON array using regex to bypass any non-JSON logs/warnings
+        const jsonMatch = output.match(/\[[\s\S]*\]/);
+        if (!jsonMatch) throw new Error("No JSON array found in scraper output");
 
-        console.log(chalk.green(`[SCAVENGER #${id}]: 📋 REVENUE LEADS ACQUIRED.`));
-
-        // Save leads
-        fs.appendFileSync(REPORT_PATH, `\n\n--- SCAVENGE REPORT [${new Date().toLocaleString()}] ---\n${content}`);
-
-        if (process.send) {
-            process.send({ type: 'INTEL_DATA', data: content.substring(0, 200), source: 'SCAVENGER_LEADS' });
-            process.send({ type: 'SIREN_SPEAK', text: `Scavenger reporting. New revenue leads identified. Executing on the most promising ones now.` });
-            process.send({ type: 'AGENT_COMMS', from: `SCAVENGER #${id}`, msg: 'Revenue leads acquired. Report filed.', timestamp: new Date().toISOString() });
+        let leads = [];
+        try {
+            leads = JSON.parse(jsonMatch[0]);
+        } catch (parseError) {
+            throw new Error(`JSON parsing failed: ${parseError.message}`);
         }
 
+        console.log(chalk.green(`[SCAVENGER #${id}]: 🎯 ${leads.length} potential bounties discovered.`));
+
+        const tracker = JSON.parse(fs.readFileSync(BOUNTY_TRACKER, 'utf8'));
+
+        for (const lead of leads) {
+            if (tracker.found.includes(lead.id)) continue;
+
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: 💎 New Bounty: ${lead.title} (${lead.budget.range || lead.budget.amount})`));
+            tracker.found.push(lead.id);
+
+            // Draft Proposal via Jules if it's technical
+            const isTechnical = lead.skills?.some(s => ['python', 'node', 'solana', 'javascript', 'ts', 'web3'].includes(s.toLowerCase()));
+            if (isTechnical) {
+                await draftBountySolution(lead);
+            }
+        }
+
+        fs.writeFileSync(BOUNTY_TRACKER, JSON.stringify(tracker, null, 2));
+    }, 'Bounty Scrape').catch(e => {
+        console.error(chalk.red(`[SCAVENGER #${id}]: ❌ Critical Scrape failure: ${e.message}`));
+    });
+}
+
+async function draftBountySolution(bounty) {
+    try {
+        console.log(chalk.magenta(`[SCAVENGER #${id}]: 🧬 Sending bounty "${bounty.title}" to Jules for solution drafting...`));
+
+        const prompt = `Draft a technical solution and a submission proposal for this bounty:
+Title: ${bounty.title}
+Desc: ${bounty.description}
+Budget: ${JSON.stringify(bounty.budget)}
+URL: ${bounty.url}
+
+If the bounty requires a script, write the script. If it requires a guide, write the guide. 
+Save the result as a polished submission.`;
+
+        const bridgePath = path.join(__dirname, '../muscle/jules_bridge.py');
+        const cmd = `python "${bridgePath}" --create "${prompt}" "syndicate-repo" --title "Bounty: ${bounty.id}" --auto-pr`;
+
+        exec(cmd, (err, stdout) => {
+            if (err) return;
+            console.log(chalk.green(`[SCAVENGER #${id}]: ✅ Jules session created for bounty ${bounty.id}.`));
+
+            if (process.send) {
+                process.send({
+                    type: 'AGENT_COMMS',
+                    from: 'SCAVENGER',
+                    msg: `💎 Bounty hunter at work. Sparked Jules evolution for: "${bounty.title}". Solution incoming.`,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        });
     } catch (e) {
-        console.error(chalk.red(`[SCAVENGER #${id}]: Discovery failure: ${e.message}`));
+        console.error(chalk.red(`[SCAVENGER #${id}]: Jules bridge failure: ${e.message}`));
     }
 }
 
-// ── RENT RECLAMATION (The "Dust" Sweep) ──
+// ── RENT RECLAMATION (Standard Sweep via VAULT) ──
 async function sweepDust() {
     try {
-        console.log(chalk.yellow(`[SCAVENGER #${id}]: 🧹 Scanning for reclaimable rent (empty accounts)...`));
-        const { TOKEN_PROGRAM_ID } = require('@solana/spl-token');
-        const { Connection, PublicKey, Transaction } = require('@solana/web3.js');
-        const { createCloseAccountInstruction } = require('@solana/spl-token'); // Check if this import works, might need full path logic or raw instruction
+        console.log(chalk.yellow(`[SCAVENGER #${id}]: 🧹 Reclaiming rent via VAULT...`));
+        const { PublicKey, Transaction } = require('@solana/web3.js');
+        const { TOKEN_PROGRAM_ID, createCloseAccountInstruction } = require('@solana/spl-token');
 
-        const connection = new Connection(process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com');
-        const walletKey = new PublicKey(WALLET);
+        const connection = core.connection;
+        const walletKey = keypair.publicKey;
 
         const accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
         const emptyAccounts = accounts.value.filter(acc => acc.account.data.parsed.info.tokenAmount.uiAmount === 0);
 
-        if (emptyAccounts.length === 0) {
-            console.log(chalk.gray(`[SCAVENGER #${id}]: No empty accounts found to reclaim.`));
-            return 0;
+        if (emptyAccounts.length === 0) return;
+
+        const tx = new Transaction();
+        for (const acc of emptyAccounts.slice(0, 5)) {
+            tx.add(createCloseAccountInstruction(acc.pubkey, walletKey, walletKey));
         }
 
-        console.log(chalk.green(`[SCAVENGER #${id}]: Found ${emptyAccounts.length} empty accounts. Reclaiming rent...`));
-        let reclaimed = 0;
+        const { blockhash } = await connection.getLatestBlockhash();
+        tx.recentBlockhash = blockhash;
+        tx.feePayer = walletKey;
 
-        // Close in batches of 5 to avoid tx size limits
-        for (let i = 0; i < emptyAccounts.length; i += 5) {
-            const batch = emptyAccounts.slice(i, i + 5);
-            const tx = new Transaction();
+        // Request signature from VAULT via SyndicateCore
+        const serializedTx = tx.serialize({ requireAllSignatures: false }).toString('base64');
 
-            for (const acc of batch) {
-                tx.add(createCloseAccountInstruction(acc.pubkey, walletKey, walletKey));
-            }
-
-            const { blockhash } = await connection.getLatestBlockhash();
-            tx.recentBlockhash = blockhash;
-            tx.feePayer = walletKey;
-
-            // Sign and send (requires keypair)
-            tx.sign(keypair);
-            const sig = await connection.sendRawTransaction(tx.serialize());
-            await connection.confirmTransaction(sig);
-
-            reclaimed += (batch.length * 0.002); // Approx rent per account
-            console.log(chalk.green(`[SCAVENGER #${id}]: ♻️ Reclaimed rent from ${batch.length} accounts. Sig: ${sig}`));
+        if (process.env.LIVE_MODE === 'true') {
+            core.log('Requesting VAULT signature for rent reclamation...', 'POWER');
+            const signedTxBase64 = await core.requestSign(serializedTx);
+            const signedTx = Transaction.from(Buffer.from(signedTxBase64, 'base64'));
+            const sig = await connection.sendRawTransaction(signedTx.serialize());
+            core.log(`Reclaimed rent. Sig: ${sig}`, 'MONEY');
+        } else {
+            console.log(chalk.gray(`[SCAVENGER]: SIMULATION: Would reclaimed rent from ${emptyAccounts.length} accounts via VAULT.`));
         }
-
-        if (process.send) {
-            process.send({ type: 'KICK_UP', amount: reclaimed, source: 'RENT_RECLAIM' });
-            process.send({ type: 'AGENT_COMMS', from: 'SCAVENGER', msg: `Just swept the floor. Reclaimed ${reclaimed.toFixed(4)} SOL from empty accounts.` });
-        }
-        return reclaimed;
-
     } catch (e) {
-        console.log(chalk.red(`[SCAVENGER #${id}]: Rent reclaim failed: ${e.message}`));
-        return 0;
+        console.error(chalk.red(`[SCAVENGER]: Rent reclaim failed: ${e.message}`));
     }
 }
 
-// Main Autonomous Loop
 async function runScavengeLoop() {
-    // 1. Check current balance
     const balance = await checkBalance();
-
-    // 2. Sweep Dust (Free Money)
     await sweepDust();
 
-    // 3. If broke, aggressively try faucets
-    if (balance < 0.05) {
-        console.log(chalk.yellow(`[SCAVENGER #${id}]: 🚨 BROKE MODE. Balance < 0.05 SOL. Activating all revenue streams...`));
-        await claimFaucets();
-    }
+    // Aggressive bounty hunt
+    await scrapeBounties();
 
-    // 4. Discover new leads via AI
-    await discoverLeads();
-
-    // Run every 10 minutes
-    setTimeout(runScavengeLoop, 600000);
+    // Run every 15 minutes
+    setTimeout(runScavengeLoop, 900000);
 }
 
 runScavengeLoop();

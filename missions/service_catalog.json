@@ -1,0 +1,258 @@
+{
+  "services": [
+    {
+      "id": "telegram-bot",
+      "name": "Custom Telegram Bot",
+      "description": "Fully featured Telegram bot with commands, inline queries, webhooks, and AI integration. Deployed and hosted.",
+      "basePrice": 250,
+      "deliveryDays": 3,
+      "features": [
+        "Custom commands",
+        "AI-powered responses",
+        "Database integration",
+        "Admin dashboard",
+        "Webhook support"
+      ],
+      "complexity": "MEDIUM",
+      "techStack": [
+        "Node.js",
+        "Telegraf/Grammy",
+        "MongoDB/SQLite"
+      ]
+    },
+    {
+      "id": "discord-bot",
+      "name": "Custom Discord Bot",
+      "description": "Feature-rich Discord bot with slash commands, moderation, auto-roles, and custom integrations.",
+      "basePrice": 300,
+      "deliveryDays": 4,
+      "features": [
+        "Slash commands",
+        "Moderation tools",
+        "Auto-roles",
+        "Music/audio",
+        "Custom embeds",
+        "Database"
+      ],
+      "complexity": "MEDIUM",
+      "techStack": [
+        "Node.js",
+        "Discord.js v14",
+        "MongoDB"
+      ]
+    },
+    {
+      "id": "web-scraper",
+      "name": "Custom Web Scraper / Data Pipeline",
+      "description": "Automated web scraper with anti-detection, data extraction, scheduling, and export to CSV/JSON/database.",
+      "basePrice": 350,
+      "deliveryDays": 4,
+      "features": [
+        "Anti-bot detection bypass",
+        "Scheduled scraping",
+        "Data cleaning",
+        "CSV/JSON/DB export",
+        "Proxy rotation"
+      ],
+      "complexity": "MEDIUM",
+      "techStack": [
+        "Node.js/Python",
+        "Puppeteer/Playwright",
+        "Cheerio"
+      ]
+    },
+    {
+      "id": "trading-bot",
+      "name": "Crypto Trading Bot",
+      "description": "Automated trading bot with strategy configuration, risk management, and real-time monitoring. Supports multiple DEXs.",
+      "basePrice": 800,
+      "deliveryDays": 7,
+      "features": [
+        "Multi-DEX support",
+        "Custom strategies",
+        "Risk management",
+        "Real-time alerts",
+        "PnL tracking",
+        "Copy-trading"
+      ],
+      "complexity": "HIGH",
+      "techStack": [
+        "Node.js",
+        "Solana/EVM Web3",
+        "Jupiter/Raydium APIs"
+      ]
+    },
+    {
+      "id": "ai-agent",
+      "name": "Custom AI Agent / LLM App",
+      "description": "AI-powered agent with tool use, RAG, memory, and custom integrations. Can be deployed as API, CLI, or chat interface.",
+      "basePrice": 600,
+      "deliveryDays": 5,
+      "features": [
+        "LLM integration (GPT/Claude/Grok)",
+        "Tool calling",
+        "RAG with vector DB",
+        "Memory/context",
+        "API endpoints"
+      ],
+      "complexity": "HIGH",
+      "techStack": [
+        "Python/Node.js",
+        "LangChain/OpenAI",
+        "Pinecone/ChromaDB"
+      ]
+    },
+    {
+      "id": "automation-script",
+      "name": "Custom Automation Script",
+      "description": "Task automation: social media posting, email sequences, data entry, file processing, API integrations.",
+      "basePrice": 150,
+      "deliveryDays": 2,
+      "features": [
+        "Scheduled execution",
+        "API integrations",
+        "Error handling",
+        "Logging",
+        "Email notifications"
+      ],
+      "complexity": "LOW",
+      "techStack": [
+        "Node.js/Python",
+        "cron/PM2"
+      ]
+    },
+    {
+      "id": "monitoring-dashboard",
+      "name": "Real-Time Monitoring Dashboard",
+      "description": "Live dashboard with WebSocket updates, charts, alerts, and multi-source data aggregation.",
+      "basePrice": 500,
+      "deliveryDays": 5,
+      "features": [
+        "Real-time WebSocket",
+        "Interactive charts",
+        "Alert rules",
+        "Multi-source data",
+        "Mobile responsive"
+      ],
+      "complexity": "MEDIUM",
+      "techStack": [
+        "React/Next.js",
+        "Chart.js/D3",
+        "WebSocket",
+        "Node.js API"
+      ]
+    },
+    {
+      "id": "lead-scraper",
+      "name": "🎯 Lead Scraper Agent [SHOWCASE]",
+      "description": "Scrapes LinkedIn/Twitter for keywords, identifies decision-makers, and writes personalized intros. Perfect for agencies & sales teams.",
+      "basePrice": 400,
+      "deliveryDays": 4,
+      "features": [
+        "Keyword-based prospecting",
+        "Personalized AI intros",
+        "CSV/CRM export",
+        "Scheduled runs",
+        "Dedup & enrichment"
+      ],
+      "complexity": "MEDIUM",
+      "techStack": [
+        "Node.js",
+        "Puppeteer",
+        "OpenAI/Grok",
+        "LinkedIn Sales Nav"
+      ],
+      "showcase": true
+    },
+    {
+      "id": "support-agent",
+      "name": "🤖 AI Support Agent [SHOWCASE]",
+      "description": "Bot trained on your docs/manuals that answers questions perfectly. Reduces support tickets by 80%. Deploys to Slack, Discord, or web widget.",
+      "basePrice": 500,
+      "deliveryDays": 5,
+      "features": [
+        "RAG on your docs",
+        "Multi-channel deploy",
+        "Conversation memory",
+        "Escalation to human",
+        "Analytics dashboard"
+      ],
+      "complexity": "HIGH",
+      "techStack": [
+        "Python",
+        "LangChain",
+        "ChromaDB/Pinecone",
+        "FastAPI"
+      ],
+      "showcase": true
+    },
+    {
+      "id": "content-agent",
+      "name": "📝 Content Repurposing Agent [SHOWCASE]",
+      "description": "Takes a YouTube URL and generates a blog post, 5 tweets, and a LinkedIn update. Saves 5+ hours per video.",
+      "basePrice": 350,
+      "deliveryDays": 3,
+      "features": [
+        "YouTube transcript extraction",
+        "Blog post generation",
+        "Twitter thread (5 tweets)",
+        "LinkedIn post",
+        "SEO-optimized output"
+      ],
+      "complexity": "MEDIUM",
+      "techStack": [
+        "Node.js/Python",
+        "YouTube API",
+        "OpenAI/Grok",
+        "Markdown output"
+      ],
+      "showcase": true
+    }
+  ],
+  "addons": [
+    {
+      "id": "hosting",
+      "name": "Cloud Hosting (1 month)",
+      "price": 25
+    },
+    {
+      "id": "maintenance",
+      "name": "Monthly Maintenance",
+      "price": 50
+    },
+    {
+      "id": "rush",
+      "name": "Rush Delivery (50% faster)",
+      "priceMultiplier": 1.5
+    },
+    {
+      "id": "source",
+      "name": "Full Source Code Ownership",
+      "price": 100
+    },
+    {
+      "id": "docs",
+      "name": "Technical Documentation",
+      "price": 75
+    }
+  ],
+  "outreach": {
+    "fixerScript": "I saw your team is doing [Manual Task]. I built an AI agent that does that in 3 seconds for $0.05. Want to see the demo?",
+    "closeFrame": "Don't sell 'AI.' Sell 'Time.' Instead of 'I build bots,' say 'I give your team 20 hours back every week.'",
+    "freeHook": "Free 15-minute Automation Audit — I'll find 3 tasks your team can automate this week.",
+    "targetNiches": [
+      "Marketing agencies",
+      "Real estate firms",
+      "Recruiting agencies",
+      "E-commerce stores",
+      "SaaS companies"
+    ],
+    "platformKeywords": [
+      "AI Automation",
+      "Custom AI Bot",
+      "Agentic Workflow",
+      "AI Agent Development",
+      "LLM Integration"
+    ]
+  }
+}

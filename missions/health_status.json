@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-02-23T04:14:05.727Z",
+  "agents": [
+    {
+      "type": "VAULT",
+      "id": 14344,
+      "status": "ALIVE",
+      "crashes": 0,
+      "uptime": 0
+    }
+  ],
+  "warChest": 0,
+  "issues": [
+    {
+      "severity": "WARNING",
+      "msg": "Agent IDs do not match the hardened SHA-256/HMAC format."
+    }
+  ]
+}

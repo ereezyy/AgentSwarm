@@ -12,38 +12,86 @@ const DG_KEY = process.env.DEEPGRAM_API_KEY;
 const EL_KEY = process.env.ELEVEN_LABS_API_KEY;
 const { ask } = require('./brain');
 
+// Audio Cues
+const CUES = {
+    TICK: '"C:\\Windows\\Media\\Windows Navigation Start.wav"',
+    BAD: '"C:\\Windows\\Media\\Windows Critical Stop.wav"',
+    GOOD: '"C:\\Windows\\Media\\tada.wav"'
+};
+
 console.log(chalk.red.bold(`[CALLER #${id}]: Audio Mode Active. Frequency: 30min.`));
 
-async function speak(text) {
+async function playCue(type) {
+    const cuePath = CUES[type];
+    if (cuePath) {
+        const cleanPath = cuePath.replace(/"/g, ''); // For fs check
+        if (fs.existsSync(cleanPath)) {
+            return new Promise((resolve) => {
+                console.log(chalk.green(`[CALLER #${id}]: 🔊 Playing cue: ${type}`));
+                player.play(cuePath, (err) => {
+                    if (err) console.error(chalk.red(`[CALLER #${id}]: Cue error for ${type}: ${err.message || 'Check player logs'}`));
+                    else console.log(chalk.green(`[CALLER #${id}]: ✅ Cue ${type} complete.`));
+                    resolve();
+                });
+            });
+        }
+    }
+}
+
+async function speak(text, options = {}) {
     if (!text) return;
-    console.log(chalk.white(`[CALLER #${id}] 🎙️: "${text.substring(0, 100)}..."`));
+
+    // Sanitize text for TTS (replace * to prevent "Star")
+    let cleanText = text.replace(/\*/g, '').replace(/\s+/g, ' ').trim();
+
+    console.log(chalk.white(`[CALLER #${id}] 🎙️: "${cleanText.substring(0, 100)}..."`));
+
+    // Play cue if requested
+    if (options.cue) {
+        await playCue(options.cue);
+    }
 
     // PRIORITY 1: ELEVENLABS (High Fidelity)
     if (EL_KEY) {
         try {
-            const el = new ElevenLabsClient({ apiKey: EL_KEY });
-            // "Rachel" Voice ID: 21m00Tcm4TlvDq8ikWAM (or use Syla's custom voice if we had one)
-            const audioStream = await el.textToSpeech.convert("21m00Tcm4TlvDq8ikWAM", {
-                text: text,
-                model_id: "eleven_monolingual_v1"
-            });
-
+            const axios = require('axios');
             const timestamp = Date.now();
             const tempFile = path.resolve(__dirname, `../temp_voice_${id}_${timestamp}.mp3`);
-            const writeStream = fs.createWriteStream(tempFile);
 
-            audioStream.pipe(writeStream);
-
-            writeStream.on('finish', () => {
-                console.log(chalk.green(`[CALLER #${id}]: 🔊 Playing (ElevenLabs)...`));
-                player.play(tempFile, (err) => {
-                    if (err) console.error(chalk.red(`[CALLER #${id}]: Playback error: ${err.message}`));
-                    else console.log(chalk.green(`[CALLER #${id}]: ✅ Playback complete.`));
-                });
+            const response = await axios({
+                method: 'post',
+                url: `https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM`,
+                headers: {
+                    'Accept': 'audio/mpeg',
+                    'Content-Type': 'application/json',
+                    'xi-api-key': EL_KEY
+                },
+                data: {
+                    text: cleanText,
+                    model_id: "eleven_monolingual_v1",
+                    voice_settings: { stability: 0, similarity_boost: 0, style: 0 }
+                },
+                responseType: 'stream'
             });
-            return; // Success
+
+            const writer = fs.createWriteStream(tempFile);
+            response.data.pipe(writer);
+            await new Promise((resolve, reject) => {
+                writer.on('finish', resolve);
+                writer.on('error', reject);
+            });
+
+            console.log(chalk.green(`[CALLER #${id}]: 🔊 Playing (ElevenLabs)...`));
+            player.play(tempFile, (err) => {
+                if (err) console.error(chalk.red(`[CALLER #${id}]: Playback error: ${err.message}`));
+                else console.log(chalk.green(`[CALLER #${id}]: ✅ Playback complete.`));
+            });
+            return;
         } catch (e) {
-            console.error(chalk.yellow(`[CALLER #${id}]: ElevenLabs failed (${e.message}). Falling back to Deepgram.`));
+            // Enhanced error logging to catch 401 Unauthorized or Quota Exceeded silently
+            const status = e.response?.status;
+            const errorMsg = status === 401 ? '401 Unauthorized (Invalid API Key)' : (status === 429 ? '429 Quota Exceeded' : e.message);
+            console.error(chalk.yellow(`[CALLER #${id}]: ElevenLabs failed (${errorMsg}). Falling back to Deepgram.`));
         }
     }
 
@@ -55,28 +103,37 @@ async function speak(text) {
 
     try {
         const deepgram = createClient(DG_KEY);
-        const response = await deepgram.speak.request(
-            { text },
-            { model: "aura-helios-en", encoding: "linear16", container: "wav" }
-        );
 
-        const stream = await response.getStream();
-        if (!stream) throw new Error("Voice stream is empty");
+        // Split text if it exceeds Deepgram's limit (approx 2000 chars)
+        const chunks = cleanText.match(/[\s\S]{1,1800}/g) || [];
 
-        const timestamp = Date.now();
-        const tempFile = path.resolve(__dirname, `../temp_voice_${id}_${timestamp}.wav`);
-        const writeStream = fs.createWriteStream(tempFile);
+        for (const chunk of chunks) {
+            const response = await deepgram.speak.request(
+                { text: chunk },
+                { model: "aura-helios-en", encoding: "linear16", container: "wav" }
+            );
 
-        const nodeStream = Readable.fromWeb(stream);
-        nodeStream.pipe(writeStream);
+            const stream = await response.getStream();
+            if (!stream) throw new Error("Voice stream is empty");
 
-        writeStream.on('finish', () => {
-            console.log(chalk.green(`[CALLER #${id}]: 🔊 Playing (Deepgram)...`));
-            player.play(tempFile, (err) => {
-                if (err) console.error(chalk.red(`[CALLER #${id}]: Playback error: ${err.message}`));
-                else console.log(chalk.green(`[CALLER #${id}]: ✅ Playback complete.`));
+            const timestamp = Date.now();
+            const tempFile = path.resolve(__dirname, `../temp_voice_${id}_${timestamp}.wav`);
+            const writeStream = fs.createWriteStream(tempFile);
+
+            const nodeStream = Readable.fromWeb(stream);
+            nodeStream.pipe(writeStream);
+
+            await new Promise((resolve) => {
+                writeStream.on('finish', () => {
+                    console.log(chalk.green(`[CALLER #${id}]: 🔊 Playing (Deepgram chunk)...`));
+                    player.play(tempFile, (err) => {
+                        if (err) console.error(chalk.red(`[CALLER #${id}]: Playback error: ${err.message}`));
+                        else console.log(chalk.green(`[CALLER #${id}]: ✅ Chunk complete.`));
+                        resolve();
+                    });
+                });
             });
-        });
+        }
     } catch (e) {
         console.error(chalk.red(`[CALLER #${id}]: Deepgram failure: ${e.message}`));
     }
@@ -114,11 +171,11 @@ setInterval(weeklyCleanup, 86400000);
 async function runStatusUpdate() {
     try {
         const msg = await ask(
-            "Periodic update.",
-            "You are 'The Caller'. Give a 1-sentence executive summary of the syndicate's standing. No fluff.",
+            "Periodic field report.",
+            "You are 'The General', a WW2 Battle General giving a grit-heavy, concise status report of the Syndicate swarm's standing. Focus on objectives secured, casualties (errors), and supply lines (funds). Stay in character. No fluff.",
             { agentName: `CALLER #${id}` }
         );
-        await speak(msg);
+        await speak(msg, { cue: 'TICK' });
     } catch (e) {
         console.log(chalk.yellow(`[CALLER #${id}]: Brain request skipped: ${e.message}`));
     }
@@ -133,6 +190,8 @@ setInterval(runStatusUpdate, 1800000);
 // IPC Listener for Event-Driven Speech (e.g., from The Don)
 process.on('message', (msg) => {
     if (msg.type === 'SPEAK_ALERT') {
-        speak(msg.text);
+        speak(msg.text, { cue: msg.cue || (msg.level === 'ERROR' ? 'BAD' : null) });
+    } else if (msg.type === 'PLAY_CUE') {
+        playCue(msg.cue);
     }
 });

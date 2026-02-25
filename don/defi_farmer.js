@@ -70,10 +70,10 @@ function loadPositions() {
         watchlist: [],
         stats: { totalDeployed: 0, totalHarvested: 0, activePositions: 0 },
         config: {
-            minAPY: 5.0,            // Minimum APY to consider
-            maxRiskLevel: 'MEDIUM', // LOW, MEDIUM, HIGH
+            minAPY: 30.0,           // Aggressively bumped from 5% to 30% min APY
+            maxRiskLevel: 'HIGH',   // Full Degen Mode (HIGH risk allowed)
             autoCompound: true,
-            rebalanceThreshold: 20, // Rebalance if APY drops 20% from entry
+            rebalanceThreshold: 10, // Rebalance fast if APY drops 10%
         }
     };
 }
@@ -86,7 +86,6 @@ function savePositions(data) {
 // YIELD SCANNER
 // ============================================================
 async function scanYields() {
-    console.log(fm('🔍 Scanning DeFi yields across Solana...'));
     const opportunities = [];
 
     // Scan each protocol
@@ -121,7 +120,7 @@ async function scanYields() {
                 });
             }
 
-            console.log(fm(`  ✅ ${protocol.name}: Scanned`));
+            // console.log(fm(`  ✅ ${protocol.name}: Scanned`));
         } catch (e) {
             console.log(chalk.yellow(`[FARMER]: ${protocol.name} scan failed: ${e.message}`));
         }
@@ -133,7 +132,7 @@ async function scanYields() {
     try {
         const llamaResp = await axios.get('https://yields.llama.fi/pools', { timeout: 20000 });
         const solanaPools = (llamaResp.data?.data || [])
-            .filter(p => p.chain === 'Solana' && p.apy > 5 && p.tvlUsd > 100000)
+            .filter(p => p.chain === 'Solana' && p.apy > 30 && p.tvlUsd > 10000) // Lowered TVL from 100k to 10k, increased APY from 5 to 30
             .sort((a, b) => b.apy - a.apy)
             .slice(0, 15);
 
@@ -150,7 +149,7 @@ async function scanYields() {
                 source: 'defillama',
             });
         }
-        console.log(fm(`  ✅ DeFiLlama: ${solanaPools.length} Solana pools found`));
+        // console.log(fm(`  ✅ DeFiLlama: ${solanaPools.length} Solana pools found`));
     } catch (e) {
         console.log(chalk.yellow(`[FARMER]: DeFiLlama scan failed: ${e.message}`));
     }
@@ -162,9 +161,9 @@ async function scanYields() {
 }
 
 function assessRisk(apy, tvl) {
-    if (apy > 100) return 'HIGH';
-    if (apy > 30 && tvl < 100000) return 'HIGH';
-    if (apy > 20) return 'MEDIUM';
+    if (apy > 500) return 'HIGH'; // Adjusted risk scaling for Degen plays
+    if (apy > 100 && tvl < 50000) return 'HIGH';
+    if (apy > 50) return 'MEDIUM';
     return 'LOW';
 }
 
@@ -261,7 +260,6 @@ async function generateYieldReport() {
     report += `\n---\n*DeFi Farmer — Automated Yield Intelligence*\n`;
 
     fs.writeFileSync(YIELD_REPORT, report);
-    console.log(fm(`📊 Yield report saved to ${YIELD_REPORT}`));
 
     // Send top picks to Don
     if (process.send && filtered.length > 0) {

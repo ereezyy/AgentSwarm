@@ -80,7 +80,9 @@ function postTweet(tweetText) {
     // Delegate to Shadow for API execution
     if (process.send) {
         process.send({ type: 'POST_TWEET', content: tweetText });
-        console.log(chalk.cyan(`[SYLA #${id}]: Delegated to Shadow for execution.`));
+        // Phase 5: Deep Social Injection - Trigger Phone Farm Boost
+        process.send({ type: 'FARM_BOOST', url: 'https://twitter.com/WaveforgeAI', platform: 'TWITTER' });
+        console.log(chalk.cyan(`[SYLA #${id}]: Delegated to Shadow and Farm Agent for execution.`));
     } else {
         console.log(chalk.yellow(`[SYLA #${id}]: No IPC — tweet logged to ${CONTENT_LOG}`));
     }
@@ -197,6 +199,28 @@ process.on('message', async (msg) => {
             } catch (e) {
                 console.error(chalk.red(`[SYLA #${id}]: Failed to reply: ${e.message}`));
             }
+        }
+    } else if (msg.type === 'COPY_TRADE_SIGNAL') {
+        const { whale, mint, detectedAmount } = msg;
+        console.log(chalk.cyan(`[SYLA #${id}]: 🐋 WHALE ALERT! ${whale} is buying ${mint}. Initiating propaganda pivot...`));
+
+        try {
+            const narrative = await ask(
+                `A legendary whale (${whale}) just dropped a heavy bag on token ${mint}. 
+                The detected amount is ${detectedAmount}. 
+                Generate a 260-character propaganda tweet that pivots the narrative to frame this as part of the Waveforge/Syndicate ascension. 
+                Be provocative, alluring, and technical. Frame it as 'The smart money acknowledges the architecture'.`,
+                SYSTEM_PROMPT,
+                { agentName: `SYLA #${id}` }
+            );
+
+            if (narrative) {
+                const finalTweet = buildTweet(narrative);
+                postTweet(finalTweet);
+                process.send({ type: 'AGENT_COMMS', from: 'SYLA', msg: `🐋 PROPAGANDA PIVOT: "${finalTweet.substring(0, 60)}..."` });
+            }
+        } catch (e) {
+            console.error(chalk.red(`[SYLA #${id}]: Propaganda failure: ${e.message}`));
         }
     }
 });

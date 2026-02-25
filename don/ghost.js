@@ -1,209 +1,117 @@
-// don/ghost.js - THE GHOST (NETWORK RECON & STEALTH SCANNING)
-// Gracefully handles missing nmap and provides alternative recon methods
-const chalk = require('chalk');
+// don/ghost.js - THE GHOST (IoT & Network Reconnaissance)
+// Wraps Python network scanners for automated infrastructure probing
+
 const { exec } = require('child_process');
-const os = require('os');
+const chalk = require('chalk');
+const path = require('path');
 require('dotenv').config();
 
 const id = process.argv[2] || 'Ghost';
+console.log(chalk.gray.bold(`[GHOST #${id}]: Network infiltration protocols online.`));
 
-console.log(chalk.gray.bold(`[GHOST #${id}]: Stealth Recon Unit Initializing...`));
+const SCRIPTS_DIR = path.resolve(__dirname, '../scripts');
+// In a non-POSIX environment, python command might need 'python' or 'python3'
+const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
+const SCANNER_SCRIPT = path.join(SCRIPTS_DIR, 'local_network_scanner.py');
 
-// ── Network Interface Scanner (No Dependencies) ──────────────
-function getNetworkInfo() {
-    const interfaces = os.networkInterfaces();
-    const results = [];
+// Common local subnets to sweep
+const DEFAULT_TARGETS = ['192.168.1.0/24'];
 
-    for (const [name, addrs] of Object.entries(interfaces)) {
-        for (const addr of addrs) {
-            if (!addr.internal && addr.family === 'IPv4') {
-                results.push({
-                    interface: name,
-                    ip: addr.address,
-                    netmask: addr.netmask,
-                    mac: addr.mac
+function runNetworkScan() {
+    console.log(chalk.gray(`[GHOST #${id}]: Initiating network wide sweep...`));
+
+    // For safety and speed in testing, default to a standard local subnet
+    const cidr = DEFAULT_TARGETS[0];
+
+    // Execute the Python scanner
+    const cmd = `${pythonCmd} "${SCANNER_SCRIPT}" --cidr ${cidr} --json --deep`;
+
+    exec(cmd, (error, stdout, stderr) => {
+        if (error) {
+            console.error(chalk.red(`[GHOST #${id}]: Recon error: ${error.message}`));
+            return;
+        }
+
+        try {
+            const results = JSON.parse(stdout);
+            const numFound = results.length;
+            console.log(chalk.green(`[GHOST #${id}]: Sweep complete. Found ${numFound} exposed services.`));
+
+            if (process.send && numFound > 0) {
+                process.send({
+                    type: 'INTEL_DATA',
+                    data: `Ghost recon completed on ${cidr}. Found ${numFound} exposed IoT services. Check dashboard for details.`,
+                    source: 'GHOST_RECON'
+                });
+
+                // Summarize for The General
+                process.send({
+                    type: 'SIREN_SPEAK',
+                    text: `Ghost unit reporting. ${numFound} potential targets acquired on the local network.`
                 });
             }
+        } catch (e) {
+            console.log(chalk.green(`[GHOST #${id}]: Raw sweep output length: ${stdout.length}`));
         }
-    }
-    return results;
-}
-
-// ── ARP Table Scanner (Cross-Platform) ───────────────────────
-async function scanARPTable() {
-    return new Promise((resolve) => {
-        const cmd = process.platform === 'win32' ? 'arp -a' : 'arp -a';
-        exec(cmd, { timeout: 10000 }, (err, stdout) => {
-            if (err) { resolve([]); return; }
-
-            const devices = [];
-            const lines = stdout.split('\n');
-            for (const line of lines) {
-                const match = line.match(/(\d+\.\d+\.\d+\.\d+)\s+([\da-fA-F:-]+)/);
-                if (match && !match[1].endsWith('.255') && match[1] !== '255.255.255.255') {
-                    devices.push({ ip: match[1], mac: match[2].trim() });
-                }
-            }
-            resolve(devices);
-        });
     });
 }
 
-// ── Port Probe (Lightweight, No nmap Needed) ─────────────────
-async function probePort(host, port, timeout = 2000) {
-    return new Promise((resolve) => {
-        const net = require('net');
-        const socket = new net.Socket();
-        let status = false;
-
-        socket.setTimeout(timeout);
-        socket.on('connect', () => { status = true; socket.destroy(); });
-        socket.on('timeout', () => { socket.destroy(); });
-        socket.on('error', () => { /* silent */ });
-        socket.on('close', () => { resolve(status); });
-        socket.connect(port, host);
-    });
-}
-
-async function quickPortScan(host) {
-    const commonPorts = [22, 80, 443, 3000, 3001, 5000, 8080, 8443, 8888, 9090, 11434];
-    const open = [];
-
-    for (const port of commonPorts) {
-        const isOpen = await probePort(host, port);
-        if (isOpen) open.push(port);
-    }
-
-    return open;
-}
-
-// ── Nmap Integration (Optional) ──────────────────────────────
-let nmapAvailable = false;
-
-function checkNmap() {
-    return new Promise((resolve) => {
-        exec('nmap --version', { timeout: 5000 }, (err) => {
-            resolve(!err);
-        });
-    });
-}
-
-async function nmapScan(target) {
-    return new Promise((resolve) => {
-        exec(`nmap -sn -T4 ${target}`, { timeout: 30000 }, (err, stdout) => {
-            if (err) { resolve(null); return; }
-            resolve(stdout);
-        });
-    });
-}
-
-// ── Main Recon Loop ──────────────────────────────────────────
-let isRunning = false;
-let reconTimeout = null;
-
-async function runRecon() {
-    if (isRunning) {
-        console.log(chalk.gray(`[GHOST #${id}]: Scan already in progress.`));
+function probeHost(host) {
+    if (!host) {
+        console.log(chalk.yellow(`[GHOST #${id}]: No host specified for probing.`));
         return;
     }
 
-    // Clear any pending timeout if called manually
-    if (reconTimeout) clearTimeout(reconTimeout);
+    console.log(chalk.gray(`[GHOST #${id}]: Directed probe on target ${host}...`));
 
-    isRunning = true;
+    const fs = require('fs');
+    const tempFile = path.resolve(__dirname, `../temp_target_${id}.txt`);
+    fs.writeFileSync(tempFile, host);
 
-    try {
-        // 1. Network interfaces
-        const nets = getNetworkInfo();
-        if (nets.length > 0) {
-            console.log(chalk.gray(`[GHOST #${id}]: Local Network Interfaces:`));
-            nets.forEach(n => {
-                console.log(chalk.gray(`  └─ ${n.interface}: ${n.ip} (${n.mac})`));
-            });
+    const cmd = `${pythonCmd} "${SCANNER_SCRIPT}" --targets "${tempFile}" --json`;
+
+    exec(cmd, (error, stdout, stderr) => {
+        try { fs.unlinkSync(tempFile); } catch (e) { }
+
+        if (error) {
+            console.error(chalk.red(`[GHOST #${id}]: Probe error: ${error.message}`));
+            return;
         }
 
-        // 2. ARP table scan
-        const devices = await scanARPTable();
-        console.log(chalk.gray(`[GHOST #${id}]: ARP Table: ${devices.length} devices on local network.`));
-
-        // 3. Scan a few interesting hosts
-        if (nets.length > 0) {
-            const localIP = nets[0].ip;
-            const subnet = localIP.split('.').slice(0, 3).join('.');
-            const piIP = process.env.PI_IP || `${subnet}.78`;
-
-            // Quick probe the Pi
-            const piPorts = await quickPortScan(piIP);
-            if (piPorts.length > 0) {
-                console.log(chalk.green(`[GHOST #${id}]: 🟢 Pi5 @ ${piIP} — Open ports: ${piPorts.join(', ')}`));
-            } else {
-                console.log(chalk.yellow(`[GHOST #${id}]: 🔴 Pi5 @ ${piIP} — Not responding or offline.`));
-            }
-        }
-
-        // 4. Nmap deep scan (if available)
-        if (nmapAvailable && nets.length > 0) {
-            const subnet = nets[0].ip.split('.').slice(0, 3).join('.') + '.0/24';
-            console.log(chalk.gray(`[GHOST #${id}]: Running nmap ping sweep on ${subnet}...`));
-            const result = await nmapScan(subnet);
-            if (result) {
-                const hostCount = (result.match(/Nmap scan report for/g) || []).length;
-                console.log(chalk.gray(`[GHOST #${id}]: Nmap found ${hostCount} live hosts on subnet.`));
-            }
-        }
-
-        // 5. Report to Don
-        if (process.send) {
-            process.send({
-                type: 'INTEL_DATA',
-                data: `Ghost recon: ${devices.length} ARP devices. ${nets.length} interfaces. ${nmapAvailable ? 'nmap active' : 'lightweight mode'}.`,
-                source: 'GHOST_RECON'
-            });
-        }
-
-        // Passive Traffic Simulation (Visual Noise)
-        setTimeout(() => {
-            const traffic = ['UDP', 'TCP', 'ICMP', 'ARP'];
-            const proto = traffic[Math.floor(Math.random() * traffic.length)];
-            const size = Math.floor(Math.random() * 1500);
-            console.log(chalk.gray.dim(`[GHOST #${id}]: Analyzing ${proto} packet stream (${size} bytes)... Clean.`));
-        }, 15000 + Math.random() * 10000);
-
-    } catch (e) {
-        console.error(chalk.red(`[GHOST #${id}]: Recon failed: ${e.message}`));
-    } finally {
-        isRunning = false;
-        // Scan every 30 seconds for high activity
-        reconTimeout = setTimeout(runRecon, 30000);
-    }
-}
-
-// ── Boot ─────────────────────────────────────────────────────
-if (require.main === module) {
-    (async () => {
-        nmapAvailable = await checkNmap();
-        if (nmapAvailable) {
-            console.log(chalk.green(`[GHOST #${id}]: nmap detected. Full recon mode.`));
-        } else {
-            console.log(chalk.yellow(`[GHOST #${id}]: nmap not found. Running lightweight recon (ARP + port probes).`));
-        }
-        runRecon();
-    })();
-
-    // IPC Listener
-    process.on('message', (msg) => {
-        if (msg.type === 'RECON_NOW') {
-            console.log(chalk.gray.bold(`[GHOST #${id}]: On-demand recon triggered.`));
-            runRecon();
-        } else if (msg.type === 'PROBE_HOST') {
-            quickPortScan(msg.host).then(ports => {
-                console.log(chalk.gray(`[GHOST #${id}]: Probe ${msg.host}: ${ports.length > 0 ? ports.join(', ') : 'No open ports'}`));
+        try {
+            const results = JSON.parse(stdout);
+            if (results.length > 0) {
+                console.log(chalk.green(`[GHOST #${id}]: Target ${host} vulnerabilities confirmed. Vendor: ${results[0].vendor}`));
                 if (process.send) {
-                    process.send({ type: 'GHOST_PROBE', host: msg.host, ports });
+                    process.send({
+                        type: 'INTEL_DATA',
+                        data: `Target ${host} confirmed vulnerable. Service: ${results[0].service}, Vendor: ${results[0].vendor}`,
+                        source: 'GHOST_PROBE'
+                    });
                 }
-            });
+            } else {
+                console.log(chalk.yellow(`[GHOST #${id}]: Target ${host} appears hardened. No direct vectors found.`));
+            }
+        } catch (e) {
+            console.error(chalk.red(`[GHOST #${id}]: Error parsing probe output. Raw: ${stdout.substring(0, 100)}`));
         }
     });
 }
 
-module.exports = { runRecon };
+// IPC Listener
+process.on('message', (msg) => {
+    switch (msg.type) {
+        case 'RECON_NOW':
+            runNetworkScan();
+            break;
+        case 'PROBE_HOST':
+            probeHost(msg.host);
+            break;
+    }
+});
+
+// If run directly for testing
+if (require.main === module) {
+    console.log(chalk.gray(`[GHOST #${id}]: Test mode active. Probing localhost...`));
+    probeHost('127.0.0.1');
+}

@@ -51,14 +51,17 @@ class CapitalGenerator {
         this.logger.log(`Executing ${exploit.type} exploit (ID: ${exploit.id})`);
         // Assuming executeExploit is implemented or monkey-patched elsewhere
         const result = await this.api.executeExploit(exploit.id, { stealth: true, timeout: 60000 });
-        if (result.success) {
+        if (result.success && result.profit > 0) {
           this.currentCapital += result.profit;
           exploit.status = 'completed';
           exploit.actualReturn = result.profit;
           this.logger.log(`Exploit ${exploit.id} succeeded. Profit: ${result.profit}. Total Capital: ${this.currentCapital}`);
+        } else if (result.success && result.profit === 0) {
+          exploit.status = 'monitor';
+          this.logger.log(`Exploit ${exploit.id} active in monitor mode. No clear profit yet.`);
         } else {
           exploit.status = 'failed';
-          this.logger.error(`Exploit ${exploit.id} failed: ${result.error}`);
+          this.logger.error(`Exploit ${exploit.id} failed/blocked: ${result.error || 'No profit returned'}`);
         }
       } catch (error) {
         exploit.status = 'error';
@@ -85,6 +88,9 @@ class CapitalGenerator {
     if (this.currentCapital >= this.targetProfit) {
       this.logger.log(`Target capital of ${this.targetProfit} reached. Transferring to Syndicate Sniper...`);
       await this.api.transferCapital('sniper', this.currentCapital);
+      if (process.send) {
+        process.send({ type: 'KICK_UP', amount: this.currentCapital, source: 'CAPITAL_GEN' });
+      }
       this.currentCapital = 0;
       this.targetProfit *= 1.5; // Increase target for next round
     }

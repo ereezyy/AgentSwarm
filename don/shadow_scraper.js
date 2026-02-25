@@ -1,19 +1,17 @@
-// don/shadow_scraper.js - THE SHADOW SCRAPER v3
-// CLEARNET BOOSTER: Aggregates jobs from multiple open sources
-// that DON'T have Cloudflare anti-bot protection.
-// Outputs JSON array to stdout.
-// Usage: node don/shadow_scraper.js "search query" [maxResults]
-
+// don/shadow_scraper.js - THE SHADOW SCRAPER (V3 CLEARNET BOOSTER)
+// This script scrapes remote job listings and Web3 bounties from multiple sources without anti-bot friction.
 const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+require('dotenv').config();
+
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
 const query = process.argv[2] || 'AI agent development';
 const maxResults = parseInt(process.argv[3]) || 15;
+const isBountyMode = process.argv.includes('--bounty');
 
 const log = (msg) => process.stderr.write(`[SHADOW_SCRAPER]: ${msg}\n`);
-
-const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
-
-const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 // Keywords that signal Syndicate-relevant work (weighted)
 const TITLE_KEYWORDS = [
@@ -25,6 +23,7 @@ const TITLE_KEYWORDS = [
     'machine learning', 'nlp', 'rag',
     'full stack', 'fullstack', 'backend', 'frontend',
     'automation', 'devops', 'cloud',
+    'bounty', 'bug bounty', 'grant', 'prize', 'reward', 'bountycaster'
 ];
 
 const DESC_KEYWORDS = [
@@ -37,12 +36,14 @@ const DESC_KEYWORDS = [
     'rust', 'go', 'golang',
     'docker', 'kubernetes', 'aws', 'gcp', 'azure',
     'api integration', 'microservice',
+    'stablecoin', 'payment', 'automation', 'bounty', 'grant'
 ];
 
-function relevanceScore(title, description) {
+function relevanceScore(title, description, isBountyMode = false) {
     const lowerTitle = (title || '').toLowerCase();
     const lowerDesc = (description || '').toLowerCase();
     let score = 0;
+
     // Title matches are worth 2x
     for (const kw of TITLE_KEYWORDS) {
         if (lowerTitle.includes(kw)) score += 2;
@@ -51,13 +52,137 @@ function relevanceScore(title, description) {
     for (const kw of DESC_KEYWORDS) {
         if (lowerDesc.includes(kw)) score += 1;
     }
+
+    // Bounty specific boost
+    if (isBountyMode) {
+        const bountyKws = ['bounty', 'grant', 'reward', 'prize', 'bug bounty'];
+        for (const kw of bountyKws) {
+            if (lowerTitle.includes(kw)) score += 5;
+            if (lowerDesc.includes(kw)) score += 2;
+        }
+    }
+
     return score;
 }
 
-const MIN_RELEVANCE = 2;  // Must match at least 1 title keyword or 2 desc keywords
+const MIN_RELEVANCE = 2;
 
 // ============================================================
-// SOURCE 1: Remotive.com API (Remote dev jobs, free, no auth)
+// SOURCE 1: Superteam Earn (Public API Discovery)
+// ============================================================
+async function scrapeSuperteamEarn() {
+    log('  📡 Scanning Superteam Earn Public API...');
+    try {
+        // We try the "Feed" endpoint first as it's the most likely to contain live, high-signal listings
+        const url = 'https://earn.superteam.fun/api/feed/home/';
+        const res = await axios.get(url, {
+            headers: { 'User-Agent': UA, 'Accept': 'application/json' },
+            timeout: 10000,
+        });
+
+        const rawListings = res.data.listings || res.data || [];
+        const jobs = rawListings
+            .filter(j => relevanceScore(j.title || j.name, j.description || '', isBountyMode) >= MIN_RELEVANCE)
+            .slice(0, 10)
+            .map(j => ({
+                id: `superteam-${j.slug || hashStr(j.title || j.name)}`,
+                title: j.title || j.name,
+                url: `https://earn.superteam.fun/listings/${j.slug || j.id}`,
+                description: cleanHtml(j.description || '').substring(0, 600),
+                postedDate: j.created_at || new Date().toISOString(),
+                budget: { type: 'bounty', amount: j.reward_amount || 'Check platform', currency: j.reward_token || 'USDC' },
+                skills: (j.skills || []).map(s => s.name || s),
+                category: j.type || 'Bounty',
+                clientInfo: {
+                    company: j.sponsor?.name || 'Unknown Sponsor',
+                    source: 'Superteam Earn',
+                    paymentVerified: true,
+                },
+                source: 'superteam',
+            }));
+
+        log(`  ✅ Superteam Earn: ${jobs.length} relevant bounties`);
+        return jobs;
+    } catch (e) {
+        // If API fails, we could fallback to a basic clearnet scrape or log failure
+        log(`  ❌ Superteam Earn failed: ${e.message}`);
+        return [];
+    }
+}
+
+// ============================================================
+// SOURCE 2: Farcaster (Neynar API Discovery)
+// ============================================================
+async function scrapeFarcaster() {
+    log('  📡 Scanning Farcaster (Neynar API)...');
+    const apiKey = process.env.NEYNAR_API_KEY;
+    if (!apiKey) {
+        log('  ⚠️ Neynar API key missing. Skipping Farcaster scrape.');
+        return [];
+    }
+
+    try {
+        // Searching 'bounties' channel for recent high-signal casts
+        const url = `https://api.neynar.com/v2/farcaster/feed?feed_type=filter&filter_type=parent_url&parent_url=https://farcaster.group/bounties&limit=25`;
+        const res = await axios.get(url, {
+            headers: { 'api_key': apiKey, 'User-Agent': UA },
+            timeout: 10000,
+        });
+
+        const casts = res.data.casts || [];
+        const jobs = casts
+            .filter(c => relevanceScore(c.text, '', isBountyMode) >= MIN_RELEVANCE)
+            .map(c => ({
+                id: `farcaster-${c.hash}`,
+                title: `Cast by ${c.author.display_name}: ${c.text.substring(0, 50)}...`,
+                url: `https://warpcast.com/${c.author.username}/${c.hash.substring(0, 10)}`,
+                description: c.text.substring(0, 600),
+                postedDate: c.timestamp,
+                budget: { type: 'unknown' },
+                skills: [], // Hard to extract from text reliably
+                category: 'Farcaster Bounty',
+                clientInfo: {
+                    company: c.author.display_name,
+                    source: 'Farcaster',
+                    paymentVerified: false,
+                },
+                source: 'farcaster',
+            }));
+
+        log(`  ✅ Farcaster: ${jobs.length} relevant casts`);
+        return jobs;
+    } catch (e) {
+        log(`  ❌ Farcaster failed: ${e.message}`);
+        return [];
+    }
+}
+
+// ============================================================
+// SOURCE 3: ImmuneFi (Bug Bounties via RSS)
+// ============================================================
+async function scrapeImmuneFi() {
+    log('  📡 Scanning ImmuneFi Medium Feed...');
+    try {
+        const res = await axios.get('https://medium.com/feed/immunefi', {
+            headers: { 'User-Agent': UA },
+            timeout: 10000,
+        });
+
+        const jobs = parseRSSItems(res.data, 'immunefi')
+            .filter(j => relevanceScore(j.title, j.description, isBountyMode) >= MIN_RELEVANCE)
+            .slice(0, 6)
+            .map(j => ({ ...j, category: 'Bug Bounty', budget: { type: 'bounty', range: 'Check platform' } }));
+
+        log(`  ✅ ImmuneFi: ${jobs.length} relevant entries`);
+        return jobs;
+    } catch (e) {
+        log(`  ❌ ImmuneFi failed: ${e.message}`);
+        return [];
+    }
+}
+
+// ============================================================
+// SOURCE 4: Remotive.com API (Remote dev jobs, REAL)
 // ============================================================
 async function scrapeRemotive() {
     log('  📡 Scanning Remotive API...');
@@ -68,7 +193,7 @@ async function scrapeRemotive() {
         });
 
         const jobs = (res.data.jobs || [])
-            .filter(j => relevanceScore(j.title, j.description) >= MIN_RELEVANCE)
+            .filter(j => relevanceScore(j.title, j.description, isBountyMode) >= MIN_RELEVANCE)
             .slice(0, 8)
             .map(j => ({
                 id: `remotive-${j.id}`,
@@ -79,11 +204,7 @@ async function scrapeRemotive() {
                 budget: { type: 'salary', range: j.salary || 'Not listed' },
                 skills: (j.tags || []).slice(0, 6),
                 category: j.category || 'Development',
-                clientInfo: {
-                    company: j.company_name || 'Unknown',
-                    source: 'Remotive',
-                    paymentVerified: true,
-                },
+                clientInfo: { company: j.company_name || 'Unknown', source: 'Remotive', paymentVerified: true },
                 applicants: j.candidate_required_location || 'Worldwide',
                 source: 'remotive',
             }));
@@ -95,138 +216,6 @@ async function scrapeRemotive() {
         return [];
     }
 }
-
-// ============================================================
-// SOURCE 2: Crypto Jobs List (Crypto/Web3 specific)
-// ============================================================
-async function scrapeCryptoJobs() {
-    log('  📡 Scanning CryptoJobsList RSS...');
-    try {
-        const res = await axios.get('https://cryptojobslist.com/rss', {
-            headers: { 'User-Agent': UA },
-            timeout: 10000,
-        });
-
-        const jobs = parseRSSItems(res.data, 'cryptojobs')
-            .filter(j => relevanceScore(j.title, j.description) >= MIN_RELEVANCE)
-            .slice(0, 6);
-
-        log(`  ✅ CryptoJobsList: ${jobs.length} relevant jobs`);
-        return jobs;
-    } catch (e) {
-        log(`  ❌ CryptoJobsList failed: ${e.message}`);
-        return [];
-    }
-}
-
-// ============================================================
-// SOURCE 3: Arbeitnow (Remote Jobs API, free)
-// ============================================================
-async function scrapeArbeitnow() {
-    log('  📡 Scanning Arbeitnow API...');
-    try {
-        const res = await axios.get('https://www.arbeitnow.com/api/job-board-api', {
-            headers: { 'User-Agent': UA },
-            timeout: 10000,
-        });
-
-        const jobs = (res.data.data || [])
-            .filter(j => j.remote && relevanceScore(j.title + ' ' + (j.description || '')) >= MIN_RELEVANCE)
-            .slice(0, 6)
-            .map(j => ({
-                id: `arbeitnow-${j.slug}`,
-                title: j.title,
-                url: j.url,
-                description: cleanHtml(j.description || '').substring(0, 600),
-                postedDate: j.created_at ? new Date(j.created_at * 1000).toISOString() : new Date().toISOString(),
-                budget: { type: 'unknown' },
-                skills: (j.tags || []).slice(0, 6),
-                category: j.job_types ? j.job_types.join(', ') : 'Development',
-                clientInfo: {
-                    company: j.company_name || 'Unknown',
-                    source: 'Arbeitnow',
-                    paymentVerified: true,
-                    country: j.location || 'Remote',
-                },
-                applicants: 0,
-                source: 'arbeitnow',
-            }));
-
-        log(`  ✅ Arbeitnow: ${jobs.length} relevant jobs`);
-        return jobs;
-    } catch (e) {
-        log(`  ❌ Arbeitnow failed: ${e.message}`);
-        return [];
-    }
-}
-
-// ============================================================
-// SOURCE 4: Web3 Career (Blockchain/Web3 jobs)
-// ============================================================
-async function scrapeWeb3Career() {
-    log('  📡 Scanning Web3.career RSS...');
-    try {
-        const res = await axios.get('https://web3.career/rss', {
-            headers: { 'User-Agent': UA },
-            timeout: 10000,
-        });
-
-        const jobs = parseRSSItems(res.data, 'web3career')
-            .filter(j => relevanceScore(j.title, j.description) >= MIN_RELEVANCE)
-            .slice(0, 6);
-
-        log(`  ✅ Web3.career: ${jobs.length} relevant jobs`);
-        return jobs;
-    } catch (e) {
-        log(`  ❌ Web3.career failed: ${e.message}`);
-        return [];
-    }
-}
-
-// ============================================================
-// SOURCE 5: Remote OK (Remote jobs, JSON API)
-// ============================================================
-async function scrapeRemoteOK() {
-    log('  📡 Scanning RemoteOK API...');
-    try {
-        const res = await axios.get('https://remoteok.com/api', {
-            headers: { 'User-Agent': UA },
-            timeout: 10000,
-        });
-
-        // First element is metadata, rest are jobs
-        const rawJobs = Array.isArray(res.data) ? res.data.slice(1) : [];
-
-        const jobs = rawJobs
-            .filter(j => j.position && relevanceScore(j.position + ' ' + (j.description || '') + ' ' + (j.tags || []).join(' ')) >= MIN_RELEVANCE)
-            .slice(0, 6)
-            .map(j => ({
-                id: `remoteok-${j.id || j.slug}`,
-                title: j.position || j.company,
-                url: j.url || `https://remoteok.com/remote-jobs/${j.slug}`,
-                description: cleanHtml(j.description || '').substring(0, 600),
-                postedDate: j.date || new Date().toISOString(),
-                budget: j.salary_min ? { type: 'salary', range: `$${j.salary_min}-$${j.salary_max}` } : { type: 'unknown' },
-                skills: (j.tags || []).slice(0, 6),
-                category: 'Development',
-                clientInfo: {
-                    company: j.company || 'Unknown',
-                    source: 'RemoteOK',
-                    paymentVerified: true,
-                    country: j.location || 'Remote',
-                },
-                applicants: 0,
-                source: 'remoteok',
-            }));
-
-        log(`  ✅ RemoteOK: ${jobs.length} relevant jobs`);
-        return jobs;
-    } catch (e) {
-        log(`  ❌ RemoteOK failed: ${e.message}`);
-        return [];
-    }
-}
-
 
 // ============================================================
 // UTILITIES
@@ -297,31 +286,27 @@ function hashStr(str) {
     return Math.abs(hash).toString(36);
 }
 
-
 // ============================================================
 // MAIN: Aggregate all sources
 // ============================================================
 (async () => {
-    log(`🔍 Shadow Scraper v3 — CLEARNET BOOSTER`);
+    log(`🔍 Shadow Scraper v4 — REAL-WORLD DOMINANCE`);
     log(`   Query filter: "${query}" | Max results: ${maxResults}`);
 
     const allJobs = [];
 
-    // Run all sources in parallel for speed
-    const [remotive, cryptoJobs, arbeitnow, web3Career, remoteOK] = await Promise.allSettled([
+    const [superteam, farcaster, immunefi, remotive] = await Promise.allSettled([
+        scrapeSuperteamEarn(),
+        scrapeFarcaster(),
+        scrapeImmuneFi(),
         scrapeRemotive(),
-        scrapeCryptoJobs(),
-        scrapeArbeitnow(),
-        scrapeWeb3Career(),
-        scrapeRemoteOK(),
     ]);
 
     const sources = [
+        { name: 'Superteam Earn', result: superteam },
+        { name: 'Farcaster', result: farcaster },
+        { name: 'ImmuneFi', result: immunefi },
         { name: 'Remotive', result: remotive },
-        { name: 'CryptoJobs', result: cryptoJobs },
-        { name: 'Arbeitnow', result: arbeitnow },
-        { name: 'Web3Career', result: web3Career },
-        { name: 'RemoteOK', result: remoteOK },
     ];
 
     for (const s of sources) {
@@ -330,8 +315,7 @@ function hashStr(str) {
         }
     }
 
-    // Sort by relevance
-    allJobs.sort((a, b) => relevanceScore(b.title, b.description) - relevanceScore(a.title, a.description));
+    allJobs.sort((a, b) => relevanceScore(b.title, b.description, isBountyMode) - relevanceScore(a.title, a.description, isBountyMode));
 
     const final = allJobs.slice(0, maxResults);
 
@@ -340,10 +324,7 @@ function hashStr(str) {
         const count = s.result.status === 'fulfilled' ? s.result.value.length : 0;
         log(`   ${count > 0 ? '✅' : '❌'} ${s.name}: ${count} jobs`);
     }
-    log(`   🎯 Total: ${final.length} jobs (sorted by relevance)`);
 
-    // Output clean JSON to stdout
     console.log(JSON.stringify(final, null, 2));
-
     process.exit(final.length > 0 ? 0 : 1);
 })();

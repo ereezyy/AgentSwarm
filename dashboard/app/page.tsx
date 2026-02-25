@@ -6,7 +6,7 @@ import {
   Signal, GraduationCap, Wifi, WifiOff, Crosshair, Eye,
   Zap, Bot, Mic, Phone, Code, Search, Flame, TrendingUp,
   AlertTriangle, Check, Clock, Target, Volume2, Globe, FileText,
-  MessageSquare
+  MessageSquare, Smartphone, Layers, Bell, BellOff
 } from "lucide-react";
 
 // ─── Type Definitions ────────────────────────────────────────
@@ -82,6 +82,10 @@ const AGENT_META: Record<string, { icon: typeof Terminal; color: string; divisio
   DEEPFAKER: { icon: Bot, color: "text-violet-400", division: "EXECUTION", title: "The Deepfaker" },
   ARCHITECT: { icon: Code, color: "text-emerald-300", division: "INTELLIGENCE", title: "The Architect" },
   HEADHUNTER: { icon: Target, color: "text-orange-500", division: "REVENUE", title: "The Headhunter" },
+  SEED_FUND_AGENT: { icon: Zap, color: "text-amber-500", division: "REVENUE", title: "The Seed Funder" },
+  CAPITAL_GEN: { icon: DollarSign, color: "text-emerald-500", division: "REVENUE", title: "Capital Gen" },
+  JULES: { icon: Brain, color: "text-blue-500", division: "EVOLUTION", title: "Jules Swarm" },
+  FARM: { icon: Wifi, color: "text-gray-400", division: "EXECUTION", title: "Swarm Controller" },
 };
 
 const DIVISION_COLORS: Record<string, string> = {
@@ -89,6 +93,7 @@ const DIVISION_COLORS: Record<string, string> = {
   EXECUTION: "border-red-500/30 bg-red-500/5",
   REVENUE: "border-yellow-500/30 bg-yellow-500/5",
   COMMS: "border-sky-500/30 bg-sky-500/5",
+  EVOLUTION: "border-blue-600/30 bg-blue-600/5",
 };
 
 interface TradeEntry {
@@ -112,12 +117,42 @@ export default function SyndicateDashboard() {
   const [headhunterData, setHeadhunterData] = useState<HeadhunterReport | null>(null);
   const [marketData, setMarketData] = useState<MarketState | null>(null);
   const [miningData, setMiningData] = useState<Record<string, any>>({});
+  const [farmData, setFarmData] = useState<any>(null);
   const [agentComms, setAgentComms] = useState<CommsEntry[]>([]);
-  const [selectedTab, setSelectedTab] = useState<"feed" | "headhunter" | "missions" | "comms">("feed");
+  const [time, setTime] = useState(new Date());
+  const [alarmTime, setAlarmTime] = useState("");
+  const [alarmEnabled, setAlarmEnabled] = useState(false);
+  const [isRinging, setIsRinging] = useState(false);
+  const [selectedTab, setSelectedTab] = useState<"feed" | "headhunter" | "missions" | "comms" | "swarm" | "raw">("feed");
+  const [rawSignals, setRawSignals] = useState<string[]>([]);
   const [chatInput, setChatInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const commsRef = useRef<HTMLDivElement>(null);
+  const rawScrollRef = useRef<HTMLDivElement>(null);
   const wsRef = useRef<WebSocket | null>(null);
+
+  // Clock logic
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Alarm check
+  useEffect(() => {
+    if (alarmEnabled && alarmTime) {
+      const nowStr = time.getHours().toString().padStart(2, '0') + ":" +
+        time.getMinutes().toString().padStart(2, '0');
+      if (nowStr === alarmTime && !isRinging) {
+        setIsRinging(true);
+        if (window.speechSynthesis) {
+          const u = new SpeechSynthesisUtterance("SYNDICATE ALARM: ATTENTION REQUIRED.");
+          window.speechSynthesis.speak(u);
+        }
+      } else if (nowStr !== alarmTime && isRinging) {
+        setIsRinging(false);
+      }
+    }
+  }, [time, alarmEnabled, alarmTime, isRinging]);
 
   // WebSocket connection
   useEffect(() => {
@@ -136,6 +171,9 @@ export default function SyndicateDashboard() {
       };
 
       ws.onmessage = (event) => {
+        // Capture raw data stream
+        setRawSignals(prev => [...prev.slice(-199), event.data]);
+
         try {
           const data = JSON.parse(event.data);
 
@@ -187,6 +225,12 @@ export default function SyndicateDashboard() {
             case "AGENT_COMMS":
               setAgentComms(prev => [...prev.slice(-199), { from: data.from, msg: data.msg, timestamp: data.timestamp }]);
               break;
+            case "STATUS_REPORT":
+              if (data.metrics) setFarmData((prev: any) => ({ ...prev, ...data.metrics }));
+              break;
+            case "FARM_STATUS":
+              setFarmData((prev: any) => ({ ...prev, devices: data.devices, active: true }));
+              break;
           }
         } catch (e) { /* ignore parse errors */ }
       };
@@ -225,6 +269,13 @@ export default function SyndicateDashboard() {
       commsRef.current.scrollTop = commsRef.current.scrollHeight;
     }
   }, [agentComms]);
+
+  // Auto-scroll Raw Feed
+  useEffect(() => {
+    if (rawScrollRef.current) {
+      rawScrollRef.current.scrollTop = rawScrollRef.current.scrollHeight;
+    }
+  }, [rawSignals]);
 
   const formatUptime = (s: number) => {
     const h = Math.floor(s / 3600).toString().padStart(2, "0");
@@ -285,6 +336,34 @@ export default function SyndicateDashboard() {
             <div className="hidden md:flex flex-col items-end">
               <span className="text-[9px] text-gray-600 uppercase tracking-wider">Active Agents</span>
               <span className="text-sm font-bold text-emerald-400 tabular-nums">{crew.length}</span>
+            </div>
+
+            {/* Clock & Alarm */}
+            <div className="hidden lg:flex flex-col items-center bg-black/40 border border-green-900/20 rounded-lg px-3 py-1 gap-1">
+              <div className="flex items-center gap-2">
+                <Clock className="w-3 h-3 text-green-500" />
+                <span className="text-xs font-bold text-white tabular-nums">
+                  {time.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 border-t border-green-900/40 pt-1 w-full justify-center">
+                <input
+                  type="time"
+                  value={alarmTime}
+                  onChange={(e) => setAlarmTime(e.target.value)}
+                  className="bg-transparent text-[8px] text-green-400 focus:outline-none border-none w-10 p-0"
+                />
+                <button
+                  onClick={() => {
+                    setAlarmEnabled(!alarmEnabled);
+                    if (isRinging) setIsRinging(false);
+                  }}
+                  className={`p-0.5 rounded transition-all ${alarmEnabled ? (isRinging ? 'bg-red-500 animate-pulse' : 'bg-green-500/20 text-green-400') : 'bg-gray-800 text-gray-600'}`}
+                  title={alarmEnabled ? "Disable Alarm" : "Enable Alarm"}
+                >
+                  {alarmEnabled ? <Bell className="w-2.5 h-2.5" /> : <BellOff className="w-2.5 h-2.5" />}
+                </button>
+              </div>
             </div>
 
             {/* Connection */}
@@ -371,9 +450,11 @@ export default function SyndicateDashboard() {
           <div className="flex items-center gap-1 bg-black/40 rounded-lg p-1 border border-green-900/20 w-fit">
             {([
               { key: "feed" as const, label: "INTEL FEED", icon: Signal },
+              { key: "raw" as const, label: "RAW INTEL", icon: Terminal },
               { key: "comms" as const, label: `CO-LAB${agentComms.length > 0 ? ` (${agentComms.length})` : ""}`, icon: MessageSquare },
               { key: "headhunter" as const, label: `HEADHUNTER${snipeCount > 0 ? ` (${snipeCount})` : ""}`, icon: Target },
               { key: "missions" as const, label: "OPERATIONS", icon: Zap },
+              { key: "swarm" as const, label: "SWARM", icon: Wifi },
             ]).map(tab => (
               <button
                 key={tab.key}
@@ -418,6 +499,34 @@ export default function SyndicateDashboard() {
                 {logs.length === 0 && (
                   <div className="flex items-center gap-2 text-gray-600 italic text-xs mt-20 justify-center">
                     <span className="cursor-blink">Awaiting swarm transmissions</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ─── RAW INTEL TAB ────────────────────────────── */}
+          {selectedTab === "raw" && (
+            <div className="border border-green-900/30 rounded-xl bg-black/40 backdrop-blur-sm overflow-hidden flex flex-col">
+              <div className="px-4 py-3 border-b border-green-900/20 flex items-center justify-between">
+                <h2 className="text-[10px] font-bold tracking-[0.2em] text-green-700 uppercase flex items-center gap-2">
+                  <Terminal className="w-3 h-3" /> Unparsed Neural Traffic
+                </h2>
+                <span className="text-[9px] text-gray-600 tabular-nums">{rawSignals.length} packets</span>
+              </div>
+              <div
+                ref={rawScrollRef}
+                className="flex-1 overflow-y-auto p-4 space-y-1 max-h-[calc(100vh-280px)] min-h-[500px] bg-black/80 font-mono text-[9px]"
+              >
+                {rawSignals.map((sig, i) => (
+                  <div key={i} className="text-green-500/60 border-b border-green-900/10 pb-1 break-all hover:text-green-400 transition-colors">
+                    <span className="text-green-800 mr-2 shrink-0">[{i.toString().padStart(3, '0')}]</span>
+                    {sig}
+                  </div>
+                ))}
+                {rawSignals.length === 0 && (
+                  <div className="flex items-center gap-2 text-gray-600 italic text-xs mt-20 justify-center">
+                    <span className="cursor-blink">Listening for raw packet drift...</span>
                   </div>
                 )}
               </div>
@@ -573,7 +682,7 @@ export default function SyndicateDashboard() {
                           <FileText className="w-3 h-3" /> Auto-Drafted Proposal
                         </div>
                         <div className="whitespace-pre-wrap pl-2 border-l border-green-500/30 text-gray-400 italic">
-                          "{headhunterData.proposals.find((p: any) => p.jobTitle === lead.title).text.substring(0, 250)}..."
+                          "{headhunterData?.proposals?.find((p: any) => p.jobTitle === lead.title)?.text.substring(0, 250)}..."
                         </div>
                       </div>
                     )}
@@ -689,7 +798,7 @@ export default function SyndicateDashboard() {
                           {info ? info.balance : "SCANNING..."} <span className="text-[10px] text-gray-600 font-normal">{coin}</span>
                         </div>
                         <div className="text-[8px] text-gray-600 font-mono mt-1">
-                          {info ? `${info.address.substring(0, 12)}...` : "Connecting to Node..."}
+                          {info ? (info.address as string).substring(0, 12) + "..." : "Connecting to Node..."}
                         </div>
                       </div>
                       <div className="text-right">
@@ -723,10 +832,98 @@ export default function SyndicateDashboard() {
                     </div>
                   ))}
                   {missions.length === 0 && (
-                    <div className="text-center py-6 text-gray-600 text-xs italic">
-                      No active missions. Standing by...
+                    <div className="space-y-6 flex flex-col items-center py-6">
+                      <div className="text-center text-gray-600 text-xs italic opacity-60">
+                        No active missions. Standing by...
+                      </div>
+
+                      {/* X Post Ticker */}
+                      <div className="w-full max-w-2xl bg-black/60 border border-green-900/20 rounded-lg h-10 flex items-center overflow-hidden relative group">
+                        <div className="absolute left-0 top-0 bottom-0 bg-green-900/20 px-3 flex items-center border-r border-green-900/40 z-10">
+                          <Signal className="w-3 h-3 text-green-500" />
+                          <span className="ml-2 text-[8px] font-black text-green-700 tracking-tighter">X-FEED</span>
+                        </div>
+                        <div className="whitespace-nowrap flex animate-ticker py-2">
+                          {agentComms.filter(c => c.from === 'SYLA' || c.from === 'SHADOW' || c.msg.toUpperCase().includes('X') || c.msg.toUpperCase().includes('POST')).length > 0 ? (
+                            agentComms.filter(c => c.from === 'SYLA' || c.from === 'SHADOW' || c.msg.toUpperCase().includes('X') || c.msg.toUpperCase().includes('POST')).map((c, i) => (
+                              <span key={i} className="mx-8 text-[10px] text-emerald-500/80 font-mono">
+                                <span className="text-white font-bold opacity-50">[{c.from}]</span> {c.msg}
+                                <span className="ml-2 text-green-900 text-[8px]">{new Date(c.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                              </span>
+                            ))
+                          ) : (
+                            <span className="mx-8 text-[9px] text-gray-700 uppercase tracking-widest">Awaiting neural broadcasts from the swarm...</span>
+                          )}
+                          {/* Duplicate for seamless loop if content is short */}
+                          <span className="mx-8 text-[9px] text-gray-700/20 uppercase tracking-widest">/// SYNDICATE ENCRYPTION ACTIVE ///</span>
+                        </div>
+                      </div>
                     </div>
                   )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {selectedTab === "swarm" && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-black/40 border border-green-900/30 rounded-xl p-5 backdrop-blur-sm">
+                  <div className="text-[10px] text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <Smartphone className="w-3 h-3" /> Hardware Swarm
+                  </div>
+                  <div className="text-3xl font-black text-white tabular-nums">
+                    {farmData?.devices || 0} <span className="text-[10px] text-gray-600 font-normal">DEVICES</span>
+                  </div>
+                  <div className="mt-2 flex items-center gap-2">
+                    <div className="px-2 py-0.5 rounded bg-green-500/20 text-green-500 text-[8px] font-bold">ADB TUNNEL ACTIVE</div>
+                    <div className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-500 text-[8px] font-bold">PARALLEL SYMBOLIC</div>
+                  </div>
+                </div>
+
+                <div className="bg-black/40 border border-green-900/30 rounded-xl p-5 backdrop-blur-sm">
+                  <div className="text-[10px] text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <Activity className="w-3 h-3" /> Engagement Velocity
+                  </div>
+                  <div className="text-3xl font-black text-white tabular-nums">
+                    {farmData?.engagementTotal || 0} <span className="text-[10px] text-gray-600 font-normal">OPS/HOUR</span>
+                  </div>
+                  <div className="mt-2 h-1 w-full bg-gray-800 rounded-full overflow-hidden">
+                    <div className="h-full bg-green-500 animate-pulse" style={{ width: '45%' }} />
+                  </div>
+                </div>
+
+                <div className="bg-black/40 border border-green-900/30 rounded-xl p-5 backdrop-blur-sm">
+                  <div className="text-[10px] text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <Globe className="w-3 h-3" /> Platform Latency
+                  </div>
+                  <div className="text-3xl font-black text-white tabular-nums">
+                    <span className="text-emerald-400">OPTIMAL</span>
+                  </div>
+                  <div className="mt-2 text-[10px] text-gray-600 font-mono">
+                    US-EAST EDGE // ROTATING PROXIES
+                  </div>
+                </div>
+              </div>
+
+              <div className="border border-green-900/30 rounded-xl bg-black/40 backdrop-blur-sm overflow-hidden">
+                <div className="px-4 py-3 border-b border-green-900/20 flex items-center justify-between">
+                  <h2 className="text-[10px] font-bold tracking-[0.2em] text-green-700 uppercase flex items-center gap-2">
+                    <Layers className="w-3 h-3" /> Social Injection Heatmap
+                  </h2>
+                  <div className="flex gap-2">
+                    <button className="px-3 py-1 rounded bg-green-900/20 text-green-500 text-[9px] hover:bg-green-500/20 transition-all font-bold">FORCE SCAN</button>
+                    <button className="px-3 py-1 rounded bg-red-900/20 text-red-500 text-[9px] hover:bg-red-500/20 transition-all font-bold">KILL ALL</button>
+                  </div>
+                </div>
+                <div className="p-10 text-center">
+                  <div className="relative inline-block">
+                    <div className="w-32 h-32 rounded-full border-4 border-green-500/20 border-t-green-500 animate-spin" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Signal className="w-8 h-8 text-green-500/40" />
+                    </div>
+                  </div>
+                  <p className="mt-6 text-gray-500 text-xs italic">Mapping physical device telemetry...</p>
                 </div>
               </div>
             </div>
@@ -748,6 +945,19 @@ export default function SyndicateDashboard() {
           ENCRYPTED // EST. 2026 // {connected ? "LINK: SECURE" : "LINK: SEVERED"}
         </div>
       </footer>
+      <style jsx global>{`
+        @keyframes ticker {
+          0% { transform: translateX(50%); }
+          100% { transform: translateX(-150%); }
+        }
+        .animate-ticker {
+          display: inline-flex;
+          animation: ticker 25s linear infinite;
+        }
+        .animate-ticker:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </div>
   );
 }

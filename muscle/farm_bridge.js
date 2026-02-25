@@ -77,6 +77,54 @@ class FarmBridge {
     }
 
     /**
+     * TIKTOK: Swipe through reels and stay on target
+     */
+    async tiktokHighlight(deviceId, url) {
+        console.log(`[FarmBridge] TikTok Highlight on ${deviceId}: ${url}`);
+        await this.openUrl(deviceId, url);
+        await this.humanDelay();
+        // Emulate watching (scroll, dwell, like)
+        await this.emulateEngagement(deviceId);
+        // Double tap for like (approximate center for TikTok)
+        await this.tap(deviceId, 540, 960);
+        await this.humanDelay();
+        await this.tap(deviceId, 540, 960);
+    }
+
+    /**
+     * INSTAGRAM: Open reel and like
+     */
+    async instagramLike(deviceId, url) {
+        console.log(`[FarmBridge] Instagram Like on ${deviceId}: ${url}`);
+        await this.openUrl(deviceId, url);
+        await this.humanDelay();
+        // Tap heart icon (approximate screen position for Reels)
+        await this.tap(deviceId, 950, 1300);
+    }
+
+    /**
+     * FACEBOOK: Open post and like
+     */
+    async facebookLike(deviceId, url) {
+        console.log(`[FarmBridge] Facebook Like on ${deviceId}: ${url}`);
+        await this.openUrl(deviceId, url);
+        await this.humanDelay();
+        await this.emulateEngagement(deviceId);
+        // Tap like button (approximate screen position)
+        await this.tap(deviceId, 300, 1500);
+    }
+
+    /**
+     * YT SHORTS: Engagement
+     */
+    async youtubeShorts(deviceId, url) {
+        console.log(`[FarmBridge] YouTube Shorts Engagement on ${deviceId}: ${url}`);
+        await this.openUrl(deviceId, url);
+        await this.humanDelay();
+        await this.emulateEngagement(deviceId);
+    }
+
+    /**
      * ECHO CHAMBER: Automated Scroll & Dwell
      */
     async emulateEngagement(deviceId) {

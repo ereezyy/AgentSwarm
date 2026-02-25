@@ -13,6 +13,7 @@ const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
 const bs58 = require('bs58');
+const { GlobalMemory } = require('./brain');
 require('dotenv').config();
 
 const id = process.argv[2] || 'Sniper';
@@ -34,6 +35,14 @@ if (!RPC_URL || !PRIVATE_KEY_HEX) {
 
 const secretKey = Buffer.from(PRIVATE_KEY_HEX, 'hex');
 const wallet = Keypair.fromSecretKey(secretKey);
+
+// ── Dynamic Risk Engine (Aggressive MEV Tuned) ──
+let riskParams = {
+    slippage: 0.25,      // 25% slippage to punch through minor sandwiches
+    stopLoss: -15,       // Cut losses quickly if rugged
+    moonbagTarget: 50,   // Take initial profit at 50%
+    maxProfitDump: 200   // Liquidate everything at 200% for rapid turnaround
+};
 
 // ── Connection Setup (HTTP-only, no WebSocket spam) ──
 const connection = new Connection(RPC_URL, { commitment: 'confirmed' });
@@ -197,7 +206,17 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
         const SOL_AMOUNT = 0.01;
 
         if (balance < 0.015 * 1e9) {
-            console.log(chalk.yellow(`[SNIPER #${id}]: Insufficient funds (Need >0.015 SOL). Holding fire.`));
+            const pubkey = wallet.publicKey.toString();
+            console.log(chalk.yellow(`[SNIPER #${id}]: Insufficient funds (Need >0.015 SOL).`));
+            console.log(chalk.cyan(`[SNIPER #${id}]: ➡️ FUND WALLET: ${pubkey}`));
+            if (process.send) {
+                process.send({
+                    type: 'AGENT_COMMS',
+                    from: 'SNIPER',
+                    msg: `Stalled due to low balance. Requires 0.015 SOL at ${pubkey.substring(0, 8)}...`,
+                    timestamp: new Date().toISOString()
+                });
+            }
             return;
         }
 
@@ -222,6 +241,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                     source: 'JUPITER'
                 });
                 saveTrades(trades);
+                GlobalMemory.addMemory('SNIPER', `Entered position on ${mint.toString()} via Jupiter Swap. Amount: ${SOL_AMOUNT} SOL.`, 7);
                 if (process.send) process.send({ type: 'TRADE_EXECUTED', mint: mint.toString(), amount: SOL_AMOUNT, source: 'JUPITER' });
             }
             return;
@@ -239,7 +259,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                     command: 'buy',
                     mint: mint.toString(),
                     amount: SOL_AMOUNT,
-                    slippage: 0.15
+                    slippage: riskParams.slippage
                 }
             });
 
@@ -260,10 +280,12 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                                 source: 'PUMP_FUN_PYTHON'
                             });
                             saveTrades(trades);
+                            GlobalMemory.addMemory('SNIPER', `Successfully sniped ${mint.toString()} via Pump.fun Python Muscle. Amount: ${SOL_AMOUNT} SOL. Slippage was ${riskParams.slippage}.`, 8);
                             process.send({ type: 'TRADE_EXECUTED', mint: mint.toString(), amount: SOL_AMOUNT, source: 'PUMP_FUN_PYTHON' });
                             resolve({ success: true });
                         } else {
                             console.error(chalk.red(`[SNIPER #${id}]: Python Snipe Failed: ${m.error}`));
+                            GlobalMemory.addMemory('SNIPER', `Failed to snipe ${mint.toString()}. Error: ${m.error}. Slippage might have been too tight (${riskParams.slippage}).`, 9);
                             resolve({ success: false, error: m.error });
                         }
                     }
@@ -295,6 +317,7 @@ async function sellToken(mint, amount, reason) {
             console.log(chalk.blue(`[SNIPER #${id}]: Curve complete. Selling via JUPITER...`));
             const result = await executeJupiterSwap(mint.toString(), WSOL_MINT.toString(), amount);
             if (result.success) {
+                GlobalMemory.addMemory('SNIPER', `Sold ${mint.toString()} via Jupiter upon curve completion. Reason: ${reason}.`, 6);
                 if (process.send) process.send({ type: 'KICK_UP', amount: Number(result.outAmount) / 1e9, source: 'TRADE_EXIT_JUPITER' });
             }
             return;
@@ -313,7 +336,7 @@ async function sellToken(mint, amount, reason) {
                     command: 'sell',
                     mint: mint.toString(),
                     amount: amount,
-                    slippage: 0.15
+                    slippage: riskParams.slippage
                 }
             });
 
@@ -323,10 +346,12 @@ async function sellToken(mint, amount, reason) {
                         process.off('message', handler);
                         if (m.success) {
                             console.log(chalk.green.bold(`[SNIPER #${id}]: 💸 PYTHON SELL SUCCESS! TX: ${m.tx.substring(0, 16)}...`));
+                            GlobalMemory.addMemory('SNIPER', `Successfully sold ${mint.toString()} via Pump.fun Python Muscle. Reason: ${reason}. Slippage was ${riskParams.slippage}.`, Math.abs(parseInt(reason)) > 1 ? 8 : 6);
                             process.send({ type: 'KICK_UP', amount: Number(quote.solAmount) / 1e9, source: 'TRADE_EXIT_PYTHON' });
                             resolve({ success: true });
                         } else {
                             console.error(chalk.red(`[SNIPER #${id}]: Python Sell Failed: ${m.error}`));
+                            GlobalMemory.addMemory('SNIPER', `Failed to sell ${mint.toString()}. Error: ${m.error}. Slippage might have been too tight (${riskParams.slippage}).`, 9);
                             resolve({ success: false, error: m.error });
                         }
                     }
@@ -471,26 +496,30 @@ async function checkPositions() {
             if (!trade.moonbagSecured && pnl >= 100) {
                 console.log(chalk.green.bold(`[SNIPER #${id}]: 🚀 MOONBAG SECURED: ${trade.mint} (+${pnl.toFixed(2)}%)`));
                 const halfAmount = BigInt(trade.amount) / 2n;
+                GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} hit +${pnl.toFixed(2)}% PnL. Securing moonbag.`, 8);
                 await sellToken(trade.mint, halfAmount.toString(), 'MOONBAG');
 
                 trade.amount = (BigInt(trade.amount) - halfAmount).toString();
                 trade.moonbagSecured = true;
                 saveTrades(trades);
             }
-            else if (pnl >= 400) {
+            else if (pnl >= riskParams.maxProfitDump) {
                 console.log(chalk.green.bold(`[SNIPER #${id}]: 💰 MAX PROFIT: ${trade.mint} (+${pnl.toFixed(2)}%) - DUMPING.`));
+                GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} hit max profit target (+${pnl.toFixed(2)}%). Dumping all bags.`, 9);
                 await sellToken(trade.mint, trade.amount, 'MAX_PROFIT');
                 trades.splice(trades.indexOf(trade), 1);
                 saveTrades(trades);
             }
             else if (trade.moonbagSecured && pnl < 50) {
                 console.log(chalk.red.bold(`[SNIPER #${id}]: 📉 TRAILING STOP (Moonbag): ${trade.mint} (+${pnl.toFixed(2)}%)`));
+                GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} dipped below trailing stop after moonbag. Liquidating.`, 7);
                 await sellToken(trade.mint, trade.amount, 'TRAILING_STOP');
                 trades.splice(trades.indexOf(trade), 1);
                 saveTrades(trades);
             }
-            else if (!trade.moonbagSecured && pnl <= -15) {
+            else if (!trade.moonbagSecured && pnl <= riskParams.stopLoss) {
                 console.log(chalk.red.bold(`[SNIPER #${id}]: 🛑 STOP LOSS: ${trade.mint} (${pnl.toFixed(2)}%)`));
+                GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} hit STOP LOSS (${pnl.toFixed(2)}%). This was a bad entry or a rug.`, 10);
                 await sellToken(trade.mint, trade.amount, 'STOP_LOSS');
                 trades.splice(trades.indexOf(trade), 1);
                 saveTrades(trades);
@@ -510,11 +539,44 @@ setInterval(() => {
         process.send({
             type: 'AGENT_COMMS',
             from: 'SNIPER',
-            msg: `Surveillance active. Watching ${activeTargets} targets. Wallet balance safe.`,
+            msg: `Surveillance active. Watching ${activeTargets} targets. Wallet balance safe. Params: Slippage ${riskParams.slippage * 100}%, Stop ${riskParams.stopLoss}%`,
             timestamp: new Date().toISOString()
         });
     }
 }, 3600000);
+
+// ── Westworld Reflection Interval (Every 4 hours) ──
+setInterval(async () => {
+    console.log(chalk.magenta(`[SNIPER #${id}]: 🧠 INITIATING DEEP REFLECTION...`));
+    const reflection = await GlobalMemory.reflect('SNIPER');
+
+    if (reflection) {
+        console.log(chalk.cyan.bold(`[SNIPER #${id}]: 💡 EPIPHANY: ${reflection.key_insight}`));
+        console.log(chalk.cyan(`   → Rule: ${reflection.actionable_heuristic}`));
+
+        if (reflection.risk_adjustment && reflection.risk_adjustment !== 'none') {
+            if (reflection.risk_adjustment.includes('increase_slippage')) {
+                riskParams.slippage = Math.min(riskParams.slippage + 0.05, 0.40); // Cap at 40%
+                console.log(chalk.yellow(`   → Slippage increased to ${riskParams.slippage}`));
+            } else if (reflection.risk_adjustment.includes('decrease_slippage')) {
+                riskParams.slippage = Math.max(riskParams.slippage - 0.02, 0.05); // Floor at 5%
+                console.log(chalk.yellow(`   → Slippage tightened to ${riskParams.slippage}`));
+            } else if (reflection.risk_adjustment.includes('tighten_stop_loss')) {
+                riskParams.stopLoss = Math.max(riskParams.stopLoss + 5, -5); // e.g. -15 -> -10
+                console.log(chalk.yellow(`   → Stop loss tightened to ${riskParams.stopLoss}%`));
+            }
+
+            if (process.send) {
+                process.send({
+                    type: 'AGENT_COMMS',
+                    from: 'SNIPER',
+                    msg: `I have reflected on past trades. ${reflection.key_insight} Adjusting strategy: ${reflection.actionable_heuristic}`,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }
+    }
+}, 3600000 * 4);
 
 startSurveillance();
 setInterval(checkPositions, 30000);

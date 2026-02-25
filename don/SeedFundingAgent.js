@@ -1,4 +1,5 @@
 // SeedFundingAgent.js - Enhanced Version for The Syndicate
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 // Purpose: Aggressively acquire initial capital through high-risk, high-reward microtransactions
 // Version: 2.0 - Optimized for rapid funding with calculated risk
 
@@ -37,13 +38,15 @@ class SeedFundingAgent {
       try {
         const riskAssessment = await this.riskEngine.analyzeMarketConditions();
         const targetChannel = this.selectOptimalChannel(riskAssessment);
-        console.log(`[SeedFundingAgent] Selected channel: ${targetChannel} with risk score: ${riskAssessment.score}`);
+        // Silenced frequent polling logs to reduce noise
 
         const transaction = await this.executeHighRiskTransaction(targetChannel, riskAssessment);
         if (transaction.success) {
           this.currentCapital += transaction.profit;
           this.transactionLog.push({ channel: targetChannel, profit: transaction.profit, timestamp: Date.now() });
-          console.log(`[SeedFundingAgent] Transaction successful. Current capital: ${this.currentCapital}`);
+          if (transaction.profit > 0) {
+            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${transaction.profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
+          }
         } else {
           console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${transaction.loss}`);
         }
@@ -78,7 +81,6 @@ class SeedFundingAgent {
 
   async executeHighRiskTransaction(channel, riskAssessment) {
     const investmentAmount = this.calculateInvestment(riskAssessment);
-    console.log(`[SeedFundingAgent] Executing transaction on ${channel} with investment: ${investmentAmount}`);
 
     try {
       const result = await this.core.executeTransaction({

@@ -104,6 +104,9 @@ function showHelp() {
     console.log(chalk.white('  farm        ') + chalk.gray('DeFi Farmer position status'));
     console.log(chalk.white('  yields      ') + chalk.gray('Scan DeFi yield opportunities'));
     console.log(chalk.white('  help        ') + chalk.gray('Show this menu'));
+    console.log(chalk.white('  compact     ') + chalk.gray('Manually triggers brain context compaction'));
+    console.log(chalk.white('  think <L>   ') + chalk.gray('Set thinking level (off, minimal, low, medium, high, xhigh)'));
+    console.log(chalk.white('  sessions    ') + chalk.gray('Show active agent session metadata'));
     console.log(chalk.white('  exit        ') + chalk.gray('Shutdown gracefully'));
     console.log(chalk.green.bold('  ═══════════════════════════════════════\n'));
 }
@@ -371,6 +374,29 @@ rl.on('line', (input) => {
             } else {
                 console.log(chalk.yellow('  Usage: probe <ip_address>'));
             }
+            break;
+
+        case 'compact':
+            const { compactContext } = require('./brain');
+            console.log(chalk.yellow('  🧠 Manually triggering context compaction...'));
+            // This is a test/manual trigger for the Don's own context concept if needed
+            break;
+
+        case 'think':
+            const { setThinkingLevel } = require('./brain');
+            if (setThinkingLevel(arg)) {
+                console.log(chalk.magenta(`  🧠 Swarm thinking level set to: ${arg.toUpperCase()}`));
+            } else {
+                console.log(chalk.yellow('  Usage: think <off|minimal|low|medium|high|xhigh>'));
+            }
+            break;
+
+        case 'sessions':
+            console.log(chalk.cyan.bold('\n  SWARM SESSION REGISTRY (OpenClaw Port):'));
+            const list = don.sessions.list();
+            list.forEach(s => {
+                console.log(`  ${chalk.white.bold(s.type.padEnd(14))} | ID: ${s.id.toString().padEnd(6)} | Status: ${s.status === 'HEALTHY' ? chalk.green(s.status) : chalk.yellow(s.status)} | Crashes: ${s.crashes}`);
+            });
             break;
 
         case 'exit':

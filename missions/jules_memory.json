@@ -1,0 +1,6 @@
+{
+  "Codebase Rule #1": {
+    "value": "Always use process.send for IPC logging.",
+    "timestamp": 0
+  }
+}

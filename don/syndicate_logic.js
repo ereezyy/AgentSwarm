@@ -1,6 +1,7 @@
 // OPTIMIZED BY LIBRARIAN: Distributed Swarm Coordination
 // Integration of advanced logic from Moltbook ecosystem.
 // don/syndicate_logic.js - THE DON (NO SIMULATIONS)
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 const { exec, fork } = require('child_process');
 const path = require('path');
 const fs = require('fs');
@@ -10,6 +11,7 @@ let SolanaWeb3 = null;
 try { SolanaWeb3 = require('@solana/web3.js'); } catch (e) { /* optional */ }
 
 const MUSCLE_SCRIPT = path.join(__dirname, '../muscle/enforcer.py');
+const SessionManager = require('./sessions');
 
 class DonCore {
     constructor() {
@@ -21,7 +23,8 @@ class DonCore {
             errors: {},
             agents_spawned: 0,
             uptime: 0,
-            profit: 0
+            profit: 0,
+            profits: {}
         };
         this.saveTelemetry();
         this.skimRate = 0.15;
@@ -30,6 +33,7 @@ class DonCore {
         this.agentComms = []; // Agent Communication Board
         this.restartState = {}; // Per-agent restart backoff tracking
         this.agentHealth = {}; // Per-agent health status for dashboard
+        this.sessions = new SessionManager(this);
 
         // Start WebSocket Server
         if (process.env.NODE_ENV !== "test") {
@@ -57,8 +61,8 @@ class DonCore {
             });
             this.log("WebSocket Server running on port 8080", "INFO");
         } else {
-             // Mock WSS for testing
-             this.wss = { clients: [], on: () => {} };
+            // Mock WSS for testing
+            this.wss = { clients: [], on: () => { } };
         }
     }
 
@@ -100,6 +104,26 @@ class DonCore {
                             proc.send({ type: 'MEETING_START', topic, from: 'THE DON' });
                         }
                     });
+                    return;
+                }
+
+                // Check for God Mode trigger
+                if (cmd.msg && (cmd.msg.toLowerCase().startsWith('/godmode') || cmd.msg.toLowerCase().includes('@godmode'))) {
+                    const topic = cmd.msg.replace(/^\/godmode\s*|@GodMode\s*/i, '').trim();
+                    this.log(`[DON] ⚡ INITIATING GOD MODE CONSENSUS: ${topic}`, 'POWER');
+
+                    this.broadcast({
+                        type: 'AGENT_COMMS',
+                        from: 'THE DON',
+                        msg: `⚡ INITIATING GOD MODE CONSENSUS: "${topic}"`,
+                        timestamp: new Date().toISOString()
+                    });
+
+                    if (this.processes['ORACLE'] && this.processes['ORACLE'].connected) {
+                        this.processes['ORACLE'].send({ type: 'EXECUTE_GOD_MODE', topic, from: 'THE DON' });
+                    } else {
+                        this.log(`Oracle offline. God Mode failed.`, 'ERROR');
+                    }
                     return;
                 }
 
@@ -169,6 +193,11 @@ class DonCore {
         console.log(color(`[${icons[type] || ''} ${type}] ${msg}`));
         this.broadcast({ type: 'LOG', msg, level: type, timestamp: new Date().toISOString() });
 
+        // Audio Cue for Errors
+        if (type === 'ERROR' && this.callerProcess && this.callerProcess.connected) {
+            this.callerProcess.send({ type: 'PLAY_CUE', cue: 'BAD' });
+        }
+
         // Update Telemetry on Errors/Profits
         if (type === 'ERROR' || type === 'MONEY' || type === 'CRYPTO') {
             if (type === 'ERROR') this.telemetry.errors['SYSTEM'] = (this.telemetry.errors['SYSTEM'] || 0) + 1;
@@ -194,8 +223,11 @@ class DonCore {
         const sourceLabel = source === 'CRYPTO' ? 'Actual Trade' : (source === 'SNIPE' ? 'Snipe Profit' : 'External Hustle');
         this.log(`REAL PROFIT: Soldier #${soldierId} (${sourceLabel}) kicked up $${amount}. War Chest: $${this.profit.toFixed(2)}`, 'MONEY');
 
-        if (source === 'SNIPE' && this.callerProcess) {
+        if (source === 'SNIPE' && this.callerProcess && this.callerProcess.connected) {
+            this.callerProcess.send({ type: 'PLAY_CUE', cue: 'GOOD' });
             this.callerProcess.send({ type: 'SPEAK_ALERT', text: `Target eliminated. Sniper ${soldierId} has secured the profit.` });
+        } else if (this.callerProcess && this.callerProcess.connected) {
+            this.callerProcess.send({ type: 'PLAY_CUE', cue: 'GOOD' });
         }
 
         const trades = this.loadTradeHistory();
@@ -211,6 +243,9 @@ class DonCore {
     hustle() {
         this.log("Syndicate V2 (Mainnet) Initializing. Silence is power.");
         this.orderMuscle('shakedown');
+
+        // Spawn THE VAULT (Sovereign Signer) FIRST
+        this.spawnSoldier('VAULT');
 
         // Spawn ACTUAL EARNERS
         setTimeout(() => this.spawnSoldier('SNIPER'), 2000);
@@ -229,6 +264,7 @@ class DonCore {
         setTimeout(() => this.spawnSoldier('DEEPFAKER'), 15000); // Video Avatar
         setTimeout(() => this.spawnSoldier('ARCHITECT'), 14500); // Self-Evolution
         setTimeout(() => this.spawnSoldier('HEADHUNTER'), 15500); // Upwork Job Hunter
+        setTimeout(() => this.spawnSoldier('ORCHESTRATOR'), 16500); // Jules Evolution Orchestrator
 
         // Spawn Sub-Agents (The "Lost Legion")
         setTimeout(() => this.spawnSoldier('HYDRA'), 16000);
@@ -238,6 +274,8 @@ class DonCore {
         setTimeout(() => this.spawnSoldier('DEFI_FARMER'), 19000); // Yield
         setTimeout(() => this.spawnSoldier('MIRROR'), 19500); // Intel
         setTimeout(() => this.spawnSoldier('SIGNAL_BOT'), 20000); // Telegram
+        setTimeout(() => this.spawnSoldier('SEED_FUND_AGENT'), 21000); // Industrial Capital
+        setTimeout(() => this.spawnSoldier('CAPITAL_GEN'), 22000); // Industrial Exploits
 
         // Spawn THE LIBRARIAN (Moltbook)
         setTimeout(() => this.spawnSoldier('LIBRARIAN'), 10000);
@@ -246,6 +284,7 @@ class DonCore {
         setTimeout(() => {
             this.log("Activating The Caller (Voice AI)...", 'POWER');
             this.spawnSoldier('CALLER');
+            this.spawnSoldier('FARM_AGENT');
 
             // TEST TWILIO BRIDGE
             setTimeout(() => {
@@ -309,7 +348,10 @@ class DonCore {
             this.log(`${type} already active. Skipping duplicate spawn.`, 'INFO');
             return;
         }
-        const id = Math.floor(Math.random() * 9000) + 1000;
+        const crypto = require('crypto');
+        const secret = process.env.OWNER_DISPLAY_SECRET || 'syndicate-secret-888';
+        const rawId = Math.random().toString() + Date.now().toString();
+        const id = crypto.createHmac('sha256', secret).update(rawId).digest('hex').substring(0, 8);
         let scriptName = {
             'CRYPTO': 'hustler.js',
             'GHOST': 'ghost.js',
@@ -329,6 +371,8 @@ class DonCore {
             'DEEPFAKER': 'deepfaker.js',
             'ARCHITECT': 'architect.js',
             'HEADHUNTER': 'headhunter.js',
+            'ORCHESTRATOR': 'jules_orchestrator.js',
+            'VAULT': 'vault.js',
             'CLOSER': 'closer.js',
             'SIGNAL_BOT': 'signal_bot.js',
             'SERVICE_FORGE': 'service_forge.js',
@@ -339,7 +383,10 @@ class DonCore {
             'ECHO_CHAMBER': 'echo_chamber.js',
             'DEFI_FARMER': 'defi_farmer.js',
             'HYDRA': 'hydra.js',
-            'PIRATE': 'pirate.js'
+            'PIRATE': 'pirate.js',
+            'SEED_FUND_AGENT': 'SeedFundingAgent.js',
+            'CAPITAL_GEN': 'capital_generator.js',
+            'FARM_AGENT': 'farm_agent.js'
         }[type];
 
         // Fallback for Architect-generated agents
@@ -351,6 +398,11 @@ class DonCore {
             }
             scriptName = type.toLowerCase();
             if (!scriptName.endsWith('.js')) scriptName += '.js';
+
+            if (!fs.existsSync(path.join(__dirname, scriptName))) {
+                this.log(`Agent script '${scriptName}' not found. Aborting spawn.`, 'ERROR');
+                return;
+            }
         }
 
         const child = fork(path.join(__dirname, scriptName), [id, type], { silent: true });
@@ -408,17 +460,22 @@ class DonCore {
                 }
                 this.broadcast({ type: 'UPGRADE', agent: msg.agent, protocol: msg.protocol });
             } else if (msg.type === 'SIREN_SPEAK') {
-                if (this.processes['CALLER'] && this.processes['CALLER'].connected) {
-                    this.log(`Forwarding report to vocal engine...`, 'POWER');
-                    this.processes['CALLER'].send({ type: 'SPEAK_ALERT', text: msg.text });
-                }
+                this.log(`Intelligence Alert: ${msg.text.substring(0, 50)}...`, 'INFO');
+                // Silenced to prevent overlap with THE GENERAL (Caller)
+                // if (this.processes['CALLER'] && this.processes['CALLER'].connected) {
+                //     this.processes['CALLER'].send({ type: 'SPEAK_ALERT', text: msg.text });
+                // }
             } else if (msg.type === 'GENERATE_IMAGE') {
                 if (this.processes['FORGER'] && this.processes['FORGER'].connected) {
                     this.processes['FORGER'].send(msg);
                 }
             } else if (msg.type === 'SNIPE_SUCCESS') {
                 this.log(`SNIPE CONFIRMED: ${msg.mint}`, 'CRYPTO');
-                // Operation Echo Chamber: Full marketing automation
+                // Trigger Audio Cue
+                if (this.processes['CALLER'] && this.processes['CALLER'].connected) {
+                    this.processes['CALLER'].send({ type: 'PLAY_CUE', cue: 'GOOD' });
+                }
+                // Operation Echo Chamber
                 if (this.processes['ECHO_CHAMBER'] && this.processes['ECHO_CHAMBER'].connected) {
                     this.processes['ECHO_CHAMBER'].send(msg);
                 } else {
@@ -472,6 +529,10 @@ class DonCore {
             } else if (msg.type === 'BLACKLIST_REQUEST') {
                 if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
                     this.processes['SNIPER'].send(msg);
+                }
+            } else if (msg.type === 'FARM_BOOST') {
+                if (this.processes['FARM_AGENT'] && this.processes['FARM_AGENT'].connected) {
+                    this.processes['FARM_AGENT'].send(msg);
                 }
             } else if (msg.type === 'GENERATE_VIDEO') {
                 if (this.processes['DEEPFAKER'] && this.processes['DEEPFAKER'].connected) {
@@ -536,6 +597,12 @@ class DonCore {
             } else if (msg.type === 'KICK_UP' || msg.type === 'TRADE_PROFIT') {
                 // Route ALL revenue to Protocol Omega for treasury allocation
                 this.log(`REVENUE: ${msg.amount} from ${msg.source || 'unknown'}`, 'MONEY');
+
+                // Trigger Audio Cue
+                if (this.processes['CALLER'] && this.processes['CALLER'].connected) {
+                    this.processes['CALLER'].send({ type: 'PLAY_CUE', cue: 'GOOD' });
+                }
+
                 if (this.processes['OMEGA'] && this.processes['OMEGA'].connected) {
                     this.processes['OMEGA'].send(msg);
                 }
@@ -574,6 +641,10 @@ class DonCore {
                     this.processes['ZERO_RUG'].send(msg);
                 } else if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
                     this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...msg });
+                }
+            } else if (msg.type === 'MOLTBOOK_POST') {
+                if (this.processes['LIBRARIAN'] && this.processes['LIBRARIAN'].connected) {
+                    this.processes['LIBRARIAN'].send(msg);
                 }
             } else if (msg.type === 'ECHO_STATUS' || msg.type === 'MANUAL_CAMPAIGN') {
                 if (this.processes['ECHO_CHAMBER'] && this.processes['ECHO_CHAMBER'].connected) {
@@ -620,10 +691,27 @@ class DonCore {
                 this.commandTrade(id, { ...msg.params, privateKey: process.env.SOLANA_PRIVATE_KEY }).then(result => {
                     child.send({ type: 'TRADE_RESULT', requestId: msg.requestId, ...result });
                 });
+            } else if (msg.type === 'SIGN_REQUEST' || msg.type === 'SIGN_RESULT') {
+                if (this.processes['VAULT'] && msg.type === 'SIGN_REQUEST') {
+                    this.processes['VAULT'].send(msg);
+                } else {
+                    // Forward result back to requester
+                    const target = msg.requester;
+                    if (this.processes[target]) this.processes[target].send(msg);
+                }
             } else if (msg.type === 'EVOLUTION_STATUS' || msg.type === 'ROLLBACK') {
                 if (this.processes['ARCHITECT'] && this.processes['ARCHITECT'].connected) {
                     this.processes['ARCHITECT'].send(msg);
                 }
+            } else if (msg.type === 'SESSION_LIST') {
+                child.send({ type: 'SESSION_LIST_RESULT', requestId: msg.requestId, data: this.sessions.list() });
+            } else if (msg.type === 'SESSION_HISTORY') {
+                child.send({ type: 'SESSION_HISTORY_RESULT', requestId: msg.requestId, data: this.sessions.history(msg.agentType, msg.limit) });
+            } else if (msg.type === 'SESSION_SEND') {
+                const success = this.sessions.send(type, msg.to, msg.msg, msg.options);
+                child.send({ type: 'SESSION_SEND_RESULT', requestId: msg.requestId, success });
+            } else if (msg.type === 'STATUS_REPORT' || msg.type === 'FARM_STATUS') {
+                this.broadcast(msg);
             }
         });
 

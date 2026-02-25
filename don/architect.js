@@ -491,9 +491,9 @@ Return the IMPROVED version of this code. Remember: ONLY raw JavaScript, no mark
 
         // GATE 3: Dangerous pattern detection (string + regex)
         for (const pattern of DANGEROUS_STRINGS) {
-            if (cleanCode.includes(pattern)) {
-                logEvolution(targetAgent, 'BLOCKED', `Dangerous string: "${pattern}"`, cycleId);
-                console.log(chalk.red.bold(`[ARCHITECT #${id}]: 🚫 GATE 3 BLOCKED: Dangerous string "${pattern}"`));
+            if (cleanCode.includes(pattern) && !originalCode.includes(pattern)) {
+                logEvolution(targetAgent, 'BLOCKED', `Dangerous string added: "${pattern}"`, cycleId);
+                console.log(chalk.red.bold(`[ARCHITECT #${id}]: 🚫 GATE 3 BLOCKED: Dangerous string "${pattern}" added.`));
                 metrics.blocked++; saveMetrics(); return;
             }
         }

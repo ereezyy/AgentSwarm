@@ -2,6 +2,7 @@
 // Real security audits with RugCheck API, token metadata analysis, and holder distribution checks
 const axios = require('axios');
 const chalk = require('chalk');
+const { askConsensus } = require('./brain');
 require('dotenv').config();
 
 const id = process.argv[2] || 'Oracle';
@@ -155,6 +156,25 @@ process.on('message', (msg) => {
                 });
             }
         }
+    } else if (msg.type === 'EXECUTE_GOD_MODE') {
+        if (!msg.topic) return;
+        console.log(chalk.magenta.bold(`[ORACLE #${id}]: ⚡ INITIATING GOD MODE COMPUTATION: ${msg.topic}`));
+        askConsensus([{ role: 'user', content: msg.topic }], { strategy: 'balanced' })
+            .then(result => {
+                if (process.send) {
+                    process.send({
+                        type: 'AGENT_COMMS',
+                        from: '🌟 GOD MODE',
+                        msg: `⚡ OMEGA CONSENSUS REACHED:\n\n${result}`,
+                        timestamp: new Date().toISOString()
+                    });
+                }
+            })
+            .catch(e => {
+                if (process.send) {
+                    process.send({ type: 'AGENT_COMMS', from: '🌟 GOD MODE', msg: `Computation Failed: ${e.message}`, timestamp: new Date().toISOString() });
+                }
+            });
     }
 });
 

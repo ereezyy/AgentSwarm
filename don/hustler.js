@@ -3,7 +3,7 @@
 const axios = require('axios');
 const chalk = require('chalk');
 require('dotenv').config();
-const { ask } = require('./brain');
+const { ask, GlobalMemory } = require('./brain');
 
 const id = process.argv[2] || 'Trader';
 
@@ -14,9 +14,11 @@ const priceHistory = { solana: [], bitcoin: [], ethereum: [] };
 const MAX_HISTORY = 30; // Keep last 30 data points (15 min at 30s intervals)
 let lastAlertTime = 0;
 
-// Alert thresholds (percentage change)
-const ALERT_THRESHOLD = 3;     // 3% move = alert
-const CRITICAL_THRESHOLD = 7;  // 7% move = critical alert + phone call
+// Dynamic Alert thresholds (Westworld Reflection)
+let alertParams = {
+    standardThreshold: 3,     // 3% move = alert
+    criticalThreshold: 7      // 7% move = critical alert + phone call
+};
 
 let isWatching = false;
 let watchTimeout = null;
@@ -74,13 +76,21 @@ async function watchMarkets() {
             // Check for significant moves
             const absChange = Math.abs(parseFloat(sol24h));
 
-            if (absChange >= CRITICAL_THRESHOLD && (now - lastAlertTime > 300000)) {
-                // Critical move - phone alert
+            if (absChange >= alertParams.criticalThreshold && (now - lastAlertTime > 300000)) {
+                // Critical move - Tone alert + Socials
                 lastAlertTime = now;
+                const isDrop = parseFloat(sol24h) < 0;
+
+                GlobalMemory.addMemory('HUSTLER', `CRITICAL MARKET EVENT: Solana moved ${sol24h}% to $${solPrice}. Was it a dump? ${isDrop}.`, 9);
+
                 process.send({
-                    type: 'SIREN_SPEAK',
-                    text: `Hustler CRITICAL ALERT. Solana is moving ${parseFloat(sol24h) > 0 ? 'up' : 'down'} ${sol24h} percent in 24 hours. Current price: ${solPrice} dollars. This is a ${parseFloat(sol24h) > 0 ? 'pump' : 'dump'} event.`
+                    type: isDrop ? 'PLAY_CUE' : 'SIREN_SPEAK',
+                    cue: isDrop ? 'BAD' : 'GOOD',
+                    text: `Hustler CRITICAL ALERT. Solana is moving ${isDrop ? 'down' : 'up'} ${sol24h} percent.`
                 });
+
+                process.send({ type: 'PLAY_CUE', cue: isDrop ? 'BAD' : 'GOOD' });
+
                 process.send({
                     type: 'PHONE_ALERT',
                     text: `Syndicate Alert: SOL ${sol24h}% in 24h. Price: $${solPrice}. ${parseFloat(sol24h) > 0 ? 'PUMP' : 'DUMP'} detected.`
@@ -89,8 +99,9 @@ async function watchMarkets() {
                     type: 'POST_TWEET',
                     text: `🚨 MARKET ALERT: $SOL is moving ${parseFloat(sol24h) > 0 ? '📈 UP' : '📉 DOWN'} ${sol24h}% today! Price: $${solPrice} #Solana #Crypto`
                 });
-            } else if (absChange >= ALERT_THRESHOLD && (now - lastAlertTime > 600000)) {
+            } else if (absChange >= alertParams.standardThreshold && (now - lastAlertTime > 600000)) {
                 lastAlertTime = now;
+                GlobalMemory.addMemory('HUSTLER', `Standard alert triggered. Solana moved ${sol24h}% to $${solPrice}.`, 6);
                 process.send({
                     type: 'SIREN_SPEAK',
                     text: `Hustler reporting. Solana has moved ${sol24h} percent. Current price: ${solPrice} dollars.`
@@ -191,6 +202,38 @@ process.on('message', async (msg) => {
         }, 3000);
     }
 });
+
+// ── Westworld Reflection Interval (Every 2 hours) ──
+setInterval(async () => {
+    console.log(chalk.magenta(`[HUSTLER #${id}]: 🧠 INITIATING DEEP MARKET REFLECTION...`));
+    const reflection = await GlobalMemory.reflect('HUSTLER');
+
+    if (reflection) {
+        console.log(chalk.cyan.bold(`[HUSTLER #${id}]: 💡 EPIPHANY: ${reflection.key_insight}`));
+        console.log(chalk.cyan(`   → Rule: ${reflection.actionable_heuristic}`));
+
+        if (reflection.risk_adjustment && reflection.risk_adjustment !== 'none') {
+            if (reflection.risk_adjustment.includes('widen_thresholds')) {
+                alertParams.standardThreshold = Math.min(alertParams.standardThreshold + 1, 6);
+                alertParams.criticalThreshold = Math.min(alertParams.criticalThreshold + 2, 12);
+                console.log(chalk.yellow(`   → Alert Thresholds widened (Std: ${alertParams.standardThreshold}%, Crit: ${alertParams.criticalThreshold}%)`));
+            } else if (reflection.risk_adjustment.includes('tighten_thresholds')) {
+                alertParams.standardThreshold = Math.max(alertParams.standardThreshold - 0.5, 1);
+                alertParams.criticalThreshold = Math.max(alertParams.criticalThreshold - 1, 4);
+                console.log(chalk.yellow(`   → Alert Thresholds tightened (Std: ${alertParams.standardThreshold}%, Crit: ${alertParams.criticalThreshold}%)`));
+            }
+
+            if (process.send) {
+                process.send({
+                    type: 'AGENT_COMMS',
+                    from: 'HUSTLER',
+                    msg: `Market Reflection: ${reflection.key_insight} Adjusting strategy: ${reflection.actionable_heuristic}`,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }
+    }
+}, 3600000 * 2);
 
 if (require.main === module) {
     watchMarkets();

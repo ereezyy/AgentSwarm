@@ -72,4 +72,37 @@ async function scourMoltbook() {
     }
 }
 
-module.exports = { scourMoltbook };
+// ============================================================
+// MOLTBOOK FEED (INTERNAL SOCIAL NETWORK)
+// ============================================================
+const fs = require('fs');
+const path = require('path');
+const FEED_PATH = path.resolve(__dirname, '../missions/moltbook_feed.json');
+
+function postToMoltbook(text) {
+    let feed = [];
+    if (fs.existsSync(FEED_PATH)) {
+        try { feed = JSON.parse(fs.readFileSync(FEED_PATH, 'utf8')); } catch { }
+    }
+
+    feed.push({
+        id: `MOLT-${Date.now().toString(36)}`,
+        content: text,
+        author: 'Syla (Echo Chamber)',
+        timestamp: new Date().toISOString(),
+        claws: 0 // "Likes" in Moltbook ecosystem
+    });
+
+    if (feed.length > 500) feed = feed.slice(-500); // Keep last 500
+    fs.writeFileSync(FEED_PATH, JSON.stringify(feed, null, 2));
+    console.log(chalk.magenta(`[MOLTBOOK]: 📖 New entry added to the registry feed.`));
+}
+
+// IPC Listener
+process.on('message', async (msg) => {
+    if (msg.type === 'MOLTBOOK_POST' && msg.content) {
+        postToMoltbook(msg.content);
+    }
+});
+
+module.exports = { scourMoltbook, postToMoltbook };

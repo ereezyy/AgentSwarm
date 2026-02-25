@@ -78,3 +78,133 @@
 **Agent:** scavenger.js
 **Details:** Missing required: dotenv config loading, chalk logging, agent ID from argv, console output
 **Metrics:** Applied: 0 | Rejected: 15 | Blocked: 0 | Rolled Back: 0
+
+## ❌ [2026-02-21T09:49:02.999Z] Cycle #47 — REJECTED
+**Agent:** scavenger.js
+**Details:** Syntax error: Unexpected end of input
+**Metrics:** Applied: 0 | Rejected: 16 | Blocked: 0 | Rolled Back: 0
+
+## 🚫 [2026-02-21T09:59:21.444Z] Cycle #48 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous string: "SOLANA_PRIVATE_KEY"
+**Metrics:** Applied: 0 | Rejected: 17 | Blocked: 0 | Rolled Back: 0
+
+## ❌ [2026-02-21T11:02:46.269Z] Cycle #49 — REJECTED
+**Agent:** scavenger.js
+**Details:** Syntax error: Unexpected token '}'
+**Metrics:** Applied: 0 | Rejected: 17 | Blocked: 1 | Rolled Back: 0
+
+## ❌ [2026-02-21T11:05:50.349Z] Cycle #50 — REJECTED
+**Agent:** scavenger.js
+**Details:** Syntax error: Identifier 'console' has already been declared
+**Metrics:** Applied: 0 | Rejected: 18 | Blocked: 1 | Rolled Back: 0
+
+## ❌ [2026-02-21T11:12:10.549Z] Cycle #51 — REJECTED
+**Agent:** scavenger.js
+**Details:** Syntax error: Unexpected token '}'
+**Metrics:** Applied: 0 | Rejected: 19 | Blocked: 1 | Rolled Back: 0
+
+## 🚫 [2026-02-21T12:00:52.408Z] Cycle #52 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 20 | Blocked: 1 | Rolled Back: 0
+
+## ❌ [2026-02-21T12:18:53.440Z] Cycle #53 — REJECTED
+**Agent:** scavenger.js
+**Details:** Syntax error: Identifier 'ask' has already been declared
+**Metrics:** Applied: 0 | Rejected: 20 | Blocked: 2 | Rolled Back: 0
+
+## 🚫 [2026-02-21T12:22:04.932Z] Cycle #54 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 21 | Blocked: 2 | Rolled Back: 0
+
+## 🚫 [2026-02-21T14:21:07.634Z] Cycle #55 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous string added: "process.exit("
+**Metrics:** Applied: 0 | Rejected: 21 | Blocked: 3 | Rolled Back: 0
+
+## 🚫 [2026-02-21T20:24:29.244Z] Cycle #56 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous string added: "process.exit("
+**Metrics:** Applied: 0 | Rejected: 21 | Blocked: 4 | Rolled Back: 0
+
+## 🚫 [2026-02-21T22:23:29.567Z] Cycle #57 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 21 | Blocked: 5 | Rolled Back: 0
+
+## 🚫 [2026-02-21T23:29:33.078Z] Cycle #58 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 21 | Blocked: 6 | Rolled Back: 0
+
+## 🚫 [2026-02-22T00:04:43.184Z] Cycle #59 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 21 | Blocked: 7 | Rolled Back: 0
+
+## 🚫 [2026-02-22T02:03:42.812Z] Cycle #60 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 21 | Blocked: 8 | Rolled Back: 0
+
+## 🚫 [2026-02-23T09:46:43.811Z] Cycle #61 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 21 | Blocked: 9 | Rolled Back: 0
+
+## 🚫 [2026-02-23T11:45:44.621Z] Cycle #62 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 21 | Blocked: 10 | Rolled Back: 0
+
+## ❌ [2026-02-23T14:20:28.245Z] Cycle #63 — REJECTED
+**Agent:** scavenger.js
+**Details:** Syntax error: Invalid or unexpected token
+**Metrics:** Applied: 0 | Rejected: 21 | Blocked: 11 | Rolled Back: 0
+
+## 🚫 [2026-02-23T16:19:28.529Z] Cycle #64 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 22 | Blocked: 11 | Rolled Back: 0
+
+## 🚫 [2026-02-23T18:19:28.801Z] Cycle #65 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 22 | Blocked: 12 | Rolled Back: 0
+
+## 🚫 [2026-02-23T19:21:22.572Z] Cycle #66 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 22 | Blocked: 13 | Rolled Back: 0
+
+## ❌ [2026-02-23T21:20:21.948Z] Cycle #67 — REJECTED
+**Agent:** scavenger.js
+**Details:** Syntax error: missing ) after argument list
+**Metrics:** Applied: 0 | Rejected: 22 | Blocked: 14 | Rolled Back: 0
+
+## 🚫 [2026-02-23T23:20:21.975Z] Cycle #68 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 23 | Blocked: 14 | Rolled Back: 0
+
+## 🚫 [2026-02-24T22:19:58.395Z] Cycle #69 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 23 | Blocked: 15 | Rolled Back: 0
+
+## 🚫 [2026-02-24T23:42:21.696Z] Cycle #70 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 23 | Blocked: 16 | Rolled Back: 0
+
+## ❌ [2026-02-24T23:44:45.436Z] Cycle #72 — REJECTED
+**Agent:** hustler.js
+**Details:** Boot test failed: Exit code 1: Node.js v24.13.0
+**Metrics:** Applied: 0 | Rejected: 23 | Blocked: 17 | Rolled Back: 0
+
+## ❌ [2026-02-24T23:57:15.441Z] Cycle #73 — REJECTED
+**Agent:** scavenger.js
+**Details:** Too large: 16971b > 11519b
+**Metrics:** Applied: 0 | Rejected: 24 | Blocked: 17 | Rolled Back: 0

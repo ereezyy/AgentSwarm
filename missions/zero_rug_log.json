@@ -18,5 +18,55 @@
     "gateResult": "APPROVED",
     "reason": "CLEAN",
     "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MLW4ZMAF",
+    "timestamp": "2026-02-21T09:48:57.111Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MLW5CCVU",
+    "timestamp": "2026-02-21T09:58:51.450Z",
+    "mint": "8ZyibVskrntj...",
+    "fullMint": "8ZyibVskrntjEzL5vQn5TDM6S7xZ7MA3S5EPc1mRsji2",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MLW7N1D5",
+    "timestamp": "2026-02-21T11:03:08.969Z",
+    "mint": "FiYuSFSNpG6m...",
+    "fullMint": "FiYuSFSNpG6mBAgSQvGwLwXggrinSufQExMMj1BxPrZz",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MLW9OH5F",
+    "timestamp": "2026-02-21T12:00:15.315Z",
+    "mint": "C1oTXhBmSEKW...",
+    "fullMint": "C1oTXhBmSEKWpSMcMrTPt3tjo9XL7L6gxMUU6D6MQxqm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MLYZROZ6",
+    "timestamp": "2026-02-23T09:46:07.794Z",
+    "mint": "9gwTegFJJErD...",
+    "fullMint": "9gwTegFJJErDpWJKjPfLr2g2zrE3nL1v5zpwbtsk3c6P",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
   }
 ]
