@@ -44,6 +44,35 @@ let riskParams = {
     maxProfitDump: 200   // Liquidate everything at 200% for rapid turnaround
 };
 
+// ── Spend Controls (Safety Gate) ─────────────────────────────
+// Prevents runaway buying when whale signals fire in rapid succession
+const recentBuys = new Map(); // mint -> timestamp of last buy
+const TOKEN_COOLDOWN_MS = 2 * 60 * 1000;   // 2 minutes per token (prevent same-token spam)
+const MAX_DAILY_SPEND_SOL = Infinity;       // No daily cap — let it run
+const MIN_BALANCE_GUARD = 0.15;             // Keep at least 0.15 SOL for gas
+let dailySpend = 0;
+let dailySpendReset = Date.now();
+
+function canBuy(mintStr) {
+    // Reset daily counter if new day
+    if (Date.now() - dailySpendReset > 86400000) {
+        dailySpend = 0;
+        dailySpendReset = Date.now();
+    }
+    // Check per-token cooldown
+    const lastBuy = recentBuys.get(mintStr);
+    if (lastBuy && Date.now() - lastBuy < TOKEN_COOLDOWN_MS) {
+        console.log(chalk.yellow(`[SNIPER #${id}]: ⏳ Token ${mintStr.substring(0, 8)}... on cooldown. Skipping.`));
+        return false;
+    }
+    // Check daily spend cap
+    if (dailySpend >= MAX_DAILY_SPEND_SOL) {
+        console.log(chalk.yellow(`[SNIPER #${id}]: 🛑 Daily spend cap reached (${dailySpend.toFixed(4)} SOL). Pausing buys.`));
+        return false;
+    }
+    return true;
+}
+
 // ── Connection Setup (HTTP-only, no WebSocket spam) ──
 const connection = new Connection(RPC_URL, { commitment: 'confirmed' });
 
@@ -61,9 +90,10 @@ try {
 async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1000) {
     try {
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Requesting Jupiter Quote...`));
-        // 1. Get Quote
-        const quoteUrl = `https://quote-api.jup.ag/v6/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
-        const quoteResponse = await axios.get(quoteUrl, { timeout: 10000 }); // 10s timeout
+        // 1. Get Quote — using lite-api.jup.ag (quote-api.jup.ag is DNS-dead on this network)
+        const JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
+        const quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
+        const quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
         const quoteData = quoteResponse.data;
 
         if (!quoteData || quoteData.error) throw new Error(quoteData.error || 'No quote found');
@@ -71,11 +101,11 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Jupiter Quote: ${quoteData.outAmount} out via ${quoteData.routePlan.map(r => r.swapInfo.label).join('->')}`));
 
         // 2. Get Serialized Transaction
-        const swapResponse = await axios.post('https://quote-api.jup.ag/v6/swap', {
+        const swapResponse = await axios.post(`${JUPITER_BASE}/swap`, {
             quoteResponse: quoteData,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: 100000 // Priority fee
+            prioritizationFeeLamports: 100000
         }, { timeout: 10000 });
 
         const { swapTransaction } = swapResponse.data;
@@ -86,19 +116,24 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         transaction.sign([wallet]);
 
         // 4. Send (Prefer Bundler if available, else RPC)
-        let sig;
-        sig = await connection.sendTransaction(transaction, { skipPreflight: true, maxRetries: 2 });
+        const latestBh = await connection.getLatestBlockhash('confirmed');
+        const sig = await connection.sendTransaction(transaction, { skipPreflight: true, maxRetries: 2 });
 
         console.log(chalk.green.bold(`[SNIPER #${id}]: 🪐 Jupiter Swap Sent: ${sig}`));
 
-        // Confirm with timeout
-        const confirmation = await connection.confirmTransaction(sig, 'confirmed');
+        // Confirm with blockhash expiry (prevents silent hanging)
+        const confirmation = await connection.confirmTransaction(
+            { signature: sig, blockhash: latestBh.blockhash, lastValidBlockHeight: latestBh.lastValidBlockHeight },
+            'confirmed'
+        );
         if (confirmation.value.err) throw new Error(`TX Failed: ${JSON.stringify(confirmation.value.err)}`);
 
         return { success: true, sig, outAmount: quoteData.outAmount };
 
     } catch (e) {
-        const errorMsg = e.code === 'ECONNABORTED' ? 'Jupiter API Timeout (DNS/Network)' : e.message;
+        let errorMsg = e.message;
+        if (e.code === 'ENOTFOUND') errorMsg = `DNS failure: ${e.hostname || 'Jupiter API'} unreachable`;
+        else if (e.code === 'ECONNABORTED' || e.code === 'ETIMEDOUT') errorMsg = `Network timeout reaching Jupiter API`;
         console.error(chalk.red(`[SNIPER #${id}]: Jupiter Swap Failed: ${errorMsg}`));
         return { success: false, error: errorMsg };
     }
@@ -204,23 +239,30 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
     try {
         const balance = await connection.getBalance(wallet.publicKey);
         const SOL_AMOUNT = 0.01;
+        const mintStr = mint.toString();
 
-        if (balance < 0.015 * 1e9) {
+        // ── Safety Gate 1: Per-token cooldown + daily cap ──
+        if (!canBuy(mintStr)) return;
+
+        if (balance < MIN_BALANCE_GUARD * 1e9) {
             const pubkey = wallet.publicKey.toString();
-            console.log(chalk.yellow(`[SNIPER #${id}]: Insufficient funds (Need >0.015 SOL).`));
+            console.log(chalk.yellow(`[SNIPER #${id}]: Insufficient funds (Need >${MIN_BALANCE_GUARD} SOL). Balance: ${(balance / 1e9).toFixed(4)} SOL`));
             console.log(chalk.cyan(`[SNIPER #${id}]: ➡️ FUND WALLET: ${pubkey}`));
             if (process.send) {
                 process.send({
                     type: 'AGENT_COMMS',
                     from: 'SNIPER',
-                    msg: `Stalled due to low balance. Requires 0.015 SOL at ${pubkey.substring(0, 8)}...`,
+                    msg: `Stalled due to low balance. Requires ${MIN_BALANCE_GUARD} SOL at ${pubkey.substring(0, 8)}...`,
                     timestamp: new Date().toISOString()
                 });
             }
             return;
         }
 
-        console.log(chalk.green(`[SNIPER #${id}]: 🎯 CALCULATING ENTRY for ${mint.toString()}...`));
+        // Register this token as being bought (cooldown)
+        recentBuys.set(mintStr, Date.now());
+        dailySpend += SOL_AMOUNT;
+        console.log(chalk.green(`[SNIPER #${id}]: 🎯 CALCULATING ENTRY for ${mintStr}... [Daily: ${dailySpend.toFixed(4)}/${MAX_DAILY_SPEND_SOL} SOL]`));
 
         // 1. Check Curve Status
         const curve = await getBondingCurveAccount(bondingCurve);
@@ -231,18 +273,30 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
             const result = await executeJupiterSwap(WSOL_MINT.toString(), mint.toString(), Math.floor(SOL_AMOUNT * 1e9));
 
             if (result.success) {
+                // Store entryPrice in SOL per UI token — same unit as DexScreener priceNative
+                // This ensures banker.js PnL math works without any conversion
+                const outAmt = Number(result.outAmount);
+                const decimals = 6; // standard Solana token decimals
+                const uiAmount = outAmt / Math.pow(10, decimals);
+                const realEntryPrice = uiAmount > 0 ? SOL_AMOUNT / uiAmount : 0;
+
                 const trades = loadTrades();
                 trades.push({
-                    mint: mint.toString(),
-                    entryPrice: 0, // Need to fetch price
-                    amount: result.outAmount, // From quote
+                    mint: mintStr,
+                    entryPrice: realEntryPrice,  // SOL per UI token — matches DexScreener priceNative
+                    entryPriceUnit: 'ui',         // flag: already per UI token, banker should NOT multiply by 10^decimals
+                    amount: outAmt,
+                    uiAmount: uiAmount,
+                    entrySol: SOL_AMOUNT,
                     timestamp: Date.now(),
+                    maxHoldUntil: Date.now() + (4 * 60 * 60 * 1000),
                     moonbagSecured: false,
                     source: 'JUPITER'
                 });
                 saveTrades(trades);
-                GlobalMemory.addMemory('SNIPER', `Entered position on ${mint.toString()} via Jupiter Swap. Amount: ${SOL_AMOUNT} SOL.`, 7);
-                if (process.send) process.send({ type: 'TRADE_EXECUTED', mint: mint.toString(), amount: SOL_AMOUNT, source: 'JUPITER' });
+                console.log(chalk.green(`[SNIPER #${id}]: 📌 Position recorded | Entry: ${realEntryPrice.toExponential(3)} SOL/uiToken | Amount: ${uiAmount.toLocaleString()} tokens`));
+                GlobalMemory.addMemory('SNIPER', `Entered ${mintStr} via Jupiter. ${SOL_AMOUNT} SOL @ ${realEntryPrice.toExponential(3)} SOL/uiToken.`, 7);
+                if (process.send) process.send({ type: 'TRADE_EXECUTED', mint: mintStr, amount: SOL_AMOUNT, source: 'JUPITER' });
             }
             return;
         }
@@ -421,7 +475,16 @@ async function startSurveillance() {
                         return post.owner === walletAddr && parseFloat(post.uiTokenAmount.uiAmount) > preAmt;
                     });
 
-                    if (bought && bought.mint !== 'So11111111111111111111111111111111111111112') {
+                    // Filter out stablecoins, wrapped SOL, and known major tokens to avoid bad copy-trades
+                    const BLOCKED_MINTS = new Set([
+                        'So11111111111111111111111111111111111111112', // WSOL
+                        'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v', // USDC
+                        'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB', // USDT
+                        'mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So', // mSOL
+                        'bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1',  // bSOL
+                        'J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn', // JitoSOL
+                    ]);
+                    if (bought && !BLOCKED_MINTS.has(bought.mint)) {
                         console.log(chalk.red.bold(`[SNIPER #${id}]: 🚨 COPY-TRADE ALERT! Target bought ${bought.mint}`));
                         commsPost(`🚨 COPY-TRADE: Whale bought ${bought.mint.substring(0, 12)}...`);
 
@@ -458,12 +521,18 @@ function saveTrades(trades) {
     fs.writeFileSync(TRADES_FILE, JSON.stringify(trades, null, 2));
 }
 
+// Guard: prevent concurrent checkPositions calls firing duplicate sells
+let checkPositionsRunning = false;
+
 // ── Position Manager ──
 async function checkPositions() {
+    if (checkPositionsRunning) return; // another check is in flight
+    checkPositionsRunning = true;
     const trades = loadTrades();
-    if (trades.length === 0) return;
+    if (trades.length === 0) { checkPositionsRunning = false; return; }
 
     console.log(chalk.blue(`[SNIPER #${id}]: ⚔️ Checking ${trades.length} active positions...`));
+
 
     try {
         for (const trade of trades) {
@@ -524,9 +593,20 @@ async function checkPositions() {
                 trades.splice(trades.indexOf(trade), 1);
                 saveTrades(trades);
             }
+            // ── FORCE EXIT: max hold time exceeded ──────────────────────────────
+            // If a token has been held past maxHoldUntil with no target hit, dump it
+            else if (trade.maxHoldUntil && Date.now() > trade.maxHoldUntil) {
+                console.log(chalk.magenta.bold(`[SNIPER #${id}]: ⏰ FORCE EXIT: ${trade.mint} held too long (>4h). Liquidating at market.`));
+                GlobalMemory.addMemory('SNIPER', `Force-exited ${trade.mint} after 4h max hold. PnL at exit: ${pnl.toFixed(2)}%.`, 8);
+                await sellToken(trade.mint, trade.amount, 'TIME_EXIT');
+                trades.splice(trades.indexOf(trade), 1);
+                saveTrades(trades);
+            }
         }
     } catch (e) {
         console.log(chalk.yellow(`[SNIPER #${id}]: Price check error: ${e.message}`));
+    } finally {
+        checkPositionsRunning = false;
     }
 }
 
@@ -577,6 +657,186 @@ setInterval(async () => {
         }
     }
 }, 3600000 * 4);
+
+// ============================================================
+// AUTONOMOUS OPPORTUNITY SCANNER
+// Runs every 2 minutes, scores candidates, buys on high-confidence signals
+// Sell is handled by checkPositions() which polls every 30s
+// ============================================================
+
+// How many open positions we allow simultaneously
+const MAX_OPEN_POSITIONS = 8;
+
+// Tokens scanned this session — avoid re-scanning the same tokens
+const scannedThisSession = new Set();
+
+/**
+ * Score a DexScreener token pair on buy quality.
+ * Returns { score, reasons[] } — max score is 10.
+ */
+function scoreToken(pair) {
+    let score = 0;
+    const reasons = [];
+
+    const priceChange5m = pair.priceChange?.m5 || 0;
+    const priceChange1h = pair.priceChange?.h1 || 0;
+    const volumeM5 = pair.volume?.m5 || 0;
+    const volumeH1 = pair.volume?.h1 || 0;
+    const liquidityUsd = pair.liquidity?.usd || 0;
+    const txnsBuys5m = pair.txns?.m5?.buys || 0;
+    const txnsSells5m = pair.txns?.m5?.sells || 0;
+    const fdvUsd = pair.fdv || 0;
+
+    // 1. Volume spike: significant 5m activity (at least $500 in last 5min)
+    if (volumeM5 > 500) {
+        score += 2;
+        reasons.push(`Vol5m $${volumeM5.toFixed(0)}`);
+    }
+
+    // 2. Liquidity window: $8k-$2M — enough to enter/exit, not a rug trap
+    if (liquidityUsd >= 8000 && liquidityUsd <= 2_000_000) {
+        score += 2;
+        reasons.push(`Liq $${(liquidityUsd / 1000).toFixed(0)}k`);
+    }
+
+    // 3. Positive 5-minute momentum — price moving up
+    if (priceChange5m > 1 && priceChange5m < 50) {
+        score += 2;
+        reasons.push(`5m up ${priceChange5m.toFixed(1)}%`);
+    }
+
+    // 4. Buy pressure: more buyers than sellers in last 5 min
+    if (txnsBuys5m > txnsSells5m && txnsBuys5m >= 3) {
+        score += 2;
+        reasons.push(`Buys>${txnsBuys5m} Sells>${txnsSells5m}`);
+    }
+
+    // 5. Not already overbought: 1h gain under 200% (still has room)
+    if (priceChange1h < 200 && priceChange1h > -20) {
+        score += 1;
+        reasons.push(`1h ${priceChange1h.toFixed(0)}%`);
+    }
+
+    // Penalty: too small fdv (likely scam) or too big (no moonshot)
+    if (fdvUsd < 5000 || fdvUsd > 50_000_000) score -= 1;
+
+    return { score: Math.max(0, score), reasons };
+}
+
+/**
+ * Main autonomous scanner — runs on interval.
+ * Fetches latest Solana pairs from DexScreener, scores them, buys top candidates.
+ */
+async function runAutonomousScan() {
+    const trades = loadTrades();
+    if (trades.length >= MAX_OPEN_POSITIONS) {
+        console.log(chalk.gray(`[SNIPER #${id}]: 📊 At position limit (${trades.length}/${MAX_OPEN_POSITIONS}). Skipping scan.`));
+        return;
+    }
+
+    if (!canBuy('__scan_gate__')) return; // daily cap check (reuse canBuy without cooldown)
+
+    console.log(chalk.cyan(`[SNIPER #${id}]: 🔭 AUTONOMOUS SCAN: Looking for high-score opportunities...`));
+
+    let candidates = [];
+    try {
+        // Pull latest new pairs on Solana (sorted by creation time)
+        const res = await axios.get(
+            'https://api.dexscreener.com/token-profiles/latest/v1',
+            { timeout: 12000 }
+        );
+        const profiles = Array.isArray(res.data) ? res.data : [];
+
+        // Filter for Solana tokens only, not already scanned
+        const solProfiles = profiles.filter(p =>
+            p.chainId === 'solana' &&
+            !scannedThisSession.has(p.tokenAddress) &&
+            p.tokenAddress
+        ).slice(0, 20); // Process top 20 new ones
+
+        for (const profile of solProfiles) {
+            scannedThisSession.add(profile.tokenAddress);
+        }
+
+        if (solProfiles.length === 0) {
+            // Fallback: check trending pairs
+            const trendRes = await axios.get(
+                'https://api.dexscreener.com/token-boosts/latest/v1',
+                { timeout: 12000 }
+            );
+            const boosted = Array.isArray(trendRes.data) ? trendRes.data : [];
+            const solBoosted = boosted.filter(p => p.chainId === 'solana').slice(0, 15);
+            solProfiles.push(...solBoosted);
+        }
+
+        // Get pair data for each token address
+        const tokenAddresses = solProfiles.map(p => p.tokenAddress).filter(Boolean).slice(0, 15);
+        if (tokenAddresses.length === 0) return;
+
+        const pairRes = await axios.get(
+            `https://api.dexscreener.com/tokens/v1/solana/${tokenAddresses.join(',')}`,
+            { timeout: 12000 }
+        );
+        const pairs = Array.isArray(pairRes.data) ? pairRes.data : [];
+
+        // Score each unique token (pick best pair per token)
+        const tokenMap = new Map();
+        for (const pair of pairs) {
+            const mint = pair.baseToken?.address;
+            if (!mint) continue;
+            const existing = tokenMap.get(mint);
+            const vol = pair.volume?.m5 || 0;
+            if (!existing || vol > (existing.volume?.m5 || 0)) tokenMap.set(mint, pair);
+        }
+
+        for (const [mint, pair] of tokenMap) {
+            const { score, reasons } = scoreToken(pair);
+            if (score >= 6) {
+                candidates.push({ mint, pair, score, reasons });
+            }
+        }
+
+        candidates.sort((a, b) => b.score - a.score);
+
+    } catch (e) {
+        console.log(chalk.gray(`[SNIPER #${id}]: Scanner fetch error: ${e.message}`));
+        return;
+    }
+
+    if (candidates.length === 0) {
+        console.log(chalk.gray(`[SNIPER #${id}]: 🔭 No qualifying candidates this scan.`));
+        return;
+    }
+
+    // Execute buy on highest-scoring candidate we haven't bought recently
+    const openMints = new Set(loadTrades().map(t => t.mint));
+    const BLOCKED_MINTS = new Set([
+        'So11111111111111111111111111111111111111112',
+        'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
+        'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB',
+    ]);
+
+    for (const { mint, pair, score, reasons } of candidates) {
+        if (openMints.has(mint)) continue;
+        if (BLOCKED_MINTS.has(mint)) continue;
+        if (!canBuy(mint)) continue;
+
+        console.log(chalk.green.bold(`[SNIPER #${id}]: 🎯 AUTONOMOUS TARGET: ${pair.baseToken?.symbol || mint.slice(0, 8)} | Score: ${score}/10 | ${reasons.join(' | ')}`));
+        commsPost(`🤖 AUTO-TARGET: ${pair.baseToken?.symbol || mint.slice(0, 8)} scored ${score}/10. Buying.`);
+
+        const mintPub = new PublicKey(mint);
+        const bondingCurve = getBondingCurvePDA(mintPub);
+        const associatedBondingCurve = await getAssociatedTokenAddress(mintPub, bondingCurve, true);
+        await buyToken(mintPub, bondingCurve, associatedBondingCurve);
+
+        break; // One buy per scan cycle
+    }
+}
+
+// Kick off the autonomous scanner — runs every 2 minutes
+setInterval(runAutonomousScan, 2 * 60 * 1000);
+// First scan after 30 seconds to let wallet init settle
+setTimeout(runAutonomousScan, 30000);
 
 startSurveillance();
 setInterval(checkPositions, 30000);

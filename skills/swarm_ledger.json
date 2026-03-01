@@ -653,5 +653,2280 @@
     "timestamp": "2026-02-24T23:56:10.533Z",
     "agent": "CAPITAL_GEN_OPERATIVE_7ed592bc",
     "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:15:58.722Z",
+    "agent": "VAULT_OPERATIVE_01e4326c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:00.273Z",
+    "agent": "SNIPER_OPERATIVE_89d851a6",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:02.263Z",
+    "agent": "CRYPTO_OPERATIVE_e29ee7d1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:04.243Z",
+    "agent": "SIREN_OPERATIVE_90ec6bd9",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:06.314Z",
+    "agent": "GHOST_OPERATIVE_8fb06aa6",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:07.241Z",
+    "agent": "INFLUENCER_OPERATIVE_595ef209",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:07.742Z",
+    "agent": "SCAVENGER_OPERATIVE_4f8f6066",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:08.245Z",
+    "agent": "LIBRARIAN_OPERATIVE_a00aca0a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:08.759Z",
+    "agent": "FORGER_OPERATIVE_dbe65e40",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:09.352Z",
+    "agent": "SHADOW_OPERATIVE_33d65e79",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:09.900Z",
+    "agent": "WATCHER_OPERATIVE_4dcd743e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:10.724Z",
+    "agent": "ORACLE_OPERATIVE_9c921a8c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:10.770Z",
+    "agent": "CALLER_OPERATIVE_7df8efdc",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:11.235Z",
+    "agent": "FARM_AGENT_OPERATIVE_8de20244",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:11.675Z",
+    "agent": "BANKER_OPERATIVE_75fdba43",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:12.515Z",
+    "agent": "TWILIO_OPERATIVE_cac98638",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:13.429Z",
+    "agent": "INCUBATOR_OPERATIVE_04069e81",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:13.878Z",
+    "agent": "ARCHITECT_OPERATIVE_851e2255",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:14.140Z",
+    "agent": "DEEPFAKER_OPERATIVE_bb3f27cf",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:14.751Z",
+    "agent": "HEADHUNTER_OPERATIVE_52256a85",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:15.146Z",
+    "agent": "HYDRA_OPERATIVE_fbb0a355",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:15.513Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_0b216c95",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:15.577Z",
+    "agent": "PIRATE_OPERATIVE_612e7cda",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:16.455Z",
+    "agent": "ZERO_RUG_OPERATIVE_c688907c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:17.071Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_e48ef6ea",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:17.526Z",
+    "agent": "DEFI_FARMER_OPERATIVE_240358b7",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:18.771Z",
+    "agent": "MIRROR_OPERATIVE_7aa4db26",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:19.443Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_1046f204",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:19.700Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_c1b8558e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:16:20.307Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_11411c8f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:13.515Z",
+    "agent": "VAULT_OPERATIVE_e4e441b9",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:15.543Z",
+    "agent": "SNIPER_OPERATIVE_beb1c76d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:17.483Z",
+    "agent": "CRYPTO_OPERATIVE_5087315a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:19.482Z",
+    "agent": "SIREN_OPERATIVE_659fea45",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:21.501Z",
+    "agent": "GHOST_OPERATIVE_13dbbcbd",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:22.493Z",
+    "agent": "INFLUENCER_OPERATIVE_9ec79593",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:22.989Z",
+    "agent": "SCAVENGER_OPERATIVE_a4da77f2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:23.515Z",
+    "agent": "LIBRARIAN_OPERATIVE_43e3464a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:23.973Z",
+    "agent": "FORGER_OPERATIVE_3c6a049f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:24.591Z",
+    "agent": "SHADOW_OPERATIVE_65b88077",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:25.599Z",
+    "agent": "WATCHER_OPERATIVE_071a9eb3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:26.193Z",
+    "agent": "CALLER_OPERATIVE_0cfbbd3f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:26.208Z",
+    "agent": "ORACLE_OPERATIVE_c420b632",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:26.347Z",
+    "agent": "FARM_AGENT_OPERATIVE_de6c7bd6",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:27.264Z",
+    "agent": "BANKER_OPERATIVE_aba61503",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:28.448Z",
+    "agent": "TWILIO_OPERATIVE_0dc82555",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:28.796Z",
+    "agent": "INCUBATOR_OPERATIVE_9063a4ee",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:29.237Z",
+    "agent": "ARCHITECT_OPERATIVE_7573b485",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:29.501Z",
+    "agent": "DEEPFAKER_OPERATIVE_7bf222c4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:29.627Z",
+    "agent": "HEADHUNTER_OPERATIVE_90163541",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:30.558Z",
+    "agent": "HYDRA_OPERATIVE_23cd1a9c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:30.670Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_03d0065e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:31.334Z",
+    "agent": "PIRATE_OPERATIVE_e83f0e9c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:31.751Z",
+    "agent": "ZERO_RUG_OPERATIVE_3b3c06f0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:32.052Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_c5cdab42",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:32.669Z",
+    "agent": "DEFI_FARMER_OPERATIVE_7e1a7965",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:33.039Z",
+    "agent": "MIRROR_OPERATIVE_b11f62fd",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:34.073Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_7384b762",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:35.813Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_aafb3343",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:41:36.270Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_f387c603",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:18.566Z",
+    "agent": "VAULT_OPERATIVE_ede8ac2f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:20.499Z",
+    "agent": "SNIPER_OPERATIVE_a29d429c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:22.465Z",
+    "agent": "CRYPTO_OPERATIVE_186ac01b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:24.442Z",
+    "agent": "SIREN_OPERATIVE_80344bab",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:26.442Z",
+    "agent": "GHOST_OPERATIVE_6359fe36",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:27.420Z",
+    "agent": "INFLUENCER_OPERATIVE_be88fc83",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:27.914Z",
+    "agent": "SCAVENGER_OPERATIVE_1651f46b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:28.443Z",
+    "agent": "LIBRARIAN_OPERATIVE_3db1d1f3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:28.919Z",
+    "agent": "FORGER_OPERATIVE_f3486e6b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:29.663Z",
+    "agent": "SHADOW_OPERATIVE_fc992877",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:30.648Z",
+    "agent": "WATCHER_OPERATIVE_e52f08b0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:30.786Z",
+    "agent": "CALLER_OPERATIVE_07f4d324",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:30.801Z",
+    "agent": "ORACLE_OPERATIVE_58beaaa4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:30.865Z",
+    "agent": "FARM_AGENT_OPERATIVE_9365aea4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:32.002Z",
+    "agent": "BANKER_OPERATIVE_4e61d041",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:32.422Z",
+    "agent": "TWILIO_OPERATIVE_9f4f9b24",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:33.534Z",
+    "agent": "INCUBATOR_OPERATIVE_f79d80ce",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:33.781Z",
+    "agent": "ARCHITECT_OPERATIVE_753360eb",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:33.921Z",
+    "agent": "DEEPFAKER_OPERATIVE_4ba80613",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:34.183Z",
+    "agent": "HEADHUNTER_OPERATIVE_cfe3cf7a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:34.539Z",
+    "agent": "HYDRA_OPERATIVE_9ad3d827",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:35.086Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_83fd2e9b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:35.627Z",
+    "agent": "PIRATE_OPERATIVE_c650ae4a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:36.550Z",
+    "agent": "ZERO_RUG_OPERATIVE_8c9bbb11",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:36.995Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_f745bd17",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:37.444Z",
+    "agent": "DEFI_FARMER_OPERATIVE_e695d928",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:37.972Z",
+    "agent": "MIRROR_OPERATIVE_c684dc03",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:38.481Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_4a06795c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:39.792Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_a36df3c6",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T00:51:41.024Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_c8af409c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:32.180Z",
+    "agent": "VAULT_OPERATIVE_d8c9e179",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:34.146Z",
+    "agent": "SNIPER_OPERATIVE_e991a9df",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:36.145Z",
+    "agent": "CRYPTO_OPERATIVE_7257a916",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:38.145Z",
+    "agent": "SIREN_OPERATIVE_0b06b102",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:40.163Z",
+    "agent": "GHOST_OPERATIVE_7ac38a14",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:41.141Z",
+    "agent": "INFLUENCER_OPERATIVE_2ab391f2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:41.700Z",
+    "agent": "SCAVENGER_OPERATIVE_0cd0041c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:42.153Z",
+    "agent": "LIBRARIAN_OPERATIVE_3f480195",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:42.657Z",
+    "agent": "FORGER_OPERATIVE_92124494",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:43.194Z",
+    "agent": "SHADOW_OPERATIVE_7cada868",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:43.669Z",
+    "agent": "WATCHER_OPERATIVE_3403b230",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:44.316Z",
+    "agent": "ORACLE_OPERATIVE_629dc777",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:44.324Z",
+    "agent": "CALLER_OPERATIVE_dfd80698",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:44.425Z",
+    "agent": "FARM_AGENT_OPERATIVE_592fa996",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:44.859Z",
+    "agent": "BANKER_OPERATIVE_1aa0cf38",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:45.746Z",
+    "agent": "TWILIO_OPERATIVE_9a0d4044",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:46.184Z",
+    "agent": "INCUBATOR_OPERATIVE_368a5fbe",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:46.686Z",
+    "agent": "ARCHITECT_OPERATIVE_636308aa",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:47.148Z",
+    "agent": "DEEPFAKER_OPERATIVE_5b5eba90",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:47.677Z",
+    "agent": "HEADHUNTER_OPERATIVE_36329594",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:48.259Z",
+    "agent": "HYDRA_OPERATIVE_a639fd25",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:48.666Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_93487ac5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:49.142Z",
+    "agent": "PIRATE_OPERATIVE_4fada38b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:50.166Z",
+    "agent": "ZERO_RUG_OPERATIVE_b9f16306",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:50.678Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_fa0e6f53",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:51.292Z",
+    "agent": "DEFI_FARMER_OPERATIVE_1d12495b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:51.708Z",
+    "agent": "MIRROR_OPERATIVE_0e33a94a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:52.227Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_a52f36e3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:53.153Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_511ff94e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:13:54.158Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_11ec9101",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:31:52.540Z",
+    "agent": "VAULT_OPERATIVE_2770a694",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:31:54.508Z",
+    "agent": "SNIPER_OPERATIVE_81a6173d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:31:56.525Z",
+    "agent": "CRYPTO_OPERATIVE_b87c7145",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:31:58.497Z",
+    "agent": "SIREN_OPERATIVE_a1fc653c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:00.573Z",
+    "agent": "GHOST_OPERATIVE_aa96b589",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:01.523Z",
+    "agent": "INFLUENCER_OPERATIVE_6342e67e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:02.027Z",
+    "agent": "SCAVENGER_OPERATIVE_82a1fcd8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:02.524Z",
+    "agent": "LIBRARIAN_OPERATIVE_20852b48",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:03.044Z",
+    "agent": "FORGER_OPERATIVE_b621d395",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:03.648Z",
+    "agent": "SHADOW_OPERATIVE_5909766f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:04.923Z",
+    "agent": "WATCHER_OPERATIVE_2ffaba5b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:05.593Z",
+    "agent": "ORACLE_OPERATIVE_0dcb5b97",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:05.620Z",
+    "agent": "CALLER_OPERATIVE_5e56a4b4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:05.700Z",
+    "agent": "FARM_AGENT_OPERATIVE_1b049830",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:05.799Z",
+    "agent": "BANKER_OPERATIVE_c4da9799",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:06.440Z",
+    "agent": "TWILIO_OPERATIVE_2587b8d9",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:07.185Z",
+    "agent": "INCUBATOR_OPERATIVE_b6324fdd",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:07.734Z",
+    "agent": "ARCHITECT_OPERATIVE_737f0448",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:07.856Z",
+    "agent": "DEEPFAKER_OPERATIVE_3a67155f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:08.065Z",
+    "agent": "HEADHUNTER_OPERATIVE_8e35c8c4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:08.585Z",
+    "agent": "HYDRA_OPERATIVE_e2ceb474",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:09.114Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_481c2dab",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:09.979Z",
+    "agent": "PIRATE_OPERATIVE_5d24d410",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:10.574Z",
+    "agent": "ZERO_RUG_OPERATIVE_7ac1406e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:11.236Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_beda3716",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:11.528Z",
+    "agent": "DEFI_FARMER_OPERATIVE_3ec2efbd",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:11.997Z",
+    "agent": "MIRROR_OPERATIVE_ef516a35",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:12.595Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_86d6053a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:13.543Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_b8ae8e4a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:32:15.329Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_2e9a7920",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:30.374Z",
+    "agent": "VAULT_OPERATIVE_8058ea23",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:32.340Z",
+    "agent": "SNIPER_OPERATIVE_237507c1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:34.325Z",
+    "agent": "CRYPTO_OPERATIVE_3c7c8302",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:36.331Z",
+    "agent": "SIREN_OPERATIVE_9f0c9ace",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:38.332Z",
+    "agent": "GHOST_OPERATIVE_b61ee8ea",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:39.396Z",
+    "agent": "INFLUENCER_OPERATIVE_eeb76a9c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:39.824Z",
+    "agent": "SCAVENGER_OPERATIVE_55e43ab1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:40.381Z",
+    "agent": "LIBRARIAN_OPERATIVE_3c338a4b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:40.832Z",
+    "agent": "FORGER_OPERATIVE_210a3cbb",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:41.449Z",
+    "agent": "SHADOW_OPERATIVE_caf13ece",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:41.903Z",
+    "agent": "WATCHER_OPERATIVE_1f7fd04d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:42.872Z",
+    "agent": "FARM_AGENT_OPERATIVE_bc1c8a11",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:42.881Z",
+    "agent": "CALLER_OPERATIVE_a36f8265",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:42.954Z",
+    "agent": "ORACLE_OPERATIVE_ecbb2583",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:43.196Z",
+    "agent": "BANKER_OPERATIVE_0c0389eb",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:44.009Z",
+    "agent": "TWILIO_OPERATIVE_b09e7b4f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:44.612Z",
+    "agent": "INCUBATOR_OPERATIVE_982fe253",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:44.945Z",
+    "agent": "ARCHITECT_OPERATIVE_9092d276",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:45.358Z",
+    "agent": "DEEPFAKER_OPERATIVE_a2e9b5f2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:45.869Z",
+    "agent": "HEADHUNTER_OPERATIVE_7060f89b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:46.337Z",
+    "agent": "HYDRA_OPERATIVE_04589550",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:46.903Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_c3691a96",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:47.400Z",
+    "agent": "PIRATE_OPERATIVE_489d59ee",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:48.412Z",
+    "agent": "ZERO_RUG_OPERATIVE_c9d96e4f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:48.885Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_873f1a77",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:49.520Z",
+    "agent": "DEFI_FARMER_OPERATIVE_cb3a44c9",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:50.150Z",
+    "agent": "MIRROR_OPERATIVE_bd8c0017",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:50.847Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_ed71ef32",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:51.499Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_0c7cc988",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T01:50:52.511Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_788c8c99",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:05.421Z",
+    "agent": "VAULT_OPERATIVE_11dee06b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:07.605Z",
+    "agent": "SNIPER_OPERATIVE_867211c1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:09.831Z",
+    "agent": "CRYPTO_OPERATIVE_39d508f8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:11.424Z",
+    "agent": "SIREN_OPERATIVE_cc0b09d8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:13.400Z",
+    "agent": "GHOST_OPERATIVE_06947cc4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:14.412Z",
+    "agent": "INFLUENCER_OPERATIVE_309a8260",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:14.889Z",
+    "agent": "SCAVENGER_OPERATIVE_fc589239",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:15.454Z",
+    "agent": "LIBRARIAN_OPERATIVE_3e97b487",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:15.916Z",
+    "agent": "FORGER_OPERATIVE_2db6db63",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:16.643Z",
+    "agent": "SHADOW_OPERATIVE_2de7841b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:16.932Z",
+    "agent": "WATCHER_OPERATIVE_26213a1b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:18.546Z",
+    "agent": "CALLER_OPERATIVE_9ebb2fa6",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:18.564Z",
+    "agent": "ORACLE_OPERATIVE_ef6f33db",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:19.043Z",
+    "agent": "BANKER_OPERATIVE_eba3b670",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:19.876Z",
+    "agent": "TWILIO_OPERATIVE_df8614aa",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:20.942Z",
+    "agent": "INCUBATOR_OPERATIVE_da0cb0cb",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:20.970Z",
+    "agent": "ARCHITECT_OPERATIVE_e7eb4234",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:20.999Z",
+    "agent": "DEEPFAKER_OPERATIVE_a4d72ade",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:21.453Z",
+    "agent": "HEADHUNTER_OPERATIVE_0e065a77",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:21.670Z",
+    "agent": "HYDRA_OPERATIVE_2c3d7af3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:21.994Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_2beb9b6b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:22.689Z",
+    "agent": "PIRATE_OPERATIVE_5b71995e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:23.682Z",
+    "agent": "ZERO_RUG_OPERATIVE_178ff4c7",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:23.888Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_66114813",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:24.400Z",
+    "agent": "DEFI_FARMER_OPERATIVE_8496728f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:24.950Z",
+    "agent": "MIRROR_OPERATIVE_41dfab86",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:25.543Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_91ece27d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:26.758Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_49fac51a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:11:27.682Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_e40116da",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:22.780Z",
+    "agent": "VAULT_OPERATIVE_50886c2c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:24.723Z",
+    "agent": "SNIPER_OPERATIVE_08a25dec",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:26.737Z",
+    "agent": "CRYPTO_OPERATIVE_9a01ceb1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:28.735Z",
+    "agent": "SIREN_OPERATIVE_94e879d3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:30.760Z",
+    "agent": "GHOST_OPERATIVE_30a70d20",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:31.748Z",
+    "agent": "INFLUENCER_OPERATIVE_499d0a84",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:32.261Z",
+    "agent": "SCAVENGER_OPERATIVE_59f8e990",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:32.818Z",
+    "agent": "LIBRARIAN_OPERATIVE_072d3430",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:33.554Z",
+    "agent": "FORGER_OPERATIVE_0c76e4c4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:33.878Z",
+    "agent": "SHADOW_OPERATIVE_303a685c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:34.319Z",
+    "agent": "WATCHER_OPERATIVE_b07129a1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:34.851Z",
+    "agent": "ORACLE_OPERATIVE_c666546b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:35.009Z",
+    "agent": "FARM_AGENT_OPERATIVE_041e1669",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:35.366Z",
+    "agent": "CALLER_OPERATIVE_87ed2db7",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:35.503Z",
+    "agent": "BANKER_OPERATIVE_5284428d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:37.633Z",
+    "agent": "TWILIO_OPERATIVE_723fdd20",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:38.695Z",
+    "agent": "INCUBATOR_OPERATIVE_6503a0e9",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:38.886Z",
+    "agent": "ARCHITECT_OPERATIVE_bf18e5a1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:39.073Z",
+    "agent": "DEEPFAKER_OPERATIVE_879cbf22",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:39.710Z",
+    "agent": "HEADHUNTER_OPERATIVE_053b59e8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:40.029Z",
+    "agent": "HYDRA_OPERATIVE_7bbb890c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:40.300Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_9775db9f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:40.435Z",
+    "agent": "PIRATE_OPERATIVE_4306b504",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:40.913Z",
+    "agent": "ZERO_RUG_OPERATIVE_a6197db9",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:41.548Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_bf165f15",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:42.029Z",
+    "agent": "DEFI_FARMER_OPERATIVE_e5aebc2f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:42.509Z",
+    "agent": "MIRROR_OPERATIVE_743d03b2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:42.965Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_95b806f9",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:43.772Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_7cb0fd75",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T02:19:44.783Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_ca3b999f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:03.740Z",
+    "agent": "VAULT_OPERATIVE_a6a02305",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:05.524Z",
+    "agent": "SNIPER_OPERATIVE_03236614",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:06.578Z",
+    "agent": "PUMPSNIPER_OPERATIVE_99c0de59",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:07.053Z",
+    "agent": "MEV_PREDATOR_OPERATIVE_b45e616c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:07.531Z",
+    "agent": "AIRDROP_FARMER_OPERATIVE_502a105f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:07.788Z",
+    "agent": "MARKET_MAKER_OPERATIVE_34cabc64",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:08.148Z",
+    "agent": "PEG_SNIPER_OPERATIVE_d08ab4e4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:08.666Z",
+    "agent": "NFT_SWEEPER_OPERATIVE_6aa7e5b1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:08.814Z",
+    "agent": "CRYPTO_OPERATIVE_9e64f2f1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:09.610Z",
+    "agent": "SIREN_OPERATIVE_17a83e9e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:11.522Z",
+    "agent": "GHOST_OPERATIVE_bdf873e0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:12.550Z",
+    "agent": "INFLUENCER_OPERATIVE_9a1c7b57",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:13.022Z",
+    "agent": "SCAVENGER_OPERATIVE_1b154962",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:13.544Z",
+    "agent": "LIBRARIAN_OPERATIVE_b22f54d6",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:14.027Z",
+    "agent": "FORGER_OPERATIVE_a44fe353",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:14.778Z",
+    "agent": "SHADOW_OPERATIVE_98e09db5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:15.134Z",
+    "agent": "WATCHER_OPERATIVE_f4eedcc8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:15.882Z",
+    "agent": "CALLER_OPERATIVE_dae85f15",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:15.917Z",
+    "agent": "ORACLE_OPERATIVE_f1a51cef",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:15.940Z",
+    "agent": "FARM_AGENT_OPERATIVE_750df09d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:16.310Z",
+    "agent": "BANKER_OPERATIVE_6b160007",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:17.375Z",
+    "agent": "TWILIO_OPERATIVE_c336bfe0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:17.682Z",
+    "agent": "INCUBATOR_OPERATIVE_37ca09d6",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:18.742Z",
+    "agent": "ARCHITECT_OPERATIVE_8947dade",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:18.863Z",
+    "agent": "DEEPFAKER_OPERATIVE_287bd2a4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:19.130Z",
+    "agent": "HEADHUNTER_OPERATIVE_d48c3155",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:19.548Z",
+    "agent": "HYDRA_OPERATIVE_4d353d5e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:20.052Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_e38c2134",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:20.564Z",
+    "agent": "PIRATE_OPERATIVE_90ba1a53",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:21.550Z",
+    "agent": "ZERO_RUG_OPERATIVE_4a7a2b29",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:22.053Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_926a66cc",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:22.536Z",
+    "agent": "DEFI_FARMER_OPERATIVE_cd4dc9a8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:23.100Z",
+    "agent": "MIRROR_OPERATIVE_59546123",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:23.824Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_4e4d5725",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:24.778Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_b3289240",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:43:25.698Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_1745f691",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:04.813Z",
+    "agent": "VAULT_OPERATIVE_03159a1b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:06.718Z",
+    "agent": "SNIPER_OPERATIVE_08790ad1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:07.920Z",
+    "agent": "PUMPSNIPER_OPERATIVE_9cccfae8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:08.254Z",
+    "agent": "MEV_PREDATOR_OPERATIVE_0688c29f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:08.546Z",
+    "agent": "AIRDROP_FARMER_OPERATIVE_6134b36e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:08.964Z",
+    "agent": "MARKET_MAKER_OPERATIVE_b104a381",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:09.563Z",
+    "agent": "PEG_SNIPER_OPERATIVE_bb0fa5a0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:09.879Z",
+    "agent": "NFT_SWEEPER_OPERATIVE_92d7dd9f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:10.122Z",
+    "agent": "CRYPTO_OPERATIVE_c7d86a01",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:10.740Z",
+    "agent": "SIREN_OPERATIVE_913ec993",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:12.737Z",
+    "agent": "GHOST_OPERATIVE_9c5b567d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:13.717Z",
+    "agent": "INFLUENCER_OPERATIVE_92f05e40",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:14.229Z",
+    "agent": "SCAVENGER_OPERATIVE_fd01abca",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:14.752Z",
+    "agent": "LIBRARIAN_OPERATIVE_49621e51",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:15.322Z",
+    "agent": "FORGER_OPERATIVE_074fb431",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:15.803Z",
+    "agent": "SHADOW_OPERATIVE_d4623d4a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:16.443Z",
+    "agent": "WATCHER_OPERATIVE_5c5775f2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:17.616Z",
+    "agent": "FARM_AGENT_OPERATIVE_940f95a5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:17.722Z",
+    "agent": "CALLER_OPERATIVE_809b22ba",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:17.764Z",
+    "agent": "ORACLE_OPERATIVE_029ee62e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:18.392Z",
+    "agent": "BANKER_OPERATIVE_ef6e0018",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:19.359Z",
+    "agent": "TWILIO_OPERATIVE_96d05b31",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:20.006Z",
+    "agent": "INCUBATOR_OPERATIVE_b6de18fa",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:20.221Z",
+    "agent": "ARCHITECT_OPERATIVE_88f2884f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:20.430Z",
+    "agent": "DEEPFAKER_OPERATIVE_56cc5bfe",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:20.783Z",
+    "agent": "HEADHUNTER_OPERATIVE_497863fd",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:20.860Z",
+    "agent": "HYDRA_OPERATIVE_c49f05be",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:21.285Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_5a5e49f5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:21.853Z",
+    "agent": "PIRATE_OPERATIVE_27fa0a85",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:22.759Z",
+    "agent": "ZERO_RUG_OPERATIVE_324cd96d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:23.387Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_23b6ce32",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:23.813Z",
+    "agent": "DEFI_FARMER_OPERATIVE_fd5ad4ca",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:24.382Z",
+    "agent": "MIRROR_OPERATIVE_38fabaa2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:24.782Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_1792fcaa",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:25.947Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_0f3bc97c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:47:26.929Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_dcf7734f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:41.061Z",
+    "agent": "VAULT_OPERATIVE_70c9a1c4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:43.120Z",
+    "agent": "SNIPER_OPERATIVE_c26efbd3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:44.178Z",
+    "agent": "PUMPSNIPER_OPERATIVE_1bbdf96c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:44.697Z",
+    "agent": "MEV_PREDATOR_OPERATIVE_a942887e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:45.085Z",
+    "agent": "AIRDROP_FARMER_OPERATIVE_f27ef79d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:45.729Z",
+    "agent": "MARKET_MAKER_OPERATIVE_3686623c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:45.876Z",
+    "agent": "PEG_SNIPER_OPERATIVE_71dac5a9",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:46.557Z",
+    "agent": "CRYPTO_OPERATIVE_538fec71",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:46.600Z",
+    "agent": "NFT_SWEEPER_OPERATIVE_c5247a97",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:47.672Z",
+    "agent": "SIREN_OPERATIVE_61c2cbc3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:49.021Z",
+    "agent": "GHOST_OPERATIVE_a8c0aa25",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:50.038Z",
+    "agent": "INFLUENCER_OPERATIVE_b6411ad4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:50.523Z",
+    "agent": "SCAVENGER_OPERATIVE_1c239474",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:51.048Z",
+    "agent": "LIBRARIAN_OPERATIVE_3ba9010c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:51.740Z",
+    "agent": "FORGER_OPERATIVE_4ff32fc8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:52.197Z",
+    "agent": "SHADOW_OPERATIVE_11650aad",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:53.566Z",
+    "agent": "WATCHER_OPERATIVE_4be17ac3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:55.008Z",
+    "agent": "ORACLE_OPERATIVE_40862a6c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:55.742Z",
+    "agent": "CALLER_OPERATIVE_1b0bc4b8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:56.416Z",
+    "agent": "BANKER_OPERATIVE_40bf10f5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:56.576Z",
+    "agent": "FARM_AGENT_OPERATIVE_a2a01732",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:56.794Z",
+    "agent": "ARCHITECT_OPERATIVE_f74fe3e2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:56.931Z",
+    "agent": "TWILIO_OPERATIVE_7ce96de5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:57.057Z",
+    "agent": "INCUBATOR_OPERATIVE_82073ad6",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:57.424Z",
+    "agent": "HEADHUNTER_OPERATIVE_3c263b73",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:57.739Z",
+    "agent": "DEEPFAKER_OPERATIVE_44affe5f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:58.126Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_62f0a26c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:58.138Z",
+    "agent": "HYDRA_OPERATIVE_91d48359",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:59.072Z",
+    "agent": "PIRATE_OPERATIVE_45c1a314",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:59.269Z",
+    "agent": "ZERO_RUG_OPERATIVE_c867bb79",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:54:59.609Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_dbe5c42a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:55:00.158Z",
+    "agent": "DEFI_FARMER_OPERATIVE_838e2cd3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:55:00.637Z",
+    "agent": "MIRROR_OPERATIVE_07f3a0bf",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:55:01.048Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_0eb09ec4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:55:02.047Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_24102bb9",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:55:03.444Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_1497d2df",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T04:59:30.486Z",
+    "agent": "LIQUIDATOR_OPERATIVE_61ce1409",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:46.344Z",
+    "agent": "VAULT_OPERATIVE_68e77371",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:49.217Z",
+    "agent": "SNIPER_OPERATIVE_97ca1e88",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:49.660Z",
+    "agent": "PUMPSNIPER_OPERATIVE_7e8cbf92",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:50.067Z",
+    "agent": "MEV_PREDATOR_OPERATIVE_7054ba5a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:50.288Z",
+    "agent": "AIRDROP_FARMER_OPERATIVE_91333445",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:51.261Z",
+    "agent": "MARKET_MAKER_OPERATIVE_394df186",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:51.548Z",
+    "agent": "PEG_SNIPER_OPERATIVE_cb929c15",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:52.056Z",
+    "agent": "NFT_SWEEPER_OPERATIVE_50cf437c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:52.107Z",
+    "agent": "CRYPTO_OPERATIVE_15db6901",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:52.571Z",
+    "agent": "SIREN_OPERATIVE_fbb60d1f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:56.024Z",
+    "agent": "GHOST_OPERATIVE_2999e14d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:57.176Z",
+    "agent": "INFLUENCER_OPERATIVE_446c386d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:57.392Z",
+    "agent": "SCAVENGER_OPERATIVE_5d1a1024",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:57.593Z",
+    "agent": "LIBRARIAN_OPERATIVE_f61d2eeb",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:58.260Z",
+    "agent": "FORGER_OPERATIVE_8cee4fd5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:58.608Z",
+    "agent": "SHADOW_OPERATIVE_8051cd83",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:58.932Z",
+    "agent": "WATCHER_OPERATIVE_00f18c59",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:58.959Z",
+    "agent": "ORACLE_OPERATIVE_e234d37d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:59.346Z",
+    "agent": "FARM_AGENT_OPERATIVE_9ad639d5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:59.482Z",
+    "agent": "CALLER_OPERATIVE_55a213fd",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:07:59.578Z",
+    "agent": "BANKER_OPERATIVE_7de01113",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:01.454Z",
+    "agent": "TWILIO_OPERATIVE_adbd8279",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:01.571Z",
+    "agent": "INCUBATOR_OPERATIVE_a8e87bef",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:02.176Z",
+    "agent": "ARCHITECT_OPERATIVE_736bd934",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:02.434Z",
+    "agent": "DEEPFAKER_OPERATIVE_32a57a71",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:02.865Z",
+    "agent": "HEADHUNTER_OPERATIVE_5077f15a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:03.944Z",
+    "agent": "HYDRA_OPERATIVE_9cbcbeec",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:04.057Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_c649b282",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:04.233Z",
+    "agent": "PIRATE_OPERATIVE_e74094cf",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:04.635Z",
+    "agent": "ZERO_RUG_OPERATIVE_fa9fc696",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:05.123Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_07abaf4e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:06.601Z",
+    "agent": "DEFI_FARMER_OPERATIVE_a608b2c8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:06.802Z",
+    "agent": "MIRROR_OPERATIVE_c6ea9b2d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:06.949Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_427eda73",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:07.828Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_cc393b13",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:08:09.005Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_71d69424",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:29.169Z",
+    "agent": "VAULT_OPERATIVE_f187e298",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:31.146Z",
+    "agent": "SNIPER_OPERATIVE_03d28a56",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:32.206Z",
+    "agent": "PUMPSNIPER_OPERATIVE_e7f6fe75",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:33.558Z",
+    "agent": "AIRDROP_FARMER_OPERATIVE_c3b155b2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:34.011Z",
+    "agent": "MEV_PREDATOR_OPERATIVE_578774c1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:35.012Z",
+    "agent": "MARKET_MAKER_OPERATIVE_ae6e417c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:35.998Z",
+    "agent": "PEG_SNIPER_OPERATIVE_21c7856a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:36.732Z",
+    "agent": "NFT_SWEEPER_OPERATIVE_0d2ff148",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:36.850Z",
+    "agent": "CRYPTO_OPERATIVE_4299b23a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:37.697Z",
+    "agent": "SIREN_OPERATIVE_80d2da6c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:37.729Z",
+    "agent": "GHOST_OPERATIVE_dfab19c8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:38.231Z",
+    "agent": "INFLUENCER_OPERATIVE_55538aeb",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:38.684Z",
+    "agent": "SCAVENGER_OPERATIVE_5d035f16",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:39.265Z",
+    "agent": "LIBRARIAN_OPERATIVE_fafd086a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:39.672Z",
+    "agent": "FORGER_OPERATIVE_0c84721e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:40.225Z",
+    "agent": "SHADOW_OPERATIVE_dcb7b4ba",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:40.998Z",
+    "agent": "WATCHER_OPERATIVE_3e1e5246",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:41.367Z",
+    "agent": "ORACLE_OPERATIVE_602ca6d5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:42.057Z",
+    "agent": "CALLER_OPERATIVE_88ecfa37",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:42.135Z",
+    "agent": "FARM_AGENT_OPERATIVE_959d8b8e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:42.958Z",
+    "agent": "BANKER_OPERATIVE_8d42d396",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:44.703Z",
+    "agent": "TWILIO_OPERATIVE_4812a110",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:45.232Z",
+    "agent": "INCUBATOR_OPERATIVE_90e8c5d5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:45.942Z",
+    "agent": "ARCHITECT_OPERATIVE_fd627b0d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:46.916Z",
+    "agent": "DEEPFAKER_OPERATIVE_a6551825",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:47.533Z",
+    "agent": "HEADHUNTER_OPERATIVE_b6fcc816",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:47.596Z",
+    "agent": "HYDRA_OPERATIVE_1c08f644",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:47.614Z",
+    "agent": "PIRATE_OPERATIVE_8a8ce28c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:47.798Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_f5ee3484",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:48.823Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_2173f8be",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:49.409Z",
+    "agent": "ZERO_RUG_OPERATIVE_dbf1bcda",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:51.156Z",
+    "agent": "DEFI_FARMER_OPERATIVE_96726cce",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:51.366Z",
+    "agent": "MIRROR_OPERATIVE_9e9f47f4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:52.081Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_de084548",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:52.381Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_a06d6b8f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:12:52.550Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_72e0019b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:43.481Z",
+    "agent": "VAULT_OPERATIVE_550c30ea",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:45.523Z",
+    "agent": "SNIPER_OPERATIVE_a2eb7f0d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:46.842Z",
+    "agent": "PUMPSNIPER_OPERATIVE_ea29a653",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:47.326Z",
+    "agent": "MEV_PREDATOR_OPERATIVE_cccd6fb8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:47.463Z",
+    "agent": "AIRDROP_FARMER_OPERATIVE_d08415e8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:47.809Z",
+    "agent": "MARKET_MAKER_OPERATIVE_b53c5120",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:48.809Z",
+    "agent": "PEG_SNIPER_OPERATIVE_be4ac527",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:49.317Z",
+    "agent": "NFT_SWEEPER_OPERATIVE_3a61bc62",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:49.406Z",
+    "agent": "CRYPTO_OPERATIVE_22808733",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:49.840Z",
+    "agent": "SIREN_OPERATIVE_c1a91432",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:51.513Z",
+    "agent": "GHOST_OPERATIVE_32c75103",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:52.510Z",
+    "agent": "INFLUENCER_OPERATIVE_f611e558",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:53.217Z",
+    "agent": "SCAVENGER_OPERATIVE_2dc4afdc",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:53.792Z",
+    "agent": "LIBRARIAN_OPERATIVE_24f04327",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:54.069Z",
+    "agent": "FORGER_OPERATIVE_b6a03ce1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:56.446Z",
+    "agent": "SHADOW_OPERATIVE_1ae587c1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:56.615Z",
+    "agent": "WATCHER_OPERATIVE_76154e55",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:58.003Z",
+    "agent": "ORACLE_OPERATIVE_36ba7d84",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:58.060Z",
+    "agent": "FARM_AGENT_OPERATIVE_21edc9fd",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:58.483Z",
+    "agent": "BANKER_OPERATIVE_653792aa",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:58.803Z",
+    "agent": "TWILIO_OPERATIVE_4c06d950",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:59.199Z",
+    "agent": "INCUBATOR_OPERATIVE_dbc365a5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:15:59.979Z",
+    "agent": "ARCHITECT_OPERATIVE_debb194f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:16:00.299Z",
+    "agent": "DEEPFAKER_OPERATIVE_5900c5bf",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:16:00.535Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_aa58bac7",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:16:00.609Z",
+    "agent": "HEADHUNTER_OPERATIVE_b38124a0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:16:00.682Z",
+    "agent": "HYDRA_OPERATIVE_2cf8ca11",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:16:01.941Z",
+    "agent": "PIRATE_OPERATIVE_6fabbc78",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:16:03.659Z",
+    "agent": "ZERO_RUG_OPERATIVE_ad4b69ae",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:16:03.949Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_c33c581f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:16:04.569Z",
+    "agent": "DEFI_FARMER_OPERATIVE_a6d3efa3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:16:04.992Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_486820e0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:16:05.046Z",
+    "agent": "MIRROR_OPERATIVE_e72c8e3e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:16:05.913Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_ecbd89af",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-02-25T06:16:06.663Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_771bad41",
+    "status": "ENGAGED"
   }
 ]

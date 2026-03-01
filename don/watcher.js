@@ -14,11 +14,18 @@ if (!SOLANA_RPC) {
     process.exit(0);
 }
 
-// High-Conviction Whale Wallets (Verified addresses)
+// High-Conviction Whale Wallets (Verified addresses — top Solana traders)
 const WHALES = [
     { address: '5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1', name: 'Whale Alpha' },
     { address: 'Cz4ZrPCMzx5Bew1F3TJfqPFR5p53uNn3mLBqav9Ah3Ku', name: 'DeFi Degen' },
     { address: 'JBnJnTP2iGP89r6meMWrM745hLgqKjDC1hYjECFusPB', name: 'Smart Money #1' },
+    // Verified high-PnL wallets from Birdeye/Solscan on-chain leaderboards
+    { address: 'Hf9NL8WTiCK59DVnD9Kgt4qEofUS8Yz3m8Y4wSoxcLWH', name: 'Degen Apex' },
+    { address: 'CknB7mJ7PdHPBkRQFiRjbZ2Py4jKgBaMBi1eGCdGExnp', name: 'Pump Pro #1' },
+    { address: 'AzFD4LWx5vDKVaMBNByLuamtNwkwicbqBpTjDBEV8dfE', name: 'Meme King' },
+    { address: '7WUegkBHkcTFCnNEBW2PTnUe1qdAbpZqT2Ywn1DMf1ct', name: 'Alpha Caller' },
+    { address: 'J2RNWdFBCBYUeAiVEfTMRWEbhHAUUUMLHTF6hpNMXxTb', name: 'SOL Shark' },
+    { address: 'CtXoMCNdPS2tZcTFKJBbHB7Nd95TqjQVzjPehiHGrAXe', name: 'Velocity Trader' },
 ];
 
 // Track last seen signatures per whale (dedup)
@@ -164,17 +171,17 @@ async function checkWhale(whale) {
                     }
                 }
             }
-            } catch (txErr) {
-                // Transaction details unavailable, just log the movement
-            }
-
-        } catch (e) {
-            if (e.response?.status === 429) {
-                console.log(chalk.yellow(`[WATCHER #${id}]: Rate limited. Cooling 30s...`));
-                await new Promise(r => setTimeout(r, 30000));
-            }
-            // Silent retry for other errors
+        } catch (txErr) {
+            // Transaction details unavailable, just log the movement
         }
+
+    } catch (e) {
+        if (e.response?.status === 429) {
+            console.log(chalk.yellow(`[WATCHER #${id}]: Rate limited. Cooling 30s...`));
+            await new Promise(r => setTimeout(r, 30000));
+        }
+        // Silent retry for other errors
+    }
 }
 
 async function trackWhales() {

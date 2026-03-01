@@ -70,11 +70,22 @@ async function scrapeBounties() {
     return runWithRetry(async () => {
         console.log(chalk.cyan(`[SCAVENGER #${id}]: 🔍 Triggering Shadow Scraper (Bounty Mode)...`));
         const scraperPath = path.join(__dirname, 'shadow_scraper.js');
-        const output = execSync(`node "${scraperPath}" "Solana Web3 Bounty" 10 --bounty`, { encoding: 'utf8' });
+        // maxBuffer: 5MB cap so we never OOM on binary output
+        const rawOutput = execSync(`node "${scraperPath}" "Solana Web3 Bounty" 10 --bounty`, {
+            encoding: 'utf8',
+            maxBuffer: 5 * 1024 * 1024,
+            timeout: 60000
+        });
 
-        // Extract JSON array using regex to bypass any non-JSON logs/warnings
-        const jsonMatch = output.match(/\[[\s\S]*\]/);
-        if (!jsonMatch) throw new Error("No JSON array found in scraper output");
+        // Strip null bytes and non-printable chars that crash JSON.parse
+        const output = rawOutput.replace(/\0/g, '').replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '');
+
+        // Extract JSON array — the scraper always outputs it at the very end starting with `[\n`
+        // Don't use lazy regex: /\[[\s\S]*?\]/ matches the FIRST `]` which hits log tags like [SHADOW_SCRAPER]
+        // Instead, find where the actual standalone JSON array starts (last occurrence of `[\n`)
+        const jsonStart = output.lastIndexOf('[\n');
+        if (jsonStart === -1) throw new Error("No JSON array found in scraper output");
+        const jsonMatch = [output.slice(jsonStart)];
 
         let leads = [];
         try {

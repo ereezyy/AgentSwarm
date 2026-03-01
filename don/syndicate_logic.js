@@ -60,9 +60,30 @@ class DonCore {
                 });
             });
             this.log("WebSocket Server running on port 8080", "INFO");
+
+            // Start Dedicated Radar Node Server (for Distributed Pi 5 Compute)
+            this.radarWss = new WebSocket.Server({ port: 8081 });
+            this.radarWss.on("connection", ws => {
+                this.log("📡 DISTRIBUTED RADAR NODE CONNECTED to port 8081", "POWER");
+
+                ws.on("message", (message) => {
+                    try {
+                        const payload = JSON.parse(message);
+                        if (payload.type === 'PI_TRIGGER') {
+                            this.handleRadarTrigger(payload);
+                        } else if (payload.type === 'RADAR_ONLINE') {
+                            this.log(`📡 RADAR LINK VERIFIED: ${payload.node} is sending data.`, 'CRYPTO');
+                        }
+                    } catch (e) {
+                        this.log(`Radar Message Error: ${e.message}`, 'ERROR');
+                    }
+                });
+            });
+
         } else {
             // Mock WSS for testing
             this.wss = { clients: [], on: () => { } };
+            this.radarWss = { clients: [], on: () => { } };
         }
     }
 
@@ -179,6 +200,35 @@ class DonCore {
         }
     }
 
+    handleRadarTrigger(payload) {
+        this.log(`🚨 RADAR FIRING: ${payload.action} DETECTED! Triggering execution...`, 'POWER');
+
+        // Route the trigger to the appropriate sniper/agent
+        if (payload.action === 'BLOCK0_SNIPE') {
+            if (this.processes['BLOCK0_SNIPER'] && this.processes['BLOCK0_SNIPER'].connected) {
+                this.processes['BLOCK0_SNIPER'].send(payload);
+            } else {
+                this.log('⚠️ BLOCK0_SNIPER is offline. Radar trigger missed.', 'ERROR');
+                // Auto-spawn it to handle future hits
+                this.spawnSoldier('BLOCK0_SNIPER');
+            }
+        } else if (payload.action === 'LIQUIDATE_TARGET') {
+            if (this.processes['LIQUIDATOR'] && this.processes['LIQUIDATOR'].connected) {
+                this.processes['LIQUIDATOR'].send(payload);
+            } else {
+                this.log('⚠️ LIQUIDATOR is offline. Radar trigger missed.', 'ERROR');
+                this.spawnSoldier('LIQUIDATOR');
+            }
+        } else if (payload.action === 'EXECUTE_SANDWICH') {
+            if (this.processes['JITO_SANDWICH'] && this.processes['JITO_SANDWICH'].connected) {
+                this.processes['JITO_SANDWICH'].send(payload);
+            } else {
+                this.log('⚠️ JITO_SANDWICH is offline. Radar trigger missed.', 'ERROR');
+                this.spawnSoldier('JITO_SANDWICH');
+            }
+        }
+    }
+
     broadcast(data) {
         this.wss.clients.forEach(client => {
             if (client.readyState === WebSocket.OPEN) {
@@ -249,19 +299,25 @@ class DonCore {
 
         // Spawn ACTUAL EARNERS
         setTimeout(() => this.spawnSoldier('SNIPER'), 2000);
-        setTimeout(() => this.spawnSoldier('CRYPTO'), 4000);
+        setTimeout(() => this.spawnSoldier('PUMPSNIPER'), 3000); // Launch Sniper
+        setTimeout(() => this.spawnSoldier('MEV_PREDATOR'), 3500); // Sandwich Bot
+        setTimeout(() => this.spawnSoldier('AIRDROP_FARMER'), 3800); // Sybil On-chain Volume
+        setTimeout(() => this.spawnSoldier('MARKET_MAKER'), 4200); // Limit Grid Spread
+        setTimeout(() => this.spawnSoldier('PEG_SNIPER'), 4500); // LST De-Peg Arbitrage
+        setTimeout(() => this.spawnSoldier('NFT_SWEEPER'), 4800); // Fat-finger Market Sweeper
+        setTimeout(() => this.spawnSoldier('CRYPTO'), 5000);
         setTimeout(() => this.spawnSoldier('SIREN'), 6000);
         setTimeout(() => this.spawnSoldier('GHOST'), 8000);
-        setTimeout(() => this.spawnSoldier('INFLUENCER'), 9000); // Syla joins the team
-        setTimeout(() => this.spawnSoldier('SCAVENGER'), 9500); // The Grinder
-        setTimeout(() => this.spawnSoldier('FORGER'), 10500); // Visuals
-        setTimeout(() => this.spawnSoldier('SHADOW'), 11000); // Execution
-        setTimeout(() => this.spawnSoldier('WATCHER'), 11500); // Whale Tracking
-        setTimeout(() => this.spawnSoldier('ORACLE'), 12000); // Security Auditor
+        setTimeout(() => this.spawnSoldier('INFLUENCER'), 9000); // SylatheSlut joins the team
+        setTimeout(() => this.spawnSoldier('SCAVENGER'), 9500); // The NigNog
+        setTimeout(() => this.spawnSoldier('FORGER'), 10500); // Nasty Visuals
+        setTimeout(() => this.spawnSoldier('SHADOW'), 11000); // Executioner
+        setTimeout(() => this.spawnSoldier('WATCHER'), 11500); // FatBitch Tracking
+        setTimeout(() => this.spawnSoldier('ORACLE'), 12000); // FuckinPig Auditor
         setTimeout(() => this.spawnSoldier('BANKER'), 12500); // Arbitrage
         setTimeout(() => this.spawnSoldier('TWILIO'), 13500); // Phone Call Bridge
         setTimeout(() => this.spawnSoldier('INCUBATOR'), 14000); // Token Genesis
-        setTimeout(() => this.spawnSoldier('DEEPFAKER'), 15000); // Video Avatar
+        setTimeout(() => this.spawnSoldier('DEEPFAKER'), 15000); // TitsVideo Avatar
         setTimeout(() => this.spawnSoldier('ARCHITECT'), 14500); // Self-Evolution
         setTimeout(() => this.spawnSoldier('HEADHUNTER'), 15500); // Upwork Job Hunter
         setTimeout(() => this.spawnSoldier('ORCHESTRATOR'), 16500); // Jules Evolution Orchestrator
@@ -291,14 +347,14 @@ class DonCore {
                 if (this.processes['TWILIO']) {
                     this.processes['TWILIO'].send({
                         type: 'PHONE_ALERT',
-                        text: "Infinite Hypernova online. The full Syndicate army is mobilized."
+                        text: "Infinite Hypernova online."
                     });
                 }
             }, 5000);
         }, 12000);
 
-        // Wallet Watchdog — check SOL balance every 2 min
-        setTimeout(() => this.startWalletWatchdog(), 20000);
+        // Wallet Watchdog — check SOL balance every 1 min
+        setTimeout(() => this.startWalletWatchdog(), 5000);
     }
 
     orderMuscle(action, target = '') {
@@ -320,10 +376,11 @@ class DonCore {
 
     commandTrade(agentId, params) {
         const EXECUTOR_PATH = path.join(__dirname, '../muscle/executor.py');
-        const inputData = JSON.stringify({ ...params, rpcUrl: process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com' });
+        const rpcUrl = process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com';
+        const inputData = JSON.stringify({ ...params, rpcUrl });
 
         return new Promise((resolve) => {
-            const child = exec(`python "${EXECUTOR_PATH}"`, (error, stdout, stderr) => {
+            const child = exec(`python "${EXECUTOR_PATH}"`, async (error, stdout, stderr) => {
                 if (error || stderr) {
                     this.log(`Trade Executor Error: ${stderr || error.message}`, 'ERROR');
                     resolve({ success: false, error: stderr || error.message });
@@ -331,7 +388,24 @@ class DonCore {
                 }
                 try {
                     const result = JSON.parse(stdout);
-                    resolve(result);
+                    // FIX #2: Python only BUILDS the TX — we must BROADCAST it here
+                    if (result.success && result.tx) {
+                        try {
+                            if (!SolanaWeb3) { resolve({ success: false, error: 'Solana not loaded' }); return; }
+                            const connection = new SolanaWeb3.Connection(rpcUrl, 'confirmed');
+                            const txBuf = Buffer.from(result.tx, 'base64');
+                            const vTx = SolanaWeb3.VersionedTransaction.deserialize(txBuf);
+                            const sig = await connection.sendTransaction(vTx, { skipPreflight: true, maxRetries: 3 });
+                            await connection.confirmTransaction(sig, 'confirmed');
+                            this.log(`Trade Executed On-Chain: ${sig}`, 'CRYPTO');
+                            resolve({ success: true, tx: sig });
+                        } catch (sendErr) {
+                            this.log(`Trade Broadcast Failed: ${sendErr.message}`, 'ERROR');
+                            resolve({ success: false, error: sendErr.message });
+                        }
+                    } else {
+                        resolve(result);
+                    }
                 } catch (e) {
                     this.log(`Trade Executor Parse Error: ${e.message}`, 'ERROR');
                     resolve({ success: false, error: e.message });
@@ -345,7 +419,7 @@ class DonCore {
     spawnSoldier(type = 'STREET') {
         // Prevent duplicate spawns
         if (this.processes[type] && this.processes[type].connected) {
-            this.log(`${type} already active. Skipping duplicate spawn.`, 'INFO');
+            this.log(`${type} already active dumbass. Skipping duplicate spawn.`, 'INFO');
             return;
         }
         const crypto = require('crypto');
@@ -358,6 +432,7 @@ class DonCore {
             'SIREN': 'siren.js',
             'LIBRARIAN': 'moltbook.js',
             'SNIPER': 'sniper.js',
+            'MULTICHAIN': 'multichain_sniper.js',
             'CALLER': 'caller.js',
             'INFLUENCER': 'influencer.js',
             'SCAVENGER': 'scavenger.js',
@@ -386,7 +461,15 @@ class DonCore {
             'PIRATE': 'pirate.js',
             'SEED_FUND_AGENT': 'SeedFundingAgent.js',
             'CAPITAL_GEN': 'capital_generator.js',
-            'FARM_AGENT': 'farm_agent.js'
+            'FARM_AGENT': 'farm_agent.js',
+            'MARKET_MAKER': 'market_maker.js',
+            'PEG_SNIPER': 'peg_sniper.js',
+            'NFT_SWEEPER': 'nft_sweeper.js',
+            'MEV_PREDATOR': 'mev_predator.js',
+            'AIRDROP_FARMER': 'airdrop_farmer.js',
+            'BLOCK0_SNIPER': 'block0_sniper.js',
+            'LIQUIDATOR': 'liquidator.js',
+            'JITO_SANDWICH': 'jito_sandwich.js'
         }[type];
 
         // Fallback for Architect-generated agents
@@ -557,6 +640,29 @@ class DonCore {
                 this.broadcast(msg); // Forward market data to dashboard
             } else if (msg.type === 'MINING_UPDATE') {
                 this.broadcast(msg); // Forward mining update
+            } else if (msg.type === 'WALLET_HOLDINGS') {
+                // Forward wallet holdings scan to dashboard
+                this.broadcast(msg);
+            } else if (msg.type === 'BANKER_EXIT_SIGNAL') {
+                // Banker detected a profit/loss exit opportunity — route to Sniper
+                const { mint, signal, pnl, reason, tradeAmount } = msg;
+                this.log(`📊 BANKER EXIT SIGNAL: ${signal} on ${mint?.slice(0, 8)}... PnL: ${pnl?.toFixed(1)}% — ${reason}`, 'MONEY');
+
+                if (signal === 'STRONG_SELL' || signal === 'DUMP' || signal === 'STOP_LOSS' || signal === 'TAKE_PROFIT') {
+                    if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                        this.processes['SNIPER'].send({
+                            type: 'EMERGENCY_SELL',
+                            mint,
+                            reason: signal,
+                            amount: tradeAmount,
+                        });
+                        this.log(`🔫⚠️ EXIT! EXIT! ⚠️🔫⚠️ EXIT! EXIT! ⚠️🔫 ${mint?.slice(0, 8)}... [${signal}]`, 'MONEY');
+                    } else {
+                        this.log(`⚠️ Sniper offline — cannot execute exit for ${mint?.slice(0, 8)}`, 'ERROR');
+                    }
+                }
+                // Broadcast signal to dashboard for display
+                this.broadcast({ type: 'LOG', level: 'MONEY', timestamp: new Date().toISOString(), msg: `💰 EXIT SIGNAL [${signal}]: ${mint?.slice(0, 8)}... ${reason}` });
             } else if (msg.type === 'LOG') {
                 this.log(msg.msg, msg.level || 'INFO'); // Forward agent logs
             } else if (msg.type === 'COPY_TRADE_SIGNAL') {
@@ -589,10 +695,29 @@ class DonCore {
                 if (this.processes['TREND_HUNTER'] && this.processes['TREND_HUNTER'].connected) {
                     this.processes['TREND_HUNTER'].send(msg);
                 }
-            } else if (msg.type === 'AUDIT_RESULT' && msg.source === 'TREND_HUNTER') {
-                // Route Oracle audit results back to Trend Hunter
-                if (this.processes['TREND_HUNTER'] && this.processes['TREND_HUNTER'].connected) {
-                    this.processes['TREND_HUNTER'].send(msg);
+            } else if (msg.type === 'AUDIT_RESULT') {
+                if (msg.source === 'TREND_HUNTER') {
+                    // Route back to Trend Hunter
+                    if (this.processes['TREND_HUNTER'] && this.processes['TREND_HUNTER'].connected) {
+                        this.processes['TREND_HUNTER'].send(msg);
+                    }
+                } else if (msg.source === 'SNIPER_GATE' && this.pendingSignals && this.pendingSignals[msg.mint]) {
+                    // Oracle result for a pending sniper signal
+                    const pendingMsg = this.pendingSignals[msg.mint];
+                    delete this.pendingSignals[msg.mint];
+
+                    const isDanger = (msg.score && msg.score > 200) || msg.status === 'DANGER';
+                    if (isDanger) {
+                        this.log(`⚠️🛡️🛡️🛡️⚠️ TRADE BLOCKED ⚠️🛡️🛡️🛡️⚠️: ${msg.mint} (Score: ${msg.score}) — DANGER signal suppressed.`, 'DANGER');
+                        if (this.processes['ZERO_RUG'] && this.processes['ZERO_RUG'].connected) {
+                            this.processes['ZERO_RUG'].send({ type: 'BLACKLIST_DEPLOYER', mint: msg.mint, reason: `Oracle danger: ${msg.score}` });
+                        }
+                    } else {
+                        this.log(`⚠️✅✅✅⚠️ TRADE CLEARED ⚠️✅✅✅⚠️ ${msg.mint} (Score: ${msg.score}) — forwarding to Sniper`, 'CRYPTO');
+                        if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                            this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...pendingMsg });
+                        }
+                    }
                 }
             } else if (msg.type === 'KICK_UP' || msg.type === 'TRADE_PROFIT') {
                 // Route ALL revenue to Protocol Omega for treasury allocation
@@ -619,11 +744,31 @@ class DonCore {
                 if (this.processes['ZERO_RUG'] && this.processes['ZERO_RUG'].connected) {
                     this.processes['ZERO_RUG'].send(msg);
                 }
-            } else if (msg.type === 'APPROVED_SIGNAL') {
-                // Zero-Rug approved a signal — forward to Sniper
-                this.log(`ZERO-RUG APPROVED: ${msg.mint} → Sniper`, 'CRYPTO');
-                if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
-                    this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...msg });
+            } else if (msg.type === '⚠️⚠️ APPROVED_SIGNAL ⚠️⚠️') {
+                // Zero-Rug approved a signal — hold for Oracle audit before forwarding to Sniper
+                this.log(`ZERO-RUG APPROVED: ${msg.mint} → Pending Oracle audit...`, 'CRYPTO');
+                if (!this.pendingSignals) this.pendingSignals = {};
+
+                // If Oracle is online, wait up to 8s for its verdict
+                if (this.processes['ORACLE'] && this.processes['ORACLE'].connected) {
+                    this.pendingSignals[msg.mint] = msg;
+                    this.processes['ORACLE'].send({ type: 'REQUEST_AUDIT', target: msg.mint, source: 'SNIPER_GATE' });
+
+                    // 8-second fallback: fire anyway if Oracle takes too long
+                    setTimeout(() => {
+                        if (this.pendingSignals && this.pendingSignals[msg.mint]) {
+                            this.log(`Oracle timeout for ${msg.mint} — firing anyway`, 'WARN');
+                            delete this.pendingSignals[msg.mint];
+                            if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                                this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...msg });
+                            }
+                        }
+                    }, 8000);
+                } else {
+                    // Oracle offline — fire directly
+                    if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                        this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...msg });
+                    }
                 }
             } else if (msg.type === 'EMERGENCY_SELL') {
                 // Zero-Rug detected a post-buy rug — dump immediately
@@ -688,7 +833,10 @@ class DonCore {
                 }
             } else if (msg.type === 'EXECUTE_TRADE') {
                 this.log(`Executing Trade for ${type} #${id}: ${msg.params.command} ${msg.params.mint}`, 'POWER');
-                this.commandTrade(id, { ...msg.params, privateKey: process.env.SOLANA_PRIVATE_KEY }).then(result => {
+                // FIX #1: executor.py expects base64, env var is hex — convert here
+                const hexKey = process.env.SOLANA_PRIVATE_KEY || '';
+                const base64Key = Buffer.from(hexKey, 'hex').toString('base64');
+                this.commandTrade(id, { ...msg.params, privateKey: base64Key }).then(result => {
                     child.send({ type: 'TRADE_RESULT', requestId: msg.requestId, ...result });
                 });
             } else if (msg.type === 'SIGN_REQUEST' || msg.type === 'SIGN_RESULT') {
@@ -812,7 +960,7 @@ class DonCore {
                 }
 
                 this.broadcast({
-                    type: 'WALLET_BALANCE',
+                    type: '⚠️ WALLET_BALANCE ⚠️',
                     balance: this.lastKnownBalance,
                     address: wallet.publicKey.toString(),
                     timestamp: new Date().toISOString()

@@ -6,7 +6,7 @@ import {
   Signal, GraduationCap, Wifi, WifiOff, Crosshair, Eye,
   Zap, Bot, Mic, Phone, Code, Search, Flame, TrendingUp,
   AlertTriangle, Check, Clock, Target, Volume2, Globe, FileText,
-  MessageSquare, Smartphone, Layers, Bell, BellOff
+  MessageSquare, Smartphone, Layers, Bell, BellOff, Wallet, Coins
 } from "lucide-react";
 
 // ─── Type Definitions ────────────────────────────────────────
@@ -105,6 +105,21 @@ interface TradeEntry {
   status: string;
 }
 
+interface WalletHolding {
+  mint: string;
+  symbol: string;
+  balance: number;
+  usdValue: number;
+  priceUsd?: number;
+}
+
+interface WalletState {
+  sol: { balance: number; usdValue: number; price: number };
+  tokens: WalletHolding[];
+  totalUsd: number;
+  timestamp: string;
+}
+
 // ─── Main Component ──────────────────────────────────────────
 export default function SyndicateDashboard() {
   const [logs, setLogs] = useState<LogEntry[]>([]);
@@ -123,9 +138,10 @@ export default function SyndicateDashboard() {
   const [alarmTime, setAlarmTime] = useState("");
   const [alarmEnabled, setAlarmEnabled] = useState(false);
   const [isRinging, setIsRinging] = useState(false);
-  const [selectedTab, setSelectedTab] = useState<"feed" | "headhunter" | "missions" | "comms" | "swarm" | "raw">("feed");
+  const [selectedTab, setSelectedTab] = useState<"feed" | "headhunter" | "missions" | "comms" | "swarm" | "raw" | "wallet">("feed");
   const [rawSignals, setRawSignals] = useState<string[]>([]);
   const [chatInput, setChatInput] = useState("");
+  const [walletData, setWalletData] = useState<WalletState | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const commsRef = useRef<HTMLDivElement>(null);
   const rawScrollRef = useRef<HTMLDivElement>(null);
@@ -227,6 +243,14 @@ export default function SyndicateDashboard() {
               break;
             case "STATUS_REPORT":
               if (data.metrics) setFarmData((prev: any) => ({ ...prev, ...data.metrics }));
+              break;
+            case "WALLET_HOLDINGS":
+              setWalletData({
+                sol: data.sol,
+                tokens: data.tokens || [],
+                totalUsd: data.totalUsd || 0,
+                timestamp: data.timestamp,
+              });
               break;
             case "FARM_STATUS":
               setFarmData((prev: any) => ({ ...prev, devices: data.devices, active: true }));
@@ -447,10 +471,11 @@ export default function SyndicateDashboard() {
         <section className="xl:col-span-4 space-y-4">
 
           {/* Tab Selector */}
-          <div className="flex items-center gap-1 bg-black/40 rounded-lg p-1 border border-green-900/20 w-fit">
+          <div className="flex items-center gap-1 bg-black/40 rounded-lg p-1 border border-green-900/20 w-fit flex-wrap">
             {([
               { key: "feed" as const, label: "INTEL FEED", icon: Signal },
               { key: "raw" as const, label: "RAW INTEL", icon: Terminal },
+              { key: "wallet" as const, label: `WALLET${walletData ? ` ($${walletData.totalUsd.toFixed(0)})` : ""}`, icon: Wallet },
               { key: "comms" as const, label: `CO-LAB${agentComms.length > 0 ? ` (${agentComms.length})` : ""}`, icon: MessageSquare },
               { key: "headhunter" as const, label: `HEADHUNTER${snipeCount > 0 ? ` (${snipeCount})` : ""}`, icon: Target },
               { key: "missions" as const, label: "OPERATIONS", icon: Zap },
@@ -527,6 +552,120 @@ export default function SyndicateDashboard() {
                 {rawSignals.length === 0 && (
                   <div className="flex items-center gap-2 text-gray-600 italic text-xs mt-20 justify-center">
                     <span className="cursor-blink">Listening for raw packet drift...</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ─── WALLET TAB ─────────────────────────────── */}
+          {selectedTab === "wallet" && (
+            <div className="border border-yellow-900/30 rounded-xl bg-black/40 backdrop-blur-sm overflow-hidden">
+              <div className="px-4 py-3 border-b border-yellow-900/20 flex items-center justify-between">
+                <h2 className="text-[10px] font-bold tracking-[0.2em] text-yellow-600 uppercase flex items-center gap-2">
+                  <Wallet className="w-3 h-3" /> Live Wallet Holdings
+                </h2>
+                <span className="text-[9px] text-gray-600 tabular-nums">
+                  {walletData ? `Updated ${new Date(walletData.timestamp).toLocaleTimeString([], { hour12: false, hour: "2-digit", minute: "2-digit" })}` : "Awaiting banker scan..."}
+                </span>
+              </div>
+              <div className="p-4 max-h-[calc(100vh-280px)] overflow-y-auto">
+                {walletData ? (
+                  <div className="space-y-4">
+                    {/* Total Portfolio Value */}
+                    <div className="flex items-center justify-between bg-yellow-500/5 border border-yellow-500/20 rounded-lg px-4 py-3">
+                      <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Total Portfolio</span>
+                      <span className="text-2xl font-black text-yellow-300 tabular-nums">
+                        ${walletData.totalUsd.toFixed(2)}
+                      </span>
+                    </div>
+
+                    {/* Holdings Table */}
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="text-[9px] text-gray-600 uppercase tracking-wider border-b border-gray-800">
+                          <th className="pb-2 pl-2">Asset</th>
+                          <th className="pb-2">Balance</th>
+                          <th className="pb-2">PnL</th>
+                          <th className="pb-2">Signal</th>
+                          <th className="pb-2 text-right pr-2">Value</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-[10px] font-mono">
+                        {/* SOL row always first */}
+                        <tr className="group hover:bg-white/5 border-b border-gray-800/20 transition-colors">
+                          <td className="py-2 pl-2">
+                            <span className="font-black text-yellow-300">◎ SOL</span>
+                            <span className="text-[8px] text-gray-600 block">${walletData.sol.price.toFixed(2)}/SOL</span>
+                          </td>
+                          <td className="py-2 text-gray-300">{walletData.sol.balance.toFixed(4)}</td>
+                          <td className="py-2 text-gray-500">—</td>
+                          <td className="py-2"><span className="text-[8px] bg-gray-800/60 text-gray-500 px-1.5 py-0.5 rounded">BASE</span></td>
+                          <td className="py-2 pr-2 text-right font-bold text-yellow-300">
+                            ${walletData.sol.usdValue.toFixed(2)}
+                          </td>
+                        </tr>
+                        {/* SPL tokens with exit signals */}
+                        {walletData.tokens.map((token: any, i: number) => {
+                          const sig = token.exitSignal;
+                          const signalColor = {
+                            STRONG_SELL: 'bg-green-500/20 text-green-300 border-green-500/30',
+                            TAKE_PROFIT: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/20',
+                            WATCH: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/20',
+                            STOP_LOSS: 'bg-red-500/20 text-red-400 border-red-500/30',
+                            DUMP: 'bg-red-600/30 text-red-300 border-red-600/40',
+                            HOLD: 'bg-gray-800/40 text-gray-500 border-gray-700/30',
+                          }[sig?.signal] || 'bg-gray-800/40 text-gray-500 border-gray-700/30';
+                          const rowGlow = sig?.signal === 'STRONG_SELL' || sig?.signal === 'TAKE_PROFIT'
+                            ? 'bg-green-500/[0.03]' : sig?.signal === 'DUMP' || sig?.signal === 'STOP_LOSS'
+                              ? 'bg-red-500/[0.03]' : '';
+                          const pnl = sig?.pnl;
+                          const momentum5m = token.priceChange5m;
+
+                          return (
+                            <tr key={i} className={`group hover:bg-white/5 border-b border-gray-800/10 last:border-0 transition-colors ${rowGlow}`}>
+                              <td className="py-2 pl-2">
+                                <span className="font-bold text-gray-200">{token.symbol}</span>
+                                <span className="text-[8px] text-gray-700 block font-mono">{token.mint?.slice(0, 8)}...{token.mint?.slice(-4)}</span>
+                              </td>
+                              <td className="py-2 text-gray-400">
+                                {token.balance?.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                                {momentum5m != null && (
+                                  <span className={`ml-1 text-[8px] ${momentum5m > 0 ? 'text-green-400' : momentum5m < 0 ? 'text-red-400' : 'text-gray-600'}`}>
+                                    {momentum5m > 0 ? '▲' : momentum5m < 0 ? '▼' : '→'}{Math.abs(momentum5m).toFixed(1)}%
+                                  </span>
+                                )}
+                              </td>
+                              <td className="py-2">
+                                {pnl != null ? (
+                                  <span className={`font-bold ${pnl >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                                    {pnl >= 0 ? '+' : ''}{pnl.toFixed(1)}%
+                                  </span>
+                                ) : <span className="text-gray-600 italic text-[8px]">no entry</span>}
+                              </td>
+                              <td className="py-2">
+                                <span className={`text-[8px] font-black px-1.5 py-0.5 rounded border ${signalColor}`} title={sig?.reason}>
+                                  {sig?.signal || 'HOLD'}
+                                </span>
+                              </td>
+                              <td className={`py-2 pr-2 text-right font-bold ${token.usdValue > 0 ? 'text-emerald-400' : 'text-gray-600'}`}>
+                                {token.usdValue > 0 ? `$${token.usdValue.toFixed(2)}` : '—'}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                        {walletData.tokens.length === 0 && (
+                          <tr>
+                            <td colSpan={5} className="py-6 text-center text-gray-600 text-xs italic">No SPL tokens found in wallet.</td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-40 gap-3">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-yellow-500" />
+                    <span className="text-[10px] text-gray-600 italic">Banker scanning wallet... (updates every 60s)</span>
                   </div>
                 )}
               </div>

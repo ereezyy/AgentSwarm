@@ -468,6 +468,2269 @@
       "text": "Standard alert triggered. Solana moved -4.5% to $78.33.",
       "importance": 6,
       "lastAccessed": 1771893995151
+    },
+    {
+      "id": "MEM-1771982107091-41",
+      "timestamp": "2026-02-25T01:15:07.091Z",
+      "text": "Standard alert triggered. Solana moved 3.0% to $80.37.",
+      "importance": 6,
+      "lastAccessed": 1771982107091
+    },
+    {
+      "id": "MEM-1771982709810-811",
+      "timestamp": "2026-02-25T01:25:09.810Z",
+      "text": "Standard alert triggered. Solana moved 6.0% to $81.89.",
+      "importance": 6,
+      "lastAccessed": 1771982709810
+    },
+    {
+      "id": "MEM-1771983116875-56",
+      "timestamp": "2026-02-25T01:31:56.875Z",
+      "text": "Standard alert triggered. Solana moved 5.3% to $82.13.",
+      "importance": 6,
+      "lastAccessed": 1771983116876
+    },
+    {
+      "id": "MEM-1771983719487-861",
+      "timestamp": "2026-02-25T01:41:59.487Z",
+      "text": "Standard alert triggered. Solana moved 5.4% to $82.03.",
+      "importance": 6,
+      "lastAccessed": 1771983719487
+    },
+    {
+      "id": "MEM-1771985470175-53",
+      "timestamp": "2026-02-25T02:11:10.175Z",
+      "text": "Standard alert triggered. Solana moved 6.0% to $82.32.",
+      "importance": 6,
+      "lastAccessed": 1771985470175
+    },
+    {
+      "id": "MEM-1771985967069-326",
+      "timestamp": "2026-02-25T02:19:27.069Z",
+      "text": "Standard alert triggered. Solana moved 5.9% to $82.48.",
+      "importance": 6,
+      "lastAccessed": 1771985967070
+    },
+    {
+      "id": "MEM-1771986569234-763",
+      "timestamp": "2026-02-25T02:29:29.243Z",
+      "text": "Standard alert triggered. Solana moved 6.0% to $82.51.",
+      "importance": 6,
+      "lastAccessed": 1771986569243
+    },
+    {
+      "id": "MEM-1771994830459-24",
+      "timestamp": "2026-02-25T04:47:10.459Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.3% to $82.3. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1771994830460
+    },
+    {
+      "id": "MEM-1771995287575-80",
+      "timestamp": "2026-02-25T04:54:47.575Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.2% to $82.22. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1771995287575
+    },
+    {
+      "id": "MEM-1771995618639-618",
+      "timestamp": "2026-02-25T05:00:18.640Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $82.06. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1771995618640
+    },
+    {
+      "id": "MEM-1771999672602-618",
+      "timestamp": "2026-02-25T06:07:52.602Z",
+      "text": "Standard alert triggered. Solana moved 6.2% to $81.31.",
+      "importance": 6,
+      "lastAccessed": 1771999672602
+    },
+    {
+      "id": "MEM-1771999957087-772",
+      "timestamp": "2026-02-25T06:12:37.087Z",
+      "text": "Standard alert triggered. Solana moved 6.2% to $81.29.",
+      "importance": 6,
+      "lastAccessed": 1771999957087
+    },
+    {
+      "id": "MEM-1772000149779-980",
+      "timestamp": "2026-02-25T06:15:49.779Z",
+      "text": "Standard alert triggered. Solana moved 6.2% to $81.25.",
+      "importance": 6,
+      "lastAccessed": 1772000149780
+    },
+    {
+      "id": "MEM-1772000752095-565",
+      "timestamp": "2026-02-25T06:25:52.096Z",
+      "text": "Standard alert triggered. Solana moved 6.1% to $81.45.",
+      "importance": 6,
+      "lastAccessed": 1772000752096
+    },
+    {
+      "id": "MEM-1772001354122-538",
+      "timestamp": "2026-02-25T06:35:54.123Z",
+      "text": "Standard alert triggered. Solana moved 6.4% to $81.68.",
+      "importance": 6,
+      "lastAccessed": 1772001354123
+    },
+    {
+      "id": "MEM-1772001956043-761",
+      "timestamp": "2026-02-25T06:45:56.044Z",
+      "text": "Standard alert triggered. Solana moved 6.4% to $81.76.",
+      "importance": 6,
+      "lastAccessed": 1772001956044
+    },
+    {
+      "id": "MEM-1772002558310-204",
+      "timestamp": "2026-02-25T06:55:58.310Z",
+      "text": "Standard alert triggered. Solana moved 6.3% to $81.59.",
+      "importance": 6,
+      "lastAccessed": 1772002558310
+    },
+    {
+      "id": "MEM-1772003160460-624",
+      "timestamp": "2026-02-25T07:06:00.460Z",
+      "text": "Standard alert triggered. Solana moved 6.5% to $81.55.",
+      "importance": 6,
+      "lastAccessed": 1772003160460
+    },
+    {
+      "id": "MEM-1772003763612-359",
+      "timestamp": "2026-02-25T07:16:03.613Z",
+      "text": "Standard alert triggered. Solana moved 6.3% to $81.78.",
+      "importance": 6,
+      "lastAccessed": 1772003763613
+    },
+    {
+      "id": "MEM-1772004365935-541",
+      "timestamp": "2026-02-25T07:26:05.935Z",
+      "text": "Standard alert triggered. Solana moved 6.7% to $82.11.",
+      "importance": 6,
+      "lastAccessed": 1772004365935
+    },
+    {
+      "id": "MEM-1772005027746-395",
+      "timestamp": "2026-02-25T07:37:07.747Z",
+      "text": "Standard alert triggered. Solana moved 6.8% to $82.26.",
+      "importance": 6,
+      "lastAccessed": 1772005027747
+    },
+    {
+      "id": "MEM-1772005630768-759",
+      "timestamp": "2026-02-25T07:47:10.769Z",
+      "text": "Standard alert triggered. Solana moved 6.9% to $82.06.",
+      "importance": 6,
+      "lastAccessed": 1772005630769
+    },
+    {
+      "id": "MEM-1772005932951-730",
+      "timestamp": "2026-02-25T07:52:12.951Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $82.03. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772005932951
+    },
+    {
+      "id": "MEM-1772006356668-586",
+      "timestamp": "2026-02-25T07:59:16.669Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $82.1. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772006356669
+    },
+    {
+      "id": "MEM-1772006657823-249",
+      "timestamp": "2026-02-25T08:04:17.824Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $82.12. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772006657824
+    }
+  ],
+  "SNIPER": [
+    {
+      "id": "MEM-1771984271553-204",
+      "timestamp": "2026-02-25T01:51:11.553Z",
+      "text": "Token 4kHu4VktgzpZW9i8LEsHZrNLJcTV98nGhyZE5JSEpump hit +10279457.79% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984271553
+    },
+    {
+      "id": "MEM-1771984287627-96",
+      "timestamp": "2026-02-25T01:51:27.627Z",
+      "text": "Token JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd hit +191605.64% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984287627
+    },
+    {
+      "id": "MEM-1771984301544-848",
+      "timestamp": "2026-02-25T01:51:41.544Z",
+      "text": "Token 4kHu4VktgzpZW9i8LEsHZrNLJcTV98nGhyZE5JSEpump hit max profit target (+10279457.79%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984301544
+    },
+    {
+      "id": "MEM-1771984303639-298",
+      "timestamp": "2026-02-25T01:51:43.639Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit +413.50% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984303639
+    },
+    {
+      "id": "MEM-1771984314087-800",
+      "timestamp": "2026-02-25T01:51:54.087Z",
+      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit +93592266.33% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984314087
+    },
+    {
+      "id": "MEM-1771984323748-422",
+      "timestamp": "2026-02-25T01:52:03.748Z",
+      "text": "Token 4kHu4VktgzpZW9i8LEsHZrNLJcTV98nGhyZE5JSEpump hit max profit target (+10227679.59%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984323748
+    },
+    {
+      "id": "MEM-1771984353697-179",
+      "timestamp": "2026-02-25T01:52:33.697Z",
+      "text": "Token 4kHu4VktgzpZW9i8LEsHZrNLJcTV98nGhyZE5JSEpump hit max profit target (+10227679.59%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984353697
+    },
+    {
+      "id": "MEM-1771984373432-899",
+      "timestamp": "2026-02-25T01:52:53.432Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit +412.97% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984373432
+    },
+    {
+      "id": "MEM-1771984374409-255",
+      "timestamp": "2026-02-25T01:52:54.409Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit +101.46% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984374409
+    },
+    {
+      "id": "MEM-1771984383762-175",
+      "timestamp": "2026-02-25T01:53:03.762Z",
+      "text": "Token 4kHu4VktgzpZW9i8LEsHZrNLJcTV98nGhyZE5JSEpump hit max profit target (+10227679.59%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984383762
+    },
+    {
+      "id": "MEM-1771984383955-115",
+      "timestamp": "2026-02-25T01:53:03.955Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit +412.97% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984383955
+    },
+    {
+      "id": "MEM-1771984412845-893",
+      "timestamp": "2026-02-25T01:53:32.845Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit +412.97% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984412845
+    },
+    {
+      "id": "MEM-1771984413661-602",
+      "timestamp": "2026-02-25T01:53:33.661Z",
+      "text": "Token JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd hit max profit target (+190540.60%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984413661
+    },
+    {
+      "id": "MEM-1771984433372-803",
+      "timestamp": "2026-02-25T01:53:53.372Z",
+      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit +93592266.33% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984433372
+    },
+    {
+      "id": "MEM-1771984434187-826",
+      "timestamp": "2026-02-25T01:53:54.187Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit +1426690.03% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984434187
+    },
+    {
+      "id": "MEM-1771984443153-200",
+      "timestamp": "2026-02-25T01:54:03.153Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit max profit target (+412.97%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984443153
+    },
+    {
+      "id": "MEM-1771984443835-393",
+      "timestamp": "2026-02-25T01:54:03.835Z",
+      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit +93592266.33% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984443835
+    },
+    {
+      "id": "MEM-1771984443917-800",
+      "timestamp": "2026-02-25T01:54:03.917Z",
+      "text": "Token JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd hit max profit target (+190540.60%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984443917
+    },
+    {
+      "id": "MEM-1771984472587-785",
+      "timestamp": "2026-02-25T01:54:32.587Z",
+      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit +93592266.33% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984472587
+    },
+    {
+      "id": "MEM-1771984473520-28",
+      "timestamp": "2026-02-25T01:54:33.520Z",
+      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit +93592266.33% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984473520
+    },
+    {
+      "id": "MEM-1771984473629-633",
+      "timestamp": "2026-02-25T01:54:33.629Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit +412.97% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984473629
+    },
+    {
+      "id": "MEM-1771984493100-166",
+      "timestamp": "2026-02-25T01:54:53.100Z",
+      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit +736759.29% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984493100
+    },
+    {
+      "id": "MEM-1771984493191-93",
+      "timestamp": "2026-02-25T01:54:53.191Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit +101.86% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984493191
+    },
+    {
+      "id": "MEM-1771984503270-755",
+      "timestamp": "2026-02-25T01:55:03.270Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit +101.86% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984503270
+    },
+    {
+      "id": "MEM-1771984503579-955",
+      "timestamp": "2026-02-25T01:55:03.579Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit +101.86% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984503579
+    },
+    {
+      "id": "MEM-1771984503641-476",
+      "timestamp": "2026-02-25T01:55:03.641Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit max profit target (+412.97%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984503641
+    },
+    {
+      "id": "MEM-1771984503973-723",
+      "timestamp": "2026-02-25T01:55:03.973Z",
+      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit max profit target (+93592266.33%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984503973
+    },
+    {
+      "id": "MEM-1771984533104-50",
+      "timestamp": "2026-02-25T01:55:33.104Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit +101.86% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984533104
+    },
+    {
+      "id": "MEM-1771984533550-748",
+      "timestamp": "2026-02-25T01:55:33.550Z",
+      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit +93592266.33% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984533550
+    },
+    {
+      "id": "MEM-1771984533833-331",
+      "timestamp": "2026-02-25T01:55:33.833Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit max profit target (+412.70%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984533833
+    },
+    {
+      "id": "MEM-1771984534154-347",
+      "timestamp": "2026-02-25T01:55:34.154Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit +101.86% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984534154
+    },
+    {
+      "id": "MEM-1771984554512-69",
+      "timestamp": "2026-02-25T01:55:54.512Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +203126595.43% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984554512
+    },
+    {
+      "id": "MEM-1771984554642-914",
+      "timestamp": "2026-02-25T01:55:54.642Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit +1426690.03% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984554642
+    },
+    {
+      "id": "MEM-1771984563796-499",
+      "timestamp": "2026-02-25T01:56:03.796Z",
+      "text": "Token JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd hit +190540.60% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984563796
+    },
+    {
+      "id": "MEM-1771984564909-674",
+      "timestamp": "2026-02-25T01:56:04.909Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit +1426690.03% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984564909
+    },
+    {
+      "id": "MEM-1771984564948-658",
+      "timestamp": "2026-02-25T01:56:04.948Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit +1426690.03% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984564948
+    },
+    {
+      "id": "MEM-1771984565220-776",
+      "timestamp": "2026-02-25T01:56:05.220Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit +100.66% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984565220
+    },
+    {
+      "id": "MEM-1771984565664-690",
+      "timestamp": "2026-02-25T01:56:05.664Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit +1426690.03% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984565664
+    },
+    {
+      "id": "MEM-1771984593885-765",
+      "timestamp": "2026-02-25T01:56:33.885Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit max profit target (+412.70%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984593885
+    },
+    {
+      "id": "MEM-1771984595363-654",
+      "timestamp": "2026-02-25T01:56:35.363Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit +1426690.03% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984595363
+    },
+    {
+      "id": "MEM-1771984595375-137",
+      "timestamp": "2026-02-25T01:56:35.375Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit +101.66% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984595375
+    },
+    {
+      "id": "MEM-1771984595396-321",
+      "timestamp": "2026-02-25T01:56:35.396Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit +1426690.03% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984595396
+    },
+    {
+      "id": "MEM-1771984595667-11",
+      "timestamp": "2026-02-25T01:56:35.667Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit +101.66% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984595667
+    },
+    {
+      "id": "MEM-1771984616194-664",
+      "timestamp": "2026-02-25T01:56:56.194Z",
+      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit +741704.65% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984616194
+    },
+    {
+      "id": "MEM-1771984616916-321",
+      "timestamp": "2026-02-25T01:56:56.916Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984616916
+    },
+    {
+      "id": "MEM-1771984623904-521",
+      "timestamp": "2026-02-25T01:57:03.904Z",
+      "text": "Token 4kHu4VktgzpZW9i8LEsHZrNLJcTV98nGhyZE5JSEpump hit max profit target (+10227679.59%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984623904
+    },
+    {
+      "id": "MEM-1771984625562-750",
+      "timestamp": "2026-02-25T01:57:05.562Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit max profit target (+412.70%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984625562
+    },
+    {
+      "id": "MEM-1771984625923-689",
+      "timestamp": "2026-02-25T01:57:05.923Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +203164031.24% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984625923
+    },
+    {
+      "id": "MEM-1771984626035-285",
+      "timestamp": "2026-02-25T01:57:06.035Z",
+      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit +741704.65% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984626035
+    },
+    {
+      "id": "MEM-1771984626660-952",
+      "timestamp": "2026-02-25T01:57:06.660Z",
+      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit +741704.65% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984626660
+    },
+    {
+      "id": "MEM-1771984626707-721",
+      "timestamp": "2026-02-25T01:57:06.707Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit +1426690.03% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984626707
+    },
+    {
+      "id": "MEM-1771984653913-385",
+      "timestamp": "2026-02-25T01:57:33.913Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit max profit target (+412.70%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984653913
+    },
+    {
+      "id": "MEM-1771984654760-751",
+      "timestamp": "2026-02-25T01:57:34.760Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit +1426690.03% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984654760
+    },
+    {
+      "id": "MEM-1771984656769-773",
+      "timestamp": "2026-02-25T01:57:36.769Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +203164031.24% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984656769
+    },
+    {
+      "id": "MEM-1771984656778-370",
+      "timestamp": "2026-02-25T01:57:36.778Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +203164031.24% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984656778
+    },
+    {
+      "id": "MEM-1771984656865-918",
+      "timestamp": "2026-02-25T01:57:36.865Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit +1426690.03% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984656865
+    },
+    {
+      "id": "MEM-1771984656892-254",
+      "timestamp": "2026-02-25T01:57:36.892Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit +1426690.03% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984656892
+    },
+    {
+      "id": "MEM-1771984677061-70",
+      "timestamp": "2026-02-25T01:57:57.061Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +203164031.24% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984677061
+    },
+    {
+      "id": "MEM-1771984677535-720",
+      "timestamp": "2026-02-25T01:57:57.535Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7918.56% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984677535
+    },
+    {
+      "id": "MEM-1771984683721-939",
+      "timestamp": "2026-02-25T01:58:03.721Z",
+      "text": "Token 4kHu4VktgzpZW9i8LEsHZrNLJcTV98nGhyZE5JSEpump hit max profit target (+10227679.59%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984683721
+    },
+    {
+      "id": "MEM-1771984684652-293",
+      "timestamp": "2026-02-25T01:58:04.652Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit max profit target (+411.37%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984684652
+    },
+    {
+      "id": "MEM-1771984686421-137",
+      "timestamp": "2026-02-25T01:58:06.421Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit +1426690.03% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984686421
+    },
+    {
+      "id": "MEM-1771984686705-501",
+      "timestamp": "2026-02-25T01:58:06.705Z",
+      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit +741155.17% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984686705
+    },
+    {
+      "id": "MEM-1771984686733-777",
+      "timestamp": "2026-02-25T01:58:06.733Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +203164031.24% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984686733
+    },
+    {
+      "id": "MEM-1771984686854-401",
+      "timestamp": "2026-02-25T01:58:06.854Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984686854
+    },
+    {
+      "id": "MEM-1771984687291-665",
+      "timestamp": "2026-02-25T01:58:07.292Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +203164031.24% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984687292
+    },
+    {
+      "id": "MEM-1771984713620-735",
+      "timestamp": "2026-02-25T01:58:33.620Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit max profit target (+1426690.03%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984713620
+    },
+    {
+      "id": "MEM-1771984713665-189",
+      "timestamp": "2026-02-25T01:58:33.665Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit +100.50% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984713665
+    },
+    {
+      "id": "MEM-1771984714241-920",
+      "timestamp": "2026-02-25T01:58:34.241Z",
+      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit +741155.17% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984714241
+    },
+    {
+      "id": "MEM-1771984716341-739",
+      "timestamp": "2026-02-25T01:58:36.341Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984716341
+    },
+    {
+      "id": "MEM-1771984716356-523",
+      "timestamp": "2026-02-25T01:58:36.356Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +204287105.49% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984716356
+    },
+    {
+      "id": "MEM-1771984716370-842",
+      "timestamp": "2026-02-25T01:58:36.370Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +204287105.49% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984716370
+    },
+    {
+      "id": "MEM-1771984716462-325",
+      "timestamp": "2026-02-25T01:58:36.462Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984716462
+    },
+    {
+      "id": "MEM-1771984736938-977",
+      "timestamp": "2026-02-25T01:58:56.938Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984736938
+    },
+    {
+      "id": "MEM-1771984737078-411",
+      "timestamp": "2026-02-25T01:58:57.078Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984737078
+    },
+    {
+      "id": "MEM-1771984743366-303",
+      "timestamp": "2026-02-25T01:59:03.366Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit max profit target (+410.57%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984743366
+    },
+    {
+      "id": "MEM-1771984743684-148",
+      "timestamp": "2026-02-25T01:59:03.684Z",
+      "text": "Token JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd hit max profit target (+190540.60%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984743684
+    },
+    {
+      "id": "MEM-1771984744553-831",
+      "timestamp": "2026-02-25T01:59:04.553Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit max profit target (+1426690.03%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984744553
+    },
+    {
+      "id": "MEM-1771984746495-184",
+      "timestamp": "2026-02-25T01:59:06.495Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +204287105.49% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984746495
+    },
+    {
+      "id": "MEM-1771984746559-888",
+      "timestamp": "2026-02-25T01:59:06.559Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984746559
+    },
+    {
+      "id": "MEM-1771984746579-217",
+      "timestamp": "2026-02-25T01:59:06.579Z",
+      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit +736759.29% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984746579
+    },
+    {
+      "id": "MEM-1771984746595-719",
+      "timestamp": "2026-02-25T01:59:06.595Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984746595
+    },
+    {
+      "id": "MEM-1771984746651-599",
+      "timestamp": "2026-02-25T01:59:06.651Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984746651
+    },
+    {
+      "id": "MEM-1771984773287-310",
+      "timestamp": "2026-02-25T01:59:33.287Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit max profit target (+1426690.03%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984773287
+    },
+    {
+      "id": "MEM-1771984773509-49",
+      "timestamp": "2026-02-25T01:59:33.509Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +204025054.83% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984773509
+    },
+    {
+      "id": "MEM-1771984773687-139",
+      "timestamp": "2026-02-25T01:59:33.687Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit +100.30% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984773687
+    },
+    {
+      "id": "MEM-1771984774216-815",
+      "timestamp": "2026-02-25T01:59:34.216Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +204025054.83% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984774216
+    },
+    {
+      "id": "MEM-1771984776379-403",
+      "timestamp": "2026-02-25T01:59:36.379Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984776379
+    },
+    {
+      "id": "MEM-1771984776408-796",
+      "timestamp": "2026-02-25T01:59:36.408Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984776408
+    },
+    {
+      "id": "MEM-1771984776425-279",
+      "timestamp": "2026-02-25T01:59:36.425Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984776425
+    },
+    {
+      "id": "MEM-1771984776436-455",
+      "timestamp": "2026-02-25T01:59:36.436Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984776436
+    },
+    {
+      "id": "MEM-1771984797778-432",
+      "timestamp": "2026-02-25T01:59:57.778Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984797778
+    },
+    {
+      "id": "MEM-1771984797868-326",
+      "timestamp": "2026-02-25T01:59:57.868Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984797868
+    },
+    {
+      "id": "MEM-1771984803711-85",
+      "timestamp": "2026-02-25T02:00:03.711Z",
+      "text": "Token JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd hit +191532.18% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984803711
+    },
+    {
+      "id": "MEM-1771984804162-886",
+      "timestamp": "2026-02-25T02:00:04.162Z",
+      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit max profit target (+93592266.33%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984804162
+    },
+    {
+      "id": "MEM-1771984804295-772",
+      "timestamp": "2026-02-25T02:00:04.295Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit max profit target (+1426690.03%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984804295
+    },
+    {
+      "id": "MEM-1771984805116-974",
+      "timestamp": "2026-02-25T02:00:05.116Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit max profit target (+204025054.83%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984805116
+    },
+    {
+      "id": "MEM-1771984807241-844",
+      "timestamp": "2026-02-25T02:00:07.241Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984807241
+    },
+    {
+      "id": "MEM-1771984807278-330",
+      "timestamp": "2026-02-25T02:00:07.278Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984807278
+    },
+    {
+      "id": "MEM-1771984807288-55",
+      "timestamp": "2026-02-25T02:00:07.288Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984807288
+    },
+    {
+      "id": "MEM-1771984807300-807",
+      "timestamp": "2026-02-25T02:00:07.300Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984807300
+    },
+    {
+      "id": "MEM-1771984807381-326",
+      "timestamp": "2026-02-25T02:00:07.381Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +204025054.83% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984807381
+    },
+    {
+      "id": "MEM-1771984833772-952",
+      "timestamp": "2026-02-25T02:00:33.772Z",
+      "text": "Token JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd hit max profit target (+191532.18%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984833772
+    },
+    {
+      "id": "MEM-1771984833888-221",
+      "timestamp": "2026-02-25T02:00:33.888Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +204025054.83% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984833888
+    },
+    {
+      "id": "MEM-1771984835149-944",
+      "timestamp": "2026-02-25T02:00:35.149Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984835149
+    },
+    {
+      "id": "MEM-1771984835267-157",
+      "timestamp": "2026-02-25T02:00:35.267Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984835267
+    },
+    {
+      "id": "MEM-1771984835336-317",
+      "timestamp": "2026-02-25T02:00:35.336Z",
+      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit +736759.29% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984835336
+    },
+    {
+      "id": "MEM-1771984837096-440",
+      "timestamp": "2026-02-25T02:00:37.096Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984837096
+    },
+    {
+      "id": "MEM-1771984837170-863",
+      "timestamp": "2026-02-25T02:00:37.170Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984837170
+    },
+    {
+      "id": "MEM-1771984837955-939",
+      "timestamp": "2026-02-25T02:00:37.955Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984837955
+    },
+    {
+      "id": "MEM-1771984838016-205",
+      "timestamp": "2026-02-25T02:00:38.016Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984838016
+    },
+    {
+      "id": "MEM-1771984858251-426",
+      "timestamp": "2026-02-25T02:00:58.251Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984858251
+    },
+    {
+      "id": "MEM-1771984858646-729",
+      "timestamp": "2026-02-25T02:00:58.646Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984858646
+    },
+    {
+      "id": "MEM-1771984858708-279",
+      "timestamp": "2026-02-25T02:00:58.708Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984858708
+    },
+    {
+      "id": "MEM-1771984859110-486",
+      "timestamp": "2026-02-25T02:00:59.111Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984859111
+    },
+    {
+      "id": "MEM-1771984859455-269",
+      "timestamp": "2026-02-25T02:00:59.455Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +231542.28% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984859455
+    },
+    {
+      "id": "MEM-1771984860205-737",
+      "timestamp": "2026-02-25T02:01:00.205Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.86% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984860205
+    },
+    {
+      "id": "MEM-1771984860278-783",
+      "timestamp": "2026-02-25T02:01:00.278Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984860278
+    },
+    {
+      "id": "MEM-1771984860615-368",
+      "timestamp": "2026-02-25T02:01:00.615Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984860615
+    },
+    {
+      "id": "MEM-1771984860887-98",
+      "timestamp": "2026-02-25T02:01:00.887Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +231542.28% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984860887
+    },
+    {
+      "id": "MEM-1771984861164-276",
+      "timestamp": "2026-02-25T02:01:01.164Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.86% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984861164
+    },
+    {
+      "id": "MEM-1771984863534-367",
+      "timestamp": "2026-02-25T02:01:03.534Z",
+      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit max profit target (+412.97%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984863534
+    },
+    {
+      "id": "MEM-1771984863688-329",
+      "timestamp": "2026-02-25T02:01:03.688Z",
+      "text": "Token JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd hit max profit target (+190834.41%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984863688
+    },
+    {
+      "id": "MEM-1771984864013-208",
+      "timestamp": "2026-02-25T02:01:04.013Z",
+      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit max profit target (+93592266.33%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984864013
+    },
+    {
+      "id": "MEM-1771984864150-30",
+      "timestamp": "2026-02-25T02:01:04.151Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit max profit target (+1426690.03%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984864151
+    },
+    {
+      "id": "MEM-1771984864356-524",
+      "timestamp": "2026-02-25T02:01:04.356Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit max profit target (+1426690.03%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984864356
+    },
+    {
+      "id": "MEM-1771984864458-720",
+      "timestamp": "2026-02-25T02:01:04.458Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit max profit target (+204025054.83%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984864458
+    },
+    {
+      "id": "MEM-1771984864694-508",
+      "timestamp": "2026-02-25T02:01:04.694Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit max profit target (+204025054.83%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984864694
+    },
+    {
+      "id": "MEM-1771984864769-405",
+      "timestamp": "2026-02-25T02:01:04.769Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984864769
+    },
+    {
+      "id": "MEM-1771984864776-763",
+      "timestamp": "2026-02-25T02:01:04.776Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit max profit target (+1426690.03%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984864776
+    },
+    {
+      "id": "MEM-1771984864836-457",
+      "timestamp": "2026-02-25T02:01:04.836Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit max profit target (+204025054.83%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984864836
+    },
+    {
+      "id": "MEM-1771984865007-230",
+      "timestamp": "2026-02-25T02:01:05.007Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984865007
+    },
+    {
+      "id": "MEM-1771984865011-124",
+      "timestamp": "2026-02-25T02:01:05.011Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984865011
+    },
+    {
+      "id": "MEM-1771984865037-137",
+      "timestamp": "2026-02-25T02:01:05.037Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984865037
+    },
+    {
+      "id": "MEM-1771984865126-905",
+      "timestamp": "2026-02-25T02:01:05.126Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit max profit target (+204025054.83%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984865126
+    },
+    {
+      "id": "MEM-1771984865205-649",
+      "timestamp": "2026-02-25T02:01:05.205Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984865205
+    },
+    {
+      "id": "MEM-1771984865307-812",
+      "timestamp": "2026-02-25T02:01:05.307Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984865307
+    },
+    {
+      "id": "MEM-1771984865313-247",
+      "timestamp": "2026-02-25T02:01:05.313Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984865313
+    },
+    {
+      "id": "MEM-1771984865412-943",
+      "timestamp": "2026-02-25T02:01:05.412Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984865412
+    },
+    {
+      "id": "MEM-1771984865418-212",
+      "timestamp": "2026-02-25T02:01:05.418Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984865418
+    },
+    {
+      "id": "MEM-1771984865496-942",
+      "timestamp": "2026-02-25T02:01:05.496Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984865496
+    },
+    {
+      "id": "MEM-1771984865610-897",
+      "timestamp": "2026-02-25T02:01:05.610Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984865610
+    },
+    {
+      "id": "MEM-1771984865658-364",
+      "timestamp": "2026-02-25T02:01:05.658Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984865658
+    },
+    {
+      "id": "MEM-1771984865752-647",
+      "timestamp": "2026-02-25T02:01:05.752Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984865752
+    },
+    {
+      "id": "MEM-1771984865801-881",
+      "timestamp": "2026-02-25T02:01:05.801Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984865801
+    },
+    {
+      "id": "MEM-1771984865842-223",
+      "timestamp": "2026-02-25T02:01:05.842Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984865842
+    },
+    {
+      "id": "MEM-1771984865979-699",
+      "timestamp": "2026-02-25T02:01:05.979Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984865979
+    },
+    {
+      "id": "MEM-1771984865987-680",
+      "timestamp": "2026-02-25T02:01:05.987Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984865987
+    },
+    {
+      "id": "MEM-1771984866061-930",
+      "timestamp": "2026-02-25T02:01:06.061Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984866061
+    },
+    {
+      "id": "MEM-1771984866120-10",
+      "timestamp": "2026-02-25T02:01:06.120Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984866120
+    },
+    {
+      "id": "MEM-1771984866187-642",
+      "timestamp": "2026-02-25T02:01:06.187Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984866187
+    },
+    {
+      "id": "MEM-1771984867045-294",
+      "timestamp": "2026-02-25T02:01:07.045Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984867045
+    },
+    {
+      "id": "MEM-1771984867138-981",
+      "timestamp": "2026-02-25T02:01:07.138Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984867138
+    },
+    {
+      "id": "MEM-1771984867167-652",
+      "timestamp": "2026-02-25T02:01:07.167Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7912.07% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984867167
+    },
+    {
+      "id": "MEM-1771984867184-323",
+      "timestamp": "2026-02-25T02:01:07.184Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984867184
+    },
+    {
+      "id": "MEM-1771984867234-724",
+      "timestamp": "2026-02-25T02:01:07.234Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984867234
+    },
+    {
+      "id": "MEM-1771984893463-841",
+      "timestamp": "2026-02-25T02:01:33.463Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984893463
+    },
+    {
+      "id": "MEM-1771984893800-859",
+      "timestamp": "2026-02-25T02:01:33.800Z",
+      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit max profit target (+93592266.33%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984893800
+    },
+    {
+      "id": "MEM-1771984893832-286",
+      "timestamp": "2026-02-25T02:01:33.832Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7886.12% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984893832
+    },
+    {
+      "id": "MEM-1771984893894-352",
+      "timestamp": "2026-02-25T02:01:33.894Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit max profit target (+1426690.03%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984893894
+    },
+    {
+      "id": "MEM-1771984894021-706",
+      "timestamp": "2026-02-25T02:01:34.021Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit max profit target (+1426690.03%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984894021
+    },
+    {
+      "id": "MEM-1771984894075-480",
+      "timestamp": "2026-02-25T02:01:34.075Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894075
+    },
+    {
+      "id": "MEM-1771984894095-291",
+      "timestamp": "2026-02-25T02:01:34.095Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +204025054.83% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894095
+    },
+    {
+      "id": "MEM-1771984894231-814",
+      "timestamp": "2026-02-25T02:01:34.231Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +204025054.83% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894231
+    },
+    {
+      "id": "MEM-1771984894338-185",
+      "timestamp": "2026-02-25T02:01:34.338Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894338
+    },
+    {
+      "id": "MEM-1771984894369-568",
+      "timestamp": "2026-02-25T02:01:34.369Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894369
+    },
+    {
+      "id": "MEM-1771984894441-784",
+      "timestamp": "2026-02-25T02:01:34.441Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit +204025054.83% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894441
+    },
+    {
+      "id": "MEM-1771984894465-843",
+      "timestamp": "2026-02-25T02:01:34.465Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7886.12% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894465
+    },
+    {
+      "id": "MEM-1771984894478-517",
+      "timestamp": "2026-02-25T02:01:34.478Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894478
+    },
+    {
+      "id": "MEM-1771984894521-642",
+      "timestamp": "2026-02-25T02:01:34.521Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7886.12% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894521
+    },
+    {
+      "id": "MEM-1771984894678-851",
+      "timestamp": "2026-02-25T02:01:34.678Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit +12849.73% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894678
+    },
+    {
+      "id": "MEM-1771984894691-374",
+      "timestamp": "2026-02-25T02:01:34.691Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894691
+    },
+    {
+      "id": "MEM-1771984894725-368",
+      "timestamp": "2026-02-25T02:01:34.725Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7886.12% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894725
+    },
+    {
+      "id": "MEM-1771984894771-956",
+      "timestamp": "2026-02-25T02:01:34.771Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984894771
+    },
+    {
+      "id": "MEM-1771984894791-386",
+      "timestamp": "2026-02-25T02:01:34.791Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894791
+    },
+    {
+      "id": "MEM-1771984894810-825",
+      "timestamp": "2026-02-25T02:01:34.810Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7886.12% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894810
+    },
+    {
+      "id": "MEM-1771984894891-965",
+      "timestamp": "2026-02-25T02:01:34.891Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7886.12% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894891
+    },
+    {
+      "id": "MEM-1771984894910-793",
+      "timestamp": "2026-02-25T02:01:34.910Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894910
+    },
+    {
+      "id": "MEM-1771984894980-893",
+      "timestamp": "2026-02-25T02:01:34.980Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894980
+    },
+    {
+      "id": "MEM-1771984894994-455",
+      "timestamp": "2026-02-25T02:01:34.994Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984894994
+    },
+    {
+      "id": "MEM-1771984895037-536",
+      "timestamp": "2026-02-25T02:01:35.037Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895037
+    },
+    {
+      "id": "MEM-1771984895077-879",
+      "timestamp": "2026-02-25T02:01:35.077Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895077
+    },
+    {
+      "id": "MEM-1771984895101-159",
+      "timestamp": "2026-02-25T02:01:35.101Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895101
+    },
+    {
+      "id": "MEM-1771984895155-402",
+      "timestamp": "2026-02-25T02:01:35.155Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984895155
+    },
+    {
+      "id": "MEM-1771984895201-814",
+      "timestamp": "2026-02-25T02:01:35.201Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895201
+    },
+    {
+      "id": "MEM-1771984895208-606",
+      "timestamp": "2026-02-25T02:01:35.208Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984895208
+    },
+    {
+      "id": "MEM-1771984895273-588",
+      "timestamp": "2026-02-25T02:01:35.273Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895273
+    },
+    {
+      "id": "MEM-1771984895289-73",
+      "timestamp": "2026-02-25T02:01:35.289Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230020.54% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895289
+    },
+    {
+      "id": "MEM-1771984895327-619",
+      "timestamp": "2026-02-25T02:01:35.327Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895327
+    },
+    {
+      "id": "MEM-1771984895374-907",
+      "timestamp": "2026-02-25T02:01:35.374Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895375
+    },
+    {
+      "id": "MEM-1771984895404-350",
+      "timestamp": "2026-02-25T02:01:35.404Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984895404
+    },
+    {
+      "id": "MEM-1771984895425-123",
+      "timestamp": "2026-02-25T02:01:35.425Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895425
+    },
+    {
+      "id": "MEM-1771984895480-94",
+      "timestamp": "2026-02-25T02:01:35.480Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984895480
+    },
+    {
+      "id": "MEM-1771984895520-67",
+      "timestamp": "2026-02-25T02:01:35.520Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984895520
+    },
+    {
+      "id": "MEM-1771984895563-165",
+      "timestamp": "2026-02-25T02:01:35.563Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895563
+    },
+    {
+      "id": "MEM-1771984895570-496",
+      "timestamp": "2026-02-25T02:01:35.570Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230020.54% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895570
+    },
+    {
+      "id": "MEM-1771984895617-756",
+      "timestamp": "2026-02-25T02:01:35.617Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895617
+    },
+    {
+      "id": "MEM-1771984895639-339",
+      "timestamp": "2026-02-25T02:01:35.639Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230020.54% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895639
+    },
+    {
+      "id": "MEM-1771984895711-424",
+      "timestamp": "2026-02-25T02:01:35.711Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895711
+    },
+    {
+      "id": "MEM-1771984895750-619",
+      "timestamp": "2026-02-25T02:01:35.750Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895750
+    },
+    {
+      "id": "MEM-1771984895805-330",
+      "timestamp": "2026-02-25T02:01:35.805Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895805
+    },
+    {
+      "id": "MEM-1771984895840-613",
+      "timestamp": "2026-02-25T02:01:35.840Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230020.54% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895840
+    },
+    {
+      "id": "MEM-1771984895864-158",
+      "timestamp": "2026-02-25T02:01:35.864Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895864
+    },
+    {
+      "id": "MEM-1771984895956-951",
+      "timestamp": "2026-02-25T02:01:35.956Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230020.54% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895956
+    },
+    {
+      "id": "MEM-1771984895969-125",
+      "timestamp": "2026-02-25T02:01:35.969Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230020.54% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984895969
+    },
+    {
+      "id": "MEM-1771984896072-734",
+      "timestamp": "2026-02-25T02:01:36.072Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984896072
+    },
+    {
+      "id": "MEM-1771984896163-830",
+      "timestamp": "2026-02-25T02:01:36.163Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984896163
+    },
+    {
+      "id": "MEM-1771984896208-980",
+      "timestamp": "2026-02-25T02:01:36.208Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984896208
+    },
+    {
+      "id": "MEM-1771984896554-351",
+      "timestamp": "2026-02-25T02:01:36.554Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984896554
+    },
+    {
+      "id": "MEM-1771984896633-206",
+      "timestamp": "2026-02-25T02:01:36.633Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984896633
+    },
+    {
+      "id": "MEM-1771984896795-158",
+      "timestamp": "2026-02-25T02:01:36.795Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984896795
+    },
+    {
+      "id": "MEM-1771984896838-720",
+      "timestamp": "2026-02-25T02:01:36.838Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984896838
+    },
+    {
+      "id": "MEM-1771984896981-889",
+      "timestamp": "2026-02-25T02:01:36.981Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984896981
+    },
+    {
+      "id": "MEM-1771984897037-300",
+      "timestamp": "2026-02-25T02:01:37.037Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984897037
+    },
+    {
+      "id": "MEM-1771984897217-179",
+      "timestamp": "2026-02-25T02:01:37.217Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230020.54% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984897217
+    },
+    {
+      "id": "MEM-1771984897252-500",
+      "timestamp": "2026-02-25T02:01:37.252Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984897252
+    },
+    {
+      "id": "MEM-1771984897424-736",
+      "timestamp": "2026-02-25T02:01:37.424Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984897424
+    },
+    {
+      "id": "MEM-1771984897457-372",
+      "timestamp": "2026-02-25T02:01:37.457Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230020.54% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984897457
+    },
+    {
+      "id": "MEM-1771984897668-38",
+      "timestamp": "2026-02-25T02:01:37.668Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984897668
+    },
+    {
+      "id": "MEM-1771984897690-877",
+      "timestamp": "2026-02-25T02:01:37.690Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69127.88% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984897690
+    },
+    {
+      "id": "MEM-1771984897697-950",
+      "timestamp": "2026-02-25T02:01:37.697Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984897697
+    },
+    {
+      "id": "MEM-1771984897900-481",
+      "timestamp": "2026-02-25T02:01:37.900Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984897900
+    },
+    {
+      "id": "MEM-1771984897921-957",
+      "timestamp": "2026-02-25T02:01:37.921Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984897921
+    },
+    {
+      "id": "MEM-1771984898098-678",
+      "timestamp": "2026-02-25T02:01:38.098Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984898098
+    },
+    {
+      "id": "MEM-1771984898116-250",
+      "timestamp": "2026-02-25T02:01:38.116Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984898116
+    },
+    {
+      "id": "MEM-1771984898307-192",
+      "timestamp": "2026-02-25T02:01:38.307Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230020.54% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984898307
+    },
+    {
+      "id": "MEM-1771984898322-745",
+      "timestamp": "2026-02-25T02:01:38.322Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984898322
+    },
+    {
+      "id": "MEM-1771984898510-557",
+      "timestamp": "2026-02-25T02:01:38.510Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230020.54% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984898510
+    },
+    {
+      "id": "MEM-1771984898540-905",
+      "timestamp": "2026-02-25T02:01:38.540Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984898540
+    },
+    {
+      "id": "MEM-1771984898720-125",
+      "timestamp": "2026-02-25T02:01:38.720Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984898720
+    },
+    {
+      "id": "MEM-1771984923809-376",
+      "timestamp": "2026-02-25T02:02:03.809Z",
+      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit +93592266.33% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984923809
+    },
+    {
+      "id": "MEM-1771984924073-151",
+      "timestamp": "2026-02-25T02:02:04.073Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit max profit target (+1426690.03%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984924073
+    },
+    {
+      "id": "MEM-1771984924302-761",
+      "timestamp": "2026-02-25T02:02:04.302Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit max profit target (+12849.73%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984924302
+    },
+    {
+      "id": "MEM-1771984924531-514",
+      "timestamp": "2026-02-25T02:02:04.531Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit max profit target (+69563.89%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984924531
+    },
+    {
+      "id": "MEM-1771984924751-935",
+      "timestamp": "2026-02-25T02:02:04.751Z",
+      "text": "Token Cy1GS2FqefgaMbi45UunrUzin1rfEmTUYnomddzBpump hit +32529.71% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984924751
+    },
+    {
+      "id": "MEM-1771984924953-962",
+      "timestamp": "2026-02-25T02:02:04.953Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit max profit target (+2995.89%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984924953
+    },
+    {
+      "id": "MEM-1771984925163-213",
+      "timestamp": "2026-02-25T02:02:05.163Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit max profit target (+1365.42%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984925163
+    },
+    {
+      "id": "MEM-1771984927601-140",
+      "timestamp": "2026-02-25T02:02:07.601Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984927601
+    },
+    {
+      "id": "MEM-1771984927821-279",
+      "timestamp": "2026-02-25T02:02:07.821Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230471.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984927821
+    },
+    {
+      "id": "MEM-1771984928040-660",
+      "timestamp": "2026-02-25T02:02:08.040Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928040
+    },
+    {
+      "id": "MEM-1771984928484-566",
+      "timestamp": "2026-02-25T02:02:08.484Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984928484
+    },
+    {
+      "id": "MEM-1771984928514-356",
+      "timestamp": "2026-02-25T02:02:08.514Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928514
+    },
+    {
+      "id": "MEM-1771984928536-384",
+      "timestamp": "2026-02-25T02:02:08.536Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230471.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928536
+    },
+    {
+      "id": "MEM-1771984928588-11",
+      "timestamp": "2026-02-25T02:02:08.588Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928588
+    },
+    {
+      "id": "MEM-1771984928607-169",
+      "timestamp": "2026-02-25T02:02:08.607Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984928607
+    },
+    {
+      "id": "MEM-1771984928682-918",
+      "timestamp": "2026-02-25T02:02:08.682Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928682
+    },
+    {
+      "id": "MEM-1771984928687-869",
+      "timestamp": "2026-02-25T02:02:08.687Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928687
+    },
+    {
+      "id": "MEM-1771984928708-565",
+      "timestamp": "2026-02-25T02:02:08.708Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit +7886.12% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928708
+    },
+    {
+      "id": "MEM-1771984928743-387",
+      "timestamp": "2026-02-25T02:02:08.743Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69563.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928743
+    },
+    {
+      "id": "MEM-1771984928768-645",
+      "timestamp": "2026-02-25T02:02:08.768Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984928768
+    },
+    {
+      "id": "MEM-1771984928784-424",
+      "timestamp": "2026-02-25T02:02:08.784Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928784
+    },
+    {
+      "id": "MEM-1771984928823-172",
+      "timestamp": "2026-02-25T02:02:08.823Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984928823
+    },
+    {
+      "id": "MEM-1771984928857-187",
+      "timestamp": "2026-02-25T02:02:08.857Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928857
+    },
+    {
+      "id": "MEM-1771984928871-719",
+      "timestamp": "2026-02-25T02:02:08.871Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928871
+    },
+    {
+      "id": "MEM-1771984928883-683",
+      "timestamp": "2026-02-25T02:02:08.883Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230471.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928883
+    },
+    {
+      "id": "MEM-1771984928898-153",
+      "timestamp": "2026-02-25T02:02:08.898Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230471.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928898
+    },
+    {
+      "id": "MEM-1771984928920-245",
+      "timestamp": "2026-02-25T02:02:08.920Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit +69563.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928920
+    },
+    {
+      "id": "MEM-1771984928959-984",
+      "timestamp": "2026-02-25T02:02:08.959Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984928959
+    },
+    {
+      "id": "MEM-1771984929003-874",
+      "timestamp": "2026-02-25T02:02:09.003Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929003
+    },
+    {
+      "id": "MEM-1771984929037-518",
+      "timestamp": "2026-02-25T02:02:09.037Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929037
+    },
+    {
+      "id": "MEM-1771984929061-546",
+      "timestamp": "2026-02-25T02:02:09.061Z",
+      "text": "Token x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp hit +17399557713.93% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929061
+    },
+    {
+      "id": "MEM-1771984929079-832",
+      "timestamp": "2026-02-25T02:02:09.079Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230471.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929079
+    },
+    {
+      "id": "MEM-1771984929097-375",
+      "timestamp": "2026-02-25T02:02:09.097Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230471.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929097
+    },
+    {
+      "id": "MEM-1771984929112-586",
+      "timestamp": "2026-02-25T02:02:09.112Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929112
+    },
+    {
+      "id": "MEM-1771984929142-873",
+      "timestamp": "2026-02-25T02:02:09.142Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit +1705107.74% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929142
+    },
+    {
+      "id": "MEM-1771984929192-492",
+      "timestamp": "2026-02-25T02:02:09.192Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929192
+    },
+    {
+      "id": "MEM-1771984929198-639",
+      "timestamp": "2026-02-25T02:02:09.198Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984929198
+    },
+    {
+      "id": "MEM-1771984929212-310",
+      "timestamp": "2026-02-25T02:02:09.212Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230471.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929212
+    },
+    {
+      "id": "MEM-1771984929270-261",
+      "timestamp": "2026-02-25T02:02:09.270Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230471.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929270
+    },
+    {
+      "id": "MEM-1771984929292-759",
+      "timestamp": "2026-02-25T02:02:09.292Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929292
+    },
+    {
+      "id": "MEM-1771984929310-696",
+      "timestamp": "2026-02-25T02:02:09.310Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929310
+    },
+    {
+      "id": "MEM-1771984929408-590",
+      "timestamp": "2026-02-25T02:02:09.408Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929408
+    },
+    {
+      "id": "MEM-1771984929414-673",
+      "timestamp": "2026-02-25T02:02:09.414Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit STOP LOSS (-99.29%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1771984929414
+    },
+    {
+      "id": "MEM-1771984929425-402",
+      "timestamp": "2026-02-25T02:02:09.425Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929425
+    },
+    {
+      "id": "MEM-1771984929489-270",
+      "timestamp": "2026-02-25T02:02:09.489Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929489
+    },
+    {
+      "id": "MEM-1771984929639-219",
+      "timestamp": "2026-02-25T02:02:09.639Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230471.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929639
+    },
+    {
+      "id": "MEM-1771984929647-456",
+      "timestamp": "2026-02-25T02:02:09.647Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit +2995.89% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929647
+    },
+    {
+      "id": "MEM-1771984929849-59",
+      "timestamp": "2026-02-25T02:02:09.849Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit +230471.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929849
+    },
+    {
+      "id": "MEM-1771984929854-458",
+      "timestamp": "2026-02-25T02:02:09.854Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984929854
+    },
+    {
+      "id": "MEM-1771984930064-30",
+      "timestamp": "2026-02-25T02:02:10.064Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit +1365.42% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984930064
+    },
+    {
+      "id": "MEM-1771984954149-750",
+      "timestamp": "2026-02-25T02:02:34.149Z",
+      "text": "Token JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd hit max profit target (+190834.41%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984954149
+    },
+    {
+      "id": "MEM-1771984954658-576",
+      "timestamp": "2026-02-25T02:02:34.658Z",
+      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit max profit target (+1426690.03%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984954658
+    },
+    {
+      "id": "MEM-1771984954886-605",
+      "timestamp": "2026-02-25T02:02:34.886Z",
+      "text": "Token Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog hit max profit target (+204099926.45%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984954886
+    },
+    {
+      "id": "MEM-1771984955070-306",
+      "timestamp": "2026-02-25T02:02:35.070Z",
+      "text": "Token Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump hit max profit target (+7886.12%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984955070
+    },
+    {
+      "id": "MEM-1771984955247-371",
+      "timestamp": "2026-02-25T02:02:35.247Z",
+      "text": "Token 9nPTUoCUPw4Qgjhd7fW7nySdBmUM4g2PGR4maX21PAYF hit max profit target (+1705107.74%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984955247
+    },
+    {
+      "id": "MEM-1771984955463-830",
+      "timestamp": "2026-02-25T02:02:35.463Z",
+      "text": "Token JDwzFSxcUvLubUb9xAuuZNvh4bbcEJcuM9TezpmRHVWF hit max profit target (+2995.89%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984955463
+    },
+    {
+      "id": "MEM-1771984955653-86",
+      "timestamp": "2026-02-25T02:02:35.653Z",
+      "text": "Token CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump hit max profit target (+1365.42%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984955653
+    },
+    {
+      "id": "MEM-1771984983718-318",
+      "timestamp": "2026-02-25T02:03:03.718Z",
+      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit max profit target (+93592266.33%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984983718
+    },
+    {
+      "id": "MEM-1771984983937-29",
+      "timestamp": "2026-02-25T02:03:03.937Z",
+      "text": "Token 4Cnk9EPnW5ixfLZatCPJjDB1PUtcRpVVgTQukm9epump hit max profit target (+12849.73%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984983937
+    },
+    {
+      "id": "MEM-1771984984169-487",
+      "timestamp": "2026-02-25T02:03:04.169Z",
+      "text": "Token Cy1GS2FqefgaMbi45UunrUzin1rfEmTUYnomddzBpump hit +32529.71% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1771984984169
+    },
+    {
+      "id": "MEM-1771984984458-481",
+      "timestamp": "2026-02-25T02:03:04.458Z",
+      "text": "Token 2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg hit max profit target (+230471.42%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771984984458
+    },
+    {
+      "id": "MEM-1771985013983-542",
+      "timestamp": "2026-02-25T02:03:33.983Z",
+      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit max profit target (+741155.17%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771985013983
+    },
+    {
+      "id": "MEM-1771985014246-941",
+      "timestamp": "2026-02-25T02:03:34.246Z",
+      "text": "Token Cy1GS2FqefgaMbi45UunrUzin1rfEmTUYnomddzBpump hit max profit target (+32529.71%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771985014246
+    },
+    {
+      "id": "MEM-1771985043861-497",
+      "timestamp": "2026-02-25T02:04:03.861Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit max profit target (+70193.67%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771985043861
+    },
+    {
+      "id": "MEM-1771985073711-933",
+      "timestamp": "2026-02-25T02:04:33.711Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit max profit target (+70193.67%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771985073711
+    },
+    {
+      "id": "MEM-1771985103790-387",
+      "timestamp": "2026-02-25T02:05:03.790Z",
+      "text": "Token 3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump hit max profit target (+71647.02%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1771985103790
+    },
+    {
+      "id": "MEM-1771994617388-427",
+      "timestamp": "2026-02-25T04:43:37.388Z",
+      "text": "Force-exited 4zSeFfUSoq3DSuQFvhksostRbfeaocgBkampFLbTqHqz after 4h max hold. PnL at exit: 11.16%.",
+      "importance": 8,
+      "lastAccessed": 1771994617388
+    },
+    {
+      "id": "MEM-1771994707348-654",
+      "timestamp": "2026-02-25T04:45:07.348Z",
+      "text": "Force-exited C9FVTtx4WxgHmz55FEvQgykq8rqiLS8xRBVgqQVtpump after 4h max hold. PnL at exit: -0.50%.",
+      "importance": 8,
+      "lastAccessed": 1771994707348
     }
   ]
 }

@@ -14,7 +14,7 @@ console.log(chalk.cyan.bold(`[ORACLE #${id}]: Security Matrix v2 ONLINE. Real au
 const recentAudits = new Map(); // mint -> { score, timestamp }
 const AUDIT_COOLDOWN = 300000;  // 5 min cooldown per token
 
-async function auditToken(mintAddress) {
+async function auditToken(mintAddress, auditSource) {
     if (!mintAddress || mintAddress.length < 32) {
         console.log(chalk.gray(`[ORACLE #${id}]: Invalid mint address. Skipping.`));
         return null;
@@ -117,7 +117,7 @@ async function auditToken(mintAddress) {
     }
 
     // Cache result
-    const result = { mint: mintAddress, riskScore, rating, reasons, timestamp: Date.now() };
+    const result = { mint: mintAddress, score: riskScore, status: rating, rating, reasons, timestamp: Date.now() };
     recentAudits.set(mintAddress, result);
 
     // Report to Don
@@ -126,6 +126,16 @@ async function auditToken(mintAddress) {
             type: 'INTEL_DATA',
             data: `TOKEN AUDIT: ${mintAddress.substring(0, 12)}... → ${rating} (Score: ${riskScore}). ${reasons.slice(0, 2).join('; ')}`,
             source: 'ORACLE_SECURITY'
+        });
+
+        // Send AUDIT_RESULT so the Don's SNIPER_GATE can intercept it
+        process.send({
+            type: 'AUDIT_RESULT',
+            mint: mintAddress,
+            score: riskScore,
+            status: rating,
+            reasons,
+            source: auditSource || 'ORACLE'
         });
 
         // Critical: If DANGER, alert the Sniper to blacklist
@@ -144,9 +154,10 @@ async function auditToken(mintAddress) {
 // IPC Listener for Audit Requests
 process.on('message', (msg) => {
     if (msg.type === 'REQUEST_AUDIT') {
-        if (msg.mint) {
-            auditToken(msg.mint);
-        } else if (msg.target === 'system') {
+        const mintAddr = msg.mint || msg.target;
+        if (mintAddr && mintAddr !== 'system') {
+            auditToken(mintAddr, msg.source);
+        } else if (msg.target === 'system' || msg.mint === 'system') {
             console.log(chalk.cyan(`[ORACLE #${id}]: System audit requested. Running diagnostics...`));
             if (process.send) {
                 process.send({
