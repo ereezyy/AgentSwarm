@@ -39,27 +39,60 @@ const wallet = Keypair.fromSecretKey(secretKey);
 // ── Dynamic Risk Engine (Aggressive MEV Tuned) ──
 let riskParams = {
     slippage: 0.25,      // 25% slippage to punch through minor sandwiches
-    stopLoss: -15,       // Cut losses quickly if rugged
+    stopLoss: -8,        // [TIGHTENED] Cut losses quickly if rugged (-15% -> -8%)
     moonbagTarget: 50,   // Take initial profit at 50%
-    maxProfitDump: 200   // Liquidate everything at 200% for rapid turnaround
+    maxProfitDump: 120   // Dump everything at 120% — take the bag and run
 };
 
 // ── Spend Controls (Safety Gate) ─────────────────────────────
 // Prevents runaway buying when whale signals fire in rapid succession
 const recentBuys = new Map(); // mint -> timestamp of last buy
-const TOKEN_COOLDOWN_MS = 2 * 60 * 1000;   // 2 minutes per token (prevent same-token spam)
-const MAX_DAILY_SPEND_SOL = Infinity;       // No daily cap — let it run
-const MIN_BALANCE_GUARD = 0.15;             // Keep at least 0.15 SOL for gas
+const TOKEN_COOLDOWN_MS = 30 * 60 * 1000;  // 30 min per token (prevents same-token spam)
+const MAX_DAILY_SPEND_SOL = 0.5;              // Cap daily buying at 0.5 SOL — preserve capital
+const MIN_BALANCE_GUARD = 0.005;             // [REDUCED] Keep at least 0.005 SOL for gas + emergency exits
+const SPEND_FILE = path.join(__dirname, '../missions/spend_tracker.json');
+
 let dailySpend = 0;
 let dailySpendReset = Date.now();
+
+function loadSpend() {
+    try {
+        if (fs.existsSync(SPEND_FILE)) {
+            const data = JSON.parse(fs.readFileSync(SPEND_FILE, 'utf8'));
+            if (Date.now() - data.resetTime < 86400000) {
+                dailySpend = data.spend;
+                dailySpendReset = data.resetTime;
+            }
+        }
+    } catch { }
+}
+
+function saveSpend() {
+    fs.writeFileSync(SPEND_FILE, JSON.stringify({ spend: dailySpend, resetTime: dailySpendReset }, null, 2));
+}
 
 function canBuy(mintStr) {
     // Reset daily counter if new day
     if (Date.now() - dailySpendReset > 86400000) {
         dailySpend = 0;
         dailySpendReset = Date.now();
+        saveSpend();
     }
-    // Check per-token cooldown
+
+    // Position limit — hard stop
+    const trades = loadTrades();
+    if (trades.length >= MAX_OPEN_POSITIONS) {
+        console.log(chalk.yellow(`[SNIPER #${id}]: 🛑 At position limit (${trades.length}/${MAX_OPEN_POSITIONS}). No more buys.`));
+        return false;
+    }
+
+    // Dedup — never buy a token we already hold
+    if (mintStr !== '__scan_gate__' && trades.some(t => t.mint === mintStr)) {
+        console.log(chalk.yellow(`[SNIPER #${id}]: ⏹️ Already holding ${mintStr.substring(0, 8)}... Skipping duplicate.`));
+        return false;
+    }
+
+    // Per-token cooldown (30 min — prevents rapid re-entry after sells)
     const lastBuy = recentBuys.get(mintStr);
     if (lastBuy && Date.now() - lastBuy < TOKEN_COOLDOWN_MS) {
         console.log(chalk.yellow(`[SNIPER #${id}]: ⏳ Token ${mintStr.substring(0, 8)}... on cooldown. Skipping.`));
@@ -85,6 +118,29 @@ try {
 }
 
 // ============================================================
+// DYNAMIC PRIORITY FEES
+// ============================================================
+async function getDynamicPriorityFee() {
+    try {
+        const fees = await connection.getRecentPrioritizationFees();
+        if (!fees || fees.length === 0) return 100000; // Fallback 0.0001 SOL
+
+        // Sort descending and take the top 20 to get a competitive gauge
+        fees.sort((a, b) => b.prioritizationFee - a.prioritizationFee);
+        const topFees = fees.slice(0, 20);
+        const avgTopFee = Math.floor(topFees.reduce((sum, f) => sum + f.prioritizationFee, 0) / topFees.length);
+
+        // Add a 20% premium to the average top fee to ensure inclusion
+        const targetFee = Math.floor(avgTopFee * 1.2);
+
+        // Floor at 50k, Ceiling at 5M (0.005 SOL) to protect capital
+        return Math.min(Math.max(targetFee, 50000), 5000000);
+    } catch (e) {
+        return 100000; // Fallback on error
+    }
+}
+
+// ============================================================
 // JUPITER AGGREGATOR (RAYDIUM/ORCA FALLBACK)
 // ============================================================
 async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1000) {
@@ -100,12 +156,16 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
 
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Jupiter Quote: ${quoteData.outAmount} out via ${quoteData.routePlan.map(r => r.swapInfo.label).join('->')}`));
 
-        // 2. Get Serialized Transaction
+        // 2. Get Serialized Transaction with Dynamic Fee
+        const priorityFee = await getDynamicPriorityFee();
+        const priorityFeeSol = (priorityFee / 1e9).toFixed(6);
+        console.log(chalk.hex('#FF6600')(`[SNIPER #${id}]: 🏎️ Priority Fee Set: ${priorityFeeSol} SOL`));
+
         const swapResponse = await axios.post(`${JUPITER_BASE}/swap`, {
             quoteResponse: quoteData,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: 100000
+            prioritizationFeeLamports: priorityFee
         }, { timeout: 10000 });
 
         const { swapTransaction } = swapResponse.data;
@@ -121,12 +181,19 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
 
         console.log(chalk.green.bold(`[SNIPER #${id}]: 🪐 Jupiter Swap Sent: ${sig}`));
 
-        // Confirm with blockhash expiry (prevents silent hanging)
-        const confirmation = await connection.confirmTransaction(
-            { signature: sig, blockhash: latestBh.blockhash, lastValidBlockHeight: latestBh.lastValidBlockHeight },
-            'confirmed'
-        );
-        if (confirmation.value.err) throw new Error(`TX Failed: ${JSON.stringify(confirmation.value.err)}`);
+        // Confirm via HTTP polling (no WebSocket signatureSubscribe needed)
+        let confirmed = false;
+        for (let i = 0; i < 15; i++) {
+            await new Promise(r => setTimeout(r, 2000));
+            const status = await connection.getSignatureStatuses([sig]);
+            const cs = status?.value?.[0]?.confirmationStatus;
+            if (cs === 'confirmed' || cs === 'finalized') {
+                confirmed = true;
+                if (status.value[0].err) throw new Error(`TX Failed: ${JSON.stringify(status.value[0].err)}`);
+                break;
+            }
+        }
+        if (!confirmed) throw new Error('Confirmation timeout (30s)');
 
         return { success: true, sig, outAmount: quoteData.outAmount };
 
@@ -140,9 +207,9 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
 }
 
 async function fetchCurrentPrice(mint, amount) {
-    // 1. Try Jupiter first (preferred for accuracy)
+    // 1. Try Jupiter lite-api (LIVE — v6 is dead)
     try {
-        const quoteUrl = `https://quote-api.jup.ag/v6/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
+        const quoteUrl = `https://lite-api.jup.ag/swap/v1/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
         const res = await axios.get(quoteUrl, { timeout: 8000 });
         if (res.data && res.data.outAmount) {
             const solValue = Number(res.data.outAmount) / 1e9;
@@ -150,7 +217,7 @@ async function fetchCurrentPrice(mint, amount) {
             return { solValue, currentPrice, source: 'JUPITER' };
         }
     } catch (e) {
-        // console.log(chalk.gray(`[SNIPER]: Jupiter price fetch failed, trying DexScreener...`));
+        // Jupiter failed, try DexScreener
     }
 
     // 2. Try DexScreener (Reliable fallback)
@@ -158,8 +225,13 @@ async function fetchCurrentPrice(mint, amount) {
         const res = await axios.get(`https://api.dexscreener.com/latest/dex/tokens/${mint}`, { timeout: 8000 });
         if (res.data && res.data.pairs && res.data.pairs.length > 0) {
             const pair = res.data.pairs.find(p => p.quoteToken.address === WSOL_MINT.toString()) || res.data.pairs[0];
-            const priceInSol = parseFloat(pair.priceNative); // Price in SOL
-            const solValue = priceInSol * Number(amount);
+            const priceInSol = parseFloat(pair.priceNative); // Price in SOL per UI token
+
+            // Fix: Standardize to UI units (6 decimals for Pump.fun)
+            const decimals = 6;
+            const uiAmount = Number(amount) / Math.pow(10, decimals);
+            const solValue = priceInSol * uiAmount;
+
             return { solValue, currentPrice: priceInSol, source: 'DEXSCREENER' };
         }
     } catch (e) {
@@ -238,7 +310,7 @@ function calculateSellQuote(curve, tokenAmount) {
 async function buyToken(mint, bondingCurve, associatedBondingCurve) {
     try {
         const balance = await connection.getBalance(wallet.publicKey);
-        const SOL_AMOUNT = 0.01;
+        const SOL_AMOUNT = 0.03;
         const mintStr = mint.toString();
 
         // ── Safety Gate 1: Per-token cooldown + daily cap ──
@@ -246,7 +318,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
 
         if (balance < MIN_BALANCE_GUARD * 1e9) {
             const pubkey = wallet.publicKey.toString();
-            console.log(chalk.yellow(`[SNIPER #${id}]: Insufficient funds (Need >${MIN_BALANCE_GUARD} SOL). Balance: ${(balance / 1e9).toFixed(4)} SOL`));
+            console.log(chalk.yellow(`[SNIPER #${id}]: Insufficient funds (Need >0.005 SOL). Balance: ${(balance / 1e9).toFixed(4)} SOL`));
             console.log(chalk.cyan(`[SNIPER #${id}]: ➡️ FUND WALLET: ${pubkey}`));
             if (process.send) {
                 process.send({
@@ -262,6 +334,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
         // Register this token as being bought (cooldown)
         recentBuys.set(mintStr, Date.now());
         dailySpend += SOL_AMOUNT;
+        saveSpend();
         console.log(chalk.green(`[SNIPER #${id}]: 🎯 CALCULATING ENTRY for ${mintStr}... [Daily: ${dailySpend.toFixed(4)}/${MAX_DAILY_SPEND_SOL} SOL]`));
 
         // 1. Check Curve Status
@@ -289,12 +362,12 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                     uiAmount: uiAmount,
                     entrySol: SOL_AMOUNT,
                     timestamp: Date.now(),
-                    maxHoldUntil: Date.now() + (4 * 60 * 60 * 1000),
+                    maxHoldUntil: Date.now() + (25 * 60 * 1000), // [TIGHTENED] 25min max hold
                     moonbagSecured: false,
                     source: 'JUPITER'
                 });
                 saveTrades(trades);
-                console.log(chalk.green(`[SNIPER #${id}]: 📌 Position recorded | Entry: ${realEntryPrice.toExponential(3)} SOL/uiToken | Amount: ${uiAmount.toLocaleString()} tokens`));
+                console.log(chalk.green(`[SNIPER #${id}]: 📌 Position recorded | Entry: ${realEntryPrice.toFixed(10)} SOL/uiToken | Amount: ${uiAmount.toLocaleString()} tokens`));
                 GlobalMemory.addMemory('SNIPER', `Entered ${mintStr} via Jupiter. ${SOL_AMOUNT} SOL @ ${realEntryPrice.toExponential(3)} SOL/uiToken.`, 7);
                 if (process.send) process.send({ type: 'TRADE_EXECUTED', mint: mintStr, amount: SOL_AMOUNT, source: 'JUPITER' });
             }
@@ -304,7 +377,9 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
         // ── PUMP.FUN ROUTE (Phase 1: Python Muscle) ──
         console.log(chalk.green(`[SNIPER #${id}]: 📊 Curve Active. Requesting Python Execution...`));
 
+        const quote = calculateBuyQuote(curve, SOL_AMOUNT);
         const requestId = Date.now();
+        const priorityFee = await getDynamicPriorityFee();
         if (process.send) {
             process.send({
                 type: 'EXECUTE_TRADE',
@@ -313,7 +388,8 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                     command: 'buy',
                     mint: mint.toString(),
                     amount: SOL_AMOUNT,
-                    slippage: riskParams.slippage
+                    slippage: riskParams.slippage,
+                    priorityFee
                 }
             });
 
@@ -325,11 +401,19 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                         if (m.success) {
                             console.log(chalk.green.bold(`[SNIPER #${id}]: 🔫 PYTHON SNIPE SUCCESS! TX: ${m.tx.substring(0, 16)}...`));
                             const trades = loadTrades();
+                            const decimals = 6;
+                            const uiAmount = Number(quote.tokenAmount) / Math.pow(10, decimals);
+                            const realEntryPrice = uiAmount > 0 ? SOL_AMOUNT / uiAmount : 0;
+
                             trades.push({
                                 mint: mint.toString(),
-                                entryPrice: Number(quote.solAmount) / Number(quote.tokenAmount),
+                                entryPrice: realEntryPrice,
+                                entryPriceUnit: 'ui',
                                 amount: quote.tokenAmount.toString(),
+                                uiAmount: uiAmount,
+                                entrySol: SOL_AMOUNT,
                                 timestamp: Date.now(),
+                                maxHoldUntil: Date.now() + (25 * 60 * 1000),
                                 moonbagSecured: false,
                                 source: 'PUMP_FUN_PYTHON'
                             });
@@ -382,6 +466,7 @@ async function sellToken(mint, amount, reason) {
 
         const quote = calculateSellQuote(curve, BigInt(amount));
         const requestId = Date.now();
+        const priorityFee = await getDynamicPriorityFee();
         if (process.send) {
             process.send({
                 type: 'EXECUTE_TRADE',
@@ -390,7 +475,8 @@ async function sellToken(mint, amount, reason) {
                     command: 'sell',
                     mint: mint.toString(),
                     amount: amount,
-                    slippage: riskParams.slippage
+                    slippage: riskParams.slippage,
+                    priorityFee
                 }
             });
 
@@ -535,7 +621,20 @@ async function checkPositions() {
 
 
     try {
-        for (const trade of trades) {
+        for (let i = trades.length - 1; i >= 0; i--) {
+            const trade = trades[i];
+
+            // ── FORCE EXIT FIRST: check max hold time BEFORE price (so expired positions always close) ──
+            if (trade.maxHoldUntil && Date.now() > trade.maxHoldUntil) {
+                console.log(chalk.magenta.bold(`[SNIPER #${id}]: ⏰ FORCE EXIT: ${trade.mint} held too long. Liquidating at market.`));
+                GlobalMemory.addMemory('SNIPER', `Force-exited ${trade.mint} after max hold time expired.`, 8);
+                await sellToken(trade.mint, trade.amount, 'TIME_EXIT');
+                trades.splice(i, 1);
+                saveTrades(trades);
+                continue;
+            }
+
+            // ── Price check for PnL-based exits ──
             let currentSolValue = 0;
             let pnl = 0;
 
@@ -546,16 +645,24 @@ async function checkPositions() {
             if (curve && !curve.complete) {
                 const quote = calculateSellQuote(curve, BigInt(trade.amount));
                 currentSolValue = Number(quote.solAmount) / 1e9;
-                const currentPrice = Number(quote.solAmount) / Number(trade.amount);
+
+                // standardizing to UI units: SOL per UI token (6 decimals for pump.fun)
+                const decimals = 6;
+                const uiAmount = Number(trade.amount) / Math.pow(10, decimals);
+                const currentPrice = uiAmount > 0 ? currentSolValue / uiAmount : 0;
+
+                // Use stored entryPrice (always SOL/uiToken in new format)
                 const entryPrice = trade.entryPrice || currentPrice;
                 pnl = ((currentPrice - entryPrice) / entryPrice) * 100;
             } else {
                 const priceData = await fetchCurrentPrice(trade.mint, trade.amount);
                 if (priceData) {
                     currentSolValue = priceData.solValue;
-                    const entryPrice = trade.entryPrice || priceData.currentPrice;
-                    pnl = ((priceData.currentPrice - entryPrice) / entryPrice) * 100;
+                    const currentPrice = priceData.currentPrice; // fetchCurrentPrice returns price per UI token
+                    const entryPrice = trade.entryPrice || currentPrice;
+                    pnl = ((currentPrice - entryPrice) / entryPrice) * 100;
                 } else {
+                    console.log(chalk.yellow(`  ⚠️ ${trade.mint.substring(0, 6)}: Price unavailable, skipping PnL check.`));
                     continue;
                 }
             }
@@ -576,30 +683,29 @@ async function checkPositions() {
                 console.log(chalk.green.bold(`[SNIPER #${id}]: 💰 MAX PROFIT: ${trade.mint} (+${pnl.toFixed(2)}%) - DUMPING.`));
                 GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} hit max profit target (+${pnl.toFixed(2)}%). Dumping all bags.`, 9);
                 await sellToken(trade.mint, trade.amount, 'MAX_PROFIT');
-                trades.splice(trades.indexOf(trade), 1);
+                trades.splice(i, 1);
                 saveTrades(trades);
             }
             else if (trade.moonbagSecured && pnl < 50) {
                 console.log(chalk.red.bold(`[SNIPER #${id}]: 📉 TRAILING STOP (Moonbag): ${trade.mint} (+${pnl.toFixed(2)}%)`));
                 GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} dipped below trailing stop after moonbag. Liquidating.`, 7);
                 await sellToken(trade.mint, trade.amount, 'TRAILING_STOP');
-                trades.splice(trades.indexOf(trade), 1);
+                trades.splice(i, 1);
+                saveTrades(trades);
+            }
+            else if (!trade.moonbagSecured && trade.highestPnl > 25 && pnl < 10) {
+                // [NEW] Pre-Moonbag Trailing Stop
+                console.log(chalk.red.bold(`[SNIPER #${id}]: 📉 PRE-MOONBAG TRAIL: ${trade.mint} (+${pnl.toFixed(2)}%)`));
+                GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} hit +25% but dumped to +10% before moonbag. Liquidating to save profits.`, 7);
+                await sellToken(trade.mint, trade.amount, 'PRE_MOONBAG_TRAIL');
+                trades.splice(i, 1);
                 saveTrades(trades);
             }
             else if (!trade.moonbagSecured && pnl <= riskParams.stopLoss) {
                 console.log(chalk.red.bold(`[SNIPER #${id}]: 🛑 STOP LOSS: ${trade.mint} (${pnl.toFixed(2)}%)`));
                 GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} hit STOP LOSS (${pnl.toFixed(2)}%). This was a bad entry or a rug.`, 10);
                 await sellToken(trade.mint, trade.amount, 'STOP_LOSS');
-                trades.splice(trades.indexOf(trade), 1);
-                saveTrades(trades);
-            }
-            // ── FORCE EXIT: max hold time exceeded ──────────────────────────────
-            // If a token has been held past maxHoldUntil with no target hit, dump it
-            else if (trade.maxHoldUntil && Date.now() > trade.maxHoldUntil) {
-                console.log(chalk.magenta.bold(`[SNIPER #${id}]: ⏰ FORCE EXIT: ${trade.mint} held too long (>4h). Liquidating at market.`));
-                GlobalMemory.addMemory('SNIPER', `Force-exited ${trade.mint} after 4h max hold. PnL at exit: ${pnl.toFixed(2)}%.`, 8);
-                await sellToken(trade.mint, trade.amount, 'TIME_EXIT');
-                trades.splice(trades.indexOf(trade), 1);
+                trades.splice(i, 1);
                 saveTrades(trades);
             }
         }
@@ -665,7 +771,7 @@ setInterval(async () => {
 // ============================================================
 
 // How many open positions we allow simultaneously
-const MAX_OPEN_POSITIONS = 8;
+const MAX_OPEN_POSITIONS = 5;
 
 // Tokens scanned this session — avoid re-scanning the same tokens
 const scannedThisSession = new Set();
@@ -791,7 +897,7 @@ async function runAutonomousScan() {
 
         for (const [mint, pair] of tokenMap) {
             const { score, reasons } = scoreToken(pair);
-            if (score >= 6) {
+            if (score >= 8) {
                 candidates.push({ mint, pair, score, reasons });
             }
         }
@@ -838,6 +944,7 @@ setInterval(runAutonomousScan, 2 * 60 * 1000);
 // First scan after 30 seconds to let wallet init settle
 setTimeout(runAutonomousScan, 30000);
 
+loadSpend();
 startSurveillance();
 setInterval(checkPositions, 30000);
 
@@ -849,6 +956,26 @@ process.on('message', async (msg) => {
             const bondingCurve = getBondingCurvePDA(mintPub);
             const associatedBondingCurve = await getAssociatedTokenAddress(mintPub, bondingCurve, true);
             await buyToken(mintPub, bondingCurve, associatedBondingCurve);
+            break;
+
+        case 'TRADE_EXECUTED':
+            if (msg.source === 'CONTRARIAN') {
+                console.log(chalk.magenta(`[SNIPER #${id}]: 📥 Received ${msg.mint} from CONTRARIAN. Assuming PnL management.`));
+                const trades = loadTrades();
+                // If it's already tracked, skip
+                if (trades.some(t => t.mint === msg.mint)) break;
+
+                trades.push({
+                    mint: msg.mint,
+                    entryPrice: null, // Force fetch Current Price on next tick
+                    amount: Math.floor(msg.amount * 1e9).toString(), // rough placeholder, price fetch will correct
+                    timestamp: Date.now(),
+                    maxHoldUntil: Date.now() + (25 * 60 * 1000), // 25min max hold
+                    moonbagSecured: false,
+                    source: msg.source
+                });
+                saveTrades(trades);
+            }
             break;
 
         case 'EMERGENCY_SELL':

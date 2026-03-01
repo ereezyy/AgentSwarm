@@ -12,8 +12,7 @@ class SyndicateCore {
         this.jitoAuthKey = process.env.JITO_AUTH_KEY; // Optional
         this.jitoBlockEngineUrl = process.env.JITO_BLOCK_ENGINE_URL || 'mainnet.block-engine.jito.wtf';
 
-        const mode = process.env.LIVE_MODE === 'true' ? 'MAINNET STRIKE (LIVE)' : 'SIMULATION (DUMMY)';
-        console.log(chalk.red.bold(`\n[CORE]: 🚨 SYNDICATE MODE: ${mode} 🚨\n`));
+        console.log(chalk.red.bold(`\n[CORE]: 🚨 SYNDICATE CORE: LIVE 🚨\n`));
     }
 
     async connectToDarkNetMarkets() {
@@ -26,27 +25,15 @@ class SyndicateCore {
         const { type, channel, jito = false, transactions = [], tipAmount = 50000 } = params;
         const liveMode = process.env.LIVE_MODE === 'true';
 
-        // Silencing high-frequency polling logs to maintain high-signal terminal output
-        if (liveMode && type === 'high_yield_micro' && !transactions.length) {
-            // Background polling - Silence unless profit is realized
-        } else {
-            this.log(`Attempting ${type} on ${channel} (Jito: ${jito}, Live: ${liveMode})`, 'POWER');
-        }
-
         if (liveMode && transactions.length > 0) {
             if (jito) {
                 return await this.sendJitoBundle(transactions, tipAmount);
             }
-            // Standard live execution (if needed, simplified for now)
-            this.log(`Live execution logic for ${type} triggered.`, 'CRYPTO');
+            this.log(`Live execution: ${type} on ${channel}`, 'CRYPTO');
             return { success: true, profit: 0 };
         }
 
-        // Simulation / Fallback
-        if (!liveMode) {
-            this.log(`Executing ${type} - Simulation Mode`, 'INFO');
-            return { success: true, profit: 150 };
-        }
+        // No transactions to execute — return cleanly, no fake profits
         return { success: true, profit: 0 };
     }
 
@@ -164,31 +151,13 @@ class SyndicateCore {
     }
 
     async scanDarkWebMarkets(options) {
-        const liveMode = process.env.LIVE_MODE === 'true';
-        console.log(chalk.cyan(`[CORE]: Scanning DarkWeb for opportunities (Live: ${liveMode})...`));
-        this.reportStatus('SCANNING', 'Searching for micro-exploits...');
-
-        if (liveMode) {
-            this.log('DarkNet scan returned 0 qualified leads. Increase RISK_APPETITE or fund wallet manually to bypass simulation.', 'INFO');
-            return []; // No real dark web implementation yet
-        }
-
-        return [
-            { id: 'op_1', type: 'microtransaction', expectedReturn: 50, risk: 'low' },
-            { id: 'op_2', type: 'data_resell', expectedReturn: 80, risk: 'low' }
-        ];
+        // Real on-chain scanning only — no simulated data
+        return [];
     }
 
     async executeExploit(id, options) {
-        const liveMode = process.env.LIVE_MODE === 'true';
-        console.log(chalk.red(`[CORE]: Executing exploit ${id} (Live: ${liveMode})...`));
-
-        if (liveMode) {
-            this.log(`Exploit ${id} suppressed. Syndicate requires confirmed SOL balance for live execution.`, 'INFO');
-            return { success: true, profit: 0, note: 'Live monitor mode active (Balance suppressed).' };
-        }
-
-        return { success: true, profit: 75 };
+        // Real execution only — requires confirmed SOL balance
+        return { success: true, profit: 0 };
     }
 
     async transferCapital(target, amount) {

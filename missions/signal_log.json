@@ -1,1449 +1,1324 @@
 {
   "signals": [
     {
-      "id": "sig-1771478517172-11wcv",
+      "id": "sig-1772244855152-j6yu5",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-19T05:21:57.172Z",
-      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 372Mov6PgGXwcKSU...",
+      "timestamp": "2026-02-28T02:14:15.152Z",
+      "data": "WHALE Whale Alpha: SENT 0.0045 SOL. Sig: 3GqpFcXNpuqVxJga...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771478548371-vnww5",
+      "id": "sig-1772244934606-xakmd",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-19T05:22:28.371Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: cjVcyAFn2F7UPPMq...",
+      "timestamp": "2026-02-28T02:15:34.606Z",
+      "data": "WHALE Whale Alpha: SENT 0.0038 SOL. Sig: tg5pt9mxSJdpNUtb...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771650404778-lgsqo",
+      "id": "sig-1772245125534-weepo",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T05:06:44.779Z",
-      "data": "WHALE Whale Alpha: SENT 0.0011 SOL. Sig: 4Yq4NrAkv8hGXrDv...",
+      "timestamp": "2026-02-28T02:18:45.534Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0281 SOL. Sig: 4BWSGVRcFo3cQdMf...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771650405088-u96fd",
+      "id": "sig-1772245125542-tyybi",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-21T05:06:45.088Z",
+      "timestamp": "2026-02-28T02:18:45.542Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
-        "mint": "8TVr3U85V3Uazkxd5DJbmzdUWaxhQdEGNNGJ7eNTpump",
-        "detectedAmount": 107467.69796399772,
+        "mint": "C8cNX2D1y3jqKpMFkQhP1gGbfvTEdeckZXLBKSN5z5KF",
+        "detectedAmount": 10000,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1771650435330-znop5",
+      "id": "sig-1772245362582-taud2",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T05:07:15.330Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.1905 SOL. Sig: 2oBRr2VXRqzWcxJn...",
+      "timestamp": "2026-02-28T02:22:42.582Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.2096 SOL. Sig: g8zWAm4iD7TMM2Gk...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771650466416-6riyz",
+      "id": "sig-1772245680714-3zhld",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T05:07:46.416Z",
-      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 45xvnwAJDTBut3Hm...",
+      "timestamp": "2026-02-28T02:28:00.714Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3wXJQsZF7unrtSfJ...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771650466418-hscer",
+      "id": "sig-1772245760949-55t1s",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T02:29:20.949Z",
+      "data": "WHALE Whale Alpha: SENT 0.001 SOL. Sig: BMpqh3KFLAYFZVf8...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772245760954-ciqsc",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-21T05:07:46.418Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "5Jr9hGmJgxBRjjF8XGcGgQzXUdsbpZNNMpigEv8Wpump",
-        "detectedAmount": 24419.631124999374,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771654374905-unezx",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T06:12:54.905Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4S9zMkvQm8keQFgy...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771667305423-raia6",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T09:48:25.423Z",
-      "data": "WHALE Whale Alpha: SENT 0.0056 SOL. Sig: pahJcn4Mgum4f3mk...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771667337102-4i1js",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T09:48:57.102Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3M5X1Tkn6mKYXJuM...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771667337105-gf4xe",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-21T09:48:57.105Z",
+      "timestamp": "2026-02-28T02:29:20.954Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
         "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
-        "detectedAmount": 472.19495999999344,
+        "detectedAmount": 21.51969499886036,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1771667367640-rauus",
+      "id": "sig-1772245870951-y3q3w",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T09:49:27.640Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: zzNaCuQ62rXSaLj4...",
+      "timestamp": "2026-02-28T02:31:10.951Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5ytER8BhLe96cgsT...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771667398293-aneom",
+      "id": "sig-1772246029741-5i3h2",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T09:49:58.293Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2rtkmTox4weoVRZp...",
+      "timestamp": "2026-02-28T02:33:49.741Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: zY9b1oazmJcXxGeT...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771667430393-91orm",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T09:50:30.393Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.1286 SOL. Sig: 3wnpmraLcxuU8Q79...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771667927896-527xd",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T09:58:47.896Z",
-      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 2K5asKu6A3jbB5pr...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771667931446-2af04",
+      "id": "sig-1772246029745-k6gic",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-21T09:58:51.446Z",
+      "timestamp": "2026-02-28T02:33:49.745Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
-        "mint": "8ZyibVskrntjEzL5vQn5TDM6S7xZ7MA3S5EPc1mRsji2",
-        "detectedAmount": 1125159.922893718,
+        "mint": "85aM5XJhdDeUw4MbGKM56zmWnsRyh76zUVut97uPjiCg",
+        "detectedAmount": 248.12589083984494,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1771671727849-dakhi",
+      "id": "sig-1772246140068-3k2xr",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T11:02:07.849Z",
-      "data": "WHALE Whale Alpha: SENT 0.0009 SOL. Sig: 5umq4DWr7JSnE5GP...",
+      "timestamp": "2026-02-28T02:35:40.068Z",
+      "data": "WHALE Whale Alpha: SENT 0.0088 SOL. Sig: 2C8WGPaoi1boPAWG...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771671758418-1a6o3",
+      "id": "sig-1772246220604-pujjt",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T11:02:38.418Z",
-      "data": "WHALE Whale Alpha: SENT 0.0078 SOL. Sig: 48N5jeWmgAtcPJeP...",
+      "timestamp": "2026-02-28T02:37:00.604Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0099 SOL. Sig: 4kprwRj211V7A8Po...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771671788935-ss3je",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T11:03:08.935Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0368 SOL. Sig: 3ge8jXTRK6QJHYVH...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771671788939-enwj6",
+      "id": "sig-1772246220608-v2mym",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-21T11:03:08.939Z",
+      "timestamp": "2026-02-28T02:37:00.608Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
-        "mint": "FiYuSFSNpG6mBAgSQvGwLwXggrinSufQExMMj1BxPrZz",
-        "detectedAmount": 530.9150719996542,
+        "mint": "NSN5ZNjN7maryg7rYp4CjqdHviN7ztGZogdQm6ipump",
+        "detectedAmount": 588961.8132989407,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1771675215312-68wb3",
+      "id": "sig-1772246300723-vg1nh",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T12:00:15.312Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.1052 SOL. Sig: 55X3iCE89U6NqAyP...",
+      "timestamp": "2026-02-28T02:38:20.723Z",
+      "data": "WHALE Whale Alpha: SENT 0.005 SOL. Sig: TnZb6xZYUUHumiwD...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771675215361-i3kam",
+      "id": "sig-1772246410198-hj0th",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T02:40:10.198Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3dUuShXmYyShLQHC...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772246490456-p82jr",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T02:41:30.457Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.1695 SOL. Sig: 3GcpjbPmQpnCEM6C...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772246570690-8aeg6",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T02:42:50.690Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 61sytx77eARSnTFk...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772246650513-ggbhl",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T02:44:10.513Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5MJyVNuXXgMKig5b...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772246729468-731l3",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T02:45:29.468Z",
+      "data": "WHALE Whale Alpha: SENT 0.0029 SOL. Sig: NUPMwkpVTF49pskM...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772246729472-k5wp1",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-21T12:00:15.361Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "C1oTXhBmSEKWpSMcMrTPt3tjo9XL7L6gxMUU6D6MQxqm",
-        "detectedAmount": 689089.8724041283,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771675246439-c8abz",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T12:00:46.440Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0562 SOL. Sig: VQjm4sYDYtJXV5VC...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771675277417-gg9s2",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T12:01:17.417Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.1261 SOL. Sig: 3syrjWuonGBQXQdu...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771675308296-0g304",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T12:01:48.296Z",
-      "data": "WHALE Whale Alpha: SENT 0.0025 SOL. Sig: HvrJjhErTsNPWAYj...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771676487445-7chn1",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T12:21:27.445Z",
-      "data": "WHALE Whale Alpha: SENT 0.0451 SOL. Sig: dgA77G8yJw2pPW3C...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771676517865-cguql",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T12:21:57.865Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3sCxg7eACKLKBivX...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771676548849-ek721",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T12:22:28.849Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: VN1cL6NeVGtvuDb2...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771705432259-pgiy8",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T20:23:52.259Z",
-      "data": "WHALE Whale Alpha: SENT 0.0006 SOL. Sig: 2QmsMKyhUqrbvmNn...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771705462873-sk3v4",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T20:24:22.873Z",
-      "data": "WHALE Whale Alpha: SENT 0.0012 SOL. Sig: 3UdJkt7gGd4Ngdxc...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771705493541-rjnxh",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-21T20:24:53.541Z",
-      "data": "WHALE Whale Alpha: SENT 0.002 SOL. Sig: 4obqbmYNU4kFHG61...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771839967741-eszq1",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-23T09:46:07.741Z",
-      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: Zy9NdUTpNamTeyWL...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771839967844-mjisc",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-23T09:46:07.844Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "9gwTegFJJErDpWJKjPfLr2g2zrE3nL1v5zpwbtsk3c6P",
-        "detectedAmount": 102310.12296067178,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771971579120-7w6qn",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-24T22:19:39.120Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: WYbYNr7av1nUxUkJ...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771971594097-tc4n2",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-24T22:19:54.097Z",
-      "data": "WHALE Whale Alpha: SENT 0.0018 SOL. Sig: 5G1vU48RcnPWBJ4p...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771978601997-8vf2m",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:16:41.997Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: bBYe5XKzbkf28zQ3...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771978602065-fpvcb",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T00:16:42.065Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "DK6PWMyuZ4NMjsm9AWNCTMKrajQYrtfMjMJ3QauX2UH5",
-        "detectedAmount": 0.13283576899993932,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771978632733-bnuxx",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:17:12.733Z",
-      "data": "WHALE Whale Alpha: SENT 6.649 SOL. Sig: 2Lergg2j6jAeF5gU...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771978908368-5ecsp",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:21:48.369Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4EfS1uw1AzGhwEZk...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771978939012-7pt9c",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:22:19.012Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3rqb5vztPZg9gW4C...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979059353-ozp51",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:24:19.353Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 22QwqyoMzGowDnz3...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979059364-l1m7g",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T00:24:19.364Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "DtR4D9FtVoTX2569gaL837ZgrB6wNjj6tkmnX9Rdk9B2",
-        "detectedAmount": 1679.752076998353,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979330878-qr9e5",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:28:50.879Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 33KHXtvM4oBenaGe...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979391547-uhddg",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:29:51.547Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.007 SOL. Sig: DWn2gWy7ryiFubgA...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979391552-it9r5",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T00:29:51.552Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "BhPG35i78bM7N9ktN5BuF4YRcGou1v2jSM69nAzB73dS",
-        "detectedAmount": 21251.227465000004,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979482485-k1y5u",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:31:22.485Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4Beyfx4jpQ5xL9AC...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979543749-78bry",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:32:23.749Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4rWqivuBL6YaPcFU...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979543755-ccw5h",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T00:32:23.755Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
-        "detectedAmount": 377.2183810006827,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979574395-7bdju",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:32:54.395Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5XY4wCvjH7KjsJGp...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979604795-sojx1",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:33:24.795Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4onykbqnTJsMtpGz...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979635116-1c9cq",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:33:55.117Z",
-      "data": "WHALE Whale Alpha: SENT 0.0221 SOL. Sig: 65zZBmFQ3ckRNZHo...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979665493-faff4",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:34:25.493Z",
-      "data": "WHALE Whale Alpha: SENT 1.235 SOL. Sig: 4NTgrCDegr5QVBXw...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979695897-ihowf",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:34:55.897Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.2521 SOL. Sig: 3okJRWC583tPjBLs...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979695899-qxpj4",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T00:34:55.899Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "8tGm5d8GbpB8SCLm4WNUaQbjgRFEYBy1CQszWSihpump",
-        "detectedAmount": 3226676.8138800263,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979786818-h4qp5",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:36:26.818Z",
-      "data": "WHALE Whale Alpha: SENT 0.002 SOL. Sig: NgeUXGgYUy5wZzU2...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979817103-a2lp4",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:36:57.103Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5ABsQEGrMvMZYp1a...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979847537-gcwso",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:37:27.537Z",
-      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: oFVZnyBWnsf6c2WJ...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979847540-m9o0r",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T00:37:27.540Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog",
-        "detectedAmount": 32900037.200164795,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979878573-iri8w",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:37:58.573Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0002 SOL. Sig: 2yGkx4CVDL8XJ2Kg...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979878575-8456v",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T00:37:58.575Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "detectedAmount": 0.009223999921232462,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979909391-25fzx",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:38:29.391Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: oRcoUvJsp5DHK3ZT...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771979939677-fv6od",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:38:59.677Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4m8uBauX3WMfcvBK...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980000338-qwt1h",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:40:00.338Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0791 SOL. Sig: eGP6tQAS2cUzk2Dg...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980030644-rrxzg",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:40:30.644Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.07 SOL. Sig: 5zAMe2QpdwRbKGpZ...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980030649-qv27j",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T00:40:30.649Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "5QS7RcHfGUa2ZtrovPvEJMB9coqroiT7H48dPSwFpump",
-        "detectedAmount": 22469.216269999743,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980061036-uf5qc",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:41:01.036Z",
-      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 2ipHDewJceXZWTxx...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980061038-lm19v",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T00:41:01.038Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "3GEznP41VaAGv9yRdBiuYdA8zkffNc8b7DzNJgFbH4Kh",
-        "detectedAmount": 29234.456667989492,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980117215-ssk07",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:41:57.215Z",
-      "data": "WHALE Whale Alpha: SENT 0.131 SOL. Sig: 2sMGbWyhBEkeGEBh...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980147900-9zrdz",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:42:27.900Z",
-      "data": "WHALE Whale Alpha: SENT 0.0127 SOL. Sig: 2e4cDMKNuNz69LUR...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980239689-8cbex",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:43:59.689Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0002 SOL. Sig: 5zMtfXLvX4CvrrZT...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980239694-53sfx",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T00:43:59.694Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "2u98MM7DMtVmNG4iAKRNMtynjmkzgD6fXAzB3wVfhQvg",
-        "detectedAmount": 66.21102899312973,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980274080-96vy5",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:44:34.080Z",
-      "data": "WHALE Whale Alpha: SENT 0.0021 SOL. Sig: C2ggKj5AMJw5dNZw...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980424731-6821r",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:47:04.732Z",
-      "data": "WHALE Whale Alpha: SENT 0.0111 SOL. Sig: AYXaSox6RSbW2qC9...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980487913-eiv1h",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:48:07.913Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0287 SOL. Sig: 2LgoNgWuMRAB9gqa...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980487925-0jwrk",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T00:48:07.925Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "CbL9j9qU6TBczpvy9dBmHpY4o593g5XHEMa1NPKvcfd",
-        "detectedAmount": 60154.452832996845,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980518439-95rwo",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:48:38.439Z",
-      "data": "WHALE Whale Alpha: SENT 1.0002 SOL. Sig: 2VuyovENF7FteGi8...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980548741-9u1nb",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:49:08.741Z",
-      "data": "WHALE Whale Alpha: SENT 0.0064 SOL. Sig: 61cf1mpxHkVfP9SM...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980548743-2fgkn",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T00:49:08.743Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "detectedAmount": 500,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771980875966-calmi",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:54:35.966Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5UtxZaRymyasjWfj...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771981028429-1l7sz",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T00:57:08.429Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.002 SOL. Sig: 2jrsG9gs42GCaK8o...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771981299691-ke8rt",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:01:39.691Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4CGFxjZFxZuFBG37...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771981390212-9sxx2",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:03:10.212Z",
-      "data": "WHALE Whale Alpha: SENT 0.1025 SOL. Sig: YrD4q2xn78DmohQj...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771981481104-t40j4",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:04:41.104Z",
-      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 3zX2prPNwycHShcc...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771981481109-cbiyv",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:04:41.109Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "3dgCCb15HMQSA4Pn3Tfii5vRk7aRqTH95LJjxzsG2Mug",
-        "detectedAmount": 1997.8725000023842,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771981601924-jkef9",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:06:41.924Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 54P9imiPLqL9TNn8...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771981601928-0fygw",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:06:41.928Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
-        "detectedAmount": 4.361468999999488,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771981693939-bm7hh",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:08:13.939Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4Ko3YWYBqxWiQBi1...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771981693944-c33ye",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:08:13.944Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "CEfiwQbEfKMv7zGUoRW23mC5jnHGNtq5UhRJHTbpVPG7",
-        "detectedAmount": 203245.46334055066,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771981724252-gmluw",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:08:44.252Z",
-      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 5a2cYdsaptMC2cBW...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771981754551-eadf4",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:09:14.551Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0152 SOL. Sig: 2Q7MkB1hbLn6f9KL...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771981754554-v1n2n",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:09:14.554Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
-        "detectedAmount": 11332.200683996081,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771981784870-yyy5o",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:09:44.870Z",
-      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 2bhz7LmMG34vxrm9...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982055171-49hrp",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:14:15.171Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4TSri9vr175haR3F...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982055237-x096b",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:14:15.237Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "detectedAmount": 0.4379599999999755,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982297835-f8m1u",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:18:17.835Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2Rs3soeJKJBZYikJ...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982328207-aktlm",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:18:48.207Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2FaahvCWMZy3Y6sQ...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982358506-7i64q",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:19:18.506Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3Z8bpGsJs1RKaQT7...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982358510-erete",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:19:18.510Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "CoRAitPvr9seu5F9Hk39vbjqA1o1XuoryHjSk1Z1q2mo",
-        "detectedAmount": 46587.64832597971,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982388828-5qce3",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:19:48.828Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4raqp5bAhMHQSQQt...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982541621-8jk0n",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:22:21.621Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4yV3pqR38Sng9pkA...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982541633-txo6t",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:22:21.633Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump",
-        "detectedAmount": 149.0738260000944,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982632543-hl2dv",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:23:52.543Z",
-      "data": "WHALE Whale Alpha: SENT 0.0008 SOL. Sig: 39hxX5iN5fpnPpcf...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982753537-it3ak",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:25:53.537Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2oCHpoBdBZjJSnvt...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982874751-j2vj4",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:27:54.751Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 33J6Fusxtfryk5M7...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982874759-4giqu",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:27:54.759Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "6t6KEtuQdyAEAYz1ieUEB7f2DxPVgikE3AUK5wGYgSUk",
-        "detectedAmount": 10677.296563430224,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771982935435-5ajyh",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:28:55.435Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3rt1US5fvotib5Bf...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983186845-at59h",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:33:06.846Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4uxWTKVt762QSJpu...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983278304-xsnyw",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:34:38.304Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: QdmWSQ26e9XA1Z16...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983371003-sv3a5",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:36:11.003Z",
-      "data": "WHALE Whale Alpha: RECEIVED 9.4438 SOL. Sig: 3VE7gNjXPB5HmgDh...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983371303-ymzyj",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:36:11.303Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "3qq54YqAKG3TcrwNHXFSpMCWoL8gmMuPceJ4FG9npump",
-        "detectedAmount": 650364.7973270118,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983432197-ch9tl",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:37:12.197Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2sj27uohhEXWUPtP...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983432250-qt95c",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:37:12.250Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
-        "detectedAmount": 2.5705909989774227,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983613680-9mw0d",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:40:13.680Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5kDfJTsyLfae8d56...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983613698-qdt3t",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:40:13.698Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "detectedAmount": 32.95492099999683,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983675097-b5km4",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:41:15.097Z",
-      "data": "WHALE Whale Alpha: RECEIVED 1.1799 SOL. Sig: 3zcGtfMma6ixZ6oD...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983675111-t7xjh",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:41:15.111Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog",
-        "detectedAmount": 236035386.64598083,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983919389-zm9dt",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:45:19.389Z",
-      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: dcTFxaLVJWdvLmHP...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983949699-28ggu",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:45:49.699Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.9997 SOL. Sig: frB4o3L9BCHpKnPr...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983949746-m3swc",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:45:49.746Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
-        "detectedAmount": 98.40000000037253,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771983980030-6yr8g",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:46:20.030Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: x8HQjCqcNE8eDrvC...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771984010985-7i782",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:46:50.985Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0071 SOL. Sig: 3D25u8WsQsz7bLtH...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771984011020-w3cld",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:46:51.020Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "4zSeFfUSoq3DSuQFvhksostRbfeaocgBkampFLbTqHqz",
-        "detectedAmount": 126.6489690002054,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771984332924-lnzir",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:52:12.924Z",
-      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 2o4qg7UD5WPZdidw...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771984393146-shkkx",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:53:13.147Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4JALwSg3eDgKWyoW...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771984423762-izgtm",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:53:43.762Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: aA6dGubbtixoEzzY...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771984423767-q7b4g",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:53:43.767Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
-        "detectedAmount": 0.5072900056838989,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771984454458-4nfmy",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:54:14.458Z",
-      "data": "WHALE Whale Alpha: SENT 0.033 SOL. Sig: 5waXnvArtWgZHy83...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771984515920-ttb75",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:55:15.920Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 498isr6MF5akMcjC...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771984576488-w74hq",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:56:16.488Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0537 SOL. Sig: 3f9RN3XcUYmanJvN...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771984576500-u8pbk",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:56:16.500Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
-        "detectedAmount": 40036.65586298704,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771984607251-7yg4b",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:56:47.251Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4TDZzZVh2vByggTD...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771984607260-0evv5",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T01:56:47.260Z",
+      "timestamp": "2026-02-28T02:45:29.472Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
         "mint": "x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp",
-        "detectedAmount": 471578764.875,
+        "detectedAmount": 78421750.42675781,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1771984637900-6b7dq",
+      "id": "sig-1772246808999-08j8m",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:57:17.900Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 8eE2nZp6GfewELvf...",
+      "timestamp": "2026-02-28T02:46:48.999Z",
+      "data": "WHALE Whale Alpha: SENT 0.0031 SOL. Sig: 4spsL8QaPWGAH8F7...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771984699102-v3h1r",
+      "id": "sig-1772246889191-frfdm",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T01:58:19.102Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: LMoTqicinsYcYXpL...",
+      "timestamp": "2026-02-28T02:48:09.191Z",
+      "data": "WHALE Whale Alpha: SENT 0.0116 SOL. Sig: 5qAgbFa1LDjyjnES...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771984850167-r4pyx",
+      "id": "sig-1772246999564-2oub8",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:00:50.168Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 294qmGwT5QrtXd9B...",
+      "timestamp": "2026-02-28T02:49:59.564Z",
+      "data": "WHALE Whale Alpha: SENT 0.1174 SOL. Sig: 2xULgm9YznFnJ1Y2...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771984850173-zu4pl",
+      "id": "sig-1772247078641-13w9s",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T02:51:18.641Z",
+      "data": "WHALE Whale Alpha: SENT 0.0048 SOL. Sig: 6JUmYdXmHVyaGqLQ...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772247078653-bqlf6",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T02:00:50.173Z",
+      "timestamp": "2026-02-28T02:51:18.653Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
-        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "detectedAmount": 0.07290000000000418,
+        "mint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+        "detectedAmount": 10254.092238999903,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1771985031278-6ype9",
+      "id": "sig-1772247316023-8e7nn",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:03:51.278Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3SiNKqYHwgm16H96...",
+      "timestamp": "2026-02-28T02:55:16.024Z",
+      "data": "WHALE Whale Alpha: SENT 0.001 SOL. Sig: 3RxMKMyDBX9VFLYv...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771985152611-3xxyg",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:05:52.611Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 31HAW5hGQ7WTKnkJ...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771985183309-gbawq",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:06:23.309Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 633tic37v8PU4tjW...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771985572912-fqda5",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:12:52.912Z",
-      "data": "WHALE Whale Alpha: SENT 0.0037 SOL. Sig: yp4WdVrBg2w2cTNw...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771985634575-2etqv",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:13:54.575Z",
-      "data": "WHALE Whale Alpha: SENT 0.8398 SOL. Sig: 5Tv5ZP8tbzPgctFK...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771985876115-l224g",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:17:56.115Z",
-      "data": "WHALE Whale Alpha: SENT 0.0006 SOL. Sig: 49aHtKuGL4VbNhAy...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771986065912-gvlel",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:21:05.912Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3AkcCPR6gNdgBaVa...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771986065966-36neg",
+      "id": "sig-1772247316028-1tlx6",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T02:21:05.966Z",
+      "timestamp": "2026-02-28T02:55:16.028Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
-        "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-        "detectedAmount": 2.198949999999968,
+        "mint": "2FPyTwcZLUg1MDrwsyoP4D6s1tM7hAkHYRjkNb5w6Pxk",
+        "detectedAmount": 0.010712000000012267,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1771986188509-h5ppq",
+      "id": "sig-1772247395086-eba3g",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:23:08.509Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.4786 SOL. Sig: 3b6NfCNNTbm14cio...",
+      "timestamp": "2026-02-28T02:56:35.086Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0836 SOL. Sig: 4ZyBYs1NMGKZVPuy...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771986219170-mc72p",
+      "id": "sig-1772247583853-u6gqg",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:23:39.170Z",
-      "data": "WHALE Whale Alpha: SENT 0.0025 SOL. Sig: 5QRdCyMCBxu5xua3...",
+      "timestamp": "2026-02-28T02:59:43.853Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2J7uUcydRsjCjRRa...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771986219177-riw3g",
+      "id": "sig-1772247664042-l3fgw",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T03:01:04.042Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.2011 SOL. Sig: 22FTdLdz7vE1cyGD...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772247742998-ixqq9",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T03:02:22.998Z",
+      "data": "WHALE Whale Alpha: SENT 0.0042 SOL. Sig: 2E6b8KJkLiKX6atz...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772247852094-cq1v0",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T03:04:12.094Z",
+      "data": "WHALE Whale Alpha: SENT 0.0036 SOL. Sig: 5tMZXCRwksskkCxE...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772247931181-4g1vi",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T03:05:31.181Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0179 SOL. Sig: 4gCA2JdncJ8qtSwh...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772247931200-a5qrf",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T02:23:39.177Z",
+      "timestamp": "2026-02-28T03:05:31.200Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
-        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "detectedAmount": 0.1982300000017858,
+        "mint": "Aq8Gocyvyyi8xk5EYxd6viUfVmVvs9T9R6mZFzZFpump",
+        "detectedAmount": 296.1837329864502,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1771986311334-0c2bi",
+      "id": "sig-1772248090685-5ogdk",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:25:11.334Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: n7ZZVN56bEXiPZaQ...",
+      "timestamp": "2026-02-28T03:08:10.685Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: JNSsSsfGnNaSiSqT...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771986341936-bn92q",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:25:41.936Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0029 SOL. Sig: 22SYnoMzuKxP7sYG...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771986372235-e1gkh",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:26:12.235Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3t9PnTb9TzSCeBtY...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771986372245-29mbb",
+      "id": "sig-1772248090691-0opq7",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T02:26:12.245Z",
+      "timestamp": "2026-02-28T03:08:10.691Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
+        "detectedAmount": 259.1482739970088,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772248248897-s2186",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T03:10:48.898Z",
+      "data": "WHALE Whale Alpha: SENT 0.0182 SOL. Sig: 4F7dgCaj2VMLiELH...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772248437740-gyb1g",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T03:13:57.740Z",
+      "data": "WHALE Whale Alpha: SENT 0.0023 SOL. Sig: Rgjx15FmyShCEZGA...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772248516748-r1cza",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T03:15:16.748Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0049 SOL. Sig: UNqNq755ubc4NzJP...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772248516767-73hbj",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T03:15:16.767Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "2Dda2qaokwUwp53spAHdAG8fsxiGqxMjDAnPzYjPGGwn",
+        "detectedAmount": 78.01970300078392,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772248595992-jsw25",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T03:16:35.992Z",
+      "data": "WHALE Whale Alpha: SENT 0.0071 SOL. Sig: 3QZqzLA9jjujjFvt...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772249402884-j8c9n",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T03:30:02.884Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: Nr4xyQhkjcQxpoNn...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772249402893-ylehf",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T03:30:02.893Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+        "detectedAmount": 1438.2953259944916,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772249909790-9mh73",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T03:38:29.790Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5VnvyzGCqcNQtgA7...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772250230484-90z7j",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T03:43:50.484Z",
+      "data": "WHALE Whale Alpha: SENT 0.0026 SOL. Sig: 1NJhcz2C8vMi3SQh...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772250501637-bc5lh",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T03:48:21.637Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: su8t7tiaa6LuM5zF...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772250501644-b36x6",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T03:48:21.644Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
         "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
-        "detectedAmount": 949.4648250006139,
+        "detectedAmount": 1.2375050000846386,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1771986402523-enw8g",
+      "id": "sig-1772251275414-br78g",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:26:42.523Z",
-      "data": "WHALE Whale Alpha: SENT 0.0073 SOL. Sig: ZB8gdTAqUK2mjcjJ...",
+      "timestamp": "2026-02-28T04:01:15.414Z",
+      "data": "WHALE Whale Alpha: SENT 0.0042 SOL. Sig: BsUkRgHihr6ffbZH...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771986493490-39jri",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T02:28:13.490Z",
-      "data": "WHALE Whale Alpha: SENT 0.0059 SOL. Sig: 2kVJr5HkGcmUYzoZ...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771995718483-av5xq",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T05:01:58.484Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.6752 SOL. Sig: 5hY8M7yqUiBhew7i...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1771995718543-hso90",
+      "id": "sig-1772251275424-ae15l",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T05:01:58.543Z",
+      "timestamp": "2026-02-28T04:01:15.424Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
-        "mint": "FpECzw6x8RG4VBXfnVg3UJd8pq9CCxJUSWCKb4gebq8B",
-        "detectedAmount": 708000,
+        "mint": "6tvkpo4FawYWvEFBZoCiDRJrCAMfrouheRW3YXeKJNW9",
+        "detectedAmount": 794154.4460960627,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1771995778626-drrjx",
+      "id": "sig-1772251355272-ngrck",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T05:02:58.626Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 39X9LxDDHYDKPKnH...",
+      "timestamp": "2026-02-28T04:02:35.272Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 6VsPgXyhQNXyctVU...",
       "telegramSent": false
     },
     {
-      "id": "sig-1771995778636-k7c7o",
+      "id": "sig-1772251355277-opocb",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T05:02:58.636Z",
+      "timestamp": "2026-02-28T04:02:35.277Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
-        "mint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
-        "detectedAmount": 35.53200000524521,
+        "mint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+        "detectedAmount": 3341.416375003755,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1771999861170-d1r08",
+      "id": "sig-1772251543441-fks6l",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T06:11:01.170Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: MGiuf1we1uwsVMqJ...",
+      "timestamp": "2026-02-28T04:05:43.441Z",
+      "data": "WHALE Whale Alpha: SENT 0.001 SOL. Sig: 5UsaRD1nUnBKuzdG...",
       "telegramSent": false
     },
     {
-      "id": "sig-1772000220465-nds9o",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T06:17:00.465Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 25unxZBSqQZK8BSY...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1772000459820-1nrq6",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T06:20:59.820Z",
-      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 53tXkhXMQmAeYwgm...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1772000580412-pq161",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T06:23:00.412Z",
-      "data": "WHALE Whale Alpha: SENT 0.0028 SOL. Sig: 3uJSsvvga9UfQw8S...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1772000882679-vyd2z",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T06:28:02.679Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0002 SOL. Sig: 38253jGpqFTZynrR...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1772000882695-4leb9",
+      "id": "sig-1772251543447-x80sa",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T06:28:02.695Z",
+      "timestamp": "2026-02-28T04:05:43.447Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "AFbX8oGjGpmVFywbVouvhQSRmiW2aR1mohfahi4Y2AdB",
+        "detectedAmount": 573.782475374639,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772251652789-dyogk",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:07:32.789Z",
+      "data": "WHALE Whale Alpha: SENT 0.0018 SOL. Sig: PzopxTku8WKNs3E4...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772251652832-b1xwu",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T04:07:32.832Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "6d5zHW5B8RkGKd51Lpb9RqFQSqDudr9GJgZ1SgQZpump",
+        "detectedAmount": 1029586.98407799,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772251732328-pxnqh",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:08:52.328Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5ygBwjddk4XMN12R...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772252270188-qkm9z",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:17:50.188Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: R3JfgLRmnfUG4Bf3...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772252349265-ei5n4",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:19:09.265Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: PV3SgKi4VQ7y1DPR...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772252349268-nrldj",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T04:19:09.269Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump",
+        "detectedAmount": 2909.294211998582,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772252507404-f14c3",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:21:47.404Z",
+      "data": "WHALE Whale Alpha: SENT 0.2179 SOL. Sig: 2vLLtmAYk9tC5BzA...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772252858170-ne43t",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:27:38.170Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.01 SOL. Sig: 3a8v9rxg587dhbF3...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772252858176-ghcku",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T04:27:38.176Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "ErDN9XdRE7GU5s6svhsYmVSERmt5VkfNRbsRvV7Xpump",
+        "detectedAmount": 570076.4481990337,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772253127712-p5i0o",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:32:07.712Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: i4hzYYTafxMtK9S8...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772253127731-yz7eg",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T04:32:07.731Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+        "detectedAmount": 505.9669499993324,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772253207202-so7i3",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:33:27.202Z",
+      "data": "WHALE Whale Alpha: RECEIVED 1.2126 SOL. Sig: 45mjqrYCnTdtzJk8...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772253207548-tx33d",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T04:33:27.548Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "HwPtbFpd3VTe3tfyosoVtPf9WPuSk5gAKkN5xp6Npump",
+        "detectedAmount": 212370.78747700155,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772253396235-k76cn",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:36:36.235Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 28K8evDeYPqnkiyU...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772253663362-df36q",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:41:03.362Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: HkiMkCzcq5Yt1So9...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772253742341-oalox",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:42:22.341Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 9UYTbv9E5tnfEhZD...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772253742375-kcxe0",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T04:42:22.375Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+        "detectedAmount": 771.8860940001905,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772253821612-pb788",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:43:41.612Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 2qfxinG6q5BALrM3...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772253901085-akpld",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:45:01.085Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3on9nR1nQ4YWCQij...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254063570-oxchx",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:47:43.570Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.6829 SOL. Sig: 3mKkUJSyHeS78yw7...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254063574-6ppjv",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T04:47:43.575Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "2Dda2qaokwUwp53spAHdAG8fsxiGqxMjDAnPzYjPGGwn",
+        "detectedAmount": 9918.43972099945,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254142731-repz6",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:49:02.731Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: ip4xbTCp8tAv6fqi...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254142742-659pz",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T04:49:02.742Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Hax9LTgsQkze1YFychnBLtFH8gYbQKtKfWKKg2SP6gdD",
+        "detectedAmount": 1101,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254252081-y9iqh",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:50:52.081Z",
+      "data": "WHALE Whale Alpha: SENT 0.0026 SOL. Sig: 4VtdT1Cx1cYQGttb...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254411960-5zk6v",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:53:31.960Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: ckjZa9CdLZrRD52K...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254491814-9bs65",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:54:51.814Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4kYqUx9gj5AJnjHc...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254571370-7rh3z",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:56:11.370Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0298 SOL. Sig: 39EsGJFXbMVgM7RA...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254571377-kul1i",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T04:56:11.377Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "6W8FHYE6jnw1dktabRRiZpQRQFPSFhTeLczdvBNPzVeo",
+        "detectedAmount": 5403.02887301147,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254651159-h0t64",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:57:31.159Z",
+      "data": "WHALE Whale Alpha: SENT 0.0031 SOL. Sig: 5NXaeCaSLmjZ9miA...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254730347-s3krv",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T04:58:50.347Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0115 SOL. Sig: fDLcXgiDegAHmFxH...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254730351-m2vdw",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T04:58:50.351Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
+        "detectedAmount": 8326.149991989136,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254810271-dcljp",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:00:10.271Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: ZzdYcqmdb3Qqrbn2...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254891930-u8dcx",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:01:31.930Z",
+      "data": "WHALE Whale Alpha: SENT 0.0095 SOL. Sig: 4JdFXbC7qdyxKqfS...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254971818-g3rlg",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:02:51.818Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0025 SOL. Sig: yFfseLLadHzvPaUq...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772254971823-ov4vg",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T05:02:51.823Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "HBgmREqCUnGPGEWCii8YBrguQvbyZS6cc9SGmU24jmxZ",
+        "detectedAmount": 36.58294299989939,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772255051711-2wgzo",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:04:11.711Z",
+      "data": "WHALE Whale Alpha: SENT 0.0012 SOL. Sig: 5MPU3rqSPCwuXRsd...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772255130751-z9sgy",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:05:30.751Z",
+      "data": "WHALE Whale Alpha: SENT 0.0011 SOL. Sig: 9TZ41J9FazrKFKjm...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772255239729-lc31f",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:07:19.730Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: HwfvJGrQZiBaxeCi...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772255239738-l2r5v",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T05:07:19.738Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "GXkvduehN2JYywC3Rnn6Yxy2QnWNrzFmskcVzWuPyY5e",
+        "detectedAmount": 0.39997400100003233,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772255616739-fchvh",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:13:36.739Z",
+      "data": "WHALE Whale Alpha: SENT 0.0023 SOL. Sig: 2HgdsGNPLjcPXyWS...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772255889967-fumz8",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:18:09.967Z",
+      "data": "WHALE Whale Alpha: SENT 0.0021 SOL. Sig: 488Y5DY9AvxopMGN...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772256208069-gyvj7",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:23:28.069Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0657 SOL. Sig: iCwT3zkocaoan2e8...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772256208076-1aenm",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T05:23:28.076Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "HBgmREqCUnGPGEWCii8YBrguQvbyZS6cc9SGmU24jmxZ",
+        "detectedAmount": 931.2900729998946,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772256752031-benzb",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:32:32.031Z",
+      "data": "WHALE Whale Alpha: SENT 0.4329 SOL. Sig: 3XUMVk7E2ju6FBbk...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772256991102-gx199",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:36:31.103Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.3558 SOL. Sig: 3Jrt5aomm2ct1fgi...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772257070471-hrh47",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:37:50.471Z",
+      "data": "WHALE Whale Alpha: SENT 0.1615 SOL. Sig: 3wGhcEUxrZXzf1qL...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772257339770-vws46",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:42:19.770Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5BfrZsWSmpfD4BsD...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772257797913-97ke8",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:49:57.913Z",
+      "data": "WHALE Whale Alpha: SENT 0.4755 SOL. Sig: 2ygp6fkEbnu1HVaV...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772258067307-u8fs3",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:54:27.307Z",
+      "data": "WHALE Whale Alpha: SENT 0.3032 SOL. Sig: iNk1iUpyBVrZ19RS...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772258147654-wt4t7",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:55:47.654Z",
+      "data": "WHALE Whale Alpha: SENT 0.1869 SOL. Sig: 8XG8eYSGLREGi98S...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772258228075-71rbx",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:57:08.075Z",
+      "data": "WHALE Whale Alpha: SENT 0.1883 SOL. Sig: isaqtQCiw7kEx3BA...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772258307965-7x71u",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:58:27.965Z",
+      "data": "WHALE Whale Alpha: SENT 0.2196 SOL. Sig: 3wsTkUUJuZfh5xKN...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772258387103-xddfv",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T05:59:47.103Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4vvKgURuwCzWR1xg...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772258387117-c8vf4",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T05:59:47.117Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+        "detectedAmount": 826.0763889998198,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772258466275-9d2cw",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:01:06.275Z",
+      "data": "WHALE Whale Alpha: SENT 0.2467 SOL. Sig: 3KMqSL6WTfWsrXAo...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772258576000-9da04",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:02:56.000Z",
+      "data": "WHALE Whale Alpha: RECEIVED 1.3731 SOL. Sig: 2x3Ssn5pRBgGTMS8...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772258655931-wy1z8",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:04:15.931Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.2185 SOL. Sig: kUgpvL8hhvDRUrhw...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772258735075-u0nib",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:05:35.075Z",
+      "data": "WHALE Whale Alpha: SENT 0.4733 SOL. Sig: 5Bdr7zBNJ3so4mYT...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772258814511-xuiv4",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:06:54.511Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5SfEn8GWV3zJT2Yi...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772258893832-6eoo0",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:08:13.832Z",
+      "data": "WHALE Whale Alpha: SENT 0.2672 SOL. Sig: 5qmA2k4X7YyPb7YC...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772259054342-qeqas",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:10:54.342Z",
+      "data": "WHALE Whale Alpha: SENT 0.4076 SOL. Sig: 5cZmd65j6911E4WL...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772259163784-seqn1",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:12:43.784Z",
+      "data": "WHALE Whale Alpha: SENT 0.1231 SOL. Sig: 2mZVQnuvGQrnyJhA...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772259243066-2ep90",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:14:03.066Z",
+      "data": "WHALE Whale Alpha: SENT 0.0004 SOL. Sig: 2pBctWGeTiNgEN55...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772259323017-q0vfx",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:15:23.017Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2bpYUY2mYtRCDogt...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772259511138-3zos6",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:18:31.138Z",
+      "data": "WHALE Whale Alpha: SENT 0.002 SOL. Sig: dxc615mX2mBSfACx...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772259590492-wh0a0",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:19:50.492Z",
+      "data": "WHALE Whale Alpha: SENT 0.002 SOL. Sig: 2ab49iubH2JoLeAG...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772259669683-uqy6h",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:21:09.683Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2nTcKufEQVgrAC8G...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772259669689-6anxx",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T06:21:09.689Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "CPcf58MNikQw2G23kTVWQevRDeFDpdxMH7KkR7Lhpump",
+        "detectedAmount": 14904.852419003844,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772259748680-hpc7q",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:22:28.680Z",
+      "data": "WHALE Whale Alpha: RECEIVED 4.0044 SOL. Sig: 4Mwo5A8D16Q1A4Bi...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772259748687-htibc",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T06:22:28.687Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump",
+        "detectedAmount": 5732.452989999205,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772260204256-fpyw6",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:30:04.256Z",
+      "data": "WHALE Whale Alpha: SENT 0.1464 SOL. Sig: NvpBcCaPGdZ52c38...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772260745106-kmnj2",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:39:05.106Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2DgwrgPxuhkDxSmX...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772260745114-xvrhk",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T06:39:05.114Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "6gx6Ph2ek73kF6EWDrG4GQ54pcLJB6CYpATuRyxKXumo",
+        "detectedAmount": 22617.613717496395,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772261123082-9bqhk",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:45:23.082Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5PnY15Yx6NmM74xb...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772261123088-m767t",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T06:45:23.088Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "C98A4nkJXhpVZNAZdHUA95RpTF3T4whtQubL3YobiUX9",
+        "detectedAmount": 15.754160000000411,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772261602127-ioi6o",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:53:22.127Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4DYv1pS9MAv1eTMF...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772261681197-ep22f",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:54:41.197Z",
+      "data": "WHALE Whale Alpha: SENT 0.1513 SOL. Sig: 5rW7XPBk48h7eb3G...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772261840002-kr0ju",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T06:57:20.002Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.1959 SOL. Sig: 5cK93kVpPgX6BL9Q...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772262348727-5500z",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T07:05:48.727Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4MhSKFrYnMFe3QMP...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772262348738-f6uyx",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T07:05:48.738Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "25hAyBQfoDhfWx9ay6rarbgvWGwDdNqcHsXS3jQ3mTDJ",
+        "detectedAmount": 0.3299999237060547,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772262506987-aq11o",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T07:08:26.987Z",
+      "data": "WHALE Whale Alpha: SENT 0.1177 SOL. Sig: 5vzLVT341JSHr5ch...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772263043982-bulqg",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T07:17:23.982Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.1288 SOL. Sig: 5sTbJaDn3dD22MqE...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772263123807-f6sey",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T07:18:43.807Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4QHz4zDYVqUwZBzR...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772263362461-fh6li",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T07:22:42.461Z",
+      "data": "WHALE Whale Alpha: SENT 0.0103 SOL. Sig: 2xzJq6zj3ucE5WpH...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772263827243-ikhng",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T07:30:27.243Z",
+      "data": "WHALE Whale Alpha: SENT 0.1479 SOL. Sig: 9mtLzo71wmPoM2SL...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772263907529-pdpxv",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T07:31:47.529Z",
+      "data": "WHALE Whale Alpha: SENT 0.2833 SOL. Sig: 2qXF8Hjq8VStpUHT...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772264417748-jrj17",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T07:40:17.748Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: a6qRJES7b1d3zqnV...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772264497236-g9z97",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T07:41:37.236Z",
+      "data": "WHALE Whale Alpha: SENT 0.0554 SOL. Sig: 3S1CdmgaTyQuTbwq...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772264576621-joy2z",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T07:42:56.621Z",
+      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 4kgwhH5NxDSjjdpK...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772264656864-se9qb",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T07:44:16.864Z",
+      "data": "WHALE Whale Alpha: RECEIVED 6.2782 SOL. Sig: unJ6mhanNfD9gxjB...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772264766843-q2etp",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T07:46:06.843Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4y4nJZ3yccd4cSud...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772265115322-v7pzp",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T07:51:55.322Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5jZDKoBr5ytMpLGE...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772265115341-hen1l",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T07:51:55.341Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "detectedAmount": 0.005199999999994986,
+        "detectedAmount": 36.15912500023842,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1772001002972-f96lh",
+      "id": "sig-1772265463635-3xs76",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T06:30:02.972Z",
-      "data": "WHALE Whale Alpha: SENT 0.0095 SOL. Sig: gVXYnWBxLbzpd8aM...",
+      "timestamp": "2026-02-28T07:57:43.635Z",
+      "data": "WHALE Whale Alpha: SENT 0.173 SOL. Sig: 5P4BmFV3AKr3cNmR...",
       "telegramSent": false
     },
     {
-      "id": "sig-1772001425320-xmnvz",
+      "id": "sig-1772265544031-w1ep2",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T06:37:05.320Z",
-      "data": "WHALE Whale Alpha: SENT 1.0021 SOL. Sig: 2UjePgPzbaRXTC8K...",
+      "timestamp": "2026-02-28T07:59:04.031Z",
+      "data": "WHALE Whale Alpha: SENT 0.032 SOL. Sig: 5S7oYt4HKNS8EEyw...",
       "telegramSent": false
     },
     {
-      "id": "sig-1772002149759-kuo4a",
+      "id": "sig-1772265735427-d7jq1",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T06:49:09.760Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0645 SOL. Sig: 5eEePJqXvkJub2Nz...",
+      "timestamp": "2026-02-28T08:02:15.428Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4KhVjTdhLXoWAEDs...",
       "telegramSent": false
     },
     {
-      "id": "sig-1772002149771-uvlbr",
+      "id": "sig-1772266242909-6j5n8",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T08:10:42.909Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5mYCGPbcfP48XGoF...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772267180190-zai6n",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T08:26:20.190Z",
+      "data": "WHALE Whale Alpha: SENT 0.0012 SOL. Sig: 2jS5SSfA2PiGJXkK...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772267289281-64omz",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T08:28:09.281Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 4rBeN5ksBfjmjNWh...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772267289332-2xfc9",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T06:49:09.771Z",
+      "timestamp": "2026-02-28T08:28:09.332Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
-        "mint": "6TC3Nj94aEFK7ZzZ5QWUk29aUeym4TQYcqntW4z8Q88x",
-        "detectedAmount": 205852.4376631379,
+        "mint": "FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump",
+        "detectedAmount": 3971.8613399975,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1772002330500-8cyr0",
+      "id": "sig-1772267368595-hldgo",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T06:52:10.501Z",
-      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: yxt5W77RZ6C2qARn...",
+      "timestamp": "2026-02-28T08:29:28.595Z",
+      "data": "WHALE Whale Alpha: SENT 0.0104 SOL. Sig: 53RjUUeowZDmvsHK...",
       "telegramSent": false
     },
     {
-      "id": "sig-1772002330515-rjjns",
+      "id": "sig-1772267640354-h6e5j",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T08:34:00.354Z",
+      "data": "WHALE Whale Alpha: SENT 0.0722 SOL. Sig: 5DqEPLR7eJSAWAgD...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772267720109-93k79",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T08:35:20.109Z",
+      "data": "WHALE Whale Alpha: SENT 0.0023 SOL. Sig: 56pNGb8vPHDmdmTT...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772267720114-imhw8",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T06:52:10.515Z",
+      "timestamp": "2026-02-28T08:35:20.114Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
@@ -1454,138 +1329,2894 @@
       "telegramSent": false
     },
     {
-      "id": "sig-1772003054559-ymogb",
+      "id": "sig-1772267880412-qzxx7",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T07:04:14.560Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3HeL8drEuwodHqQL...",
+      "timestamp": "2026-02-28T08:38:00.412Z",
+      "data": "WHALE Whale Alpha: SENT 0.0023 SOL. Sig: 61ydmV6eQzANJzsU...",
       "telegramSent": false
     },
     {
-      "id": "sig-1772003175208-lyqtd",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T07:06:15.208Z",
-      "data": "WHALE Whale Alpha: SENT 0.0029 SOL. Sig: 5HdCRQNM5aNi6XFd...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1772003537417-5surc",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T07:12:17.418Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: oW4aCHNtaKkpNvtg...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1772003537429-09pn4",
+      "id": "sig-1772267880419-w1xch",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T07:12:17.429Z",
+      "timestamp": "2026-02-28T08:38:00.419Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
-        "mint": "DKu9kykSfbN5LBfFXtNNDPaX35o4Fv6vJ9FKk7pZpump",
-        "detectedAmount": 1977.4918150007725,
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "detectedAmount": 10,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1772003597956-spqgt",
+      "id": "sig-1772267959517-c5dk4",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T07:13:17.957Z",
-      "data": "WHALE Whale Alpha: SENT 0.001 SOL. Sig: 4vGduhgJ5c11taup...",
+      "timestamp": "2026-02-28T08:39:19.518Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2vejfzJYZ1HZcCYS...",
       "telegramSent": false
     },
     {
-      "id": "sig-1772003598026-3e3a1",
+      "id": "sig-1772268038548-aosu2",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T08:40:38.548Z",
+      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 4VjhGoAzBcBMuRrb...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772268038557-bfpo2",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T07:13:18.026Z",
+      "timestamp": "2026-02-28T08:40:38.557Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
-        "mint": "ATLASXmbPQxBUYbxPsV97usA3fPQYEqzQBUHgiFCUsXx",
-        "detectedAmount": 7317.001696489751,
+        "mint": "9wK8yN6iz1ie5kEJkvZCTxyN1x5sTdNfx8yeMY8Ebonk",
+        "detectedAmount": 34.88320600986481,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1772003718825-c89v9",
+      "id": "sig-1772268227078-s7nc6",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T07:15:18.825Z",
-      "data": "WHALE Whale Alpha: SENT 0.2152 SOL. Sig: 4pqGf5W1HhJCywvA...",
+      "timestamp": "2026-02-28T08:43:47.078Z",
+      "data": "WHALE Whale Alpha: SENT 0.2272 SOL. Sig: jGXKmbU1cQ8og2G5...",
       "telegramSent": false
     },
     {
-      "id": "sig-1772003900243-zy203",
+      "id": "sig-1772268306452-hkpy8",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T07:18:20.243Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0012 SOL. Sig: 2k66bn7PLJN3PEwZ...",
+      "timestamp": "2026-02-28T08:45:06.452Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3dK8Prh2FnTL4deC...",
       "telegramSent": false
     },
     {
-      "id": "sig-1772003900254-cbjbx",
+      "id": "sig-1772268386205-zj40y",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T08:46:26.205Z",
+      "data": "WHALE Whale Alpha: SENT 0.0694 SOL. Sig: 3jKhJxhnYASkaQz1...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772268496429-urjrl",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T08:48:16.430Z",
+      "data": "WHALE Whale Alpha: SENT 0.0035 SOL. Sig: 5tzsoyc6SiHusmvk...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772268655546-ahcdu",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T08:50:55.546Z",
+      "data": "WHALE Whale Alpha: SENT 0.0514 SOL. Sig: 2d6MWUNowfHrNUdC...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772268735830-fhvuv",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T08:52:15.830Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4YyMV9rztWMRKo7K...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772268814996-u7pmj",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T08:53:34.996Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5Lk1iF7fqnDsdAr8...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772268894187-x0nkj",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T08:54:54.187Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: xy6vRuzgo3qXi1vg...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772268973248-m5uwk",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T08:56:13.248Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2govoJafWHk5uT8D...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772268973254-a6u5g",
       "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-25T07:18:20.254Z",
+      "timestamp": "2026-02-28T08:56:13.254Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "dHadSsY2dvsoEDwDRP7rgq7EVYRZZ17qvpwkwsQpump",
+        "detectedAmount": 26319.073579072952,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772269242693-ex6ue",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:00:42.693Z",
+      "data": "WHALE Whale Alpha: SENT 1.0595 SOL. Sig: AZXFkt1r97kcNdv4...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772269431417-hbhxm",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:03:51.417Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: ws6tkzY2gvF6gksQ...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772269778526-ko9it",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:09:38.526Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 63hEJefnwKxe4rnz...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772270047696-ejklm",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:14:07.696Z",
+      "data": "WHALE Whale Alpha: SENT 0.0004 SOL. Sig: 4aSCJeAQv5NEsXP1...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772270047703-01kyp",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T09:14:07.703Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+        "detectedAmount": 174,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772270316955-b019j",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:18:36.955Z",
+      "data": "WHALE Whale Alpha: SENT 0.1484 SOL. Sig: GipGdRb65UHJw63M...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772270586127-96nd4",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:23:06.127Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 3CrzvHZgEqYUM3FP...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772270586132-o0utp",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T09:23:06.132Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+        "detectedAmount": 675.0144089981914,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772270665419-hokv0",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:24:25.419Z",
+      "data": "WHALE Whale Alpha: SENT 0.0003 SOL. Sig: 5zWhwELKYaGE9fh2...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772270744308-s54xr",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:25:44.308Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 2MZvJMWzp32Jhoiz...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772270744318-1r3ps",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T09:25:44.318Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "detectedAmount": 50,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772270823258-la8lw",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:27:03.258Z",
+      "data": "WHALE Whale Alpha: SENT 0.001 SOL. Sig: nRYAxxNmV6JfsTp8...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772270982732-gesnd",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:29:42.732Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2ZKiX8QDtS4kZhce...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772270982762-a5sl8",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T09:29:42.762Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "HgBRWfYxEfvPhtqkaeymCQtHCrKE46qQ43pKe8HCpump",
+        "detectedAmount": 135.6631640046835,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772271411132-1hwp1",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:36:51.132Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4ncoh1jkFsGVQn4g...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772271571481-z68wg",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:39:31.481Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3HY42Dfsjr5716dn...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772271812064-19lhn",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:43:32.064Z",
+      "data": "WHALE Whale Alpha: SENT 0.001 SOL. Sig: KAEdTckzmkFgT7Vh...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772271812069-ihc1m",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T09:43:32.069Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "AFbX8oGjGpmVFywbVouvhQSRmiW2aR1mohfahi4Y2AdB",
+        "detectedAmount": 7066.580758020282,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772271969996-no63o",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:46:09.996Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3WJvEwu8VemdewkJ...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772271970000-xp7rj",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T09:46:10.000Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "8ymi88q5DtmdNTn2sPRNFkvMkszMHuLJ1e3RVdWjPa3s",
+        "detectedAmount": 80719,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772272049215-q5fgb",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:47:29.215Z",
+      "data": "WHALE Whale Alpha: SENT 0.0018 SOL. Sig: 5ytQKhLX1yYQ8z6Z...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772272289526-kldjf",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T09:51:29.526Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.01 SOL. Sig: 2A96KEgYGV7hUhcu...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772272289532-clyhu",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T09:51:29.532Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "5LS3ips7jWxfuVHzoMzKzp3cCwjH9zmrtYXmYBVGpump",
+        "detectedAmount": 2147.418684989214,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772272856652-rvt6i",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:00:56.652Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: kX1iqA24yrSHXHZg...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772273446738-lb7mn",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:10:46.738Z",
+      "data": "WHALE Whale Alpha: RECEIVED 3.7657 SOL. Sig: 5aeEWnxjUt4fZZh9...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772273683838-o5tif",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:14:43.838Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: vLyf37yQ83SDHQTk...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772273762988-knlbg",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:16:02.988Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: Z3UNzemwtcF3HYiJ...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772273763000-1c2np",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T10:16:03.000Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "3an8rhdepsLCya22af7qDBKPbdomw8K4iCHXaA2Gpump",
+        "detectedAmount": 1581.3040959835052,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772273842008-e142x",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:17:22.008Z",
+      "data": "WHALE Whale Alpha: SENT 0.0003 SOL. Sig: 5KzxYojPYdFz7D2S...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772274299951-h6q1f",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:24:59.951Z",
+      "data": "WHALE Whale Alpha: SENT 0.2828 SOL. Sig: BXvXjofByuRRvek1...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772274459007-6jww3",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:27:39.007Z",
+      "data": "WHALE Whale Alpha: SENT 0.1448 SOL. Sig: 2s9i4dkpBpmVSbqX...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772274537919-dit2m",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:28:57.919Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0782 SOL. Sig: 2fauSaaKkHivVz3D...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772274537925-yi456",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T10:28:57.925Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+        "detectedAmount": 6.228738999925554,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772274698075-9064e",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:31:38.075Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 2FKDhm2xwLDZKcRJ...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772274888586-j3c4x",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:34:48.586Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0369 SOL. Sig: 2N8UQUFyCC4edK1v...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772274967880-w4tfs",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:36:07.880Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3NtfbHSZXrhF87ii...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772275047291-0hqse",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:37:27.291Z",
+      "data": "WHALE Whale Alpha: SENT 0.0005 SOL. Sig: 2ejEWNp8c9PoPdYq...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772275047472-ifivk",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T10:37:27.472Z",
       "data": {
         "type": "COPY_TRADE_SIGNAL",
         "whale": "Whale Alpha",
         "mint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
-        "detectedAmount": 0.06084400000008827,
+        "detectedAmount": 1463.8266610000283,
         "confidence": "HIGH"
       },
       "telegramSent": false
     },
     {
-      "id": "sig-1772004081535-rmc6q",
+      "id": "sig-1772275205615-aggpn",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T07:21:21.536Z",
-      "data": "WHALE Whale Alpha: SENT 0.0011 SOL. Sig: reSHQZAYTfgkfjaK...",
+      "timestamp": "2026-02-28T10:40:05.615Z",
+      "data": "WHALE Whale Alpha: SENT 0.0602 SOL. Sig: 2mRFnB4PFc9kjmGi...",
       "telegramSent": false
     },
     {
-      "id": "sig-1772004262115-cpok5",
+      "id": "sig-1772275284984-3oupy",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T07:24:22.115Z",
-      "data": "WHALE Whale Alpha: SENT 0.0003 SOL. Sig: 25XXBZxGhQjJqk3m...",
+      "timestamp": "2026-02-28T10:41:24.984Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5aYmV2EDTK46qZ6C...",
       "telegramSent": false
     },
     {
-      "id": "sig-1772005652314-xbzmj",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T07:47:32.316Z",
-      "data": "WHALE Whale Alpha: SENT 0.0003 SOL. Sig: 38ZPcrnbYwjkALpS...",
+      "id": "sig-1772275284989-uhmt5",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T10:41:24.989Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+        "detectedAmount": 440.74913400039077,
+        "confidence": "HIGH"
+      },
       "telegramSent": false
     },
     {
-      "id": "sig-1772005773567-mwchs",
+      "id": "sig-1772275475766-55hoi",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T07:49:33.568Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0001 SOL. Sig: 46ED6g6oKkDXeuPc...",
+      "timestamp": "2026-02-28T10:44:35.766Z",
+      "data": "WHALE Whale Alpha: SENT 5.0531 SOL. Sig: 2oczoZtE9Akw5TeJ...",
       "telegramSent": false
     },
     {
-      "id": "sig-1772005895463-kp0l6",
+      "id": "sig-1772275794484-y5009",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T07:51:35.463Z",
-      "data": "WHALE Whale Alpha: SENT 0.094 SOL. Sig: 4yBpTL6hWXe5D6Jk...",
+      "timestamp": "2026-02-28T10:49:54.484Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2FZwjwiNSrZgRmRN...",
       "telegramSent": false
     },
     {
-      "id": "sig-1772006257658-78wul",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T07:57:37.659Z",
-      "data": "WHALE Whale Alpha: SENT 0.0005 SOL. Sig: 4LZP9NyYmtL2QxUG...",
+      "id": "sig-1772275794503-2ncv5",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T10:49:54.504Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "detectedAmount": 0.009999999999990905,
+        "confidence": "HIGH"
+      },
       "telegramSent": false
     },
     {
-      "id": "sig-1772006318413-bv0uz",
+      "id": "sig-1772275982662-wp3kt",
       "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-25T07:58:38.414Z",
-      "data": "WHALE Whale Alpha: SENT 0.1248 SOL. Sig: Ukjt8fG4dTzYUwKz...",
+      "timestamp": "2026-02-28T10:53:02.662Z",
+      "data": "WHALE Whale Alpha: SENT 0.155 SOL. Sig: 62XxVRTU5YJapsR1...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772276061729-x6tip",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:54:21.729Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.25 SOL. Sig: 5mj9maYrEbjZzouw...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772276140593-sufz2",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:55:40.593Z",
+      "data": "WHALE Whale Alpha: SENT 0.002 SOL. Sig: 2KqZ7bmeJL2CK84K...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772276328992-zg7zn",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T10:58:48.992Z",
+      "data": "WHALE Whale Alpha: SENT 0.03 SOL. Sig: N9VZh9azvipo9SrK...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772276409149-bkphl",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:00:09.149Z",
+      "data": "WHALE Whale Alpha: RECEIVED 2.0797 SOL. Sig: 4qSbsvZ99EJk88dP...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772276489484-b8lhd",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:01:29.484Z",
+      "data": "WHALE Whale Alpha: SENT 0.2445 SOL. Sig: 43rokHVzaSsH9wE5...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772276598792-thuih",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:03:18.792Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 3fxaB9RoDnGU7FYT...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772276598805-0l6xw",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T11:03:18.805Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",
+        "detectedAmount": 1.0799999472510535e-7,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772276678543-khi2h",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:04:38.543Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: VhDS8kkBDY69axzy...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772276678550-iiau6",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T11:04:38.550Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "detectedAmount": 0.2725280000000794,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772276757952-ooysk",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:05:57.952Z",
+      "data": "WHALE Whale Alpha: SENT 0.0035 SOL. Sig: 62LRJEQ8HWQkbRXK...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772276868175-7xax1",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:07:48.175Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4XvZqXtJiF5rdam1...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772276948294-jcj3y",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:09:08.294Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3oEJaRSaQRBGCTvn...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772276948299-j4mrf",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T11:09:08.300Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "GtDZKAqvMZMnti46ZewMiXCa4oXF4bZxwQPoKzXPFxZn",
+        "detectedAmount": 163.19680659472942,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772277185818-wrapz",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:13:05.819Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5a4ogAWxY1QkWhxP...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772277265116-jkfzo",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:14:25.116Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: ZVpSzCWWXxKq6Yt4...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772277265126-mxtpa",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T11:14:25.126Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "3f7wfg9yHLtGKvy75MmqsVT1ueTFoqyySQbusrX1YAQ4",
+        "detectedAmount": 190.25632333010435,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772277344554-9t1sq",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:15:44.554Z",
+      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 5irFYFLfrSCJZ76p...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772277504083-sebxl",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:18:24.083Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 32Nsy66BnHHRY5qj...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772277742590-41bkx",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:22:22.590Z",
+      "data": "WHALE Whale Alpha: SENT 0.0018 SOL. Sig: 5ee4mCrDbfPgpAej...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772277822482-4hyxp",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:23:42.482Z",
+      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 62DWhXoeDfeywWG6...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772278011250-p1fm9",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:26:51.250Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2DPGrqTGmthCx2ep...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772278091220-71r31",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:28:11.220Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5anS4MAx6we8bZmG...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772278171449-z98x6",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:29:31.449Z",
+      "data": "WHALE Whale Alpha: SENT 0.1292 SOL. Sig: 6qMVEb6H4D72jujx...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772278252961-kltot",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:30:52.961Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4Q7bPwNYBSG7Numc...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772278332789-5cckm",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:32:12.789Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.4511 SOL. Sig: 9RmPpiJYYjmG8MiJ...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772278332804-3v9hw",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T11:32:12.804Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "HBgmREqCUnGPGEWCii8YBrguQvbyZS6cc9SGmU24jmxZ",
+        "detectedAmount": 6223.084234001115,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772278602598-hdv7i",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:36:42.598Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2WspgXdXsMjt1qGw...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772278871841-04g8z",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:41:11.841Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 451mK85uKoDVEBqz...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772279031371-wyn42",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:43:51.371Z",
+      "data": "WHALE Whale Alpha: SENT 0.0038 SOL. Sig: 5hMoSJScDA2Cvrcj...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772279141096-v12rw",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:45:41.096Z",
+      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: bSBXyZSQ5NZ7k9be...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772279220428-89stw",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:47:00.428Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4STPxLN9MEZxJTof...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772279299415-ft0au",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:48:19.415Z",
+      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 46w2CVisL8Eo1MNt...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772279408645-v1775",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:50:08.645Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5dPmUGmYb6nGrWtY...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772279518254-2pzh6",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:51:58.254Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 1gWzBUvtvP2GTfRv...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772279597529-4lape",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:53:17.529Z",
+      "data": "WHALE Whale Alpha: SENT 0.0046 SOL. Sig: 4rwTPiLAo7q4wp3n...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772279785690-3w9n9",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:56:25.691Z",
+      "data": "WHALE Whale Alpha: SENT 0.0049 SOL. Sig: 5aePHLzFZuBY5CUP...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772279944183-9pqxx",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T11:59:04.183Z",
+      "data": "WHALE Whale Alpha: SENT 0.0023 SOL. Sig: 3JMUUqbtSaZZ5CMR...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772280105184-g8orw",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:01:45.184Z",
+      "data": "WHALE Whale Alpha: SENT 0.7863 SOL. Sig: 4Xu86JgbU219azWX...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772280186367-z8ikz",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:03:06.367Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3BrJ5Q1gq4TesUsm...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772280376648-pzgf7",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:06:16.648Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2TPEr7nG4LyrSwsH...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772280376654-gr4af",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T12:06:16.654Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "5LS3ips7jWxfuVHzoMzKzp3cCwjH9zmrtYXmYBVGpump",
+        "detectedAmount": 0.02651900053024292,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772280534902-ajtyb",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:08:54.902Z",
+      "data": "WHALE Whale Alpha: SENT 0.1008 SOL. Sig: 5znpBB7iSrpmKJr3...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772280724845-6m6x6",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:12:04.845Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 66jqYN1ohQDeJjtb...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772280724853-6st1p",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T12:12:04.853Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "4Z9kjgxHS3iG1MxiHwgE4sAmBpyTq8Xn2PWqK2nJnQte",
+        "detectedAmount": 0.0799999999999983,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772280804348-4mp5b",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:13:24.348Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0376 SOL. Sig: 37emwPocPx7cxDyW...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772280914572-64htc",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:15:14.572Z",
+      "data": "WHALE Whale Alpha: SENT 0.0045 SOL. Sig: 23ZskiRLFEfKbHSt...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772280999175-43klj",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:16:39.175Z",
+      "data": "WHALE Whale Alpha: RECEIVED 3.326 SOL. Sig: WPuzpG2EWKA9mQtZ...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772281108968-np4zz",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:18:28.968Z",
+      "data": "WHALE Whale Alpha: SENT 0.1821 SOL. Sig: 4V1kaWe5mXm3AwyM...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772281188564-x97wo",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:19:48.564Z",
+      "data": "WHALE Whale Alpha: SENT 0.1141 SOL. Sig: 5D44YnwHcfidXVv9...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772281270529-816j0",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:21:10.530Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 3BULV7e6oGFGrJFV...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772281270537-szxsz",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T12:21:10.537Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+        "detectedAmount": 75.30271399999037,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772281539398-5zvwq",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:25:39.398Z",
+      "data": "WHALE Whale Alpha: SENT 0.001 SOL. Sig: 38LZJSyTtYQxssTH...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772281619494-9w9ra",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:26:59.494Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 611q8s62tmChXjK8...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772281619498-ax51o",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T12:26:59.498Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "7a8JSTTMnynE689y1AvxHTywdQVFdpfdE61rPvgzpump",
+        "detectedAmount": 0.09999799728393555,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772281730050-rpd41",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:28:50.050Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.127 SOL. Sig: 3bNg7eqoAUmpf4Ab...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772282001178-7j18x",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:33:21.178Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0102 SOL. Sig: 49L1JHWyHZyfgzjX...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772282001187-w6861",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T12:33:21.187Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "2Dda2qaokwUwp53spAHdAG8fsxiGqxMjDAnPzYjPGGwn",
+        "detectedAmount": 150.47274599969387,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772282160630-rvm9u",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:36:00.630Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5gY5QcUKE543rnji...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772282160636-yrubm",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T12:36:00.636Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+        "detectedAmount": 759.3335079997778,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772282270449-8rcpz",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:37:50.449Z",
+      "data": "WHALE Whale Alpha: SENT 0.0041 SOL. Sig: 36ZTWjtAbahuuiFo...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772282270453-01cci",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T12:37:50.453Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "BoA11spg3qUqAiqdxXvy3ueSNjKp2k4imYxw83e5WFPy",
+        "detectedAmount": 1638820.0374743938,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772282540445-7qu26",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:42:20.445Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4L3EKt9EWfkHZZiw...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772282620574-awlnr",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:43:40.574Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4GPo2BHNPa9SNG3R...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772282779112-4scte",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:46:19.112Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.82 SOL. Sig: 4qcPs16nkQzG7Jz9...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772282939184-9rqdr",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:48:59.184Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0068 SOL. Sig: 3ba5HMjfi2FLCGeb...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772283018461-9dpl2",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:50:18.461Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5gR7xhrssx4JAi7N...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772283498619-kenl6",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T12:58:18.619Z",
+      "data": "WHALE Whale Alpha: SENT 0.0029 SOL. Sig: coQd46sgEHKHYVRZ...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772283608552-5xavs",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:00:08.552Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4jCwD7hws2iZWGCB...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772283608564-b76bq",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T13:00:08.564Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+        "detectedAmount": 452.02471899986267,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772283961110-8zq5v",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:06:01.111Z",
+      "data": "WHALE Whale Alpha: SENT 0.0053 SOL. Sig: 4d2ahuPMByzEDhun...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772284280683-38wid",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:11:20.683Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4ZkoU5gp1nPepeBM...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772284280695-s7rtc",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T13:11:20.695Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "y1AZt42vceCmStjW4zetK3VoNarC1VxJ5iDjpiupump",
+        "detectedAmount": 772.5429543666542,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772284360137-vm8z2",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:12:40.137Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 4TBXpYs4yMNEVbPD...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772284628502-o8tsj",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:17:08.502Z",
+      "data": "WHALE Whale Alpha: SENT 0.0022 SOL. Sig: 4vuxNdjXyrKkZ4W4...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772284628516-f373f",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T13:17:08.516Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "7m2TUkpPZCScBhPJnGjWjbh75KkDNnwAdd7i74m8awad",
+        "detectedAmount": 104166.80570100248,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772285008215-shzf4",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:23:28.215Z",
+      "data": "WHALE Whale Alpha: SENT 0.001 SOL. Sig: oQitZcDyFkP3Jedv...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772285008223-2iiyg",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T13:23:28.223Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "8FqXr6dw5NHA2TtwFeDz6q9p7y9uWyoEdZmpXqqUpump",
+        "detectedAmount": 546127.4357440174,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772285088113-m4tcz",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:24:48.113Z",
+      "data": "WHALE Whale Alpha: SENT 0.0122 SOL. Sig: 5rnjNstotZBz1PpB...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772285357693-3u9s1",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:29:17.693Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0457 SOL. Sig: 4Az67Vt2yi2UE6Ta...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772285357701-wdb71",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T13:29:17.701Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "HBgmREqCUnGPGEWCii8YBrguQvbyZS6cc9SGmU24jmxZ",
+        "detectedAmount": 628.1168709993362,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772285549735-chuxa",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:32:29.735Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3iijBdSw5Ymm6Pab...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772285709416-nodar",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:35:09.416Z",
+      "data": "WHALE Whale Alpha: SENT 0.0097 SOL. Sig: 4rg1JqS4xNbGgm4H...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772285819509-5vobk",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:36:59.509Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 3WHSADnknz1sFRGL...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772285898725-55lf6",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:38:18.725Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: F4aBYpT1aCTEgfns...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772285978007-cou2e",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:39:38.007Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5j9EJBE9sgDKfScq...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772286057370-ncn9r",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:40:57.370Z",
+      "data": "WHALE Whale Alpha: SENT 0.1337 SOL. Sig: 5cnAB32rwUHy25ta...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772286215757-021ol",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:43:35.757Z",
+      "data": "WHALE Whale Alpha: SENT 0.0048 SOL. Sig: 5VpU9Uus2QDkvEEV...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772286565124-betni",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:49:25.124Z",
+      "data": "WHALE Whale Alpha: RECEIVED 3.7171 SOL. Sig: tjXaV5T23Xyqbtu6...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772286565136-tngpu",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T13:49:25.136Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump",
+        "detectedAmount": 3491.4523999989033,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772286783825-282m5",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:53:03.825Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 394dpeRhhW2rtQ4Z...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772286864098-v7tew",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:54:24.098Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 49Suv3eLg6TZPtym...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772287023358-mlqxy",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:57:03.358Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: V7ata6HsCgz8rAgg...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772287023371-701ao",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T13:57:03.371Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "7m2TUkpPZCScBhPJnGjWjbh75KkDNnwAdd7i74m8awad",
+        "detectedAmount": 7574.147859990597,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772287102929-bp5x6",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T13:58:22.929Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 5AW2jCxQ8sg6ihpK...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772287423169-areyj",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:03:43.169Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.212 SOL. Sig: 4ewgZpeSTdhUVFwA...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772287423180-2gem1",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T14:03:43.180Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+        "detectedAmount": 17.18770100013353,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772287532470-p5xj0",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:05:32.470Z",
+      "data": "WHALE Whale Alpha: SENT 0.0706 SOL. Sig: 5XqPRqEsX8Mhzwwz...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772287611907-0q8ch",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:06:51.907Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5RCUPPr7AEihQF8M...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772287770894-au7gk",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:09:30.895Z",
+      "data": "WHALE Whale Alpha: SENT 0.0061 SOL. Sig: 58NeXCXocd9SDeHN...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772287880725-2jc5k",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:11:20.725Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 2QYXgc9T69Z6eJuY...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772287959842-akfmw",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:12:39.842Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0007 SOL. Sig: 2mdS6An1UH7VRow9...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772287959847-azc5h",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T14:12:39.847Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "8FU95xFJhUUkyyCLU13HSzDLs7oC4QZdXQHL6SCeab36",
+        "detectedAmount": 0.017892599999868253,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772288149528-xxq1t",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:15:49.528Z",
+      "data": "WHALE Whale Alpha: SENT 0.002 SOL. Sig: 3AKpusyANRLLM9uL...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772288230050-tvwqr",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:17:10.050Z",
+      "data": "WHALE Whale Alpha: SENT 0.001 SOL. Sig: 5FYbQUmeaZBbhVUW...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772288309433-yyot1",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:18:29.433Z",
+      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 4988c7tv4rD2jiZr...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772288309437-s0txf",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T14:18:29.437Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3",
+        "detectedAmount": 0.46161600000050385,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772288467996-ztliz",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:21:07.996Z",
+      "data": "WHALE Whale Alpha: SENT 0.0003 SOL. Sig: 3dWrAmowYD7HqFHr...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772288547628-t3qga",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:22:27.628Z",
+      "data": "WHALE Whale Alpha: SENT 0.5145 SOL. Sig: 5FGoEMatmrVB7ncb...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772288627750-5a1mt",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:23:47.751Z",
+      "data": "WHALE Whale Alpha: SENT 0.001 SOL. Sig: 4wtcQmxNCQfdM744...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772288738021-0okv4",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:25:38.021Z",
+      "data": "WHALE Whale Alpha: SENT 0.0017 SOL. Sig: 3D2VcVS44cKHWJyF...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772288817059-8z0ye",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:26:57.059Z",
+      "data": "WHALE Whale Alpha: SENT 0.0026 SOL. Sig: A5m9oxMxmLa7beFK...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772289087859-zsli4",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:31:27.859Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4b7566YALnnWKRwF...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772289169587-t2m5o",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:32:49.587Z",
+      "data": "WHALE Whale Alpha: SENT 1.7835 SOL. Sig: 5ZVziJ6TsZbo4p7b...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772289330444-9xecw",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:35:30.444Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.1789 SOL. Sig: 5h7Kc7no1wm3qUGQ...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772289330457-ghftn",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T14:35:30.457Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "BP8RUdhLKBL2vgVXc3n7oTSZKWaQVbD8S6QcPaMVBAPo",
+        "detectedAmount": 23608.64265999198,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772289601721-wuooj",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:40:01.721Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4Rxo3WsZTp9B3G6H...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772289601729-ps9rp",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T14:40:01.729Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "4cQ9BeG6bdpkQcYGadqc1n6nCWgMuoHZenVH1xXepump",
+        "detectedAmount": 61826.29291501641,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772289790320-meljz",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:43:10.320Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0099 SOL. Sig: 2Ak83tRMpUMCuwcw...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772289790329-k341x",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T14:43:10.329Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "9HypWkq8hTE87iHiXWohxyvtM9QKaQRckjy8rCLXpump",
+        "detectedAmount": 570719.1840530634,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772289869638-ugigy",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:44:29.638Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0099 SOL. Sig: 62dcC2uT6BuhQ5rB...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772289869644-8hlwl",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T14:44:29.644Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "D3cNJXMjpAUzQT1P5r42qMCSH6MzWTb6hYhiJoAFpump",
+        "detectedAmount": 598108.743975997,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772289949359-yaudt",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:45:49.359Z",
+      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 4SPFBA2eme31hMAk...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772290029272-g36n5",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:47:09.272Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5bGL8wapA6zQMiPc...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772290218884-qm1g8",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:50:18.884Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.1959 SOL. Sig: 4LgmmnHAHHfLAykT...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772290408722-ycemx",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:53:28.722Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4tRn4Db2XFfHEyJi...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772290408790-a2pyt",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T14:53:28.790Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+        "detectedAmount": 514.5734059996903,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772290758577-606f4",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T14:59:18.577Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 44zW8hT5R5snSz89...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772290758584-pamsh",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T14:59:18.584Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+        "detectedAmount": 0.0008210000232793391,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772290839001-c7wts",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:00:39.001Z",
+      "data": "WHALE Whale Alpha: SENT 0.3053 SOL. Sig: oMT4vFho7K7zg3VC...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772291030438-hvupg",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:03:50.438Z",
+      "data": "WHALE Whale Alpha: SENT 0.0005 SOL. Sig: 2WKeFT1gA71aEM8J...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772291110910-l083c",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:05:10.910Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 571AKtVaEvBNLQZ4...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772291110918-svmyw",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T15:05:10.918Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",
+        "detectedAmount": 0.01494067300000168,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772291220411-juxwf",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:07:00.411Z",
+      "data": "WHALE Whale Alpha: SENT 0.0053 SOL. Sig: 2UYBiZenuqmEufSd...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772291458739-9a75p",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:10:58.739Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0369 SOL. Sig: 4Z4pTFWKfVr1gRgX...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772291458745-ur5qz",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T15:10:58.745Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "7m2TUkpPZCScBhPJnGjWjbh75KkDNnwAdd7i74m8awad",
+        "detectedAmount": 8013.387728989124,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772291728054-m12c1",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:15:28.054Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3JrothYSC3otyzMq...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772291728059-6thex",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T15:15:28.059Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+        "detectedAmount": 0.00035199999999990794,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772291917220-27n7j",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:18:37.220Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4pH2DrjJki72xbvY...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772292266079-6lwzs",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:24:26.079Z",
+      "data": "WHALE Whale Alpha: SENT 0.0052 SOL. Sig: JcuysfzgGGQrtcz7...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772292345462-nq8nd",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:25:45.462Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 2ZbkPcWNrEPV1P9y...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772292424787-qpfce",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:27:04.787Z",
+      "data": "WHALE Whale Alpha: SENT 0.0072 SOL. Sig: 5pLo7zCfXYE2WSaZ...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772293045977-gqc9q",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:37:25.978Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 5RKYa8fJWBTpFnab...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772293046165-phbps",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T15:37:26.166Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "99myne1mVnsSv2kAkzZDfNnwf5Xb4SASJnaCRXdbpump",
+        "detectedAmount": 275844.6888490021,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772293315073-ilje5",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:41:55.073Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4Hr7jVWDHn8Q9foe...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772293395690-u54aq",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:43:15.690Z",
+      "data": "WHALE Whale Alpha: SENT 4.5236 SOL. Sig: WZC8AGsakFqq9LwC...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772293585110-3bcr4",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:46:25.110Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: Z6LGXoyVu6jhbjjd...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772293774583-pqb73",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:49:34.583Z",
+      "data": "WHALE Whale Alpha: SENT 0.0109 SOL. Sig: 5eWUSpLzTnp53W8v...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772293854094-9syni",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T15:50:54.094Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: YqSQZde1rkefdKu1...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772294583833-xn3n3",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:03:03.833Z",
+      "data": "WHALE Whale Alpha: RECEIVED 2.5617 SOL. Sig: XqLJgeuPBin4QGAR...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772294583875-wm5w6",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T16:03:03.875Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "5LS3ips7jWxfuVHzoMzKzp3cCwjH9zmrtYXmYBVGpump",
+        "detectedAmount": 411478.6999999881,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772294905467-rl9fn",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:08:25.467Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 37JuFJ34Yjrw3dnC...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772294905490-ivbba",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T16:08:25.490Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Tits9Uun3QfwHyQJpJ3rotksJFCWWFs5t6Sy5ksyiyK",
+        "detectedAmount": 5934103.4208984375,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772295097803-eehxq",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:11:37.803Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0099 SOL. Sig: 5u4GPtZT5AV1qZt1...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772295097811-mapl1",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T16:11:37.811Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "79cWigjJS5CAR2AJbmQfZxkPgYq6xCF52mwn6xCBJLwP",
+        "detectedAmount": 568158.1380720139,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772295177181-vkhwo",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:12:57.181Z",
+      "data": "WHALE Whale Alpha: SENT 0.2685 SOL. Sig: 3KtNRxaK2EQdbRkG...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772295635648-39cbs",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:20:35.649Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 48Ge2DDSbTpDYQYH...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772295635664-fgrs6",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T16:20:35.664Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+        "detectedAmount": 0.0735240000030899,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772295824777-2gxe9",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:23:44.777Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3wZueGdd5VtNVrdE...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772295904709-y8c2n",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:25:04.709Z",
+      "data": "WHALE Whale Alpha: SENT 0.0021 SOL. Sig: 4gtakY2cYp8EvdPT...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772295904714-hfkov",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T16:25:04.714Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "8j9uz39dDZkWuyBaAMrrFQHjcPPvP9zLR9m9Ggwbgigg",
+        "detectedAmount": 16340,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772296014476-v3zq6",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:26:54.476Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 4W2cXimemy96DTr7...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772296173514-tdj4b",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:29:33.514Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 4NdAP2LiDxrHY5wF...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772296173525-pyj0y",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T16:29:33.525Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "detectedAmount": 0.023899999912828207,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772296283387-r2lpq",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:31:23.388Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 65Mfr5x2AYwyaxsM...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772296523056-3a04z",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:35:23.056Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0105 SOL. Sig: U86mrtUWRfVe4zhj...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772296603901-8jj23",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:36:43.901Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.2562 SOL. Sig: 4aNDgJDdjQrjVedg...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772296603905-uck1t",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T16:36:43.905Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd",
+        "detectedAmount": 48332.22330742329,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772296684369-0kdoz",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:38:04.369Z",
+      "data": "WHALE Whale Alpha: SENT 0.2079 SOL. Sig: 2teQzNeC5F5onn2x...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772296763731-f4k7j",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:39:23.731Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 1KJ8bUiDW892rESy...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772296844984-enphd",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:40:44.984Z",
+      "data": "WHALE Whale Alpha: SENT 0.043 SOL. Sig: 5MEFZwgorHiZMuZg...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772297193920-ibjsl",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:46:33.920Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2ETP6FhHH6oDa4iK...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772297272997-iv7lb",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:47:52.997Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0104 SOL. Sig: 2TWiraaTz7vAsRv3...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772297382315-eng1o",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T16:49:42.315Z",
+      "data": "WHALE Whale Alpha: SENT 0.2008 SOL. Sig: 4J2w4tA232AtSzYN...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772298430146-q87pg",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:07:10.146Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 42BjUMnecHmmtDq7...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772298510173-zs9px",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:08:30.173Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0115 SOL. Sig: 2zv33shohdwsaBuk...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772298510184-y53bc",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T17:08:30.184Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
+        "detectedAmount": 8402.499718993902,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772298590073-duhxy",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:09:50.073Z",
+      "data": "WHALE Whale Alpha: SENT 0.0015 SOL. Sig: 35WS4ae3Jo9EBFN1...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772298830725-6a3s1",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:13:50.725Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5d34ffCATV8X66wT...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772298910941-2hygr",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:15:10.941Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2LxUrY8VVajtK5eA...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772298990998-6fal3",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:16:30.998Z",
+      "data": "WHALE Whale Alpha: SENT 1.6011 SOL. Sig: 2sJVKYKsevcwyJik...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772299100931-t0vkp",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:18:20.931Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 48J1wFE1fhYDJd7r...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772299180928-nmlpt",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:19:40.928Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0099 SOL. Sig: JPQGrBNnkuFL9W68...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772299180994-159vm",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T17:19:40.994Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Fyr1u9n8QpUDPna7FBtc9JWHiHU7N14HRmyaxiuipump",
+        "detectedAmount": 536282.6575549841,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772299261158-480wk",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:21:01.158Z",
+      "data": "WHALE Whale Alpha: SENT 0.002 SOL. Sig: 3n9avr2yuP3wj68t...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772299340619-2e4np",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:22:20.619Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5pJtMFbcGCLa3Dfy...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772299581325-46pew",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:26:21.325Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5w7gsiq3TiAEe6XJ...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772299691058-tsmz2",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:28:11.058Z",
+      "data": "WHALE Whale Alpha: SENT 1.5787 SOL. Sig: 2NKwDYMSdj8PxJbs...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772299851774-9rq6m",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:30:51.774Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5JUXWxtBoAwNqp73...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772299962112-2cv5r",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:32:42.113Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.074 SOL. Sig: ciucoqNNt7NJa2gt...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772299962149-dc7vc",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T17:32:42.149Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "5XqzzdodsNtAM8TtQyiqGVbD7GwLBBN7oVnRA3hLpump",
+        "detectedAmount": 11626.711443006992,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772300042602-1zvgp",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:34:02.602Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0141 SOL. Sig: yQtDW5qdH32ijfqT...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772300042609-g0kw8",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T17:34:02.609Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "2Dda2qaokwUwp53spAHdAG8fsxiGqxMjDAnPzYjPGGwn",
+        "detectedAmount": 191.789319999516,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772300611430-87foi",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:43:31.430Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 3FQqRrJB7xwrY5ht...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772300770262-ol30q",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:46:10.262Z",
+      "data": "WHALE Whale Alpha: SENT 0.0029 SOL. Sig: S1tyxE8PbckccmeU...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772300770275-c675o",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T17:46:10.275Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN",
+        "detectedAmount": 0.5166629999999941,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772300879815-k14sz",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:47:59.815Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0099 SOL. Sig: 2adjQki9ikD6MMcn...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772300879824-nbaxq",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T17:47:59.824Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "12TD7qYiujWxDKVxcdWXC4cMWj4CRTZzFFsJCNDDpump",
+        "detectedAmount": 525436.3837330341,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772301119656-ew99b",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:51:59.656Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0001 SOL. Sig: 4rzMu6pkwD42snvk...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772301119827-2et32",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T17:51:59.827Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "detectedAmount": 0.006447000000001424,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772301279637-akcl7",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:54:39.637Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.102 SOL. Sig: 5CduuS1J3vL3ZiiW...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772301279645-6d0d1",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T17:54:39.645Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "BP8RUdhLKBL2vgVXc3n7oTSZKWaQVbD8S6QcPaMVBAPo",
+        "detectedAmount": 12893.763565003872,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772301359358-9br9e",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T17:55:59.358Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: AjQYW3G1Rh1XqAB9...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772301628837-kya7c",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T18:00:28.837Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 34qzY3pyrryEfrZs...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772302018263-r2pc6",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T18:06:58.263Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 34bdDaU1Hjv7VM2s...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772302098685-47hp3",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T18:08:18.685Z",
+      "data": "WHALE Whale Alpha: SENT 0.001 SOL. Sig: 2K8E4SnzM3DwbsoN...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772302098695-iozwe",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T18:08:18.695Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "detectedAmount": 0.1469999998807907,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772302287956-4p85w",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T18:11:27.956Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3SC4fNhi5fxKYE7n...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772302368495-78rya",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T18:12:48.495Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 64hxmgVD51en5G76...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772303150139-5d32v",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T18:25:50.139Z",
+      "data": "WHALE Whale Alpha: SENT 0.853 SOL. Sig: 4Jq13o5oRMRBoVdc...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772303418921-3wrvz",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T18:30:18.921Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5v5frPXJKisrzHCV...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772303639273-crmgi",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T18:33:59.273Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 3WfGmvr7YCcUBWiA...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772303800545-ah6do",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T18:36:40.545Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 631eiNTJw38Npyxi...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772303800728-khswa",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T18:36:40.728Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "detectedAmount": 0.16506099999969592,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772303960941-ewduz",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T18:39:20.941Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0099 SOL. Sig: 4zXv1dYh7SU8JM1v...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772303960962-gjqhi",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-02-28T18:39:20.962Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "HhXP8LdMNXo96d6Aa6pe7g52paQno7jVuNvZx645pump",
+        "detectedAmount": 459137.80423796177,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772308585249-mhleb",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T19:56:25.249Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 41jKvNPqJZGxHbGo...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772308664719-2pc3v",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-02-28T19:57:44.719Z",
+      "data": "WHALE Whale Alpha: SENT 0.0024 SOL. Sig: 2o3VAeN1HHSdmBqR...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772325975036-8hpld",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T00:46:15.036Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: zbjHb6vamStFurmz...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772326054159-l0d9z",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T00:47:34.159Z",
+      "data": "WHALE Whale Alpha: SENT 0.0011 SOL. Sig: 3KXg1d549eR8ArX3...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772326133100-m15j7",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T00:48:53.100Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 64M9YFtLpf4BfepS...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772326371930-162la",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T00:52:51.931Z",
+      "data": "WHALE Whale Alpha: SENT 0.2701 SOL. Sig: 5f9ZqT6t3ZtYRBtZ...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772326640703-n9s91",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T00:57:20.703Z",
+      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 2CHwLoB4YgApWBzm...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772326988535-42v8f",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:03:08.535Z",
+      "data": "WHALE Whale Alpha: SENT 1.0001 SOL. Sig: 5XKBDvyJ3YfHTCkV...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772327067974-6dmlr",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:04:27.974Z",
+      "data": "WHALE Whale Alpha: SENT 0.0073 SOL. Sig: 3dS3Hv8SvsTzSai6...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772327146881-qag1r",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:05:46.882Z",
+      "data": "WHALE Whale Alpha: SENT 0.0093 SOL. Sig: 3w6NmnAcEkrgEn5e...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772327226015-02ky3",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:07:06.015Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.098 SOL. Sig: 3Dmv8YBnxvYCpSte...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772327226037-gjyah",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T01:07:06.037Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "7d1vpt5eri79nETcL74Punhp3mGkeBgUkMdPWep6pump",
+        "detectedAmount": 5645.090768001974,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772327305792-funsk",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:08:25.792Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0067 SOL. Sig: 66BtytfdJKAQqh1J...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772327305801-u6gfv",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T01:08:25.801Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "2Dda2qaokwUwp53spAHdAG8fsxiGqxMjDAnPzYjPGGwn",
+        "detectedAmount": 94.97206000052392,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772327384756-wxfrn",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:09:44.756Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: pQoHxm2iN2Ko3Vcm...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772327384775-m23fv",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T01:09:44.775Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "2qEHjDLDLbuBgRYvsxhc5D6uDWAivNFZGan56P1tpump",
+        "detectedAmount": 785.0271040014923,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772327935843-44gb0",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:18:55.843Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0099 SOL. Sig: KWy35vQ23DL2TXRt...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772327935934-bxmo3",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T01:18:55.934Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "CnGjRiwMc9XiFCVUaoAN5MB6NMXLA7eC89eUSMU1pump",
+        "detectedAmount": 577114.1591409445,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772328124088-appie",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:22:04.088Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5EzhdDAFZaGgWnPK...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772328440424-j398i",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:27:20.424Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3M9H3nPZGT8aBA3F...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772328630314-1sdcu",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:30:30.314Z",
+      "data": "WHALE Whale Alpha: SENT 0.0022 SOL. Sig: 63tWvydeK4RWVL7r...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772328840758-ky1mq",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:34:00.758Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2rvXV4GH5zkSTUHK...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772328840847-ga9yn",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T01:34:00.847Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "5veVHPNDsmSxDW4Abpb368wLHpo32LP3fqhfJHnkSSwo",
+        "detectedAmount": 1,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772328950147-fx84t",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:35:50.147Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: RWFc8yaajYHWtQRh...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772328950152-ybcmq",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T01:35:50.152Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "detectedAmount": 1.2155359999997017,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772329029914-h1bkw",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:37:09.914Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: bcDqcPk4zQxbZYim...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772329109145-y2cmw",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:38:29.145Z",
+      "data": "WHALE Whale Alpha: SENT 0.0015 SOL. Sig: eFwxVKVccbNrE3Ma...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772329189164-6e2c0",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:39:49.164Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0099 SOL. Sig: 2NPehwod2qTmob19...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772329189170-q7yzw",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T01:39:49.170Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "8tQgnW2rS4NtrErEh7fk26YdguynAogEuxxZBA8Spump",
+        "detectedAmount": 591263.3365539312,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772329299453-fmwst",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:41:39.453Z",
+      "data": "WHALE Whale Alpha: SENT 0.007 SOL. Sig: 4AeoEZ9tgqrt2zWe...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772329379360-er3jg",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:42:59.360Z",
+      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 3Dq4DxEiKCuC9b3c...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772329459093-w8e6y",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:44:19.093Z",
+      "data": "WHALE Whale Alpha: SENT 0.0021 SOL. Sig: MVzQU4GcCvzRxiid...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772329459099-qeo2v",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T01:44:19.099Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "BP8RUdhLKBL2vgVXc3n7oTSZKWaQVbD8S6QcPaMVBAPo",
+        "detectedAmount": 552253.1316489875,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772329837454-5gyte",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:50:37.454Z",
+      "data": "WHALE Whale Alpha: SENT 0.0029 SOL. Sig: 2izqRMKweeqdCFou...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772329837459-boeq3",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T01:50:37.459Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "detectedAmount": 0.7801919999999996,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772329996392-e5te8",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:53:16.392Z",
+      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 2kYFRpF8bqdUadU5...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772329996397-qkukr",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T01:53:16.397Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "detectedAmount": 11.25,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772330075212-rw7gw",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T01:54:35.212Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3hhpHw5kiKSDvE8N...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772330423694-h39i5",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:00:23.694Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: nDe2hJ3oJ4r8YQxp...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772330423700-zdynn",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T02:00:23.700Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "METAewgxyPbgwsseH8T16a39CQ5VyVxZi9zXiDPY18m",
+        "detectedAmount": 23.181233999999677,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772330660613-vyh05",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:04:20.613Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 3dM2gQsEw3cH7kXt...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772330739858-k88e7",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:05:39.859Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 5jPGb4EfPgHHQDBv...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772330819619-fjzvd",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:06:59.619Z",
+      "data": "WHALE Whale Alpha: SENT 0.0079 SOL. Sig: 6tZ1hnV9aVZ1yUNx...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772330898579-k8fbg",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:08:18.579Z",
+      "data": "WHALE Whale Alpha: SENT 0.0006 SOL. Sig: 63GLHZ4SkrFoKmw7...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772331057779-5q5rw",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:10:57.779Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: wDwJamNHneV6BmPf...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772331057791-4kwnj",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T02:10:57.791Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp",
+        "detectedAmount": 192623848.5439453,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772331326835-eg1hn",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:15:26.835Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2aighQJbXxW1Q8Ed...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772331326844-dbvqo",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T02:15:26.844Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "5j2shkkzascw33QpW6RRqfRkacLkn7QwwV1e7jX36nyn",
+        "detectedAmount": 22016.770325541496,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772332261171-72526",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:31:01.171Z",
+      "data": "WHALE Whale Alpha: SENT 0.0003 SOL. Sig: 5dt83fVGed93KAdT...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772332340118-hwocn",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:32:20.118Z",
+      "data": "WHALE Whale Alpha: SENT 0.004 SOL. Sig: 5TG42Qruw2dduL8E...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772332420123-vs5mk",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:33:40.123Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: Mh7jNYxEhnrzy8we...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772332531355-jsjl5",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:35:31.355Z",
+      "data": "WHALE Whale Alpha: SENT 2.567 SOL. Sig: 2LzSRMewFyKtXWfx...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772332879340-xvbo8",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:41:19.340Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: NgVwt95iLAPJe5Hr...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772332962230-ilyop",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:42:42.230Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 57TzAfpnGLLdg7Qm...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772333156120-w4pyb",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:45:56.120Z",
+      "data": "WHALE Whale Alpha: SENT 0.0091 SOL. Sig: 2wB2guWurQZBwx94...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772333236559-691pf",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:47:16.559Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 51Krdi2vMb5YHMTc...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772333316358-xk14u",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:48:36.358Z",
+      "data": "WHALE Whale Alpha: SENT 0.0002 SOL. Sig: 2veaYP4kDEwhd3Ao...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772333475691-deqtr",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:51:15.691Z",
+      "data": "WHALE Whale Alpha: RECEIVED 0.0099 SOL. Sig: QDnG7VaUhokmFwq5...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772333475709-7tepg",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T02:51:15.709Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "3D6vyYWfVHWXBGt6yuFh9Bp8RRvVMRPoAKB6p3p5pump",
+        "detectedAmount": 586422.718611002,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772333585828-2r8t5",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T02:53:05.828Z",
+      "data": "WHALE Whale Alpha: SENT 0.0043 SOL. Sig: 3gk9CBcM3tFUuMh3...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772334598351-y7g4i",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T03:09:58.351Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2n1aSHbLA4qdfhHm...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772334677424-g9sx7",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T03:11:17.424Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 2kefqLWvEXA5dihV...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772334677430-aqrn3",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T03:11:17.430Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+        "detectedAmount": 21.724040001630783,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772334756307-rofmp",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T03:12:36.307Z",
+      "data": "WHALE Whale Alpha: RECEIVED 1.7401 SOL. Sig: XbQM77jDrwu2GxuX...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772334756313-5j213",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T03:12:36.313Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+        "detectedAmount": 2650,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772335291649-cs1zf",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-01T03:21:31.649Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 5iPfgQpdYt83Ar7u...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772335291653-lcry4",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-01T03:21:31.653Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+        "detectedAmount": 514.0387760009617,
+        "confidence": "HIGH"
+      },
       "telegramSent": false
     }
   ],
   "stats": {
-    "totalSignals": 185,
+    "totalSignals": 2011,
     "totalTelegramSent": 0
   }
 }

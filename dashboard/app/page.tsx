@@ -172,7 +172,12 @@ export default function SyndicateDashboard() {
 
   // WebSocket connection
   useEffect(() => {
+    let reconnectTimeout: NodeJS.Timeout;
+
     const connect = () => {
+      // Prevent multiple connections
+      if (wsRef.current?.readyState === WebSocket.OPEN || wsRef.current?.readyState === WebSocket.CONNECTING) return;
+
       const ws = new WebSocket("ws://localhost:8080");
       wsRef.current = ws;
 
@@ -181,7 +186,6 @@ export default function SyndicateDashboard() {
         if (window.speechSynthesis) {
           const u = new SpeechSynthesisUtterance("Syndicate Neural Interface: Online.");
           u.rate = 1.1; u.pitch = 0.9;
-          // specific voice selection if available?
           window.speechSynthesis.speak(u);
         }
       };
@@ -212,10 +216,7 @@ export default function SyndicateDashboard() {
             case "KICK_UP":
               setProfit(data.profit || 0);
               if (data.trades) setTrades(data.trades);
-              setLogs(prev => [...prev.slice(-99), {
-                type: "LOG", level: "MONEY", timestamp: new Date().toISOString(),
-                msg: `💰 KICK-UP: $${data.amount} from ${data.source || 'Unknown'} (Net: $${data.net})`
-              }]);
+              // Removed redundant log insertion, since REAL PROFIT is sent as a native LOG.
               break;
             case "CREW_UPDATE":
               setCrew(data.crew || []);
@@ -261,17 +262,23 @@ export default function SyndicateDashboard() {
 
       ws.onclose = () => {
         setConnected(false);
-        if (window.speechSynthesis) {
-          window.speechSynthesis.speak(new SpeechSynthesisUtterance("Connection Lost. Retrying uplink..."));
-        }
-        setTimeout(connect, 3000); // auto-reconnect
+        wsRef.current = null;
+        reconnectTimeout = setTimeout(connect, 3000); // auto-reconnect
       };
 
       ws.onerror = () => ws.close();
     };
 
     connect();
-    return () => wsRef.current?.close();
+
+    return () => {
+      clearTimeout(reconnectTimeout);
+      if (wsRef.current) {
+        wsRef.current.onclose = null; // Prevent reconnect loop on unmount
+        wsRef.current.close();
+        wsRef.current = null;
+      }
+    };
   }, []);
 
   // Uptime timer

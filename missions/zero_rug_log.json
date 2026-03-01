@@ -1,125 +1,5 @@
 [
   {
-    "id": "ZR-MLVUWP7V",
-    "timestamp": "2026-02-21T05:06:44.779Z",
-    "mint": "8TVr3U85V3Ua...",
-    "fullMint": "8TVr3U85V3Uazkxd5DJbmzdUWaxhQdEGNNGJ7eNTpump",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
-    "id": "ZR-MLVUY0S5",
-    "timestamp": "2026-02-21T05:07:46.421Z",
-    "mint": "5Jr9hGmJgxBR...",
-    "fullMint": "5Jr9hGmJgxBRjjF8XGcGgQzXUdsbpZNNMpigEv8Wpump",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
-    "id": "ZR-MLW4ZMAF",
-    "timestamp": "2026-02-21T09:48:57.111Z",
-    "mint": "Dfh5DzRgSvvC...",
-    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
-    "id": "ZR-MLW5CCVU",
-    "timestamp": "2026-02-21T09:58:51.450Z",
-    "mint": "8ZyibVskrntj...",
-    "fullMint": "8ZyibVskrntjEzL5vQn5TDM6S7xZ7MA3S5EPc1mRsji2",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
-    "id": "ZR-MLW7N1D5",
-    "timestamp": "2026-02-21T11:03:08.969Z",
-    "mint": "FiYuSFSNpG6m...",
-    "fullMint": "FiYuSFSNpG6mBAgSQvGwLwXggrinSufQExMMj1BxPrZz",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
-    "id": "ZR-MLW9OH5F",
-    "timestamp": "2026-02-21T12:00:15.315Z",
-    "mint": "C1oTXhBmSEKW...",
-    "fullMint": "C1oTXhBmSEKWpSMcMrTPt3tjo9XL7L6gxMUU6D6MQxqm",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
-    "id": "ZR-MLYZROZ6",
-    "timestamp": "2026-02-23T09:46:07.794Z",
-    "mint": "9gwTegFJJErD...",
-    "fullMint": "9gwTegFJJErDpWJKjPfLr2g2zrE3nL1v5zpwbtsk3c6P",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
-    "id": "ZR-MM1AB3TD",
-    "timestamp": "2026-02-25T00:16:42.001Z",
-    "mint": "DK6PWMyuZ4NM...",
-    "fullMint": "DK6PWMyuZ4NMjsm9AWNCTMKrajQYrtfMjMJ3QauX2UH5",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
-    "id": "ZR-MM1AKWR2",
-    "timestamp": "2026-02-25T00:24:19.407Z",
-    "mint": "DtR4D9FtVoTX...",
-    "fullMint": "DtR4D9FtVoTX2569gaL837ZgrB6wNjj6tkmnX9Rdk9B2",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
-    "id": "ZR-MM1AS118",
-    "timestamp": "2026-02-25T00:29:51.548Z",
-    "mint": "BhPG35i78bM7...",
-    "fullMint": "BhPG35i78bM7N9ktN5BuF4YRcGou1v2jSM69nAzB73dS",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
-    "id": "ZR-MM1AVAH6",
-    "timestamp": "2026-02-25T00:32:23.754Z",
-    "mint": "Dfh5DzRgSvvC...",
-    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
-    "id": "ZR-MM1AYJVG",
-    "timestamp": "2026-02-25T00:34:55.900Z",
-    "mint": "8tGm5d8GbpB8...",
-    "fullMint": "8tGm5d8GbpB8SCLm4WNUaQbjgRFEYBy1CQszWSihpump",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
     "id": "ZR-MM1B1SVW",
     "timestamp": "2026-02-25T00:37:27.548Z",
     "mint": "Dnb9dLSXxAar...",
@@ -474,6 +354,4646 @@
     "timestamp": "2026-02-25T07:18:20.265Z",
     "mint": "4k3Dyjzvzp8e...",
     "fullMint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM1SLTQT",
+    "timestamp": "2026-02-25T08:48:55.253Z",
+    "mint": "Cy1GS2Fqefga...",
+    "fullMint": "Cy1GS2FqefgaMbi45UunrUzin1rfEmTUYnomddzBpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM1TXPRS",
+    "timestamp": "2026-02-25T09:26:09.592Z",
+    "mint": "CzLSujWBLFsS...",
+    "fullMint": "CzLSujWBLFsSjncfkh59rUFqvafWcY5tzedWJSuypump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM1VIOJJ",
+    "timestamp": "2026-02-25T10:10:27.392Z",
+    "mint": "4NBTf8PfLH4o...",
+    "fullMint": "4NBTf8PfLH4oLFnwf3knv46FY9i5oXjDxffCetXRpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM1VQFSR",
+    "timestamp": "2026-02-25T10:16:29.309Z",
+    "mint": "DKu9kykSfbN5...",
+    "fullMint": "DKu9kykSfbN5LBfFXtNNDPaX35o4Fv6vJ9FKk7pZpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM1WDQZR",
+    "timestamp": "2026-02-25T10:34:36.903Z",
+    "mint": "B5WTLaRwaUQp...",
+    "fullMint": "B5WTLaRwaUQpKk7ir1wniNB6m5o8GgMrimhKMYan2R6B",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM1WVUFZ",
+    "timestamp": "2026-02-25T10:48:41.183Z",
+    "mint": "FpECzw6x8RG4...",
+    "fullMint": "FpECzw6x8RG4VBXfnVg3UJd8pq9CCxJUSWCKb4gebq8B",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM28P19T",
+    "timestamp": "2026-02-25T16:19:18.833Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM28U897",
+    "timestamp": "2026-02-25T16:23:21.163Z",
+    "mint": "8z1REPS5qMv6...",
+    "fullMint": "8z1REPS5qMv66KCC9ohx5GdBGDbc1AknEJFzc4943moM",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM28WTGG",
+    "timestamp": "2026-02-25T16:25:21.952Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM28Y3R9",
+    "timestamp": "2026-02-25T16:26:21.957Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM291ZFP",
+    "timestamp": "2026-02-25T16:29:22.981Z",
+    "mint": "mSoLzYCxHdYg...",
+    "fullMint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM29B1D1",
+    "timestamp": "2026-02-25T16:36:25.381Z",
+    "mint": "7dUKUopcNWW6...",
+    "fullMint": "7dUKUopcNWW6CcU4eRxCHh1uiMh32zDrmGf6ufqhxann",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM29EX1W",
+    "timestamp": "2026-02-25T16:39:26.420Z",
+    "mint": "7dHbWXmci3dT...",
+    "fullMint": "7dHbWXmci3dT8UFYWYZweBLXgycu7Y3iL6trKn1Y7ARj",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2A7CFZ",
+    "timestamp": "2026-02-25T17:01:32.736Z",
+    "mint": "Es9vMFrzaCER...",
+    "fullMint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2AMVIT",
+    "timestamp": "2026-02-25T17:13:37.301Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2AUN48",
+    "timestamp": "2026-02-25T17:19:39.656Z",
+    "mint": "ATLASXmbPQxB...",
+    "fullMint": "ATLASXmbPQxBUYbxPsV97usA3fPQYEqzQBUHgiFCUsXx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2BGMMX",
+    "timestamp": "2026-02-25T17:36:45.465Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2BTKAT",
+    "timestamp": "2026-02-25T17:46:48.965Z",
+    "mint": "zGh48JtNHVBb...",
+    "fullMint": "zGh48JtNHVBb5evgoZLXwgPD2Qu4MhkWdJLGDAupump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2BUUNS",
+    "timestamp": "2026-02-25T17:47:49.048Z",
+    "mint": "USDH1SM1ojwW...",
+    "fullMint": "USDH1SM1ojwWUga67PGrgFWUHibbjqMvuMaDkRJTgkX",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2C93AR",
+    "timestamp": "2026-02-25T17:58:53.428Z",
+    "mint": "5tTfDbLvCyGv...",
+    "fullMint": "5tTfDbLvCyGv2LuzdFbH2UqWMW6KVT1oERRLFssfHGYw",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2DEG0Y",
+    "timestamp": "2026-02-25T18:31:02.818Z",
+    "mint": "GuyZ7L8WuzmC...",
+    "fullMint": "GuyZ7L8WuzmCTNzYB5NVp3XjLagBUR49NbMTkWbjazNB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2EJT2A",
+    "timestamp": "2026-02-25T19:03:12.610Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2F4H7M",
+    "timestamp": "2026-02-25T19:19:17.026Z",
+    "mint": "FLJYGHpCCcfY...",
+    "fullMint": "FLJYGHpCCcfYUdzhcfHSeSd2peb5SMajNWaCsRnhpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2G4OAP",
+    "timestamp": "2026-02-25T19:47:25.825Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2GPBYW",
+    "timestamp": "2026-02-25T20:03:29.624Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2GQMGS",
+    "timestamp": "2026-02-25T20:04:29.884Z",
+    "mint": "DLUeuG3bD2V9...",
+    "fullMint": "DLUeuG3bD2V9EGd6apTRns3PrcPsCit8vGkpPj3uFtvj",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2GUJ1I",
+    "timestamp": "2026-02-25T20:07:32.070Z",
+    "mint": "CoRAitPvr9se...",
+    "fullMint": "CoRAitPvr9seu5F9Hk39vbjqA1o1XuoryHjSk1Z1q2mo",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2H3KRP",
+    "timestamp": "2026-02-25T20:14:34.213Z",
+    "mint": "4yYMmk7PQYcE...",
+    "fullMint": "4yYMmk7PQYcEmN62epvZ3JeriN59LJZqE9GJmuRcuRYx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2HQVBG",
+    "timestamp": "2026-02-25T20:32:40.972Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2HZWTM",
+    "timestamp": "2026-02-25T20:39:42.826Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2I2I2V",
+    "timestamp": "2026-02-25T20:41:43.687Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2I6DLM",
+    "timestamp": "2026-02-25T20:44:44.506Z",
+    "mint": "JD9C1XzkEBda...",
+    "fullMint": "JD9C1XzkEBdaPqaFnjEY5WAzTchPcJFSupBSYBrDfUUR",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2I8YEU",
+    "timestamp": "2026-02-25T20:46:44.790Z",
+    "mint": "7JQDtynBCzF5...",
+    "fullMint": "7JQDtynBCzF5oqvcy8GhL3UmJNjaXKghWbmW8U2Zpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2JD1QX",
+    "timestamp": "2026-02-25T21:17:55.353Z",
+    "mint": "7vfCXTUXx5WJ...",
+    "fullMint": "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2JGX3J",
+    "timestamp": "2026-02-25T21:20:55.951Z",
+    "mint": "CniPCE4b3s8g...",
+    "fullMint": "CniPCE4b3s8gSUPhUiyMjXnytrEqUrMfSsnbBjLCpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2KBX8M",
+    "timestamp": "2026-02-25T21:45:02.470Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2L9JLM",
+    "timestamp": "2026-02-25T22:11:11.099Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2LJVCC",
+    "timestamp": "2026-02-25T22:19:12.876Z",
+    "mint": "DLUeuG3bD2V9...",
+    "fullMint": "DLUeuG3bD2V9EGd6apTRns3PrcPsCit8vGkpPj3uFtvj",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2LVHVF",
+    "timestamp": "2026-02-25T22:28:15.291Z",
+    "mint": "ATLASXmbPQxB...",
+    "fullMint": "ATLASXmbPQxBUYbxPsV97usA3fPQYEqzQBUHgiFCUsXx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2P5FGN",
+    "timestamp": "2026-02-25T23:59:57.575Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2PQ6PG",
+    "timestamp": "2026-02-26T00:16:06.004Z",
+    "mint": "KENJSUYLASHU...",
+    "fullMint": "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2PSRTX",
+    "timestamp": "2026-02-26T00:18:06.693Z",
+    "mint": "BUhS5coXEt9h...",
+    "fullMint": "BUhS5coXEt9hcxN3JSpGYUWSKbNo96RsKu52LcMo12rf",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2R21QU",
+    "timestamp": "2026-02-26T00:53:19.062Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2RB3NE",
+    "timestamp": "2026-02-26T01:00:21.434Z",
+    "mint": "SKRbvo6Gf7Go...",
+    "fullMint": "SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM2REZQV",
+    "timestamp": "2026-02-26T01:03:22.999Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31LZ8E",
+    "timestamp": "2026-02-26T05:48:45.087Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31LZ9S",
+    "timestamp": "2026-02-26T05:48:45.136Z",
+    "mint": "9R33LVkbbL2s...",
+    "fullMint": "9R33LVkbbL2steDaCmUaHZb6VKhJ9AQNffmF2ueepump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31LZD7",
+    "timestamp": "2026-02-26T05:48:45.259Z",
+    "mint": "6wM77t6m9A7S...",
+    "fullMint": "6wM77t6m9A7SyruJGALHRKuq2Vg1UWYUhpKd54D7pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31LZGI",
+    "timestamp": "2026-02-26T05:48:45.378Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31LZLN",
+    "timestamp": "2026-02-26T05:48:45.563Z",
+    "mint": "mMb6c9FefFqv...",
+    "fullMint": "mMb6c9FefFqvW6gJcP6MvJEkHBXHEvczheM9Vax7s2q",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31LZOW",
+    "timestamp": "2026-02-26T05:48:45.680Z",
+    "mint": "5veVHPNDsmSx...",
+    "fullMint": "5veVHPNDsmSxDW4Abpb368wLHpo32LP3fqhfJHnkSSwo",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31LZVY",
+    "timestamp": "2026-02-26T05:48:45.934Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31LZYK",
+    "timestamp": "2026-02-26T05:48:46.028Z",
+    "mint": "5Jr9hGmJgxBR...",
+    "fullMint": "5Jr9hGmJgxBRjjF8XGcGgQzXUdsbpZNNMpigEv8Wpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31M00S",
+    "timestamp": "2026-02-26T05:48:46.108Z",
+    "mint": "7iT1GRYYhEop...",
+    "fullMint": "7iT1GRYYhEop2nV1dyCwK2MGyLmPHq47WhPGSwiqcUg5",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31M02N",
+    "timestamp": "2026-02-26T05:48:46.175Z",
+    "mint": "DLUeuG3bD2V9...",
+    "fullMint": "DLUeuG3bD2V9EGd6apTRns3PrcPsCit8vGkpPj3uFtvj",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31M05H",
+    "timestamp": "2026-02-26T05:48:46.277Z",
+    "mint": "AZsHEMXd36Bj...",
+    "fullMint": "AZsHEMXd36Bj1EMNXhowJajpUXzrKcK57wW4ZGXVa7yR",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31M07K",
+    "timestamp": "2026-02-26T05:48:46.352Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31M08R",
+    "timestamp": "2026-02-26T05:48:46.395Z",
+    "mint": "DFL1zNkaGPWm...",
+    "fullMint": "DFL1zNkaGPWm1BqAVqRjCZvHmwTFrEaJtbzJWgseoNJh",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31M0BO",
+    "timestamp": "2026-02-26T05:48:46.500Z",
+    "mint": "DezXAZ8z7Pnr...",
+    "fullMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31M0DN",
+    "timestamp": "2026-02-26T05:48:46.571Z",
+    "mint": "Hjw6bEcHtbHG...",
+    "fullMint": "Hjw6bEcHtbHGpQr8onG3izfJY5DJiWdt7uk2BfdSpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31M0F7",
+    "timestamp": "2026-02-26T05:48:46.627Z",
+    "mint": "F47vvwFYuLio...",
+    "fullMint": "F47vvwFYuLioQsqEVAjqdY6Yihc8wVRiUcfHGcBR9XUs",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31M0I2",
+    "timestamp": "2026-02-26T05:48:46.730Z",
+    "mint": "7BgBvyjrZX1Y...",
+    "fullMint": "7BgBvyjrZX1YKz4oh9mjb8ZScatkkwb8DzFx7LoiVkM3",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31M0JT",
+    "timestamp": "2026-02-26T05:48:46.794Z",
+    "mint": "9PR7nCP9DpcU...",
+    "fullMint": "9PR7nCP9DpcUotnDPVLUBUZKu5WAYkwrCUx9wDnSpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31M0L3",
+    "timestamp": "2026-02-26T05:48:46.839Z",
+    "mint": "DPaQfq5sFnoq...",
+    "fullMint": "DPaQfq5sFnoqw2Sh9WMmmASFL9LNu6RdtDqwE1tab2tB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31M0N9",
+    "timestamp": "2026-02-26T05:48:46.917Z",
+    "mint": "7FUoLZsLYiy5...",
+    "fullMint": "7FUoLZsLYiy5fAggrG4EKWiE1MmqtdL4AuKb7GPPnhar",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31P7CN",
+    "timestamp": "2026-02-26T05:51:15.575Z",
+    "mint": "7ZCm8WBN9aLa...",
+    "fullMint": "7ZCm8WBN9aLa3o47SoYctU6iLdj7wkGG5SV2hE5CgtD5",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM31WYNG",
+    "timestamp": "2026-02-26T05:57:17.548Z",
+    "mint": "74SBV4zDXxTR...",
+    "fullMint": "74SBV4zDXxTRgv1pEMoECskKBkZHc2yGPnc7GYVepump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3387N2",
+    "timestamp": "2026-02-26T06:34:02.030Z",
+    "mint": "EsP4kJfKUDLf...",
+    "fullMint": "EsP4kJfKUDLfX274WoBSiiEy74Sh4tZKUCDjfULHpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM33HE2W",
+    "timestamp": "2026-02-26T06:41:10.280Z",
+    "mint": "DLUeuG3bD2V9...",
+    "fullMint": "DLUeuG3bD2V9EGd6apTRns3PrcPsCit8vGkpPj3uFtvj",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM34G9BY",
+    "timestamp": "2026-02-26T07:08:17.086Z",
+    "mint": "M5MFPbS4X6eY...",
+    "fullMint": "M5MFPbS4X6eYek21xhFU38DTavMLuGY9eyC5p8Tpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM34TG9K",
+    "timestamp": "2026-02-26T07:18:32.600Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM35BRT5",
+    "timestamp": "2026-02-26T07:32:47.369Z",
+    "mint": "x95HN3DWvbfC...",
+    "fullMint": "x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM35DGU4",
+    "timestamp": "2026-02-26T07:34:06.460Z",
+    "mint": "8SkFmWxR8Nyy...",
+    "fullMint": "8SkFmWxR8Nyy4MPgziDFscLYXyFJxQwjPfgUUxybonk",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM35F5P8",
+    "timestamp": "2026-02-26T07:35:25.340Z",
+    "mint": "G6FNhdpJift4...",
+    "fullMint": "G6FNhdpJift4hfCT1dWFMuzcujCMVie4nST8Nni3sWXT",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM35O9HH",
+    "timestamp": "2026-02-26T07:42:30.149Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM35XDHA",
+    "timestamp": "2026-02-26T07:49:35.230Z",
+    "mint": "bAwSNBiVa9u1...",
+    "fullMint": "bAwSNBiVa9u1u3kQj4bqxppSAMU2d4HL5tjUyPTysRz",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM364VUW",
+    "timestamp": "2026-02-26T07:55:25.640Z",
+    "mint": "CreiuhfwdWCN...",
+    "fullMint": "CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM36CBIF",
+    "timestamp": "2026-02-26T08:01:12.519Z",
+    "mint": "Dice3uJ6AY63...",
+    "fullMint": "Dice3uJ6AY63bKRHk5Mn24qdNLhBZJFJbaeDsTQrzBPE",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM36I1ZE",
+    "timestamp": "2026-02-26T08:05:40.106Z",
+    "mint": "SKRbvo6Gf7Go...",
+    "fullMint": "SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM37MIKY",
+    "timestamp": "2026-02-26T08:37:07.858Z",
+    "mint": "3hhjrad1dQGM...",
+    "fullMint": "3hhjrad1dQGMGvULz8qaWekd6iUuLeU5vBWKWAfw2Wc1",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JA7",
+    "timestamp": "2026-02-26T13:59:04.351Z",
+    "mint": "66gsTs88mXJ5...",
+    "fullMint": "66gsTs88mXJ5L4AtJnWqFW6H2L5YQDRy4W41y6zbpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JBQ",
+    "timestamp": "2026-02-26T13:59:04.406Z",
+    "mint": "Es9vMFrzaCER...",
+    "fullMint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JEQ",
+    "timestamp": "2026-02-26T13:59:04.514Z",
+    "mint": "KENJSUYLASHU...",
+    "fullMint": "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JFW",
+    "timestamp": "2026-02-26T13:59:04.556Z",
+    "mint": "SKRbvo6Gf7Go...",
+    "fullMint": "SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JH7",
+    "timestamp": "2026-02-26T13:59:04.603Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JI0",
+    "timestamp": "2026-02-26T13:59:04.632Z",
+    "mint": "E8wxAXS1FFYx...",
+    "fullMint": "E8wxAXS1FFYxmQ2cCykddqTPKeWYJahVZsCsfs35pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JK8",
+    "timestamp": "2026-02-26T13:59:04.712Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JL9",
+    "timestamp": "2026-02-26T13:59:04.749Z",
+    "mint": "HNg5PYJmtqcm...",
+    "fullMint": "HNg5PYJmtqcmzXrv6S9zP1CDKk5BgDuyFBxbvNApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JML",
+    "timestamp": "2026-02-26T13:59:04.797Z",
+    "mint": "MEW1gQWJ3nEX...",
+    "fullMint": "MEW1gQWJ3nEXg2qgERiKu7FAFj79PHvQVREQUzScPP5",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JP4",
+    "timestamp": "2026-02-26T13:59:04.888Z",
+    "mint": "4Z6h6WXdtzCP...",
+    "fullMint": "4Z6h6WXdtzCP95MJvPnaJSbCb1ZQqdptdBx1LqSRfyz7",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JSB",
+    "timestamp": "2026-02-26T13:59:05.003Z",
+    "mint": "BTDoHuySaWp1...",
+    "fullMint": "BTDoHuySaWp14otyf2i7JrDqhZpP8oH1RrjswBC2PKQy",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JU4",
+    "timestamp": "2026-02-26T13:59:05.068Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JWK",
+    "timestamp": "2026-02-26T13:59:05.156Z",
+    "mint": "JB2wezZLdzWf...",
+    "fullMint": "JB2wezZLdzWfnaCfHxLg193RS3Rh51ThiXxEDWQDpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4JZA",
+    "timestamp": "2026-02-26T13:59:05.254Z",
+    "mint": "SKRbvo6Gf7Go...",
+    "fullMint": "SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4K1A",
+    "timestamp": "2026-02-26T13:59:05.326Z",
+    "mint": "927AfY5w3Db7...",
+    "fullMint": "927AfY5w3Db7YSigp7ZCyxuYCyMbi6NiCf6ibJx7uoqs",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4K33",
+    "timestamp": "2026-02-26T13:59:05.391Z",
+    "mint": "67iVSrbgQKiP...",
+    "fullMint": "67iVSrbgQKiPjttU9uXx9CXUoS1Si3XUhrXeiNAUUZSR",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4K4S",
+    "timestamp": "2026-02-26T13:59:05.452Z",
+    "mint": "2g1Dh2j9Asdp...",
+    "fullMint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4K5Z",
+    "timestamp": "2026-02-26T13:59:05.495Z",
+    "mint": "AGzj864bkMRP...",
+    "fullMint": "AGzj864bkMRPpjY3qy1qrFn9UySDGY1pLTrfFDVqpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4K6Y",
+    "timestamp": "2026-02-26T13:59:05.530Z",
+    "mint": "mMb6c9FefFqv...",
+    "fullMint": "mMb6c9FefFqvW6gJcP6MvJEkHBXHEvczheM9Vax7s2q",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4K8J",
+    "timestamp": "2026-02-26T13:59:05.587Z",
+    "mint": "5ECEeERJjCnm...",
+    "fullMint": "5ECEeERJjCnmGAQbDfzUjvoimfs4SDvCX5qkznrGttRM",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4KAD",
+    "timestamp": "2026-02-26T13:59:05.653Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4KBJ",
+    "timestamp": "2026-02-26T13:59:05.695Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J4KDE",
+    "timestamp": "2026-02-26T13:59:05.762Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3J85YY",
+    "timestamp": "2026-02-26T14:01:53.722Z",
+    "mint": "mSoLzYCxHdYg...",
+    "fullMint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3JORXH",
+    "timestamp": "2026-02-26T14:14:48.677Z",
+    "mint": "C9kiqtjgmtZP...",
+    "fullMint": "C9kiqtjgmtZPaAR5p1gd6KuNscE1nDQbQ4eMsbJTMyGs",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3JS5XH",
+    "timestamp": "2026-02-26T14:17:26.789Z",
+    "mint": "AGzj864bkMRP...",
+    "fullMint": "AGzj864bkMRPpjY3qy1qrFn9UySDGY1pLTrfFDVqpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3JTUQD",
+    "timestamp": "2026-02-26T14:18:45.589Z",
+    "mint": "mkvXiNBpa8ui...",
+    "fullMint": "mkvXiNBpa8uiSApe5BrhWVJaT87pJFTZxRy7zFapump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3K6DHZ",
+    "timestamp": "2026-02-26T14:28:29.783Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3KABOA",
+    "timestamp": "2026-02-26T14:31:34.042Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3KH53C",
+    "timestamp": "2026-02-26T14:36:52.104Z",
+    "mint": "bAwSNBiVa9u1...",
+    "fullMint": "bAwSNBiVa9u1u3kQj4bqxppSAMU2d4HL5tjUyPTysRz",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3KVVE5",
+    "timestamp": "2026-02-26T14:48:19.373Z",
+    "mint": "AZsHEMXd36Bj...",
+    "fullMint": "AZsHEMXd36Bj1EMNXhowJajpUXzrKcK57wW4ZGXVa7yR",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3L69LF",
+    "timestamp": "2026-02-26T14:56:24.339Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3LT94R",
+    "timestamp": "2026-02-26T15:14:16.827Z",
+    "mint": "B5WTLaRwaUQp...",
+    "fullMint": "B5WTLaRwaUQpKk7ir1wniNB6m5o8GgMrimhKMYan2R6B",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3MEWS1",
+    "timestamp": "2026-02-26T15:31:07.249Z",
+    "mint": "8nKP8Vc72pRZ...",
+    "fullMint": "8nKP8Vc72pRZB6bhCy8D1UYf6ZjwYT859i6awyinpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3MGLTQ",
+    "timestamp": "2026-02-26T15:32:26.366Z",
+    "mint": "J3NKxxXZcnNi...",
+    "fullMint": "J3NKxxXZcnNiMjKw9hYb2K4LUxgwB6t1FtPtQVsv3KFr",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3MQE7Q",
+    "timestamp": "2026-02-26T15:40:03.062Z",
+    "mint": "Es9vMFrzaCER...",
+    "fullMint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3MS33C",
+    "timestamp": "2026-02-26T15:41:21.960Z",
+    "mint": "ApjbGDCRsCuy...",
+    "fullMint": "ApjbGDCRsCuyhAQWUQgTxJZGLP5hqWn8TSCtrSfuzt22",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3N0JDV",
+    "timestamp": "2026-02-26T15:47:56.323Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3NDQ0A",
+    "timestamp": "2026-02-26T15:58:11.434Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3NJG2V",
+    "timestamp": "2026-02-26T16:02:38.503Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3NSN99",
+    "timestamp": "2026-02-26T16:09:47.709Z",
+    "mint": "8hQsj1sfTGzc...",
+    "fullMint": "8hQsj1sfTGzcC7XX5hTYKcDBs4nmi8MTtEunRxVrpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3NZFJG",
+    "timestamp": "2026-02-26T16:15:04.300Z",
+    "mint": "USD1ttGY1N17...",
+    "fullMint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3O14EU",
+    "timestamp": "2026-02-26T16:16:23.191Z",
+    "mint": "8m9fjYycXAFv...",
+    "fullMint": "8m9fjYycXAFva1kScttQgsESVZT7yELhjZASqfHBuMa5",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3P5RL9",
+    "timestamp": "2026-02-26T16:47:59.469Z",
+    "mint": "3dgCCb15HMQS...",
+    "fullMint": "3dgCCb15HMQSA4Pn3Tfii5vRk7aRqTH95LJjxzsG2Mug",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3P973X",
+    "timestamp": "2026-02-26T16:50:39.549Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3Q3LTE",
+    "timestamp": "2026-02-26T17:14:18.290Z",
+    "mint": "C8cNX2D1y3jq...",
+    "fullMint": "C8cNX2D1y3jqKpMFkQhP1gGbfvTEdeckZXLBKSN5z5KF",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3Q9CH1",
+    "timestamp": "2026-02-26T17:18:46.117Z",
+    "mint": "USD1ttGY1N17...",
+    "fullMint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3QCQCQ",
+    "timestamp": "2026-02-26T17:21:24.074Z",
+    "mint": "DezXAZ8z7Pnr...",
+    "fullMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3QIGI1",
+    "timestamp": "2026-02-26T17:25:51.241Z",
+    "mint": "ApjbGDCRsCuy...",
+    "fullMint": "ApjbGDCRsCuyhAQWUQgTxJZGLP5hqWn8TSCtrSfuzt22",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3QLU7X",
+    "timestamp": "2026-02-26T17:28:28.989Z",
+    "mint": "CN162nCPpq3D...",
+    "fullMint": "CN162nCPpq3DxPCyKLbAvEJeB1aCxsnVTEG4ZU8vpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3RAIB4",
+    "timestamp": "2026-02-26T17:47:39.952Z",
+    "mint": "89q6aHpZ1fXh...",
+    "fullMint": "89q6aHpZ1fXhuwpnrBgqmCvuAX4GaCrRPQNp5xVHpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3RHBHZ",
+    "timestamp": "2026-02-26T17:52:57.719Z",
+    "mint": "DKu9kykSfbN5...",
+    "fullMint": "DKu9kykSfbN5LBfFXtNNDPaX35o4Fv6vJ9FKk7pZpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3T8ZE5",
+    "timestamp": "2026-02-26T18:42:28.013Z",
+    "mint": "HW7D5MyYG4Dz...",
+    "fullMint": "HW7D5MyYG4Dz2C98axfjVBeLWpsEnofrqy6ZUwqwpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3U0FFH",
+    "timestamp": "2026-02-26T19:03:48.509Z",
+    "mint": "AMjzRn1TBQwQ...",
+    "fullMint": "AMjzRn1TBQwQfNAjHFeBb7uGbbqbJB7FzXAnGgdFPk6K",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3U24A3",
+    "timestamp": "2026-02-26T19:05:07.371Z",
+    "mint": "CaLKuP9Pbf8b...",
+    "fullMint": "CaLKuP9Pbf8bQHVQkgEQZqoh56zsScYJCPMA81jn4yHa",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3U5IVL",
+    "timestamp": "2026-02-26T19:07:46.257Z",
+    "mint": "x95HN3DWvbfC...",
+    "fullMint": "x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3UJCHY",
+    "timestamp": "2026-02-26T19:18:31.174Z",
+    "mint": "3TWgDvYBL2YP...",
+    "fullMint": "3TWgDvYBL2YPET2LxnWAwsMeoA8aL4DutNuwat2pKCjC",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3URFBI",
+    "timestamp": "2026-02-26T19:24:48.078Z",
+    "mint": "21TFGxymLzAS...",
+    "fullMint": "21TFGxymLzASEW15dEZKmxgFEQrRiHB9m1aVaEmqkr43",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3UT497",
+    "timestamp": "2026-02-26T19:26:07.051Z",
+    "mint": "AyAh823TVnfL...",
+    "fullMint": "AyAh823TVnfLcDgrSHYzyhY9aZ4edUPaBKzeaaQiSmMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3UWHYP",
+    "timestamp": "2026-02-26T19:28:44.785Z",
+    "mint": "DtwN3PHiKEpK...",
+    "fullMint": "DtwN3PHiKEpK1MSekViVC8QifdRJCkML6HG16sXHpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3UY6TI",
+    "timestamp": "2026-02-26T19:30:03.654Z",
+    "mint": "USD1ttGY1N17...",
+    "fullMint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3V3WK6",
+    "timestamp": "2026-02-26T19:34:30.294Z",
+    "mint": "USD1ttGY1N17...",
+    "fullMint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3V7YKV",
+    "timestamp": "2026-02-26T19:37:39.535Z",
+    "mint": "BzvSAFMBmvit...",
+    "fullMint": "BzvSAFMBmvitiZ2WUWgRCJaKcUbwDc6P8qr148gCpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3VKKNG",
+    "timestamp": "2026-02-26T19:47:28.012Z",
+    "mint": "CKaKtYvz6dKP...",
+    "fullMint": "CKaKtYvz6dKPyMvYq9Rh3UBrnNqYZAyd7iF4hJtjUvks",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3VMWX8",
+    "timestamp": "2026-02-26T19:49:17.228Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3VQBM8",
+    "timestamp": "2026-02-26T19:51:56.241Z",
+    "mint": "ApjbGDCRsCuy...",
+    "fullMint": "ApjbGDCRsCuyhAQWUQgTxJZGLP5hqWn8TSCtrSfuzt22",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3W4K8Z",
+    "timestamp": "2026-02-26T20:03:00.611Z",
+    "mint": "4gYFemHbi71J...",
+    "fullMint": "4gYFemHbi71JDseGhjp3RTmRu6gtVG88PNukD9fmxaP4",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3WH3F0",
+    "timestamp": "2026-02-26T20:12:45.324Z",
+    "mint": "JUPyiwrYJFsk...",
+    "fullMint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3WX1G3",
+    "timestamp": "2026-02-26T20:25:09.267Z",
+    "mint": "Dnb9dLSXxAar...",
+    "fullMint": "Dnb9dLSXxAarXVexehzeH8W8nFmLMNJSuGoaddZSwtog",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3X7UTU",
+    "timestamp": "2026-02-26T20:33:33.906Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3XJFBE",
+    "timestamp": "2026-02-26T20:42:33.674Z",
+    "mint": "2g1Dh2j9Asdp...",
+    "fullMint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3XL56C",
+    "timestamp": "2026-02-26T20:43:53.844Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3XMUNJ",
+    "timestamp": "2026-02-26T20:45:13.519Z",
+    "mint": "9oKUuStNerC7...",
+    "fullMint": "9oKUuStNerC7N9dSVSKpEKDC82gdxLHQi2HyCt4UzukD",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3XP6PU",
+    "timestamp": "2026-02-26T20:47:02.466Z",
+    "mint": "ApjbGDCRsCuy...",
+    "fullMint": "ApjbGDCRsCuyhAQWUQgTxJZGLP5hqWn8TSCtrSfuzt22",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3YXHUK",
+    "timestamp": "2026-02-26T21:21:29.756Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3YZTY7",
+    "timestamp": "2026-02-26T21:23:18.751Z",
+    "mint": "Es9vMFrzaCER...",
+    "fullMint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3Z37P1",
+    "timestamp": "2026-02-26T21:25:56.533Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3ZERDS",
+    "timestamp": "2026-02-26T21:34:55.264Z",
+    "mint": "DtR4D9FtVoTX...",
+    "fullMint": "DtR4D9FtVoTX2569gaL837ZgrB6wNjj6tkmnX9Rdk9B2",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3ZJH5Q",
+    "timestamp": "2026-02-26T21:38:35.294Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3ZL6V4",
+    "timestamp": "2026-02-26T21:39:55.264Z",
+    "mint": "AGzj864bkMRP...",
+    "fullMint": "AGzj864bkMRPpjY3qy1qrFn9UySDGY1pLTrfFDVqpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3ZPVP3",
+    "timestamp": "2026-02-26T21:43:34.071Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM3ZZ0G8",
+    "timestamp": "2026-02-26T21:50:40.136Z",
+    "mint": "B2v6th6bCcEM...",
+    "fullMint": "B2v6th6bCcEMfubZ4eXtNyoRFZ5ZEfuotNF146Ccpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM400Q7G",
+    "timestamp": "2026-02-26T21:52:00.172Z",
+    "mint": "2umQqRyexgfH...",
+    "fullMint": "2umQqRyexgfHcndkULDKStmJJ8xgDz7oBL3EfDJNmoon",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM40BKY3",
+    "timestamp": "2026-02-26T22:00:26.571Z",
+    "mint": "FeR8VBqNRSUD...",
+    "fullMint": "FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM40DXHX",
+    "timestamp": "2026-02-26T22:02:16.149Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM40RT1E",
+    "timestamp": "2026-02-26T22:13:03.554Z",
+    "mint": "CN162nCPpq3D...",
+    "fullMint": "CN162nCPpq3DxPCyKLbAvEJeB1aCxsnVTEG4ZU8vpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM41D46F",
+    "timestamp": "2026-02-26T22:29:37.767Z",
+    "mint": "BxsS9Dmy6Svs...",
+    "fullMint": "BxsS9Dmy6SvsNkctQYbjU5NsyL41rJ5MrHCRuuUG17ci",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM41KJXD",
+    "timestamp": "2026-02-26T22:35:24.769Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM41ZECB",
+    "timestamp": "2026-02-26T22:46:57.371Z",
+    "mint": "6CMgRc6RkH3q...",
+    "fullMint": "6CMgRc6RkH3qegfyTyUjg68EpXTVQqKoVdyEebmXxngr",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM424H0V",
+    "timestamp": "2026-02-26T22:50:54.127Z",
+    "mint": "2g1Dh2j9Asdp...",
+    "fullMint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM42A6S0",
+    "timestamp": "2026-02-26T22:55:20.784Z",
+    "mint": "AMjzRn1TBQwQ...",
+    "fullMint": "AMjzRn1TBQwQfNAjHFeBb7uGbbqbJB7FzXAnGgdFPk6K",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4393M3",
+    "timestamp": "2026-02-26T23:22:29.643Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM442PVP",
+    "timestamp": "2026-02-26T23:45:31.525Z",
+    "mint": "C8cNX2D1y3jq...",
+    "fullMint": "C8cNX2D1y3jqKpMFkQhP1gGbfvTEdeckZXLBKSN5z5KF",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM444ESH",
+    "timestamp": "2026-02-26T23:46:50.465Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM44646M",
+    "timestamp": "2026-02-26T23:48:10.030Z",
+    "mint": "B5WTLaRwaUQp...",
+    "fullMint": "B5WTLaRwaUQpKk7ir1wniNB6m5o8GgMrimhKMYan2R6B",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM44Q59O",
+    "timestamp": "2026-02-27T00:03:44.556Z",
+    "mint": "2g1Dh2j9Asdp...",
+    "fullMint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4553JV",
+    "timestamp": "2026-02-27T00:15:22.172Z",
+    "mint": "SRMuApVNdxXo...",
+    "fullMint": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM45GL78",
+    "timestamp": "2026-02-27T00:24:18.261Z",
+    "mint": "CboMcTUYUcy9...",
+    "fullMint": "CboMcTUYUcy9E6B3yGdFn6aEsGUnYV6yWeoeukw6pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM46J7XX",
+    "timestamp": "2026-02-27T00:54:20.661Z",
+    "mint": "7vfCXTUXx5WJ...",
+    "fullMint": "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM46SDYA",
+    "timestamp": "2026-02-27T01:01:28.354Z",
+    "mint": "8WnQQRbuEZ3C...",
+    "fullMint": "8WnQQRbuEZ3CCDbH5MCVioBbw6o75NKANq9WdPhBDsWo",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM47BPJ6",
+    "timestamp": "2026-02-27T01:16:29.826Z",
+    "mint": "ApjbGDCRsCuy...",
+    "fullMint": "ApjbGDCRsCuyhAQWUQgTxJZGLP5hqWn8TSCtrSfuzt22",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM47FR9J",
+    "timestamp": "2026-02-27T01:19:38.695Z",
+    "mint": "5Jr9hGmJgxBR...",
+    "fullMint": "5Jr9hGmJgxBRjjF8XGcGgQzXUdsbpZNNMpigEv8Wpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM47OV2W",
+    "timestamp": "2026-02-27T01:26:43.544Z",
+    "mint": "CKaKtYvz6dKP...",
+    "fullMint": "CKaKtYvz6dKPyMvYq9Rh3UBrnNqYZAyd7iF4hJtjUvks",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM47QK0F",
+    "timestamp": "2026-02-27T01:28:02.511Z",
+    "mint": "HhUVkZ1qz8vf...",
+    "fullMint": "HhUVkZ1qz8vfMqZDemLyxBFxrHFKVSYAk7a6227Lpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4AUU91",
+    "timestamp": "2026-02-27T02:55:21.253Z",
+    "mint": "ApjbGDCRsCuy...",
+    "fullMint": "ApjbGDCRsCuyhAQWUQgTxJZGLP5hqWn8TSCtrSfuzt22",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4AX6BZ",
+    "timestamp": "2026-02-27T02:57:10.223Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4BW0IO",
+    "timestamp": "2026-02-27T03:24:15.648Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4C9T6U",
+    "timestamp": "2026-02-27T03:34:59.334Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4CLAFS",
+    "timestamp": "2026-02-27T03:43:54.913Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4DB27F",
+    "timestamp": "2026-02-27T04:03:57.291Z",
+    "mint": "ECY31gWwxy4s...",
+    "fullMint": "ECY31gWwxy4s2VnMkYhmqDkrV75KrwR2yTtsnrnSpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4DR7JN",
+    "timestamp": "2026-02-27T04:16:30.707Z",
+    "mint": "Es9vMFrzaCER...",
+    "fullMint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4DWAGN",
+    "timestamp": "2026-02-27T04:20:27.767Z",
+    "mint": "DKu9kykSfbN5...",
+    "fullMint": "DKu9kykSfbN5LBfFXtNNDPaX35o4Fv6vJ9FKk7pZpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4F4T30",
+    "timestamp": "2026-02-27T04:55:04.764Z",
+    "mint": "SKRbvo6Gf7Go...",
+    "fullMint": "SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4FJYBN",
+    "timestamp": "2026-02-27T05:06:51.401Z",
+    "mint": "5Jr9hGmJgxBR...",
+    "fullMint": "5Jr9hGmJgxBRjjF8XGcGgQzXUdsbpZNNMpigEv8Wpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4FT9IB",
+    "timestamp": "2026-02-27T05:14:05.795Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4FWOPR",
+    "timestamp": "2026-02-27T05:16:45.471Z",
+    "mint": "HRN7vpLUbs1w...",
+    "fullMint": "HRN7vpLUbs1whFTXakYFF24FpqS5vf8twux1aU2RWQMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4G0PVZ",
+    "timestamp": "2026-02-27T05:19:53.615Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4GINHP",
+    "timestamp": "2026-02-27T05:33:50.317Z",
+    "mint": "AvNdeayYfLJm...",
+    "fullMint": "AvNdeayYfLJmJ7jQFTEM8r3Q5haMSS1FyB49ptpiverW",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4GKJ61",
+    "timestamp": "2026-02-27T05:35:18.026Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4GO0NA",
+    "timestamp": "2026-02-27T05:38:00.646Z",
+    "mint": "HPueqQjSgaSa...",
+    "fullMint": "HPueqQjSgaSatMBKrvBvAnRmc6jnr51cPM1EjUJVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4H3B62",
+    "timestamp": "2026-02-27T05:49:54.122Z",
+    "mint": "4k3Dyjzvzp8e...",
+    "fullMint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4H50BJ",
+    "timestamp": "2026-02-27T05:51:13.376Z",
+    "mint": "AQuuQ4xktyzG...",
+    "fullMint": "AQuuQ4xktyzGBFnbKHnYsXHxsKVQetAoiPeCEG97NUJw",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4HA5OG",
+    "timestamp": "2026-02-27T05:55:13.600Z",
+    "mint": "2g1Dh2j9Asdp...",
+    "fullMint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4HPMVO",
+    "timestamp": "2026-02-27T06:07:15.733Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4HTPRE",
+    "timestamp": "2026-02-27T06:10:26.090Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4HXS5P",
+    "timestamp": "2026-02-27T06:13:35.821Z",
+    "mint": "9bxaVJmUwSc7...",
+    "fullMint": "9bxaVJmUwSc71j8Z2pvUL3UAr1s5fCnwUpvYhqV9jtmw",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4I15XJ",
+    "timestamp": "2026-02-27T06:16:13.639Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4IIZZP",
+    "timestamp": "2026-02-27T06:30:05.750Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4JDYCJ",
+    "timestamp": "2026-02-27T06:54:09.955Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4JY14P",
+    "timestamp": "2026-02-27T07:09:46.681Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4K3RUE",
+    "timestamp": "2026-02-27T07:14:14.582Z",
+    "mint": "9bxaVJmUwSc7...",
+    "fullMint": "9bxaVJmUwSc71j8Z2pvUL3UAr1s5fCnwUpvYhqV9jtmw",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4K7SQY",
+    "timestamp": "2026-02-27T07:17:22.378Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4KGWR1",
+    "timestamp": "2026-02-27T07:24:27.469Z",
+    "mint": "coqRkaaKeUyg...",
+    "fullMint": "coqRkaaKeUygDPhuS3mrmrj6DiHjeQJc2rFbT2YfxWn",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4KWHLN",
+    "timestamp": "2026-02-27T07:36:34.331Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4KY7K7",
+    "timestamp": "2026-02-27T07:37:54.631Z",
+    "mint": "EBqbhGxDrSmf...",
+    "fullMint": "EBqbhGxDrSmffpXc6gZnGvaBLqjsE6AXtxpgqyUN1jXC",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4LAQ64",
+    "timestamp": "2026-02-27T07:47:38.620Z",
+    "mint": "2ru87k7yAZnD...",
+    "fullMint": "2ru87k7yAZnDRsnqVpgJYETFgqVApuBcwB2xDb19pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4LCFNA",
+    "timestamp": "2026-02-27T07:48:58.294Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4LW0GE",
+    "timestamp": "2026-02-27T08:04:11.727Z",
+    "mint": "Fxgdfsy1Z5Mv...",
+    "fullMint": "Fxgdfsy1Z5Mvh53o69s2Ev6TGxtAJ1RQ5RJ5moCpKmQZ",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4M7IY3",
+    "timestamp": "2026-02-27T08:13:08.907Z",
+    "mint": "SKRbvo6Gf7Go...",
+    "fullMint": "SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4N5RE8",
+    "timestamp": "2026-02-27T08:39:46.160Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4N9TCT",
+    "timestamp": "2026-02-27T08:42:55.325Z",
+    "mint": "4dikXY7cZW2R...",
+    "fullMint": "4dikXY7cZW2R5Zout46LLEGrS4Zn2K8Dm6AQJhtg1H56",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4NGN9K",
+    "timestamp": "2026-02-27T08:48:14.024Z",
+    "mint": "J3NKxxXZcnNi...",
+    "fullMint": "J3NKxxXZcnNiMjKw9hYb2K4LUxgwB6t1FtPtQVsv3KFr",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4NT9ZE",
+    "timestamp": "2026-02-27T08:58:03.338Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4NZ4NB",
+    "timestamp": "2026-02-27T09:02:36.359Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4O3B52",
+    "timestamp": "2026-02-27T09:05:51.398Z",
+    "mint": "EmhVWGUa2Q9P...",
+    "fullMint": "EmhVWGUa2Q9PN4QjzFjvuVyzFKg4s3ERwjKR9dQDpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4OIU87",
+    "timestamp": "2026-02-27T09:17:55.975Z",
+    "mint": "9bxaVJmUwSc7...",
+    "fullMint": "9bxaVJmUwSc71j8Z2pvUL3UAr1s5fCnwUpvYhqV9jtmw",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4P873R",
+    "timestamp": "2026-02-27T09:37:39.063Z",
+    "mint": "x95HN3DWvbfC...",
+    "fullMint": "x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4PZHJ8",
+    "timestamp": "2026-02-27T09:58:52.293Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4QF159",
+    "timestamp": "2026-02-27T10:10:57.550Z",
+    "mint": "HRN7vpLUbs1w...",
+    "fullMint": "HRN7vpLUbs1whFTXakYFF24FpqS5vf8twux1aU2RWQMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4QIET1",
+    "timestamp": "2026-02-27T10:13:35.221Z",
+    "mint": "Es9vMFrzaCER...",
+    "fullMint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4QTXTX",
+    "timestamp": "2026-02-27T10:22:33.093Z",
+    "mint": "DFL1zNkaGPWm...",
+    "fullMint": "DFL1zNkaGPWm1BqAVqRjCZvHmwTFrEaJtbzJWgseoNJh",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4QZ1XW",
+    "timestamp": "2026-02-27T10:26:31.700Z",
+    "mint": "4k3Dyjzvzp8e...",
+    "fullMint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4R44WV",
+    "timestamp": "2026-02-27T10:30:28.831Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4RCSRZ",
+    "timestamp": "2026-02-27T10:37:13.007Z",
+    "mint": "9PR7nCP9DpcU...",
+    "fullMint": "9PR7nCP9DpcUotnDPVLUBUZKu5WAYkwrCUx9wDnSpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4RUNYS",
+    "timestamp": "2026-02-27T10:51:06.581Z",
+    "mint": "69kdRLyP5DTR...",
+    "fullMint": "69kdRLyP5DTRkpHraaSZAQbWmAwzF9guKjZfzMXzcbAs",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4S76VR",
+    "timestamp": "2026-02-27T11:00:50.967Z",
+    "mint": "Es9vMFrzaCER...",
+    "fullMint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4SALKM",
+    "timestamp": "2026-02-27T11:03:29.974Z",
+    "mint": "2g1Dh2j9Asdp...",
+    "fullMint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4SFOUZ",
+    "timestamp": "2026-02-27T11:07:27.515Z",
+    "mint": "HRN7vpLUbs1w...",
+    "fullMint": "HRN7vpLUbs1whFTXakYFF24FpqS5vf8twux1aU2RWQMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4T6NMJ",
+    "timestamp": "2026-02-27T11:28:25.627Z",
+    "mint": "61GdmiWzAAmj...",
+    "fullMint": "61GdmiWzAAmj35kaxQjtzZTvxVtmbTFTxAACDyHth8a6",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4TBQUT",
+    "timestamp": "2026-02-27T11:32:23.093Z",
+    "mint": "USD1ttGY1N17...",
+    "fullMint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4TMKF1",
+    "timestamp": "2026-02-27T11:40:47.965Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4U2HTE",
+    "timestamp": "2026-02-27T11:53:11.090Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4U47KK",
+    "timestamp": "2026-02-27T11:54:31.124Z",
+    "mint": "C3XKUwWYY52D...",
+    "fullMint": "C3XKUwWYY52DpNAgEiV2Koe1k62cjUmzcRSiroeZQ2HE",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4U9YTP",
+    "timestamp": "2026-02-27T11:58:59.726Z",
+    "mint": "7VuQeZKwthC6...",
+    "fullMint": "7VuQeZKwthC6LiHb8U8fFNibnasiWKSaP9KQmdNLpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4UOU7J",
+    "timestamp": "2026-02-27T12:10:33.583Z",
+    "mint": "6gx6Ph2ek73k...",
+    "fullMint": "6gx6Ph2ek73kF6EWDrG4GQ54pcLJB6CYpATuRyxKXumo",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4UR6AL",
+    "timestamp": "2026-02-27T12:12:22.557Z",
+    "mint": "Es9vMFrzaCER...",
+    "fullMint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4UUKCA",
+    "timestamp": "2026-02-27T12:15:00.730Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4V0BVP",
+    "timestamp": "2026-02-27T12:19:29.701Z",
+    "mint": "AFbX8oGjGpmV...",
+    "fullMint": "AFbX8oGjGpmVFywbVouvhQSRmiW2aR1mohfahi4Y2AdB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4V3QJX",
+    "timestamp": "2026-02-27T12:22:08.685Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4V74AS",
+    "timestamp": "2026-02-27T12:24:46.468Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4VILCT",
+    "timestamp": "2026-02-27T12:33:41.789Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4VQ1AL",
+    "timestamp": "2026-02-27T12:39:29.037Z",
+    "mint": "DKu9kykSfbN5...",
+    "fullMint": "DKu9kykSfbN5LBfFXtNNDPaX35o4Fv6vJ9FKk7pZpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4VVS8U",
+    "timestamp": "2026-02-27T12:43:57.246Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4VXHD2",
+    "timestamp": "2026-02-27T12:45:16.454Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4WM5TL",
+    "timestamp": "2026-02-27T13:04:27.897Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4WPL9P",
+    "timestamp": "2026-02-27T13:07:07.885Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4WZDWX",
+    "timestamp": "2026-02-27T13:14:44.913Z",
+    "mint": "BkYAUVMar1gL...",
+    "fullMint": "BkYAUVMar1gLwuFLv2n5cmB6HhcNtvd86kU3gqAypump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4X13H7",
+    "timestamp": "2026-02-27T13:16:04.699Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4X4IL0",
+    "timestamp": "2026-02-27T13:18:44.244Z",
+    "mint": "7m2TUkpPZCSc...",
+    "fullMint": "7m2TUkpPZCScBhPJnGjWjbh75KkDNnwAdd7i74m8awad",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4XDNQK",
+    "timestamp": "2026-02-27T13:25:50.828Z",
+    "mint": "HRN7vpLUbs1w...",
+    "fullMint": "HRN7vpLUbs1whFTXakYFF24FpqS5vf8twux1aU2RWQMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4XOKCA",
+    "timestamp": "2026-02-27T13:34:19.642Z",
+    "mint": "H92y7eCFLUE1...",
+    "fullMint": "H92y7eCFLUE1razK2T6irMH57adWC3itkPJCQKpv4hHt",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4XVCGB",
+    "timestamp": "2026-02-27T13:39:36.011Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4Y3V8Q",
+    "timestamp": "2026-02-27T13:46:13.610Z",
+    "mint": "AGzj864bkMRP...",
+    "fullMint": "AGzj864bkMRPpjY3qy1qrFn9UySDGY1pLTrfFDVqpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4Y79XW",
+    "timestamp": "2026-02-27T13:48:52.628Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4Y9M13",
+    "timestamp": "2026-02-27T13:50:41.607Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4YH1OK",
+    "timestamp": "2026-02-27T13:56:28.484Z",
+    "mint": "FeR8VBqNRSUD...",
+    "fullMint": "FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4YOHJ0",
+    "timestamp": "2026-02-27T14:02:15.612Z",
+    "mint": "x95HN3DWvbfC...",
+    "fullMint": "x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4YQ6D8",
+    "timestamp": "2026-02-27T14:03:34.460Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4Z778P",
+    "timestamp": "2026-02-27T14:16:48.745Z",
+    "mint": "x95HN3DWvbfC...",
+    "fullMint": "x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM4ZCY7N",
+    "timestamp": "2026-02-27T14:21:16.979Z",
+    "mint": "5Jr9hGmJgxBR...",
+    "fullMint": "5Jr9hGmJgxBRjjF8XGcGgQzXUdsbpZNNMpigEv8Wpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM500ZAL",
+    "timestamp": "2026-02-27T14:39:58.125Z",
+    "mint": "CreiuhfwdWCN...",
+    "fullMint": "CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM50LNWB",
+    "timestamp": "2026-02-27T14:56:03.132Z",
+    "mint": "74SBV4zDXxTR...",
+    "fullMint": "74SBV4zDXxTRgv1pEMoECskKBkZHc2yGPnc7GYVepump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM50NCQW",
+    "timestamp": "2026-02-27T14:57:21.992Z",
+    "mint": "DezXAZ8z7Pnr...",
+    "fullMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM50QQI5",
+    "timestamp": "2026-02-27T14:59:59.789Z",
+    "mint": "HRN7vpLUbs1w...",
+    "fullMint": "HRN7vpLUbs1whFTXakYFF24FpqS5vf8twux1aU2RWQMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM515MCN",
+    "timestamp": "2026-02-27T15:11:34.247Z",
+    "mint": "HRN7vpLUbs1w...",
+    "fullMint": "HRN7vpLUbs1whFTXakYFF24FpqS5vf8twux1aU2RWQMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM517ZCT",
+    "timestamp": "2026-02-27T15:13:24.413Z",
+    "mint": "7GCihgDB8fe6...",
+    "fullMint": "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM51PFJN",
+    "timestamp": "2026-02-27T15:26:58.547Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM51Y0QU",
+    "timestamp": "2026-02-27T15:33:39.271Z",
+    "mint": "JB2wezZLdzWf...",
+    "fullMint": "JB2wezZLdzWfnaCfHxLg193RS3Rh51ThiXxEDWQDpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM525HJ3",
+    "timestamp": "2026-02-27T15:39:27.615Z",
+    "mint": "8NNXWrWVctNw...",
+    "fullMint": "8NNXWrWVctNw1UFeaBypffimTdcLCcD8XJzHvYsmgwpF",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5276X2",
+    "timestamp": "2026-02-27T15:40:47.174Z",
+    "mint": "85aM5XJhdDeU...",
+    "fullMint": "85aM5XJhdDeUw4MbGKM56zmWnsRyh76zUVut97uPjiCg",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM52KZLH",
+    "timestamp": "2026-02-27T15:51:30.869Z",
+    "mint": "9wK8yN6iz1ie...",
+    "fullMint": "9wK8yN6iz1ie5kEJkvZCTxyN1x5sTdNfx8yeMY8Ebonk",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM52ZW5F",
+    "timestamp": "2026-02-27T16:03:06.243Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM546984",
+    "timestamp": "2026-02-27T16:36:02.740Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM56BMH7",
+    "timestamp": "2026-02-27T17:36:12.427Z",
+    "mint": "AGzj864bkMRP...",
+    "fullMint": "AGzj864bkMRPpjY3qy1qrFn9UySDGY1pLTrfFDVqpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM56PFYI",
+    "timestamp": "2026-02-27T17:46:57.162Z",
+    "mint": "AMjzRn1TBQwQ...",
+    "fullMint": "AMjzRn1TBQwQfNAjHFeBb7uGbbqbJB7FzXAnGgdFPk6K",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM56R5GL",
+    "timestamp": "2026-02-27T17:48:16.869Z",
+    "mint": "CUWF9b6VPvWJ...",
+    "fullMint": "CUWF9b6VPvWJoDd22koHr7AQYt2TgkjyTXQKscsZq3Gf",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM573PFE",
+    "timestamp": "2026-02-27T17:58:02.619Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM57M1D1",
+    "timestamp": "2026-02-27T18:12:17.893Z",
+    "mint": "C5MpjAR8KwsY...",
+    "fullMint": "C5MpjAR8KwsYqME6N5rFCDdLtte9cs2NKDNg7Xpupump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM57WW9W",
+    "timestamp": "2026-02-27T18:20:44.516Z",
+    "mint": "HRN7vpLUbs1w...",
+    "fullMint": "HRN7vpLUbs1whFTXakYFF24FpqS5vf8twux1aU2RWQMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM588DYY",
+    "timestamp": "2026-02-27T18:29:40.666Z",
+    "mint": "5LS3ips7jWxf...",
+    "fullMint": "5LS3ips7jWxfuVHzoMzKzp3cCwjH9zmrtYXmYBVGpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM58A4BC",
+    "timestamp": "2026-02-27T18:31:01.464Z",
+    "mint": "9PR7nCP9DpcU...",
+    "fullMint": "9PR7nCP9DpcUotnDPVLUBUZKu5WAYkwrCUx9wDnSpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM58LNU2",
+    "timestamp": "2026-02-27T18:39:59.978Z",
+    "mint": "4fJqTdF1i9PS...",
+    "fullMint": "4fJqTdF1i9PScNMBZxygD2hTDE8LG1LMJhugTgiSpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM590JCJ",
+    "timestamp": "2026-02-27T18:51:34.003Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM59C3E2",
+    "timestamp": "2026-02-27T19:00:33.194Z",
+    "mint": "2g1Dh2j9Asdp...",
+    "fullMint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM59TDYE",
+    "timestamp": "2026-02-27T19:14:00.039Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5ALYOZ",
+    "timestamp": "2026-02-27T19:36:13.283Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5AZL8B",
+    "timestamp": "2026-02-27T19:46:49.019Z",
+    "mint": "USD1ttGY1N17...",
+    "fullMint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5B6E88",
+    "timestamp": "2026-02-27T19:52:06.536Z",
+    "mint": "2umQqRyexgfH...",
+    "fullMint": "2umQqRyexgfHcndkULDKStmJJ8xgDz7oBL3EfDJNmoon",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5B836M",
+    "timestamp": "2026-02-27T19:53:25.534Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5BH92Q",
+    "timestamp": "2026-02-27T20:00:33.074Z",
+    "mint": "2g1Dh2j9Asdp...",
+    "fullMint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5BYJJD",
+    "timestamp": "2026-02-27T20:13:59.785Z",
+    "mint": "USD1ttGY1N17...",
+    "fullMint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5C2KUJ",
+    "timestamp": "2026-02-27T20:17:08.107Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5C6NPQ",
+    "timestamp": "2026-02-27T20:20:18.446Z",
+    "mint": "5XqzzdodsNtA...",
+    "fullMint": "5XqzzdodsNtAM8TtQyiqGVbD7GwLBBN7oVnRA3hLpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5CDIYA",
+    "timestamp": "2026-02-27T20:25:38.866Z",
+    "mint": "HRN7vpLUbs1w...",
+    "fullMint": "HRN7vpLUbs1whFTXakYFF24FpqS5vf8twux1aU2RWQMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5CHKMV",
+    "timestamp": "2026-02-27T20:28:47.671Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5CMPI8",
+    "timestamp": "2026-02-27T20:32:47.264Z",
+    "mint": "6gx6Ph2ek73k...",
+    "fullMint": "6gx6Ph2ek73kF6EWDrG4GQ54pcLJB6CYpATuRyxKXumo",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5CSGQK",
+    "timestamp": "2026-02-27T20:37:15.836Z",
+    "mint": "6tjdVrYy6n7j...",
+    "fullMint": "6tjdVrYy6n7jqmtspxBhxtxmeGULm6Yb1HttMNgx62vk",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5D6CH7",
+    "timestamp": "2026-02-27T20:48:03.499Z",
+    "mint": "CrUodzZfjAmX...",
+    "fullMint": "CrUodzZfjAmXaJB6aNcTqcjNT8t336cH4e13EDErCDeT",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5DH738",
+    "timestamp": "2026-02-27T20:56:29.732Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5DSQXG",
+    "timestamp": "2026-02-27T21:05:28.660Z",
+    "mint": "6AJcP7wuLwmR...",
+    "fullMint": "6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5E3NRJ",
+    "timestamp": "2026-02-27T21:13:57.775Z",
+    "mint": "4mafUm8PepPA...",
+    "fullMint": "4mafUm8PepPA3UGHkVVxe6Ew5AHMntxLefL8h2To5aLv",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5E5DG1",
+    "timestamp": "2026-02-27T21:15:17.713Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5EB5I6",
+    "timestamp": "2026-02-27T21:19:47.358Z",
+    "mint": "HRN7vpLUbs1w...",
+    "fullMint": "HRN7vpLUbs1whFTXakYFF24FpqS5vf8twux1aU2RWQMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5EJA6F",
+    "timestamp": "2026-02-27T21:26:06.663Z",
+    "mint": "HRN7vpLUbs1w...",
+    "fullMint": "HRN7vpLUbs1whFTXakYFF24FpqS5vf8twux1aU2RWQMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5EQROJ",
+    "timestamp": "2026-02-27T21:31:55.939Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5ESHTL",
+    "timestamp": "2026-02-27T21:33:16.473Z",
+    "mint": "CreiuhfwdWCN...",
+    "fullMint": "CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5F298H",
+    "timestamp": "2026-02-27T21:40:51.905Z",
+    "mint": "FtUEW73K6vEY...",
+    "fullMint": "FtUEW73K6vEYHfbkfpdBZfWpxgQar2HipGdbutEhpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5F5NOW",
+    "timestamp": "2026-02-27T21:43:30.608Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5FS2UM",
+    "timestamp": "2026-02-27T22:00:56.686Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5FTS6I",
+    "timestamp": "2026-02-27T22:02:16.170Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5GQDRO",
+    "timestamp": "2026-02-27T22:27:37.140Z",
+    "mint": "H2eWtG57do5k...",
+    "fullMint": "H2eWtG57do5krGxpZdzs6sDddHLz5Nny7797YhR4pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5GTRUV",
+    "timestamp": "2026-02-27T22:30:15.367Z",
+    "mint": "4y9E3tJpGNzR...",
+    "fullMint": "4y9E3tJpGNzRr1592oWTPECgyp2VDSc1Bf3DqAm5FZsK",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5H6XA2",
+    "timestamp": "2026-02-27T22:40:28.922Z",
+    "mint": "Es9vMFrzaCER...",
+    "fullMint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5HAZV9",
+    "timestamp": "2026-02-27T22:43:38.901Z",
+    "mint": "2Dyzu65QA9zd...",
+    "fullMint": "2Dyzu65QA9zdX1UeE7Gx71k7fiwyUK6sZdrvJ7auq5wm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5HCPLS",
+    "timestamp": "2026-02-27T22:44:58.912Z",
+    "mint": "y1AZt42vceCm...",
+    "fullMint": "y1AZt42vceCmStjW4zetK3VoNarC1VxJ5iDjpiupump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5HNMUZ",
+    "timestamp": "2026-02-27T22:53:28.571Z",
+    "mint": "HRN7vpLUbs1w...",
+    "fullMint": "HRN7vpLUbs1whFTXakYFF24FpqS5vf8twux1aU2RWQMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5HPCM3",
+    "timestamp": "2026-02-27T22:54:48.603Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5HSR58",
+    "timestamp": "2026-02-27T22:57:27.404Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5IDJPH",
+    "timestamp": "2026-02-27T23:13:37.541Z",
+    "mint": "HWQA3VfKt9Hu...",
+    "fullMint": "HWQA3VfKt9HuD1BKVEgDnrRMxfGNQHLjkuX7jfhvMGC3",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5IOH12",
+    "timestamp": "2026-02-27T23:22:07.286Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5IU9D3",
+    "timestamp": "2026-02-27T23:26:37.287Z",
+    "mint": "HRN7vpLUbs1w...",
+    "fullMint": "HRN7vpLUbs1whFTXakYFF24FpqS5vf8twux1aU2RWQMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5JRI9R",
+    "timestamp": "2026-02-27T23:52:28.479Z",
+    "mint": "x95HN3DWvbfC...",
+    "fullMint": "x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5K6DNI",
+    "timestamp": "2026-02-28T00:04:02.334Z",
+    "mint": "y1AZt42vceCm...",
+    "fullMint": "y1AZt42vceCmStjW4zetK3VoNarC1VxJ5iDjpiupump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5KSCEF",
+    "timestamp": "2026-02-28T00:21:07.143Z",
+    "mint": "HRN7vpLUbs1w...",
+    "fullMint": "HRN7vpLUbs1whFTXakYFF24FpqS5vf8twux1aU2RWQMx",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5L5M65",
+    "timestamp": "2026-02-28T00:31:26.333Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5L7YNF",
+    "timestamp": "2026-02-28T00:33:15.819Z",
+    "mint": "CreiuhfwdWCN...",
+    "fullMint": "CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5LBDK8",
+    "timestamp": "2026-02-28T00:35:55.112Z",
+    "mint": "GUAu3iSAxwE1...",
+    "fullMint": "GUAu3iSAxwE1uhScnCVeCKk34Lhv5ChYsbYb9Ly6nZm",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5LI6YZ",
+    "timestamp": "2026-02-28T00:41:13.163Z",
+    "mint": "69kdRLyP5DTR...",
+    "fullMint": "69kdRLyP5DTRkpHraaSZAQbWmAwzF9guKjZfzMXzcbAs",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5LLMFY",
+    "timestamp": "2026-02-28T00:43:53.182Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5MMDKB",
+    "timestamp": "2026-02-28T01:12:27.947Z",
+    "mint": "57WfTMNw4QNi...",
+    "fullMint": "57WfTMNw4QNiYQvMqBMmAGNScCMYRgphyBwDkdMvKVf1",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5NIQP4",
+    "timestamp": "2026-02-28T01:37:37.960Z",
+    "mint": "C8cNX2D1y3jq...",
+    "fullMint": "C8cNX2D1y3jqKpMFkQhP1gGbfvTEdeckZXLBKSN5z5KF",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5NKG49",
+    "timestamp": "2026-02-28T01:38:57.561Z",
+    "mint": "ukHH6c7mMyiW...",
+    "fullMint": "ukHH6c7mMyiWCf1b9pnWe25TSpkDDt3H5pQZgZ74J82",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5NOI63",
+    "timestamp": "2026-02-28T01:42:06.843Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5NQ7S1",
+    "timestamp": "2026-02-28T01:43:26.689Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5NZC08",
+    "timestamp": "2026-02-28T01:50:32.072Z",
+    "mint": "2Dda2qaokwUw...",
+    "fullMint": "2Dda2qaokwUwp53spAHdAG8fsxiGqxMjDAnPzYjPGGwn",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5OZMP7",
+    "timestamp": "2026-02-28T02:18:45.547Z",
+    "mint": "C8cNX2D1y3jq...",
+    "fullMint": "C8cNX2D1y3jqKpMFkQhP1gGbfvTEdeckZXLBKSN5z5KF",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5PD8ZE",
+    "timestamp": "2026-02-28T02:29:20.954Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5PJ0DS",
+    "timestamp": "2026-02-28T02:33:49.744Z",
+    "mint": "85aM5XJhdDeU...",
+    "fullMint": "85aM5XJhdDeUw4MbGKM56zmWnsRyh76zUVut97uPjiCg",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5PN3NK",
+    "timestamp": "2026-02-28T02:37:00.608Z",
+    "mint": "NSN5ZNjN7mar...",
+    "fullMint": "NSN5ZNjN7maryg7rYp4CjqdHviN7ztGZogdQm6ipump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5PY0AN",
+    "timestamp": "2026-02-28T02:45:29.471Z",
+    "mint": "x95HN3DWvbfC...",
+    "fullMint": "x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5Q5HPW",
+    "timestamp": "2026-02-28T02:51:18.644Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5QAKVU",
+    "timestamp": "2026-02-28T02:55:16.026Z",
+    "mint": "2FPyTwcZLUg1...",
+    "fullMint": "2FPyTwcZLUg1MDrwsyoP4D6s1tM7hAkHYRjkNb5w6Pxk",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5QNRK0",
+    "timestamp": "2026-02-28T03:05:31.200Z",
+    "mint": "Aq8Gocyvyyi8...",
+    "fullMint": "Aq8Gocyvyyi8xk5EYxd6viUfVmVvs9T9R6mZFzZFpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5QR6M6",
+    "timestamp": "2026-02-28T03:08:10.686Z",
+    "mint": "9BB6NFEcjBCt...",
+    "fullMint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5R0BDC",
+    "timestamp": "2026-02-28T03:15:16.752Z",
+    "mint": "2Dda2qaokwUw...",
+    "fullMint": "2Dda2qaokwUwp53spAHdAG8fsxiGqxMjDAnPzYjPGGwn",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5RJB4C",
+    "timestamp": "2026-02-28T03:30:02.892Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5S6UXE",
+    "timestamp": "2026-02-28T03:48:21.650Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5SNFZ4",
+    "timestamp": "2026-02-28T04:01:15.424Z",
+    "mint": "6tvkpo4FawYW...",
+    "fullMint": "6tvkpo4FawYWvEFBZoCiDRJrCAMfrouheRW3YXeKJNW9",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5SP5LD",
+    "timestamp": "2026-02-28T04:02:35.281Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5ST6S9",
+    "timestamp": "2026-02-28T04:05:43.449Z",
+    "mint": "AFbX8oGjGpmV...",
+    "fullMint": "AFbX8oGjGpmVFywbVouvhQSRmiW2aR1mohfahi4Y2AdB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5SVJ6L",
+    "timestamp": "2026-02-28T04:07:32.829Z",
+    "mint": "6d5zHW5B8RkG...",
+    "fullMint": "6d5zHW5B8RkGKd51Lpb9RqFQSqDudr9GJgZ1SgQZpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5TAGKG",
+    "timestamp": "2026-02-28T04:19:09.280Z",
+    "mint": "FeR8VBqNRSUD...",
+    "fullMint": "FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5TLD8I",
+    "timestamp": "2026-02-28T04:27:38.178Z",
+    "mint": "ErDN9XdRE7GU...",
+    "fullMint": "ErDN9XdRE7GU5s6svhsYmVSERmt5VkfNRbsRvV7Xpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5TR584",
+    "timestamp": "2026-02-28T04:32:07.732Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5TSUJQ",
+    "timestamp": "2026-02-28T04:33:27.206Z",
+    "mint": "HwPtbFpd3VTe...",
+    "fullMint": "HwPtbFpd3VTe3tfyosoVtPf9WPuSk5gAKkN5xp6Npump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5U4BHJ",
+    "timestamp": "2026-02-28T04:42:22.375Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5UB7BY",
+    "timestamp": "2026-02-28T04:47:43.582Z",
+    "mint": "2Dda2qaokwUw...",
+    "fullMint": "2Dda2qaokwUwp53spAHdAG8fsxiGqxMjDAnPzYjPGGwn",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5UCWES",
+    "timestamp": "2026-02-28T04:49:02.740Z",
+    "mint": "Hax9LTgsQkze...",
+    "fullMint": "Hax9LTgsQkze1YFychnBLtFH8gYbQKtKfWKKg2SP6gdD",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5UM35C",
+    "timestamp": "2026-02-28T04:56:11.376Z",
+    "mint": "6W8FHYE6jnw1...",
+    "fullMint": "6W8FHYE6jnw1dktabRRiZpQRQFPSFhTeLczdvBNPzVeo",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5UPHTB",
+    "timestamp": "2026-02-28T04:58:50.351Z",
+    "mint": "2g1Dh2j9Asdp...",
+    "fullMint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5UUO4S",
+    "timestamp": "2026-02-28T05:02:51.820Z",
+    "mint": "HBgmREqCUnGP...",
+    "fullMint": "HBgmREqCUnGPGEWCii8YBrguQvbyZS6cc9SGmU24jmxZ",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5V0EV7",
+    "timestamp": "2026-02-28T05:07:19.747Z",
+    "mint": "GXkvduehN2JY...",
+    "fullMint": "GXkvduehN2JYywC3Rnn6Yxy2QnWNrzFmskcVzWuPyY5e",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5VL614",
+    "timestamp": "2026-02-28T05:23:28.072Z",
+    "mint": "HBgmREqCUnGP...",
+    "fullMint": "HBgmREqCUnGPGEWCii8YBrguQvbyZS6cc9SGmU24jmxZ",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5WVVE7",
+    "timestamp": "2026-02-28T05:59:47.120Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5XND1B",
+    "timestamp": "2026-02-28T06:21:09.695Z",
+    "mint": "CPcf58MNikQw...",
+    "fullMint": "CPcf58MNikQw2G23kTVWQevRDeFDpdxMH7KkR7Lhpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5XP1ZC",
+    "timestamp": "2026-02-28T06:22:28.680Z",
+    "mint": "CreiuhfwdWCN...",
+    "fullMint": "CreiuhfwdWCN5mJbMJtA9bBpYQrQF2tCBuZwSPWfpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5YAEU3",
+    "timestamp": "2026-02-28T06:39:05.118Z",
+    "mint": "6gx6Ph2ek73k...",
+    "fullMint": "6gx6Ph2ek73kF6EWDrG4GQ54pcLJB6CYpATuRyxKXumo",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5YIIHB",
+    "timestamp": "2026-02-28T06:45:23.087Z",
+    "mint": "C98A4nkJXhpV...",
+    "fullMint": "C98A4nkJXhpVZNAZdHUA95RpTF3T4whtQubL3YobiUX9",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM5Z8S7T",
+    "timestamp": "2026-02-28T07:05:48.761Z",
+    "mint": "25hAyBQfoDhf...",
+    "fullMint": "25hAyBQfoDhfWx9ay6rarbgvWGwDdNqcHsXS3jQ3mTDJ",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM60W2XG",
+    "timestamp": "2026-02-28T07:51:55.348Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM626OCZ",
+    "timestamp": "2026-02-28T08:28:09.299Z",
+    "mint": "FeR8VBqNRSUD...",
+    "fullMint": "FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM62FWS8",
+    "timestamp": "2026-02-28T08:35:20.120Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM62JCGX",
+    "timestamp": "2026-02-28T08:38:00.417Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM62MQHU",
+    "timestamp": "2026-02-28T08:40:38.562Z",
+    "mint": "9wK8yN6iz1ie...",
+    "fullMint": "9wK8yN6iz1ie5kEJkvZCTxyN1x5sTdNfx8yeMY8Ebonk",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM636RR1",
+    "timestamp": "2026-02-28T08:56:13.309Z",
+    "mint": "dHadSsY2dvso...",
+    "fullMint": "dHadSsY2dvsoEDwDRP7rgq7EVYRZZ17qvpwkwsQpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM63TSRA",
+    "timestamp": "2026-02-28T09:14:07.702Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM645C7N",
+    "timestamp": "2026-02-28T09:23:06.131Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM648Q9L",
+    "timestamp": "2026-02-28T09:25:44.313Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM64DU97",
+    "timestamp": "2026-02-28T09:29:42.763Z",
+    "mint": "HgBRWfYxEfvP...",
+    "fullMint": "HgBRWfYxEfvPhtqkaeymCQtHCrKE46qQ43pKe8HCpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM64VM5E",
+    "timestamp": "2026-02-28T09:43:32.066Z",
+    "mint": "AFbX8oGjGpmV...",
+    "fullMint": "AFbX8oGjGpmVFywbVouvhQSRmiW2aR1mohfahi4Y2AdB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM64Z00E",
+    "timestamp": "2026-02-28T09:46:09.998Z",
+    "mint": "8ymi88q5Dtmd...",
+    "fullMint": "8ymi88q5DtmdNTn2sPRNFkvMkszMHuLJ1e3RVdWjPa3s",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM655UK9",
+    "timestamp": "2026-02-28T09:51:29.529Z",
+    "mint": "5LS3ips7jWxf...",
+    "fullMint": "5LS3ips7jWxfuVHzoMzKzp3cCwjH9zmrtYXmYBVGpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM661FMF",
+    "timestamp": "2026-02-28T10:16:03.159Z",
+    "mint": "3an8rhdepsLC...",
+    "fullMint": "3an8rhdepsLCya22af7qDBKPbdomw8K4iCHXaA2Gpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM66I1FN",
+    "timestamp": "2026-02-28T10:28:57.923Z",
+    "mint": "USD1ttGY1N17...",
+    "fullMint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM66SYGZ",
+    "timestamp": "2026-02-28T10:37:27.299Z",
+    "mint": "4k3Dyjzvzp8e...",
+    "fullMint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM66Y1VG",
+    "timestamp": "2026-02-28T10:41:24.988Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM678Z0I",
+    "timestamp": "2026-02-28T10:49:54.498Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM67Q7ME",
+    "timestamp": "2026-02-28T11:03:18.806Z",
+    "mint": "mSoLzYCxHdYg...",
+    "fullMint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM67RX5H",
+    "timestamp": "2026-02-28T11:04:38.549Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM67XPAL",
+    "timestamp": "2026-02-28T11:09:08.301Z",
+    "mint": "GtDZKAqvMZMn...",
+    "fullMint": "GtDZKAqvMZMnti46ZewMiXCa4oXF4bZxwQPoKzXPFxZn",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM684HR9",
+    "timestamp": "2026-02-28T11:14:25.125Z",
+    "mint": "3f7wfg9yHLtG...",
+    "fullMint": "3f7wfg9yHLtGKvy75MmqsVT1ueTFoqyySQbusrX1YAQ4",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM68RDLY",
+    "timestamp": "2026-02-28T11:32:12.838Z",
+    "mint": "HBgmREqCUnGP...",
+    "fullMint": "HBgmREqCUnGPGEWCii8YBrguQvbyZS6cc9SGmU24jmxZ",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM69Z6MM",
+    "timestamp": "2026-02-28T12:06:16.654Z",
+    "mint": "5LS3ips7jWxf...",
+    "fullMint": "5LS3ips7jWxfuVHzoMzKzp3cCwjH9zmrtYXmYBVGpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6A6NB1",
+    "timestamp": "2026-02-28T12:12:04.861Z",
+    "mint": "4Z9kjgxHS3iG...",
+    "fullMint": "4Z9kjgxHS3iG1MxiHwgE4sAmBpyTq8Xn2PWqK2nJnQte",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6AICCS",
+    "timestamp": "2026-02-28T12:21:10.540Z",
+    "mint": "USD1ttGY1N17...",
+    "fullMint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6APTM1",
+    "timestamp": "2026-02-28T12:26:59.497Z",
+    "mint": "7a8JSTTMnynE...",
+    "fullMint": "7a8JSTTMnynE689y1AvxHTywdQVFdpfdE61rPvgzpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6AY04N",
+    "timestamp": "2026-02-28T12:33:21.191Z",
+    "mint": "2Dda2qaokwUw...",
+    "fullMint": "2Dda2qaokwUwp53spAHdAG8fsxiGqxMjDAnPzYjPGGwn",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6B1F5R",
+    "timestamp": "2026-02-28T12:36:00.639Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6B3RW5",
+    "timestamp": "2026-02-28T12:37:50.453Z",
+    "mint": "BoA11spg3qUq...",
+    "fullMint": "BoA11spg3qUqAiqdxXvy3ueSNjKp2k4imYxw83e5WFPy",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6BWGE1",
+    "timestamp": "2026-02-28T13:00:08.569Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6CAV07",
+    "timestamp": "2026-02-28T13:11:20.696Z",
+    "mint": "y1AZt42vceCm...",
+    "fullMint": "y1AZt42vceCmStjW4zetK3VoNarC1VxJ5iDjpiupump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6CIBDW",
+    "timestamp": "2026-02-28T13:17:08.516Z",
+    "mint": "7m2TUkpPZCSc...",
+    "fullMint": "7m2TUkpPZCScBhPJnGjWjbh75KkDNnwAdd7i74m8awad",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6CQGDC",
+    "timestamp": "2026-02-28T13:23:28.224Z",
+    "mint": "8FqXr6dw5NHA...",
+    "fullMint": "8FqXr6dw5NHA2TtwFeDz6q9p7y9uWyoEdZmpXqqUpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6CXY1D",
+    "timestamp": "2026-02-28T13:29:17.713Z",
+    "mint": "HBgmREqCUnGP...",
+    "fullMint": "HBgmREqCUnGPGEWCii8YBrguQvbyZS6cc9SGmU24jmxZ",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6DNTP0",
+    "timestamp": "2026-02-28T13:49:25.140Z",
+    "mint": "FeR8VBqNRSUD...",
+    "fullMint": "FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6DXN9M",
+    "timestamp": "2026-02-28T13:57:03.370Z",
+    "mint": "7m2TUkpPZCSc...",
+    "fullMint": "7m2TUkpPZCScBhPJnGjWjbh75KkDNnwAdd7i74m8awad",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6E67RZ",
+    "timestamp": "2026-02-28T14:03:43.199Z",
+    "mint": "USD1ttGY1N17...",
+    "fullMint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6EHPV2",
+    "timestamp": "2026-02-28T14:12:39.854Z",
+    "mint": "8FU95xFJhUUk...",
+    "fullMint": "8FU95xFJhUUkyyCLU13HSzDLs7oC4QZdXQHL6SCeab36",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6EP7LP",
+    "timestamp": "2026-02-28T14:18:29.437Z",
+    "mint": "SKRbvo6Gf7Go...",
+    "fullMint": "SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6FB3IO",
+    "timestamp": "2026-02-28T14:35:30.576Z",
+    "mint": "BP8RUdhLKBL2...",
+    "fullMint": "BP8RUdhLKBL2vgVXc3n7oTSZKWaQVbD8S6QcPaMVBAPo",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6FGWQL",
+    "timestamp": "2026-02-28T14:40:01.725Z",
+    "mint": "4cQ9BeG6bdpk...",
+    "fullMint": "4cQ9BeG6bdpkQcYGadqc1n6nCWgMuoHZenVH1xXepump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6FKY9M",
+    "timestamp": "2026-02-28T14:43:10.330Z",
+    "mint": "9HypWkq8hTE8...",
+    "fullMint": "9HypWkq8hTE87iHiXWohxyvtM9QKaQRckjy8rCLXpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6FMNGT",
+    "timestamp": "2026-02-28T14:44:29.645Z",
+    "mint": "D3cNJXMjpAUz...",
+    "fullMint": "D3cNJXMjpAUzQT1P5r42qMCSH6MzWTb6hYhiJoAFpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6FY7CD",
+    "timestamp": "2026-02-28T14:53:28.621Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6G5PDN",
+    "timestamp": "2026-02-28T14:59:18.587Z",
+    "mint": "Es9vMFrzaCER...",
+    "fullMint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6GD98V",
+    "timestamp": "2026-02-28T15:05:10.927Z",
+    "mint": "mSoLzYCxHdYg...",
+    "fullMint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6GKPML",
+    "timestamp": "2026-02-28T15:10:58.749Z",
+    "mint": "7m2TUkpPZCSc...",
+    "fullMint": "7m2TUkpPZCScBhPJnGjWjbh75KkDNnwAdd7i74m8awad",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6GQHFL",
+    "timestamp": "2026-02-28T15:15:28.065Z",
+    "mint": "4k3Dyjzvzp8e...",
+    "fullMint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6HIQBS",
+    "timestamp": "2026-02-28T15:37:25.960Z",
+    "mint": "99myne1mVnsS...",
+    "fullMint": "99myne1mVnsSv2kAkzZDfNnwf5Xb4SASJnaCRXdbpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6IFOZJ",
+    "timestamp": "2026-02-28T16:03:03.871Z",
+    "mint": "5LS3ips7jWxf...",
+    "fullMint": "5LS3ips7jWxfuVHzoMzKzp3cCwjH9zmrtYXmYBVGpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6IML4U",
+    "timestamp": "2026-02-28T16:08:25.470Z",
+    "mint": "Tits9Uun3Qfw...",
+    "fullMint": "Tits9Uun3QfwHyQJpJ3rotksJFCWWFs5t6Sy5ksyiyK",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6IQPJI",
+    "timestamp": "2026-02-28T16:11:37.806Z",
+    "mint": "79cWigjJS5CA...",
+    "fullMint": "79cWigjJS5CAR2AJbmQfZxkPgYq6xCF52mwn6xCBJLwP",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6J28K1",
+    "timestamp": "2026-02-28T16:20:35.665Z",
+    "mint": "JUPyiwrYJFsk...",
+    "fullMint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6J805J",
+    "timestamp": "2026-02-28T16:25:04.711Z",
+    "mint": "8j9uz39dDZkW...",
+    "fullMint": "8j9uz39dDZkWuyBaAMrrFQHjcPPvP9zLR9m9Ggwbgigg",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6JDRMC",
+    "timestamp": "2026-02-28T16:29:33.588Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6JMZNP",
+    "timestamp": "2026-02-28T16:36:43.909Z",
+    "mint": "JJ4QpqUYzs9L...",
+    "fullMint": "JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6KRUJX",
+    "timestamp": "2026-02-28T17:08:30.189Z",
+    "mint": "2g1Dh2j9Asdp...",
+    "fullMint": "2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6L6842",
+    "timestamp": "2026-02-28T17:19:40.946Z",
+    "mint": "Fyr1u9n8QpUD...",
+    "fullMint": "Fyr1u9n8QpUDPna7FBtc9JWHiHU7N14HRmyaxiuipump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6LMYWL",
+    "timestamp": "2026-02-28T17:32:42.165Z",
+    "mint": "5XqzzdodsNtA...",
+    "fullMint": "5XqzzdodsNtAM8TtQyiqGVbD7GwLBBN7oVnRA3hLpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6LOOZ5",
+    "timestamp": "2026-02-28T17:34:02.609Z",
+    "mint": "2Dda2qaokwUw...",
+    "fullMint": "2Dda2qaokwUwp53spAHdAG8fsxiGqxMjDAnPzYjPGGwn",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6M4AGB",
+    "timestamp": "2026-02-28T17:46:10.283Z",
+    "mint": "6p6xgHyF7AeE...",
+    "fullMint": "6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6M6MZA",
+    "timestamp": "2026-02-28T17:47:59.830Z",
+    "mint": "12TD7qYiujWx...",
+    "fullMint": "12TD7qYiujWxDKVxcdWXC4cMWj4CRTZzFFsJCNDDpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6MBS1A",
+    "timestamp": "2026-02-28T17:51:59.662Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6MF7H6",
+    "timestamp": "2026-02-28T17:54:39.642Z",
+    "mint": "BP8RUdhLKBL2...",
+    "fullMint": "BP8RUdhLKBL2vgVXc3n7oTSZKWaQVbD8S6QcPaMVBAPo",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6MWRH8",
+    "timestamp": "2026-02-28T18:08:18.717Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6NX8MO",
+    "timestamp": "2026-02-28T18:36:40.560Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM6O0ODZ",
+    "timestamp": "2026-02-28T18:39:20.951Z",
+    "mint": "HhXP8LdMNXo9...",
+    "fullMint": "HhXP8LdMNXo96d6Aa6pe7g52paQno7jVuNvZx645pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM71VBVP",
+    "timestamp": "2026-03-01T01:07:06.086Z",
+    "mint": "7d1vpt5eri79...",
+    "fullMint": "7d1vpt5eri79nETcL74Punhp3mGkeBgUkMdPWep6pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM71X1E6",
+    "timestamp": "2026-03-01T01:08:25.806Z",
+    "mint": "2Dda2qaokwUw...",
+    "fullMint": "2Dda2qaokwUwp53spAHdAG8fsxiGqxMjDAnPzYjPGGwn",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM71YQBT",
+    "timestamp": "2026-03-01T01:09:44.777Z",
+    "mint": "2qEHjDLDLbuB...",
+    "fullMint": "2qEHjDLDLbuBgRYvsxhc5D6uDWAivNFZGan56P1tpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM72AJJT",
+    "timestamp": "2026-03-01T01:18:55.865Z",
+    "mint": "CnGjRiwMc9Xi...",
+    "fullMint": "CnGjRiwMc9XiFCVUaoAN5MB6NMXLA7eC89eUSMU1pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM72TXSC",
+    "timestamp": "2026-03-01T01:34:00.780Z",
+    "mint": "5veVHPNDsmSx...",
+    "fullMint": "5veVHPNDsmSxDW4Abpb368wLHpo32LP3fqhfJHnkSSwo",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM72WA6E",
+    "timestamp": "2026-03-01T01:35:50.150Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM731ELQ",
+    "timestamp": "2026-03-01T01:39:49.166Z",
+    "mint": "8tQgnW2rS4Nt...",
+    "fullMint": "8tQgnW2rS4NtrErEh7fk26YdguynAogEuxxZBA8Spump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM7376VS",
+    "timestamp": "2026-03-01T01:44:19.096Z",
+    "mint": "BP8RUdhLKBL2...",
+    "fullMint": "BP8RUdhLKBL2vgVXc3n7oTSZKWaQVbD8S6QcPaMVBAPo",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM73FATU",
+    "timestamp": "2026-03-01T01:50:37.458Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM73IPGQ",
+    "timestamp": "2026-03-01T01:53:16.394Z",
+    "mint": "EPjFWdd5Aufq...",
+    "fullMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM73RV67",
+    "timestamp": "2026-03-01T02:00:23.695Z",
+    "mint": "METAewgxyPbg...",
+    "fullMint": "METAewgxyPbgwsseH8T16a39CQ5VyVxZi9zXiDPY18m",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM745GFY",
+    "timestamp": "2026-03-01T02:10:57.790Z",
+    "mint": "x95HN3DWvbfC...",
+    "fullMint": "x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM74B81N",
+    "timestamp": "2026-03-01T02:15:26.844Z",
+    "mint": "5j2shkkzascw...",
+    "fullMint": "5j2shkkzascw33QpW6RRqfRkacLkn7QwwV1e7jX36nyn",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM75LA5L",
+    "timestamp": "2026-03-01T02:51:15.753Z",
+    "mint": "3D6vyYWfVHWX...",
+    "fullMint": "3D6vyYWfVHWXBGt6yuFh9Bp8RRvVMRPoAKB6p3p5pump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM76B1DT",
+    "timestamp": "2026-03-01T03:11:17.441Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM76CQ8M",
+    "timestamp": "2026-03-01T03:12:36.310Z",
+    "mint": "61V8vBaqAGMp...",
+    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM76O7B8",
+    "timestamp": "2026-03-01T03:21:31.652Z",
+    "mint": "Dfh5DzRgSvvC...",
+    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
     "source": "Whale Alpha",
     "gateResult": "APPROVED",
     "reason": "CLEAN",

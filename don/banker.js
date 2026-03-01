@@ -18,17 +18,19 @@ const connection = new Connection(RPC_URL, 'confirmed');
 const SOL_WALLET = process.env.SOLANA_PUBLIC_KEY;
 const TRADES_PATH = path.resolve(__dirname, '../missions/active_trades.json');
 
-// ── Profit Sweep Config ─────────────────────────────────────────
-const COLD_WALLET = 'CzwbbPDNpVahUZyVgMoJGUMUqEa6HXdky46pqTKzoSXF';
-const SWEEP_PROFIT_USD = 20;     // sweep when $20+ above reserve is available
-const MIN_RESERVE_SOL = 0.20;   // always keep this in the hot wallet for trading
-const FEE_BUFFER_SOL = 0.005;  // extra buffer for tx fees
+// ── Cold Storage Sweep Config ────────────────────────────────────
+const COLD_WALLET = '8ZWzSqqYCeRrByVZCT1xSmfnXosRDmD4JJycEhF6oN2j';
+const MIN_RESERVE_SOL = 0.005;  // [REDUCED] always keep this in the hot wallet for trading
+const FEE_BUFFER_SOL = 0.001;   // extra buffer for tx fees
+// Sweep trigger: when balance > MIN_RESERVE_SOL * 2 (100% over minimum)
 
 // Load hot wallet keypair for signing sweeps
 let hotKeypair = null;
 try {
     if (process.env.SOLANA_PRIVATE_KEY) {
-        hotKeypair = Keypair.fromSecretKey(bs58.decode(process.env.SOLANA_PRIVATE_KEY));
+        const keyStr = process.env.SOLANA_PRIVATE_KEY;
+        const keyBytes = keyStr.length > 88 ? Buffer.from(keyStr, 'hex') : bs58.decode(keyStr);
+        hotKeypair = Keypair.fromSecretKey(keyBytes);
         console.log(chalk.yellow(`[BANKER #${id}]: 🔑 Hot wallet loaded. Profit sweep armed → ${COLD_WALLET.slice(0, 8)}...`));
     } else {
         console.log(chalk.gray(`[BANKER #${id}]: No SOLANA_PRIVATE_KEY — profit sweep disabled.`));
@@ -37,20 +39,22 @@ try {
     console.log(chalk.red(`[BANKER #${id}]: Keypair load failed: ${e.message}`));
 }
 
-// ── Profit Sweep ────────────────────────────────────────────────
+// ── Cold Storage Sweep (100% over minimum → cold wallet) ────────
 async function sweepProfits(solBalance, currentSolPrice) {
     if (!hotKeypair) return;
 
-    const reservedSol = MIN_RESERVE_SOL + FEE_BUFFER_SOL;
-    const sweepableSol = solBalance - reservedSol;
-    const sweepableUsd = sweepableSol * currentSolPrice;
+    // Trigger: balance must exceed 2x minimum reserve (100% over minimum)
+    const sweepThreshold = MIN_RESERVE_SOL * 2;
+    if (solBalance <= sweepThreshold) return;
 
-    if (sweepableUsd < SWEEP_PROFIT_USD) return; // not enough profit yet
+    const sweepableSol = solBalance - MIN_RESERVE_SOL - FEE_BUFFER_SOL;
+    if (sweepableSol <= 0) return;
 
     const lamportsToSend = Math.floor(sweepableSol * LAMPORTS_PER_SOL);
     if (lamportsToSend <= 5000) return; // dust guard
 
-    console.log(chalk.green.bold(`[BANKER #${id}]: 💸 PROFIT SWEEP: Sending ${sweepableSol.toFixed(4)} SOL ($${sweepableUsd.toFixed(2)}) → cold wallet`));
+    const sweepableUsd = sweepableSol * currentSolPrice;
+    console.log(chalk.green.bold(`[BANKER #${id}]: 💸 COLD STORAGE SWEEP: Sending ${sweepableSol.toFixed(4)} SOL ($${sweepableUsd.toFixed(2)}) → ${COLD_WALLET.slice(0, 8)}...`));
 
     try {
         const tx = new Transaction().add(
@@ -66,7 +70,17 @@ async function sweepProfits(solBalance, currentSolPrice) {
         tx.sign(hotKeypair);
 
         const sig = await connection.sendRawTransaction(tx.serialize());
-        await connection.confirmTransaction(sig, 'confirmed');
+        // Poll for confirmation (HTTP-only, no WebSocket needed)
+        let confirmed = false;
+        for (let i = 0; i < 15; i++) {
+            await new Promise(r => setTimeout(r, 2000));
+            const status = await connection.getSignatureStatuses([sig]);
+            if (status?.value?.[0]?.confirmationStatus === 'confirmed' || status?.value?.[0]?.confirmationStatus === 'finalized') {
+                confirmed = true;
+                break;
+            }
+        }
+        if (!confirmed) throw new Error('Confirmation timeout (30s)');
 
         console.log(chalk.green.bold(`[BANKER #${id}]: ✅ SWEEP CONFIRMED: ${sig}`));
         if (process.send) {

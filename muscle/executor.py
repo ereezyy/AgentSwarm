@@ -15,6 +15,7 @@ from solana.rpc.api import Client
 PUMP_FUN_PROGRAM = Pubkey.from_string("6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P")
 PUMP_GLOBAL_ACCOUNT = Pubkey.from_string("4wTV1YmiEkRvAtNtsSGPtUrqRYQMe5SKy2uB4Jjaxnjf")
 PUMP_FUN_ACCOUNT = Pubkey.from_string("Ce6TQqeHC9p8KetsN6JsjHK7UTZk7nasjjnr7XxXp9F1") # Event Authority
+COMPUTE_BUDGET_PROGRAM_ID = Pubkey.from_string("ComputeBudget111111111111111111111111111111")
 SYSTEM_PROGRAM_ID = Pubkey.from_string("11111111111111111111111111111111")
 TOKEN_PROGRAM_ID = Pubkey.from_string("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA")
 ASSOC_TOKEN_PROGRAM_ID = Pubkey.from_string("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL")
@@ -76,7 +77,7 @@ class Executor:
         else:
             return BONDING_CURVE_LAYOUT_V2.parse(data[8:])
 
-    def build_buy_tx(self, keypair: Keypair, mint_str: str, sol_amount: float, slippage: float):
+    def build_buy_tx(self, keypair: Keypair, mint_str: str, sol_amount: float, slippage: float, priority_fee: int = 100000):
         mint = Pubkey.from_string(mint_str)
         curve_data = self.get_bonding_curve_data(mint)
         if not curve_data:
@@ -118,9 +119,16 @@ class Executor:
         ]
         
         ix = Instruction(PUMP_FUN_PROGRAM, data, keys)
-        return self.create_and_sign_tx(keypair, [ix])
+        
+        # Priority Fee Instruction (set_compute_unit_price is discriminator 3)
+        # Micro-lamports = priority_fee (approx, as it scales by CUs, but this overrides base).
+        # We specify 3 (u8) followed by the micro-lamports (u64).
+        cu_price_data = struct.pack("<BQ", 3, priority_fee)
+        fee_ix = Instruction(COMPUTE_BUDGET_PROGRAM_ID, cu_price_data, [])
 
-    def build_sell_tx(self, keypair: Keypair, mint_str: str, token_amount: int, slippage: float):
+        return self.create_and_sign_tx(keypair, [fee_ix, ix])
+
+    def build_sell_tx(self, keypair: Keypair, mint_str: str, token_amount: int, slippage: float, priority_fee: int = 100000):
         mint = Pubkey.from_string(mint_str)
         curve_data = self.get_bonding_curve_data(mint)
         if not curve_data:
@@ -159,7 +167,11 @@ class Executor:
         ]
         
         ix = Instruction(PUMP_FUN_PROGRAM, data, keys)
-        return self.create_and_sign_tx(keypair, [ix])
+        
+        cu_price_data = struct.pack("<BQ", 3, priority_fee)
+        fee_ix = Instruction(COMPUTE_BUDGET_PROGRAM_ID, cu_price_data, [])
+        
+        return self.create_and_sign_tx(keypair, [fee_ix, ix])
 
     def create_and_sign_tx(self, keypair: Keypair, instructions: list):
         recent_blockhash = self.client.get_latest_blockhash().value.blockhash
@@ -204,7 +216,8 @@ def main():
                 keypair, 
                 params.get("mint"), 
                 params.get("amount"), 
-                params.get("slippage", 0.1)
+                params.get("slippage", 0.1),
+                int(params.get("priorityFee", 100000))
             )
             print(json.dumps(res))
 
@@ -215,7 +228,8 @@ def main():
                 keypair, 
                 params.get("mint"), 
                 int(params.get("amount")), 
-                params.get("slippage", 0.1)
+                params.get("slippage", 0.1),
+                int(params.get("priorityFee", 100000))
             )
             print(json.dumps(res))
 

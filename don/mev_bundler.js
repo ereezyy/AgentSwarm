@@ -51,13 +51,13 @@ class MevBundler {
             const { SystemProgram, TransactionInstruction } = require('@solana/web3.js');
             const JITO_TIP_ACCOUNTS = [
                 "96gYZGLnJYVFmbjzopPSU6QiEV5fGqZNyN9nmNhvrZU5",
-                "HFqU5x63VTqvQss8hp11i4wVV8bD44PvwucfZ2bU7gRe",
-                "Cw8CFyM9FkoMi7K7Crf6HNQqf4uEMzpKw6QNghXLvVkY",
+                "HFqU5x63VTqvQss8hp11i4bD44PvwucfZ2bU7gRe",
+                "Cw8CFyM9FkoMi7K7Crf6HNQqf4uEMzpKw6QNghXLvLkY",
                 "ADaUMid9yfUytqMBgopwjb2DTLSokTSzL1zt6iGPaS49",
-                "DfXygSm4jMRyY1fXjLh9yJw4Lq7xL2U4nFhJ3cXx2rJ6",
-                "ADuUkR4w7T8Bwz8Uxg4X8o1jU6T4V1G2eP1Y6bK1B6yA",
-                "C9fA4Xz9xN4G6L1q8T5N6g9S2z5A7b8P9c1X2Y3Z4A5B",
-                "B6D8A2q4X1P3Y7T5L9C6v8N9S1T4g7Z5b3X2c1A9P8T7"
+                "DfXygSm4jCqDg6qhJaNw5BLqE3vwh7VBi5iqPjqj1tom",
+                "ADuUkR4vk3Gj2cqGOn8aBo5Q1GRgk2nDZ2mHBk9BCbE5",
+                "DttWaMuVvTiDuNwGTn8f8xfE1CTXEbZRrFPnKrUUXdet",
+                "3AVi9Tg9Uo68tJfuvoKvqKNWKkC5wPdSSdeBnizKZ6jT"
             ];
             const tipAccount = new PublicKey(JITO_TIP_ACCOUNTS[Math.floor(Math.random() * JITO_TIP_ACCOUNTS.length)]);
 

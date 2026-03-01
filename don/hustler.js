@@ -11,14 +11,20 @@ console.log(chalk.cyan.bold(`[HUSTLER #${id}]: Crypto Intelligence Desk ONLINE. 
 
 // Price history for trend detection
 const priceHistory = { solana: [], bitcoin: [], ethereum: [] };
-const MAX_HISTORY = 30; // Keep last 30 data points (15 min at 30s intervals)
+const MAX_HISTORY = 30;
 let lastAlertTime = 0;
 
 // Dynamic Alert thresholds (Westworld Reflection)
 let alertParams = {
-    standardThreshold: 3,     // 3% move = alert
-    criticalThreshold: 7      // 7% move = critical alert + phone call
+    standardThreshold: 3,
+    criticalThreshold: 7
 };
+
+// Rate limit backoff
+let backoffMs = 0;
+const BACKOFF_INITIAL = 60000;  // 1min first backoff
+const BACKOFF_MAX = 300000;     // 5min max
+const BASE_INTERVAL = 60000;   // 60s base polling (was 30s)
 
 let isWatching = false;
 let watchTimeout = null;
@@ -122,16 +128,58 @@ async function watchMarkets() {
 
     } catch (e) {
         if (e.response?.status === 429) {
-            console.log(chalk.yellow(`[HUSTLER #${id}]: CoinGecko rate limited. Cooling 60s...`));
-            watchTimeout = setTimeout(watchMarkets, 60000);
+            backoffMs = backoffMs ? Math.min(backoffMs * 2, BACKOFF_MAX) : BACKOFF_INITIAL;
+            console.log(chalk.yellow(`[HUSTLER #${id}]: ⏳ CoinGecko rate limited. Trying DexScreener fallback...`));
+
+            // DexScreener fallback for SOL price
+            try {
+                const dexRes = await axios.get(
+                    'https://api.dexscreener.com/tokens/v1/solana/So11111111111111111111111111111111111111112',
+                    { timeout: 8000 }
+                );
+                const pairs = Array.isArray(dexRes.data) ? dexRes.data : [];
+                const topPair = pairs.sort((a, b) => (b.volume?.h24 || 0) - (a.volume?.h24 || 0))[0];
+                if (topPair?.priceUsd) {
+                    const solPrice = parseFloat(topPair.priceUsd);
+                    const sol24h = topPair.priceChange?.h24 || 0;
+                    console.log(chalk.cyan(`[HUSTLER #${id}]: 💱 [DexScreener] SOL $${solPrice} (${sol24h}%)`));
+
+                    if (process.send) {
+                        process.send({
+                            type: 'INTEL_DATA',
+                            data: `Markets: SOL $${solPrice} (${sol24h}%) [DexScreener fallback]`,
+                            source: 'HUSTLER_MARKET'
+                        });
+                        process.send({
+                            type: 'MARKET_DATA',
+                            data: {
+                                solana: { price: solPrice, change24h: parseFloat(sol24h), trend: 0 },
+                                bitcoin: { price: 0, change24h: 0, trend: 0 },
+                                ethereum: { price: 0 },
+                                timestamp: new Date().toISOString(),
+                                source: 'dexscreener'
+                            }
+                        });
+                    }
+                }
+            } catch (dexErr) {
+                console.log(chalk.gray(`[HUSTLER #${id}]: DexScreener fallback also failed. Will retry in ${(backoffMs / 1000).toFixed(0)}s`));
+            }
+
+            watchTimeout = setTimeout(watchMarkets, backoffMs);
             isWatching = false;
             return;
         }
         console.error(chalk.red(`[HUSTLER #${id}]: Market scan error: ${e.message}`));
     }
 
-    // Check every 30 seconds
-    watchTimeout = setTimeout(watchMarkets, 30000);
+    // Reset backoff on success
+    if (backoffMs > 0) {
+        backoffMs = 0;
+        console.log(chalk.green(`[HUSTLER #${id}]: ✅ CoinGecko responding again. Normal cadence.`));
+    }
+
+    watchTimeout = setTimeout(watchMarkets, BASE_INTERVAL);
     isWatching = false;
 }
 

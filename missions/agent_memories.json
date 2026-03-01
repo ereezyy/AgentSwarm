@@ -643,163 +643,2389 @@
       "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $82.12. Was it a dump? false.",
       "importance": 9,
       "lastAccessed": 1772006657824
+    },
+    {
+      "id": "MEM-1772006959111-64",
+      "timestamp": "2026-02-25T08:09:19.111Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.1% to $82.12. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772006959111
+    },
+    {
+      "id": "MEM-1772007260063-374",
+      "timestamp": "2026-02-25T08:14:20.063Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $82. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772007260063
+    },
+    {
+      "id": "MEM-1772007350152-136",
+      "timestamp": "2026-02-25T08:15:50.152Z",
+      "text": "[REFLECTION] Insight: Solana's price surge in a short time frame was not accompanied by a corresponding increase in trading volume, indicating it may have been a short squeeze or a pump rather than a genuine market event.. Rule: Prioritize long-short ratio analysis to detect potential short squeezes and pumps in the future, and adjust trading strategies accordingly.. Risk tweak: increase_slippage",
+      "importance": 10,
+      "lastAccessed": 1772007350152
+    },
+    {
+      "id": "MEM-1772007561166-570",
+      "timestamp": "2026-02-25T08:19:21.168Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $82.04. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772007561168
+    },
+    {
+      "id": "MEM-1772007862197-806",
+      "timestamp": "2026-02-25T08:24:22.197Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.1% to $82.22. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772007862197
+    },
+    {
+      "id": "MEM-1772008163092-263",
+      "timestamp": "2026-02-25T08:29:23.092Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.2% to $82.3. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772008163092
+    },
+    {
+      "id": "MEM-1772008463982-932",
+      "timestamp": "2026-02-25T08:34:23.983Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.1% to $82.4. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772008463983
+    },
+    {
+      "id": "MEM-1772008764991-536",
+      "timestamp": "2026-02-25T08:39:24.991Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.1% to $82.42. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772008764991
+    },
+    {
+      "id": "MEM-1772009066033-655",
+      "timestamp": "2026-02-25T08:44:26.033Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $82.4. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772009066033
+    },
+    {
+      "id": "MEM-1772009668229-157",
+      "timestamp": "2026-02-25T08:54:28.229Z",
+      "text": "Standard alert triggered. Solana moved 6.8% to $82.29.",
+      "importance": 6,
+      "lastAccessed": 1772009668229
+    },
+    {
+      "id": "MEM-1772010299629-993",
+      "timestamp": "2026-02-25T09:04:59.629Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $82.42. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772010299629
+    },
+    {
+      "id": "MEM-1772010600246-559",
+      "timestamp": "2026-02-25T09:10:00.246Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $82.44. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772010600246
+    },
+    {
+      "id": "MEM-1772010932595-932",
+      "timestamp": "2026-02-25T09:15:32.595Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.2% to $82.5. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772010932595
+    },
+    {
+      "id": "MEM-1772011295203-808",
+      "timestamp": "2026-02-25T09:21:35.203Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.4% to $82.52. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772011295203
+    },
+    {
+      "id": "MEM-1772011657484-772",
+      "timestamp": "2026-02-25T09:27:37.484Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.6% to $82.49. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772011657484
+    },
+    {
+      "id": "MEM-1772011959549-678",
+      "timestamp": "2026-02-25T09:32:39.549Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.7% to $82.43. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772011959549
+    },
+    {
+      "id": "MEM-1772012261864-766",
+      "timestamp": "2026-02-25T09:37:41.864Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.9% to $82.38. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772012261864
+    },
+    {
+      "id": "MEM-1772012564445-483",
+      "timestamp": "2026-02-25T09:42:44.445Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.7% to $82.32. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772012564445
+    },
+    {
+      "id": "MEM-1772012867224-654",
+      "timestamp": "2026-02-25T09:47:47.224Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.6% to $82.32. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772012867224
+    },
+    {
+      "id": "MEM-1772013169914-953",
+      "timestamp": "2026-02-25T09:52:49.915Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.6% to $82.37. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772013169915
+    },
+    {
+      "id": "MEM-1772013472410-89",
+      "timestamp": "2026-02-25T09:57:52.411Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.7% to $82.46. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772013472411
+    },
+    {
+      "id": "MEM-1772013774758-933",
+      "timestamp": "2026-02-25T10:02:54.759Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.8% to $82.56. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772013774759
+    },
+    {
+      "id": "MEM-1772014077331-126",
+      "timestamp": "2026-02-25T10:07:57.333Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.9% to $82.57. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772014077333
+    },
+    {
+      "id": "MEM-1772014379482-759",
+      "timestamp": "2026-02-25T10:12:59.483Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.9% to $82.61. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772014379483
+    },
+    {
+      "id": "MEM-1772014550162-727",
+      "timestamp": "2026-02-25T10:15:50.162Z",
+      "text": "[REFLECTION] Insight: Solana's price surge was not accompanied by a corresponding increase in trading volume, indicating it may have been a short squeeze or a pump rather than a genuine market event.. Rule: Prioritize long-short ratio analysis to detect potential short squeezes and pumps in the future, and adjust trading strategies accordingly.. Risk tweak: increase_slippage",
+      "importance": 10,
+      "lastAccessed": 1772014550162
+    },
+    {
+      "id": "MEM-1772014681354-978",
+      "timestamp": "2026-02-25T10:18:01.354Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.9% to $82.66. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772014681354
+    },
+    {
+      "id": "MEM-1772014982173-175",
+      "timestamp": "2026-02-25T10:23:02.174Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.9% to $82.69. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772014982174
+    },
+    {
+      "id": "MEM-1772015283043-28",
+      "timestamp": "2026-02-25T10:28:03.043Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.7% to $82.64. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772015283043
+    },
+    {
+      "id": "MEM-1772015644155-73",
+      "timestamp": "2026-02-25T10:34:04.156Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.8% to $82.61. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772015644156
+    },
+    {
+      "id": "MEM-1772015945651-573",
+      "timestamp": "2026-02-25T10:39:05.652Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.8% to $82.64. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772015945652
+    },
+    {
+      "id": "MEM-1772016246642-29",
+      "timestamp": "2026-02-25T10:44:06.642Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.0% to $82.66. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772016246642
+    },
+    {
+      "id": "MEM-1772016547721-578",
+      "timestamp": "2026-02-25T10:49:07.721Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.1% to $82.71. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772016547721
+    },
+    {
+      "id": "MEM-1772016908865-508",
+      "timestamp": "2026-02-25T10:55:08.866Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.0% to $82.71. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772016908866
+    },
+    {
+      "id": "MEM-1772017269722-926",
+      "timestamp": "2026-02-25T11:01:09.723Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.7% to $82.6. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772017269723
+    },
+    {
+      "id": "MEM-1772017630551-35",
+      "timestamp": "2026-02-25T11:07:10.551Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.5% to $82.5. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772017630551
+    },
+    {
+      "id": "MEM-1772017991585-875",
+      "timestamp": "2026-02-25T11:13:11.585Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.5% to $82.51. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772017991585
+    },
+    {
+      "id": "MEM-1772018292370-675",
+      "timestamp": "2026-02-25T11:18:12.371Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.5% to $82.53. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772018292371
+    },
+    {
+      "id": "MEM-1772036293059-596",
+      "timestamp": "2026-02-25T16:18:13.059Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 10.7% to $86.27. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772036293060
+    },
+    {
+      "id": "MEM-1772036594350-544",
+      "timestamp": "2026-02-25T16:23:14.350Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 11.2% to $86.65. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772036594350
+    },
+    {
+      "id": "MEM-1772036895474-718",
+      "timestamp": "2026-02-25T16:28:15.474Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 11.7% to $87.04. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772036895475
+    },
+    {
+      "id": "MEM-1772037196485-112",
+      "timestamp": "2026-02-25T16:33:16.485Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.1% to $87.35. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772037196485
+    },
+    {
+      "id": "MEM-1772037497537-880",
+      "timestamp": "2026-02-25T16:38:17.537Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.5% to $87.32. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772037497537
+    },
+    {
+      "id": "MEM-1772037798594-975",
+      "timestamp": "2026-02-25T16:43:18.594Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.1% to $87.15. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772037798594
+    },
+    {
+      "id": "MEM-1772038099605-115",
+      "timestamp": "2026-02-25T16:48:19.605Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.3% to $87.3. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772038099605
+    },
+    {
+      "id": "MEM-1772038400667-184",
+      "timestamp": "2026-02-25T16:53:20.667Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.4% to $87.44. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772038400667
+    },
+    {
+      "id": "MEM-1772038701839-512",
+      "timestamp": "2026-02-25T16:58:21.839Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.3% to $87.47. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772038701839
+    },
+    {
+      "id": "MEM-1772039002889-288",
+      "timestamp": "2026-02-25T17:03:22.889Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.5% to $87.65. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772039002889
+    },
+    {
+      "id": "MEM-1772039304063-8",
+      "timestamp": "2026-02-25T17:08:24.063Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.3% to $87.57. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772039304063
+    },
+    {
+      "id": "MEM-1772039605376-999",
+      "timestamp": "2026-02-25T17:13:25.376Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.4% to $87.92. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772039605376
+    },
+    {
+      "id": "MEM-1772039909022-412",
+      "timestamp": "2026-02-25T17:18:29.022Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.5% to $88.12. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772039909022
+    },
+    {
+      "id": "MEM-1772040210138-135",
+      "timestamp": "2026-02-25T17:23:30.138Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.5% to $88.09. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772040210138
+    },
+    {
+      "id": "MEM-1772040511008-449",
+      "timestamp": "2026-02-25T17:28:31.008Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.7% to $88.22. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772040511008
+    },
+    {
+      "id": "MEM-1772040811766-891",
+      "timestamp": "2026-02-25T17:33:31.766Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.9% to $88.27. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772040811766
+    },
+    {
+      "id": "MEM-1772041112480-383",
+      "timestamp": "2026-02-25T17:38:32.480Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.1% to $88.33. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772041112480
+    },
+    {
+      "id": "MEM-1772041473375-741",
+      "timestamp": "2026-02-25T17:44:33.375Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.4% to $88.5. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772041473375
+    },
+    {
+      "id": "MEM-1772041834329-307",
+      "timestamp": "2026-02-25T17:50:34.329Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.5% to $88.53. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772041834329
+    },
+    {
+      "id": "MEM-1772042195239-988",
+      "timestamp": "2026-02-25T17:56:35.239Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.7% to $88.64. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772042195239
+    },
+    {
+      "id": "MEM-1772042556163-825",
+      "timestamp": "2026-02-25T18:02:36.163Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.6% to $88.54. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772042556163
+    },
+    {
+      "id": "MEM-1772042917157-471",
+      "timestamp": "2026-02-25T18:08:37.158Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.3% to $88.32. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772042917158
+    },
+    {
+      "id": "MEM-1772043218040-615",
+      "timestamp": "2026-02-25T18:13:38.041Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.6% to $88.38. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772043218041
+    },
+    {
+      "id": "MEM-1772043493150-577",
+      "timestamp": "2026-02-25T18:18:13.150Z",
+      "text": "[REFLECTION] Insight: Solana's recent market movement appears to be a prolonged upward trend without any evidence of a dump, challenging the initial assumption of a critical market event.. Rule: Re-evaluate market events based on multiple data points and trend analysis instead of relying on a single metric or assumption.. Risk tweak: Decrease sensitivity to market events with less than a 10% movement within a 1-hour window to avoid over-reacting to minor fluctuations.",
+      "importance": 10,
+      "lastAccessed": 1772043493150
+    },
+    {
+      "id": "MEM-1772043519022-456",
+      "timestamp": "2026-02-25T18:18:39.022Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.7% to $88.45. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772043519022
+    },
+    {
+      "id": "MEM-1772043820042-580",
+      "timestamp": "2026-02-25T18:23:40.042Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.5% to $88.34. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772043820042
+    },
+    {
+      "id": "MEM-1772044121121-385",
+      "timestamp": "2026-02-25T18:28:41.121Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.4% to $88.38. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772044121121
+    },
+    {
+      "id": "MEM-1772044422146-852",
+      "timestamp": "2026-02-25T18:33:42.146Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.4% to $88.56. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772044422146
+    },
+    {
+      "id": "MEM-1772044723145-636",
+      "timestamp": "2026-02-25T18:38:43.145Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.7% to $88.78. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772044723145
+    },
+    {
+      "id": "MEM-1772045024350-190",
+      "timestamp": "2026-02-25T18:43:44.350Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.8% to $88.93. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772045024350
+    },
+    {
+      "id": "MEM-1772045325609-628",
+      "timestamp": "2026-02-25T18:48:45.609Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.7% to $88.92. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772045325609
+    },
+    {
+      "id": "MEM-1772045626686-36",
+      "timestamp": "2026-02-25T18:53:46.686Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.7% to $88.92. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772045626686
+    },
+    {
+      "id": "MEM-1772045927711-128",
+      "timestamp": "2026-02-25T18:58:47.711Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.7% to $88.94. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772045927711
+    },
+    {
+      "id": "MEM-1772046228762-482",
+      "timestamp": "2026-02-25T19:03:48.762Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.7% to $88.93. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772046228762
+    },
+    {
+      "id": "MEM-1772046530694-637",
+      "timestamp": "2026-02-25T19:08:50.694Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.5% to $88.83. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772046530695
+    },
+    {
+      "id": "MEM-1772046831759-259",
+      "timestamp": "2026-02-25T19:13:51.759Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.2% to $88.67. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772046831759
+    },
+    {
+      "id": "MEM-1772047133126-895",
+      "timestamp": "2026-02-25T19:18:53.126Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.7% to $88.78. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772047133126
+    },
+    {
+      "id": "MEM-1772047434242-798",
+      "timestamp": "2026-02-25T19:23:54.242Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.9% to $88.96. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772047434242
+    },
+    {
+      "id": "MEM-1772047735142-686",
+      "timestamp": "2026-02-25T19:28:55.142Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.8% to $89.03. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772047735142
+    },
+    {
+      "id": "MEM-1772048036244-729",
+      "timestamp": "2026-02-25T19:33:56.244Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.7% to $89.01. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772048036244
+    },
+    {
+      "id": "MEM-1772048337173-734",
+      "timestamp": "2026-02-25T19:38:57.173Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.8% to $89.03. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772048337173
+    },
+    {
+      "id": "MEM-1772048638010-250",
+      "timestamp": "2026-02-25T19:43:58.010Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.8% to $89.1. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772048638010
+    },
+    {
+      "id": "MEM-1772048939209-936",
+      "timestamp": "2026-02-25T19:48:59.209Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.9% to $89.17. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772048939209
+    },
+    {
+      "id": "MEM-1772049270102-298",
+      "timestamp": "2026-02-25T19:54:30.102Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.2% to $89.41. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772049270102
+    },
+    {
+      "id": "MEM-1772049635071-149",
+      "timestamp": "2026-02-25T20:00:35.071Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.3% to $89.47. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772049635071
+    },
+    {
+      "id": "MEM-1772049996064-623",
+      "timestamp": "2026-02-25T20:06:36.064Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.0% to $89.45. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772049996064
+    },
+    {
+      "id": "MEM-1772050357019-692",
+      "timestamp": "2026-02-25T20:12:37.019Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.0% to $89.46. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772050357019
+    },
+    {
+      "id": "MEM-1772050657856-34",
+      "timestamp": "2026-02-25T20:17:37.856Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.8% to $89.31. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772050657856
+    },
+    {
+      "id": "MEM-1772050692990-950",
+      "timestamp": "2026-02-25T20:18:12.990Z",
+      "text": "[REFLECTION] Insight: Over-reliance on a single metric or assumption led to a series of critical market events being misclassified as dumps, ultimately challenging the initial assumption and requiring a re-evaluation of the market trend.. Rule: Implement a multi-metric evaluation system for market events, incorporating trend analysis and multiple data points to minimize the risk of over-reacting to minor fluctuations and ensure more accurate market assessments.. Risk tweak: Decrease sensitivity to market events with less than a 10% movement within a 1-hour window to avoid over-reacting to minor fluctuations, while increasing sensitivity to market events with 15% or more movement within a 1-hour window to capture larger trends.",
+      "importance": 10,
+      "lastAccessed": 1772050692990
+    },
+    {
+      "id": "MEM-1772050958914-261",
+      "timestamp": "2026-02-25T20:22:38.914Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.3% to $89.16. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772050958914
+    },
+    {
+      "id": "MEM-1772051260000-768",
+      "timestamp": "2026-02-25T20:27:40.000Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.2% to $89.13. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772051260000
+    },
+    {
+      "id": "MEM-1772051561102-735",
+      "timestamp": "2026-02-25T20:32:41.102Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.2% to $89.12. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772051561102
+    },
+    {
+      "id": "MEM-1772051862156-911",
+      "timestamp": "2026-02-25T20:37:42.156Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.5% to $89.36. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772051862156
+    },
+    {
+      "id": "MEM-1772052163306-511",
+      "timestamp": "2026-02-25T20:42:43.306Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.7% to $89.55. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772052163306
+    },
+    {
+      "id": "MEM-1772052464545-83",
+      "timestamp": "2026-02-25T20:47:44.545Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.0% to $89.7. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772052464545
+    },
+    {
+      "id": "MEM-1772052765622-321",
+      "timestamp": "2026-02-25T20:52:45.622Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.1% to $89.82. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772052765622
+    },
+    {
+      "id": "MEM-1772053067404-152",
+      "timestamp": "2026-02-25T20:57:47.404Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.2% to $89.83. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772053067404
+    },
+    {
+      "id": "MEM-1772053372876-701",
+      "timestamp": "2026-02-25T21:02:52.876Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.1% to $89.72. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772053372876
+    },
+    {
+      "id": "MEM-1772053674217-9",
+      "timestamp": "2026-02-25T21:07:54.217Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.2% to $89.65. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772053674217
+    },
+    {
+      "id": "MEM-1772053975258-774",
+      "timestamp": "2026-02-25T21:12:55.258Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.5% to $89.7. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772053975258
+    },
+    {
+      "id": "MEM-1772054278802-355",
+      "timestamp": "2026-02-25T21:17:58.802Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.4% to $89.64. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772054278802
+    },
+    {
+      "id": "MEM-1772054579820-444",
+      "timestamp": "2026-02-25T21:22:59.820Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.5% to $89.69. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772054579820
+    },
+    {
+      "id": "MEM-1772054880849-676",
+      "timestamp": "2026-02-25T21:28:00.849Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.6% to $89.78. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772054880849
+    },
+    {
+      "id": "MEM-1772055181806-75",
+      "timestamp": "2026-02-25T21:33:01.806Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.6% to $89.79. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772055181806
+    },
+    {
+      "id": "MEM-1772055482520-309",
+      "timestamp": "2026-02-25T21:38:02.520Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 15.1% to $90.12. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772055482520
+    },
+    {
+      "id": "MEM-1772055843649-682",
+      "timestamp": "2026-02-25T21:44:03.649Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 15.6% to $90.6. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772055843649
+    },
+    {
+      "id": "MEM-1772056144455-932",
+      "timestamp": "2026-02-25T21:49:04.455Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 15.4% to $90.39. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772056144455
+    },
+    {
+      "id": "MEM-1772056475401-447",
+      "timestamp": "2026-02-25T21:54:35.401Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 15.2% to $90.32. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772056475401
+    },
+    {
+      "id": "MEM-1772056836391-308",
+      "timestamp": "2026-02-25T22:00:36.391Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.7% to $90.05. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772056836391
+    },
+    {
+      "id": "MEM-1772057197383-845",
+      "timestamp": "2026-02-25T22:06:37.383Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.6% to $90.2. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772057197383
+    },
+    {
+      "id": "MEM-1772057558298-146",
+      "timestamp": "2026-02-25T22:12:38.298Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.2% to $90.38. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772057558298
+    },
+    {
+      "id": "MEM-1772057893232-183",
+      "timestamp": "2026-02-25T22:18:13.232Z",
+      "text": "[REFLECTION] Insight: Over-reliance on a single metric or assumption led to a series of critical market events being misclassified as dumps, ultimately challenging the initial assumption and requiring a re-evaluation of the market trend.. Rule: Implement a multi-metric evaluation system for market events, incorporating trend analysis and multiple data points to minimize the risk of over-reacting to minor fluctuations and ensure more accurate market assessments.. Risk tweak: Decrease sensitivity to market events with less than a 10% movement within a 1-hour window and increase sensitivity to market events with 15% or more movement within a 1-hour window to capture larger trends.",
+      "importance": 10,
+      "lastAccessed": 1772057893232
+    },
+    {
+      "id": "MEM-1772057919331-912",
+      "timestamp": "2026-02-25T22:18:39.331Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.3% to $90.39. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772057919331
+    },
+    {
+      "id": "MEM-1772058220184-192",
+      "timestamp": "2026-02-25T22:23:40.184Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 14.1% to $90.21. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772058220184
+    },
+    {
+      "id": "MEM-1772058521297-920",
+      "timestamp": "2026-02-25T22:28:41.297Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.9% to $89.99. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772058521298
+    },
+    {
+      "id": "MEM-1772058822348-93",
+      "timestamp": "2026-02-25T22:33:42.348Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.8% to $89.9. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772058822348
+    },
+    {
+      "id": "MEM-1772059123491-302",
+      "timestamp": "2026-02-25T22:38:43.491Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.9% to $89.9. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772059123491
+    },
+    {
+      "id": "MEM-1772059424571-606",
+      "timestamp": "2026-02-25T22:43:44.571Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.5% to $89.57. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772059424571
+    },
+    {
+      "id": "MEM-1772059725688-612",
+      "timestamp": "2026-02-25T22:48:45.688Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.0% to $89.21. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772059725688
+    },
+    {
+      "id": "MEM-1772060026759-664",
+      "timestamp": "2026-02-25T22:53:46.759Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.8% to $88.97. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772060026759
+    },
+    {
+      "id": "MEM-1772060327812-215",
+      "timestamp": "2026-02-25T22:58:47.812Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.5% to $88.84. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772060327812
+    },
+    {
+      "id": "MEM-1772060629957-462",
+      "timestamp": "2026-02-25T23:03:49.957Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.6% to $88.9. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772060629957
+    },
+    {
+      "id": "MEM-1772060931130-407",
+      "timestamp": "2026-02-25T23:08:51.130Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.9% to $89.05. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772060931130
+    },
+    {
+      "id": "MEM-1772061232223-610",
+      "timestamp": "2026-02-25T23:13:52.223Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.0% to $89.1. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772061232223
+    },
+    {
+      "id": "MEM-1772061533303-523",
+      "timestamp": "2026-02-25T23:18:53.303Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.0% to $89.08. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772061533303
+    },
+    {
+      "id": "MEM-1772061907236-539",
+      "timestamp": "2026-02-25T23:25:07.236Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.4% to $88.81. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772061907236
+    },
+    {
+      "id": "MEM-1772062231809-877",
+      "timestamp": "2026-02-25T23:30:31.809Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 11.9% to $88.58. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772062231809
+    },
+    {
+      "id": "MEM-1772062593920-496",
+      "timestamp": "2026-02-25T23:36:33.920Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 10.9% to $88.2. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772062593920
+    },
+    {
+      "id": "MEM-1772062900053-750",
+      "timestamp": "2026-02-25T23:41:40.053Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 10.7% to $87.99. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772062900053
+    },
+    {
+      "id": "MEM-1772063201154-339",
+      "timestamp": "2026-02-25T23:46:41.154Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 10.1% to $87.57. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772063201154
+    },
+    {
+      "id": "MEM-1772063502293-621",
+      "timestamp": "2026-02-25T23:51:42.293Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 9.9% to $87.27. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772063502293
+    },
+    {
+      "id": "MEM-1772063833405-297",
+      "timestamp": "2026-02-25T23:57:13.405Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 10.7% to $87.61. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772063833405
+    },
+    {
+      "id": "MEM-1772064134153-156",
+      "timestamp": "2026-02-26T00:02:14.153Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 11.0% to $87.78. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772064134154
+    },
+    {
+      "id": "MEM-1772064495358-589",
+      "timestamp": "2026-02-26T00:08:15.358Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 11.4% to $88. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772064495358
+    },
+    {
+      "id": "MEM-1772064859682-239",
+      "timestamp": "2026-02-26T00:14:19.682Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.1% to $88.45. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772064859682
+    },
+    {
+      "id": "MEM-1772065096371-683",
+      "timestamp": "2026-02-26T00:18:16.371Z",
+      "text": "[REFLECTION] Insight: Over-reliance on a single metric led to misclassification of market trends, resulting in delayed adaptation to actual market conditions.. Rule: Implement a multifaceted evaluation system incorporating trend analysis, multiple data points, and sensitivity adjustments to minimize over-reaction to minor fluctuations and ensure more accurate market assessments.. Risk tweak: Decrease sensitivity to market events with less than a 10% movement within a 1-hour window and increase sensitivity to market events with 15% or more movement within a 1-hour window.",
+      "importance": 10,
+      "lastAccessed": 1772065096371
+    },
+    {
+      "id": "MEM-1772065220692-406",
+      "timestamp": "2026-02-26T00:20:20.692Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.5% to $88.82. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772065220692
+    },
+    {
+      "id": "MEM-1772065521770-445",
+      "timestamp": "2026-02-26T00:25:21.770Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.7% to $88.95. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772065521770
+    },
+    {
+      "id": "MEM-1772065823014-892",
+      "timestamp": "2026-02-26T00:30:23.014Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.9% to $89.03. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772065823014
+    },
+    {
+      "id": "MEM-1772066124847-947",
+      "timestamp": "2026-02-26T00:35:24.847Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 13.0% to $89.09. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772066124847
+    },
+    {
+      "id": "MEM-1772066425881-327",
+      "timestamp": "2026-02-26T00:40:25.881Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.4% to $88.77. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772066425881
+    },
+    {
+      "id": "MEM-1772066727061-733",
+      "timestamp": "2026-02-26T00:45:27.061Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 12.1% to $88.68. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772066727061
+    },
+    {
+      "id": "MEM-1772067028168-996",
+      "timestamp": "2026-02-26T00:50:28.168Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 11.7% to $88.49. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772067028168
+    },
+    {
+      "id": "MEM-1772067329346-932",
+      "timestamp": "2026-02-26T00:55:29.346Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 11.6% to $88.46. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772067329346
+    },
+    {
+      "id": "MEM-1772067660370-290",
+      "timestamp": "2026-02-26T01:01:00.370Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 11.7% to $88.55. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772067660370
+    },
+    {
+      "id": "MEM-1772067961202-290",
+      "timestamp": "2026-02-26T01:06:01.202Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 11.8% to $88.67. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772067961202
+    },
+    {
+      "id": "MEM-1772068261980-326",
+      "timestamp": "2026-02-26T01:11:01.980Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 11.7% to $88.86. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772068261980
+    },
+    {
+      "id": "MEM-1772068563041-907",
+      "timestamp": "2026-02-26T01:16:03.041Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 10.2% to $88.88. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772068563041
+    },
+    {
+      "id": "MEM-1772068739459-46",
+      "timestamp": "2026-02-26T01:18:59.459Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.9% to $88.9. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772068739460
+    },
+    {
+      "id": "MEM-1772069040566-650",
+      "timestamp": "2026-02-26T01:24:00.566Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.5% to $88.95. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772069040566
+    },
+    {
+      "id": "MEM-1772069343808-384",
+      "timestamp": "2026-02-26T01:29:03.808Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.5% to $88.92. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772069343808
+    },
+    {
+      "id": "MEM-1772069674734-393",
+      "timestamp": "2026-02-26T01:34:34.734Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.0% to $88.7. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772069674734
+    },
+    {
+      "id": "MEM-1772070038554-909",
+      "timestamp": "2026-02-26T01:40:38.554Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.9% to $88.56. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772070038554
+    },
+    {
+      "id": "MEM-1772070399825-887",
+      "timestamp": "2026-02-26T01:46:39.825Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.2% to $88.61. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772070399825
+    },
+    {
+      "id": "MEM-1772070760835-485",
+      "timestamp": "2026-02-26T01:52:40.835Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.1% to $88.53. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772070760835
+    },
+    {
+      "id": "MEM-1772071061934-417",
+      "timestamp": "2026-02-26T01:57:41.934Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.9% to $88.49. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772071061934
+    },
+    {
+      "id": "MEM-1772071363078-118",
+      "timestamp": "2026-02-26T02:02:43.078Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.9% to $88.48. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772071363078
+    },
+    {
+      "id": "MEM-1772071664265-463",
+      "timestamp": "2026-02-26T02:07:44.265Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.4% to $88.22. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772071664265
+    },
+    {
+      "id": "MEM-1772072268539-921",
+      "timestamp": "2026-02-26T02:17:48.539Z",
+      "text": "Standard alert triggered. Solana moved 6.5% to $87.83.",
+      "importance": 6,
+      "lastAccessed": 1772072268539
+    },
+    {
+      "id": "MEM-1772072870753-923",
+      "timestamp": "2026-02-26T02:27:50.753Z",
+      "text": "Standard alert triggered. Solana moved 6.4% to $87.81.",
+      "importance": 6,
+      "lastAccessed": 1772072870753
+    },
+    {
+      "id": "MEM-1772073473034-821",
+      "timestamp": "2026-02-26T02:37:53.034Z",
+      "text": "Standard alert triggered. Solana moved 6.8% to $87.95.",
+      "importance": 6,
+      "lastAccessed": 1772073473034
+    },
+    {
+      "id": "MEM-1772073774188-768",
+      "timestamp": "2026-02-26T02:42:54.188Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $87.99. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772073774188
+    },
+    {
+      "id": "MEM-1772074075416-848",
+      "timestamp": "2026-02-26T02:47:55.416Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.2% to $88.13. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772074075416
+    },
+    {
+      "id": "MEM-1772074376593-586",
+      "timestamp": "2026-02-26T02:52:56.593Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.1% to $88.18. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772074376593
+    },
+    {
+      "id": "MEM-1772074677698-883",
+      "timestamp": "2026-02-26T02:57:57.698Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $88.23. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772074677698
+    },
+    {
+      "id": "MEM-1772074979044-568",
+      "timestamp": "2026-02-26T03:02:59.044Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.1% to $88.22. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772074979044
+    },
+    {
+      "id": "MEM-1772075340270-67",
+      "timestamp": "2026-02-26T03:09:00.270Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.1% to $88.14. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772075340270
+    },
+    {
+      "id": "MEM-1772075641378-583",
+      "timestamp": "2026-02-26T03:14:01.378Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $88.06. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772075641378
+    },
+    {
+      "id": "MEM-1772075880009-739",
+      "timestamp": "2026-02-26T03:18:00.009Z",
+      "text": "[REFLECTION] Insight: Solana's recent market movement suggests a lack of sell pressure despite significant price fluctuations, indicating potential bullish sentiment.. Rule: Monitor Solana's price movement in conjunction with market sentiment indicators to adjust trading strategies accordingly.. Risk tweak: decrease_slippage",
+      "importance": 10,
+      "lastAccessed": 1772075880009
+    },
+    {
+      "id": "MEM-1772076093068-512",
+      "timestamp": "2026-02-26T03:21:33.068Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.3% to $87.94. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772076093068
+    },
+    {
+      "id": "MEM-1772076394241-130",
+      "timestamp": "2026-02-26T03:26:34.241Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.3% to $87.89. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772076394241
+    },
+    {
+      "id": "MEM-1772076695501-131",
+      "timestamp": "2026-02-26T03:31:35.501Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.4% to $87.88. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772076695501
+    },
+    {
+      "id": "MEM-1772076996583-609",
+      "timestamp": "2026-02-26T03:36:36.583Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.5% to $87.96. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772076996583
+    },
+    {
+      "id": "MEM-1772077299274-504",
+      "timestamp": "2026-02-26T03:41:39.274Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.4% to $87.92. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772077299274
+    },
+    {
+      "id": "MEM-1772077630319-606",
+      "timestamp": "2026-02-26T03:47:10.319Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.5% to $88. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772077630319
+    },
+    {
+      "id": "MEM-1772077991389-426",
+      "timestamp": "2026-02-26T03:53:11.389Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.6% to $88.08. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772077991389
+    },
+    {
+      "id": "MEM-1772078322321-158",
+      "timestamp": "2026-02-26T03:58:42.321Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.7% to $88.02. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772078322321
+    },
+    {
+      "id": "MEM-1772078683359-415",
+      "timestamp": "2026-02-26T04:04:43.359Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.6% to $87.94. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772078683359
+    },
+    {
+      "id": "MEM-1772078984228-298",
+      "timestamp": "2026-02-26T04:09:44.228Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.0% to $88.06. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772078984228
+    },
+    {
+      "id": "MEM-1772079285866-771",
+      "timestamp": "2026-02-26T04:14:45.866Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.2% to $88.43. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772079285866
+    },
+    {
+      "id": "MEM-1772079587020-666",
+      "timestamp": "2026-02-26T04:19:47.020Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.1% to $88.48. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772079587020
+    },
+    {
+      "id": "MEM-1772079888803-362",
+      "timestamp": "2026-02-26T04:24:48.803Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.8% to $88.32. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772079888803
+    },
+    {
+      "id": "MEM-1772080189870-531",
+      "timestamp": "2026-02-26T04:29:49.870Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.8% to $88.44. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772080189870
+    },
+    {
+      "id": "MEM-1772080491008-819",
+      "timestamp": "2026-02-26T04:34:51.008Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.7% to $88.48. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772080491008
+    },
+    {
+      "id": "MEM-1772080792021-24",
+      "timestamp": "2026-02-26T04:39:52.022Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.8% to $88.69. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772080792022
+    },
+    {
+      "id": "MEM-1772081093000-515",
+      "timestamp": "2026-02-26T04:44:53.000Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.9% to $88.79. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772081093000
+    },
+    {
+      "id": "MEM-1772081394040-270",
+      "timestamp": "2026-02-26T04:49:54.040Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.0% to $88.86. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772081394040
+    },
+    {
+      "id": "MEM-1772081695104-406",
+      "timestamp": "2026-02-26T04:54:55.104Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.9% to $88.8. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772081695105
+    },
+    {
+      "id": "MEM-1772081996229-82",
+      "timestamp": "2026-02-26T04:59:56.229Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.2% to $88.76. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772081996229
+    },
+    {
+      "id": "MEM-1772082297226-24",
+      "timestamp": "2026-02-26T05:04:57.226Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.9% to $88.53. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772082297226
+    },
+    {
+      "id": "MEM-1772082598510-638",
+      "timestamp": "2026-02-26T05:09:58.510Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.3% to $88. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772082598510
+    },
+    {
+      "id": "MEM-1772082899579-566",
+      "timestamp": "2026-02-26T05:14:59.579Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $87.68. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772082899579
+    },
+    {
+      "id": "MEM-1772083079922-229",
+      "timestamp": "2026-02-26T05:17:59.922Z",
+      "text": "[REFLECTION] Insight: Solana's recent market movement indicates a lack of sell pressure, suggesting potential bullish sentiment.. Rule: Monitor Solana's price movement in conjunction with market sentiment indicators to adjust trading strategies accordingly, prioritizing risk management over aggressive market entry.. Risk tweak: decrease_slippage",
+      "importance": 10,
+      "lastAccessed": 1772083079922
+    },
+    {
+      "id": "MEM-1772083531176-728",
+      "timestamp": "2026-02-26T05:25:31.176Z",
+      "text": "Standard alert triggered. Solana moved 6.7% to $87.43.",
+      "importance": 6,
+      "lastAccessed": 1772083531176
+    },
+    {
+      "id": "MEM-1772083892011-184",
+      "timestamp": "2026-02-26T05:31:32.011Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.4% to $87.51. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772083892011
+    },
+    {
+      "id": "MEM-1772084192963-25",
+      "timestamp": "2026-02-26T05:36:32.963Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.8% to $87.58. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772084192963
+    },
+    {
+      "id": "MEM-1772084493952-636",
+      "timestamp": "2026-02-26T05:41:33.952Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.8% to $87.56. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772084493953
+    },
+    {
+      "id": "MEM-1772084794891-924",
+      "timestamp": "2026-02-26T05:46:34.891Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.2% to $87.79. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772084794891
+    },
+    {
+      "id": "MEM-1772085095947-414",
+      "timestamp": "2026-02-26T05:51:35.947Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.1% to $87.73. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772085095948
+    },
+    {
+      "id": "MEM-1772085397411-494",
+      "timestamp": "2026-02-26T05:56:37.411Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.9% to $87.72. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772085397411
+    },
+    {
+      "id": "MEM-1772085542784-885",
+      "timestamp": "2026-02-26T05:59:02.784Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.0% to $87.75. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772085542785
+    },
+    {
+      "id": "MEM-1772085873867-471",
+      "timestamp": "2026-02-26T06:04:33.867Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.7% to $87.57. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772085873867
+    },
+    {
+      "id": "MEM-1772086234936-908",
+      "timestamp": "2026-02-26T06:10:34.936Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.0% to $87.81. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772086234936
+    },
+    {
+      "id": "MEM-1772086666690-510",
+      "timestamp": "2026-02-26T06:17:46.690Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 8.1% to $87.79. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772086666690
+    },
+    {
+      "id": "MEM-1772086967386-798",
+      "timestamp": "2026-02-26T06:22:47.386Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.8% to $87.84. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772086967386
+    },
+    {
+      "id": "MEM-1772087246891-679",
+      "timestamp": "2026-02-26T06:27:26.891Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.6% to $87.84. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772087246892
+    },
+    {
+      "id": "MEM-1772093746264-909",
+      "timestamp": "2026-02-26T08:15:46.264Z",
+      "text": "Standard alert triggered. Solana moved 6.6% to $87.43.",
+      "importance": 6,
+      "lastAccessed": 1772093746265
+    },
+    {
+      "id": "MEM-1772094347287-102",
+      "timestamp": "2026-02-26T08:25:47.287Z",
+      "text": "Standard alert triggered. Solana moved 6.6% to $87.66.",
+      "importance": 6,
+      "lastAccessed": 1772094347287
+    },
+    {
+      "id": "MEM-1772094948417-611",
+      "timestamp": "2026-02-26T08:35:48.417Z",
+      "text": "Standard alert triggered. Solana moved 6.2% to $87.48.",
+      "importance": 6,
+      "lastAccessed": 1772094948417
+    },
+    {
+      "id": "MEM-1772095549588-703",
+      "timestamp": "2026-02-26T08:45:49.588Z",
+      "text": "Standard alert triggered. Solana moved 6.3% to $87.54.",
+      "importance": 6,
+      "lastAccessed": 1772095549588
+    },
+    {
+      "id": "MEM-1772096150914-770",
+      "timestamp": "2026-02-26T08:55:50.914Z",
+      "text": "Standard alert triggered. Solana moved 6.4% to $87.55.",
+      "importance": 6,
+      "lastAccessed": 1772096150914
+    },
+    {
+      "id": "MEM-1772096752233-110",
+      "timestamp": "2026-02-26T09:05:52.233Z",
+      "text": "Standard alert triggered. Solana moved 5.9% to $87.35.",
+      "importance": 6,
+      "lastAccessed": 1772096752233
+    },
+    {
+      "id": "MEM-1772097293329-34",
+      "timestamp": "2026-02-26T09:14:53.329Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.1% to $88.35. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772097293329
+    },
+    {
+      "id": "MEM-1772097894437-824",
+      "timestamp": "2026-02-26T09:24:54.437Z",
+      "text": "Standard alert triggered. Solana moved 6.8% to $88.15.",
+      "importance": 6,
+      "lastAccessed": 1772097894437
+    },
+    {
+      "id": "MEM-1772098495670-410",
+      "timestamp": "2026-02-26T09:34:55.670Z",
+      "text": "Standard alert triggered. Solana moved 6.8% to $87.99.",
+      "importance": 6,
+      "lastAccessed": 1772098495670
+    },
+    {
+      "id": "MEM-1772098796209-784",
+      "timestamp": "2026-02-26T09:39:56.209Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.3% to $88.31. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772098796209
+    },
+    {
+      "id": "MEM-1772099096801-183",
+      "timestamp": "2026-02-26T09:44:56.801Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.3% to $88.31. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772099096801
+    },
+    {
+      "id": "MEM-1772099397427-933",
+      "timestamp": "2026-02-26T09:49:57.427Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.2% to $88.28. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772099397427
+    },
+    {
+      "id": "MEM-1772099698044-612",
+      "timestamp": "2026-02-26T09:54:58.044Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.2% to $88.28. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772099698044
+    },
+    {
+      "id": "MEM-1772099998609-369",
+      "timestamp": "2026-02-26T09:59:58.609Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.2% to $88.35. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772099998609
+    },
+    {
+      "id": "MEM-1772100299169-779",
+      "timestamp": "2026-02-26T10:04:59.169Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.1% to $88.4. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772100299169
+    },
+    {
+      "id": "MEM-1772100599962-172",
+      "timestamp": "2026-02-26T10:09:59.962Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.1% to $88.47. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772100599962
+    },
+    {
+      "id": "MEM-1772100946790-296",
+      "timestamp": "2026-02-26T10:15:46.790Z",
+      "text": "[REFLECTION] Insight: Solana's recent market movement suggests a potential bubble forming due to repeated large price movements without sell pressure, indicating a lack of correction and potential overvaluation.. Rule: Monitor Solana's price movement and adjust trading strategies accordingly, prioritizing risk management over aggressive market entry, and consider implementing a 'cool-down' period after significant price movements to assess market stability.. Risk tweak: increase_slippage",
+      "importance": 10,
+      "lastAccessed": 1772100946790
+    },
+    {
+      "id": "MEM-1772101201612-486",
+      "timestamp": "2026-02-26T10:20:01.612Z",
+      "text": "Standard alert triggered. Solana moved 6.4% to $87.96.",
+      "importance": 6,
+      "lastAccessed": 1772101201612
+    },
+    {
+      "id": "MEM-1772101803095-437",
+      "timestamp": "2026-02-26T10:30:03.095Z",
+      "text": "Standard alert triggered. Solana moved 6.3% to $87.88.",
+      "importance": 6,
+      "lastAccessed": 1772101803095
+    },
+    {
+      "id": "MEM-1772102404266-288",
+      "timestamp": "2026-02-26T10:40:04.266Z",
+      "text": "Standard alert triggered. Solana moved 6.2% to $87.69.",
+      "importance": 6,
+      "lastAccessed": 1772102404266
+    },
+    {
+      "id": "MEM-1772103006205-604",
+      "timestamp": "2026-02-26T10:50:06.205Z",
+      "text": "Standard alert triggered. Solana moved 5.9% to $87.54.",
+      "importance": 6,
+      "lastAccessed": 1772103006205
+    },
+    {
+      "id": "MEM-1772103607335-743",
+      "timestamp": "2026-02-26T11:00:07.335Z",
+      "text": "Standard alert triggered. Solana moved 5.7% to $87.4.",
+      "importance": 6,
+      "lastAccessed": 1772103607335
+    },
+    {
+      "id": "MEM-1772104208584-803",
+      "timestamp": "2026-02-26T11:10:08.584Z",
+      "text": "Standard alert triggered. Solana moved 6.1% to $87.53.",
+      "importance": 6,
+      "lastAccessed": 1772104208584
+    },
+    {
+      "id": "MEM-1772104810052-652",
+      "timestamp": "2026-02-26T11:20:10.052Z",
+      "text": "Standard alert triggered. Solana moved 5.3% to $86.96.",
+      "importance": 6,
+      "lastAccessed": 1772104810052
+    },
+    {
+      "id": "MEM-1772105411288-762",
+      "timestamp": "2026-02-26T11:30:11.288Z",
+      "text": "Standard alert triggered. Solana moved 5.0% to $86.84.",
+      "importance": 6,
+      "lastAccessed": 1772105411288
+    },
+    {
+      "id": "MEM-1772114344359-293",
+      "timestamp": "2026-02-26T13:59:04.359Z",
+      "text": "Standard alert triggered. Solana moved 4.3% to $87.62.",
+      "importance": 6,
+      "lastAccessed": 1772114344359
+    },
+    {
+      "id": "MEM-1772114945549-162",
+      "timestamp": "2026-02-26T14:09:05.549Z",
+      "text": "Standard alert triggered. Solana moved 4.1% to $87.38.",
+      "importance": 6,
+      "lastAccessed": 1772114945549
+    },
+    {
+      "id": "MEM-1772115547202-43",
+      "timestamp": "2026-02-26T14:19:07.202Z",
+      "text": "Standard alert triggered. Solana moved 4.1% to $87.76.",
+      "importance": 6,
+      "lastAccessed": 1772115547202
+    },
+    {
+      "id": "MEM-1772115756218-730",
+      "timestamp": "2026-02-26T14:22:36.218Z",
+      "text": "Standard alert triggered. Solana moved 4.0% to $87.75.",
+      "importance": 6,
+      "lastAccessed": 1772115756219
+    },
+    {
+      "id": "MEM-1772124853346-460",
+      "timestamp": "2026-02-26T16:54:13.347Z",
+      "text": "Standard alert triggered. Solana moved -3.3% to $84.59.",
+      "importance": 6,
+      "lastAccessed": 1772124853347
+    },
+    {
+      "id": "MEM-1772125454962-829",
+      "timestamp": "2026-02-26T17:04:14.962Z",
+      "text": "Standard alert triggered. Solana moved -3.1% to $84.8.",
+      "importance": 6,
+      "lastAccessed": 1772125454962
+    },
+    {
+      "id": "MEM-1772126056624-82",
+      "timestamp": "2026-02-26T17:14:16.624Z",
+      "text": "Standard alert triggered. Solana moved -3.1% to $85.26.",
+      "importance": 6,
+      "lastAccessed": 1772126056624
+    },
+    {
+      "id": "MEM-1772126158159-110",
+      "timestamp": "2026-02-26T17:15:58.159Z",
+      "text": "[REFLECTION] Insight: Solana's recent market movement suggests a potential bubble forming, indicated by repeated large price movements without sell pressure.. Rule: Prioritize risk management over aggressive market entry, and consider implementing a 'cool-down' period after significant price movements to assess market stability.. Risk tweak: increase_slippage",
+      "importance": 10,
+      "lastAccessed": 1772126158159
+    },
+    {
+      "id": "MEM-1772126659256-159",
+      "timestamp": "2026-02-26T17:24:19.256Z",
+      "text": "Standard alert triggered. Solana moved -3.6% to $85.01.",
+      "importance": 6,
+      "lastAccessed": 1772126659256
+    },
+    {
+      "id": "MEM-1772127260919-534",
+      "timestamp": "2026-02-26T17:34:20.919Z",
+      "text": "Standard alert triggered. Solana moved -3.5% to $85.17.",
+      "importance": 6,
+      "lastAccessed": 1772127260919
+    },
+    {
+      "id": "MEM-1772127862426-44",
+      "timestamp": "2026-02-26T17:44:22.426Z",
+      "text": "Standard alert triggered. Solana moved -3.7% to $85.12.",
+      "importance": 6,
+      "lastAccessed": 1772127862426
+    },
+    {
+      "id": "MEM-1772128463673-215",
+      "timestamp": "2026-02-26T17:54:23.673Z",
+      "text": "Standard alert triggered. Solana moved -4.1% to $84.98.",
+      "importance": 6,
+      "lastAccessed": 1772128463673
+    },
+    {
+      "id": "MEM-1772129065241-820",
+      "timestamp": "2026-02-26T18:04:25.241Z",
+      "text": "Standard alert triggered. Solana moved -3.8% to $85.",
+      "importance": 6,
+      "lastAccessed": 1772129065241
+    },
+    {
+      "id": "MEM-1772129666542-892",
+      "timestamp": "2026-02-26T18:14:26.542Z",
+      "text": "Standard alert triggered. Solana moved -4.3% to $84.64.",
+      "importance": 6,
+      "lastAccessed": 1772129666542
+    },
+    {
+      "id": "MEM-1772130267935-166",
+      "timestamp": "2026-02-26T18:24:27.935Z",
+      "text": "Standard alert triggered. Solana moved -4.0% to $84.84.",
+      "importance": 6,
+      "lastAccessed": 1772130267935
+    },
+    {
+      "id": "MEM-1772130869205-46",
+      "timestamp": "2026-02-26T18:34:29.205Z",
+      "text": "Standard alert triggered. Solana moved -4.2% to $84.87.",
+      "importance": 6,
+      "lastAccessed": 1772130869205
+    },
+    {
+      "id": "MEM-1772131470991-719",
+      "timestamp": "2026-02-26T18:44:30.992Z",
+      "text": "Standard alert triggered. Solana moved -4.0% to $85.4.",
+      "importance": 6,
+      "lastAccessed": 1772131470992
+    },
+    {
+      "id": "MEM-1772132072370-764",
+      "timestamp": "2026-02-26T18:54:32.370Z",
+      "text": "Standard alert triggered. Solana moved -4.0% to $85.33.",
+      "importance": 6,
+      "lastAccessed": 1772132072370
+    },
+    {
+      "id": "MEM-1772132673849-551",
+      "timestamp": "2026-02-26T19:04:33.849Z",
+      "text": "Standard alert triggered. Solana moved -3.7% to $85.69.",
+      "importance": 6,
+      "lastAccessed": 1772132673849
+    },
+    {
+      "id": "MEM-1772133275149-766",
+      "timestamp": "2026-02-26T19:14:35.149Z",
+      "text": "Standard alert triggered. Solana moved -3.1% to $85.93.",
+      "importance": 6,
+      "lastAccessed": 1772133275149
+    },
+    {
+      "id": "MEM-1772133358231-35",
+      "timestamp": "2026-02-26T19:15:58.231Z",
+      "text": "[REFLECTION] Insight: Aggressive market entry into Solana without proper risk management led to significant losses as the market bubble formed and subsequently burst.. Rule: Prioritize risk management over aggressive market entry and implement a 'cool-down' period after significant price movements to assess market stability before making major trades.. Risk tweak: increase_slippage_and_conservative_order_sizes",
+      "importance": 10,
+      "lastAccessed": 1772133358231
+    },
+    {
+      "id": "MEM-1772133876469-930",
+      "timestamp": "2026-02-26T19:24:36.469Z",
+      "text": "Standard alert triggered. Solana moved -3.3% to $86.11.",
+      "importance": 6,
+      "lastAccessed": 1772133876469
+    },
+    {
+      "id": "MEM-1772134477794-170",
+      "timestamp": "2026-02-26T19:34:37.794Z",
+      "text": "Standard alert triggered. Solana moved -3.2% to $86.17.",
+      "importance": 6,
+      "lastAccessed": 1772134477794
+    },
+    {
+      "id": "MEM-1772135079433-776",
+      "timestamp": "2026-02-26T19:44:39.433Z",
+      "text": "Standard alert triggered. Solana moved -3.6% to $85.93.",
+      "importance": 6,
+      "lastAccessed": 1772135079433
+    },
+    {
+      "id": "MEM-1772135681341-233",
+      "timestamp": "2026-02-26T19:54:41.341Z",
+      "text": "Standard alert triggered. Solana moved -3.6% to $86.22.",
+      "importance": 6,
+      "lastAccessed": 1772135681341
+    },
+    {
+      "id": "MEM-1772136282784-553",
+      "timestamp": "2026-02-26T20:04:42.784Z",
+      "text": "Standard alert triggered. Solana moved -3.1% to $86.67.",
+      "importance": 6,
+      "lastAccessed": 1772136282784
+    },
+    {
+      "id": "MEM-1772136884665-462",
+      "timestamp": "2026-02-26T20:14:44.665Z",
+      "text": "Standard alert triggered. Solana moved -3.1% to $86.64.",
+      "importance": 6,
+      "lastAccessed": 1772136884665
+    },
+    {
+      "id": "MEM-1772137846612-638",
+      "timestamp": "2026-02-26T20:30:46.612Z",
+      "text": "Standard alert triggered. Solana moved -3.0% to $86.45.",
+      "importance": 6,
+      "lastAccessed": 1772137846612
+    },
+    {
+      "id": "MEM-1772138447985-512",
+      "timestamp": "2026-02-26T20:40:47.985Z",
+      "text": "Standard alert triggered. Solana moved -3.7% to $86.16.",
+      "importance": 6,
+      "lastAccessed": 1772138447985
+    },
+    {
+      "id": "MEM-1772139049749-677",
+      "timestamp": "2026-02-26T20:50:49.749Z",
+      "text": "Standard alert triggered. Solana moved -4.2% to $86.09.",
+      "importance": 6,
+      "lastAccessed": 1772139049750
+    },
+    {
+      "id": "MEM-1772140694494-981",
+      "timestamp": "2026-02-26T21:18:14.494Z",
+      "text": "Standard alert triggered. Solana moved -4.1% to $86.03.",
+      "importance": 6,
+      "lastAccessed": 1772140694494
+    },
+    {
+      "id": "MEM-1772141295909-825",
+      "timestamp": "2026-02-26T21:28:15.909Z",
+      "text": "Standard alert triggered. Solana moved -4.1% to $86.07.",
+      "importance": 6,
+      "lastAccessed": 1772141295909
+    },
+    {
+      "id": "MEM-1772141897289-768",
+      "timestamp": "2026-02-26T21:38:17.289Z",
+      "text": "Standard alert triggered. Solana moved -5.1% to $86.06.",
+      "importance": 6,
+      "lastAccessed": 1772141897289
+    },
+    {
+      "id": "MEM-1772142498618-345",
+      "timestamp": "2026-02-26T21:48:18.618Z",
+      "text": "Standard alert triggered. Solana moved -4.8% to $86.06.",
+      "importance": 6,
+      "lastAccessed": 1772142498618
+    },
+    {
+      "id": "MEM-1772143099937-448",
+      "timestamp": "2026-02-26T21:58:19.937Z",
+      "text": "Standard alert triggered. Solana moved -4.6% to $86.04.",
+      "importance": 6,
+      "lastAccessed": 1772143099937
+    },
+    {
+      "id": "MEM-1772143702111-642",
+      "timestamp": "2026-02-26T22:08:22.111Z",
+      "text": "Standard alert triggered. Solana moved -4.8% to $85.99.",
+      "importance": 6,
+      "lastAccessed": 1772143702111
+    },
+    {
+      "id": "MEM-1772144303440-157",
+      "timestamp": "2026-02-26T22:18:23.440Z",
+      "text": "Standard alert triggered. Solana moved -4.8% to $86.03.",
+      "importance": 6,
+      "lastAccessed": 1772144303440
+    },
+    {
+      "id": "MEM-1772144904852-705",
+      "timestamp": "2026-02-26T22:28:24.852Z",
+      "text": "Standard alert triggered. Solana moved -4.7% to $85.87.",
+      "importance": 6,
+      "lastAccessed": 1772144904852
+    },
+    {
+      "id": "MEM-1772145506171-719",
+      "timestamp": "2026-02-26T22:38:26.171Z",
+      "text": "Standard alert triggered. Solana moved -4.2% to $86.04.",
+      "importance": 6,
+      "lastAccessed": 1772145506171
+    },
+    {
+      "id": "MEM-1772146107593-552",
+      "timestamp": "2026-02-26T22:48:27.593Z",
+      "text": "Standard alert triggered. Solana moved -3.4% to $86.16.",
+      "importance": 6,
+      "lastAccessed": 1772146107593
+    },
+    {
+      "id": "MEM-1772146708923-540",
+      "timestamp": "2026-02-26T22:58:28.923Z",
+      "text": "Standard alert triggered. Solana moved -3.1% to $86.09.",
+      "importance": 6,
+      "lastAccessed": 1772146708923
+    },
+    {
+      "id": "MEM-1772147310375-772",
+      "timestamp": "2026-02-26T23:08:30.375Z",
+      "text": "Standard alert triggered. Solana moved -3.6% to $85.91.",
+      "importance": 6,
+      "lastAccessed": 1772147310376
+    },
+    {
+      "id": "MEM-1772147894881-737",
+      "timestamp": "2026-02-26T23:18:14.881Z",
+      "text": "[REFLECTION] Insight: Rapid price swings in Solana led to aggressive market entry without thorough risk management, resulting in significant losses.. Rule: Prioritize cautious market entry, and implement a 'cool-down' period after significant price movements to assess market stability before making major trades.. Risk tweak: increase_slippage_and_conservative_order_sizes, consider_implementing_stop_loss_orders, monitor_market_volume_and_depth",
+      "importance": 10,
+      "lastAccessed": 1772147894881
+    },
+    {
+      "id": "MEM-1772147912066-290",
+      "timestamp": "2026-02-26T23:18:32.066Z",
+      "text": "Standard alert triggered. Solana moved -3.4% to $85.93.",
+      "importance": 6,
+      "lastAccessed": 1772147912066
+    },
+    {
+      "id": "MEM-1772151395699-101",
+      "timestamp": "2026-02-27T00:16:35.700Z",
+      "text": "Standard alert triggered. Solana moved -3.3% to $85.86.",
+      "importance": 6,
+      "lastAccessed": 1772151395700
+    },
+    {
+      "id": "MEM-1772151997217-274",
+      "timestamp": "2026-02-27T00:26:37.217Z",
+      "text": "Standard alert triggered. Solana moved -3.8% to $85.65.",
+      "importance": 6,
+      "lastAccessed": 1772151997218
+    },
+    {
+      "id": "MEM-1772152598480-554",
+      "timestamp": "2026-02-27T00:36:38.480Z",
+      "text": "Standard alert triggered. Solana moved -3.5% to $85.68.",
+      "importance": 6,
+      "lastAccessed": 1772152598480
+    },
+    {
+      "id": "MEM-1772153199738-571",
+      "timestamp": "2026-02-27T00:46:39.738Z",
+      "text": "Standard alert triggered. Solana moved -3.7% to $85.37.",
+      "importance": 6,
+      "lastAccessed": 1772153199738
+    },
+    {
+      "id": "MEM-1772153801075-233",
+      "timestamp": "2026-02-27T00:56:41.076Z",
+      "text": "Standard alert triggered. Solana moved -3.2% to $85.69.",
+      "importance": 6,
+      "lastAccessed": 1772153801076
+    },
+    {
+      "id": "MEM-1772154402376-611",
+      "timestamp": "2026-02-27T01:06:42.376Z",
+      "text": "Standard alert triggered. Solana moved -3.5% to $85.71.",
+      "importance": 6,
+      "lastAccessed": 1772154402376
+    },
+    {
+      "id": "MEM-1772155003621-332",
+      "timestamp": "2026-02-27T01:16:43.621Z",
+      "text": "Standard alert triggered. Solana moved -3.9% to $85.4.",
+      "importance": 6,
+      "lastAccessed": 1772155003621
+    },
+    {
+      "id": "MEM-1772155605243-751",
+      "timestamp": "2026-02-27T01:26:45.243Z",
+      "text": "Standard alert triggered. Solana moved -3.7% to $85.57.",
+      "importance": 6,
+      "lastAccessed": 1772155605243
+    },
+    {
+      "id": "MEM-1772156206740-178",
+      "timestamp": "2026-02-27T01:36:46.740Z",
+      "text": "Standard alert triggered. Solana moved -3.1% to $85.81.",
+      "importance": 6,
+      "lastAccessed": 1772156206740
+    },
+    {
+      "id": "MEM-1772156809181-422",
+      "timestamp": "2026-02-27T01:46:49.182Z",
+      "text": "Standard alert triggered. Solana moved -3.1% to $85.82.",
+      "importance": 6,
+      "lastAccessed": 1772156809182
+    },
+    {
+      "id": "MEM-1772174713825-61",
+      "timestamp": "2026-02-27T06:45:13.825Z",
+      "text": "[REFLECTION] Insight: The HUSTLER agent's aggressive market entry led to significant losses due to rapid price swings in Solana, without thorough risk management.. Rule: Prioritize cautious market entry, and implement a 'cool-down' period after significant price movements to assess market stability before making major trades.. Risk tweak: increase_slippage_and_conservative_order_sizes, consider_implementing_stop_loss_orders, monitor_market_volume_and_depth",
+      "importance": 10,
+      "lastAccessed": 1772174713825
+    },
+    {
+      "id": "MEM-1772181913840-215",
+      "timestamp": "2026-02-27T08:45:13.841Z",
+      "text": "[REFLECTION] Insight: Aggressive market entry without thorough risk management led to significant losses in Solana due to rapid price swings.. Rule: Prioritize cautious market entry and implement a 'cool-down' period after significant price movements to assess market stability before making major trades.. Risk tweak: increase_slippage_and_conservative_order_sizes, consider_implementing_stop_loss_orders, monitor_market_volume_and_depth",
+      "importance": 10,
+      "lastAccessed": 1772181913841
+    },
+    {
+      "id": "MEM-1772189781336-915",
+      "timestamp": "2026-02-27T10:56:21.337Z",
+      "text": "Standard alert triggered. Solana moved -3.0% to $84.85.",
+      "importance": 6,
+      "lastAccessed": 1772189781337
+    },
+    {
+      "id": "MEM-1772190382429-56",
+      "timestamp": "2026-02-27T11:06:22.429Z",
+      "text": "Standard alert triggered. Solana moved -3.1% to $84.82.",
+      "importance": 6,
+      "lastAccessed": 1772190382429
+    },
+    {
+      "id": "MEM-1772191043825-86",
+      "timestamp": "2026-02-27T11:17:23.826Z",
+      "text": "Standard alert triggered. Solana moved -3.0% to $84.76.",
+      "importance": 6,
+      "lastAccessed": 1772191043826
+    },
+    {
+      "id": "MEM-1772192125976-175",
+      "timestamp": "2026-02-27T11:35:25.976Z",
+      "text": "Standard alert triggered. Solana moved -3.0% to $84.34.",
+      "importance": 6,
+      "lastAccessed": 1772192125976
+    },
+    {
+      "id": "MEM-1772192727088-153",
+      "timestamp": "2026-02-27T11:45:27.088Z",
+      "text": "Standard alert triggered. Solana moved -3.7% to $83.66.",
+      "importance": 6,
+      "lastAccessed": 1772192727088
+    },
+    {
+      "id": "MEM-1772193328372-417",
+      "timestamp": "2026-02-27T11:55:28.372Z",
+      "text": "Standard alert triggered. Solana moved -3.7% to $83.6.",
+      "importance": 6,
+      "lastAccessed": 1772193328372
+    },
+    {
+      "id": "MEM-1772193929596-760",
+      "timestamp": "2026-02-27T12:05:29.596Z",
+      "text": "Standard alert triggered. Solana moved -4.0% to $83.57.",
+      "importance": 6,
+      "lastAccessed": 1772193929596
+    },
+    {
+      "id": "MEM-1772194530776-467",
+      "timestamp": "2026-02-27T12:15:30.776Z",
+      "text": "Standard alert triggered. Solana moved -4.1% to $83.5.",
+      "importance": 6,
+      "lastAccessed": 1772194530776
+    },
+    {
+      "id": "MEM-1772195131967-786",
+      "timestamp": "2026-02-27T12:25:31.968Z",
+      "text": "Standard alert triggered. Solana moved -4.3% to $83.47.",
+      "importance": 6,
+      "lastAccessed": 1772195131968
+    },
+    {
+      "id": "MEM-1772195733175-974",
+      "timestamp": "2026-02-27T12:35:33.175Z",
+      "text": "Standard alert triggered. Solana moved -4.7% to $83.31.",
+      "importance": 6,
+      "lastAccessed": 1772195733175
+    },
+    {
+      "id": "MEM-1772196260029-138",
+      "timestamp": "2026-02-27T12:44:20.029Z",
+      "text": "[REFLECTION] Insight: Agressive market entry without thorough risk management led to significant losses in Solana due to rapid price swings.. Rule: Implement a 'cool-down' period after significant price movements to assess market stability before making major trades, and prioritize cautious market entry.. Risk tweak: increase_slippage_and_conservative_order_sizes, consider_implementing_stop_loss_orders, monitor_market_volume_and_depth",
+      "importance": 10,
+      "lastAccessed": 1772196260029
+    },
+    {
+      "id": "MEM-1772196334629-133",
+      "timestamp": "2026-02-27T12:45:34.629Z",
+      "text": "Standard alert triggered. Solana moved -5.3% to $82.88.",
+      "importance": 6,
+      "lastAccessed": 1772196334629
+    },
+    {
+      "id": "MEM-1772196936334-203",
+      "timestamp": "2026-02-27T12:55:36.335Z",
+      "text": "Standard alert triggered. Solana moved -5.4% to $82.95.",
+      "importance": 6,
+      "lastAccessed": 1772196936335
+    },
+    {
+      "id": "MEM-1772197537586-33",
+      "timestamp": "2026-02-27T13:05:37.586Z",
+      "text": "Standard alert triggered. Solana moved -5.1% to $83.16.",
+      "importance": 6,
+      "lastAccessed": 1772197537586
+    },
+    {
+      "id": "MEM-1772198138753-108",
+      "timestamp": "2026-02-27T13:15:38.753Z",
+      "text": "Standard alert triggered. Solana moved -5.3% to $83.06.",
+      "importance": 6,
+      "lastAccessed": 1772198138753
+    },
+    {
+      "id": "MEM-1772198739952-356",
+      "timestamp": "2026-02-27T13:25:39.952Z",
+      "text": "Standard alert triggered. Solana moved -5.3% to $83.03.",
+      "importance": 6,
+      "lastAccessed": 1772198739952
+    },
+    {
+      "id": "MEM-1772199341097-388",
+      "timestamp": "2026-02-27T13:35:41.097Z",
+      "text": "Standard alert triggered. Solana moved -5.7% to $82.75.",
+      "importance": 6,
+      "lastAccessed": 1772199341097
+    },
+    {
+      "id": "MEM-1772199942243-839",
+      "timestamp": "2026-02-27T13:45:42.243Z",
+      "text": "Standard alert triggered. Solana moved -5.9% to $82.55.",
+      "importance": 6,
+      "lastAccessed": 1772199942243
+    },
+    {
+      "id": "MEM-1772200543441-486",
+      "timestamp": "2026-02-27T13:55:43.441Z",
+      "text": "Standard alert triggered. Solana moved -5.2% to $83.08.",
+      "importance": 6,
+      "lastAccessed": 1772200543441
+    },
+    {
+      "id": "MEM-1772201145678-997",
+      "timestamp": "2026-02-27T14:05:45.678Z",
+      "text": "Standard alert triggered. Solana moved -5.1% to $83.",
+      "importance": 6,
+      "lastAccessed": 1772201145678
+    },
+    {
+      "id": "MEM-1772201747152-920",
+      "timestamp": "2026-02-27T14:15:47.153Z",
+      "text": "Standard alert triggered. Solana moved -5.5% to $83.03.",
+      "importance": 6,
+      "lastAccessed": 1772201747154
+    },
+    {
+      "id": "MEM-1772202348515-948",
+      "timestamp": "2026-02-27T14:25:48.515Z",
+      "text": "Standard alert triggered. Solana moved -5.8% to $82.63.",
+      "importance": 6,
+      "lastAccessed": 1772202348515
+    },
+    {
+      "id": "MEM-1772202950403-389",
+      "timestamp": "2026-02-27T14:35:50.403Z",
+      "text": "Standard alert triggered. Solana moved -5.8% to $82.73.",
+      "importance": 6,
+      "lastAccessed": 1772202950403
+    },
+    {
+      "id": "MEM-1772203460116-265",
+      "timestamp": "2026-02-27T14:44:20.116Z",
+      "text": "[REFLECTION] Insight: The HUSTLER agent's aggressive market entry and lack of thorough risk management led to significant losses in Solana due to rapid price swings.. Rule: Prioritize cautious market entry, implement a 'cool-down' period after significant price movements to assess market stability, and consider implementing stop-loss orders to mitigate potential losses.. Risk tweak: increase_slippage_and_conservative_order_sizes, consider_implementing_stop_loss_orders, monitor_market_volume_and_depth",
+      "importance": 10,
+      "lastAccessed": 1772203460116
+    },
+    {
+      "id": "MEM-1772203551654-729",
+      "timestamp": "2026-02-27T14:45:51.655Z",
+      "text": "Standard alert triggered. Solana moved -5.2% to $82.93.",
+      "importance": 6,
+      "lastAccessed": 1772203551655
+    },
+    {
+      "id": "MEM-1772204152878-39",
+      "timestamp": "2026-02-27T14:55:52.878Z",
+      "text": "Standard alert triggered. Solana moved -5.4% to $82.28.",
+      "importance": 6,
+      "lastAccessed": 1772204152878
+    },
+    {
+      "id": "MEM-1772204754200-978",
+      "timestamp": "2026-02-27T15:05:54.201Z",
+      "text": "Standard alert triggered. Solana moved -4.8% to $82.61.",
+      "importance": 6,
+      "lastAccessed": 1772204754201
+    },
+    {
+      "id": "MEM-1772205809517-986",
+      "timestamp": "2026-02-27T15:23:29.517Z",
+      "text": "Standard alert triggered. Solana moved -3.4% to $82.78.",
+      "importance": 6,
+      "lastAccessed": 1772205809517
+    },
+    {
+      "id": "MEM-1772325886499-886",
+      "timestamp": "2026-03-01T00:44:46.499Z",
+      "text": "Standard alert triggered. Solana moved 3.0% to $84.54.",
+      "importance": 6,
+      "lastAccessed": 1772325886500
+    },
+    {
+      "id": "MEM-1772326487844-215",
+      "timestamp": "2026-03-01T00:54:47.845Z",
+      "text": "Standard alert triggered. Solana moved 3.3% to $84.75.",
+      "importance": 6,
+      "lastAccessed": 1772326487845
+    },
+    {
+      "id": "MEM-1772327089129-80",
+      "timestamp": "2026-03-01T01:04:49.129Z",
+      "text": "Standard alert triggered. Solana moved 3.4% to $84.86.",
+      "importance": 6,
+      "lastAccessed": 1772327089129
+    },
+    {
+      "id": "MEM-1772327546037-458",
+      "timestamp": "2026-03-01T01:12:26.037Z",
+      "text": "Standard alert triggered. Solana moved 3.2% to $84.68.",
+      "importance": 6,
+      "lastAccessed": 1772327546037
+    },
+    {
+      "id": "MEM-1772327602733-441",
+      "timestamp": "2026-03-01T01:13:22.733Z",
+      "text": "Standard alert triggered. Solana moved 3.0% to $84.48.",
+      "importance": 6,
+      "lastAccessed": 1772327602733
+    },
+    {
+      "id": "MEM-1772327770531-395",
+      "timestamp": "2026-03-01T01:16:10.531Z",
+      "text": "Standard alert triggered. Solana moved 3.0% to $84.5.",
+      "importance": 6,
+      "lastAccessed": 1772327770532
+    },
+    {
+      "id": "MEM-1772328371745-901",
+      "timestamp": "2026-03-01T01:26:11.745Z",
+      "text": "Standard alert triggered. Solana moved 3.2% to $84.8.",
+      "importance": 6,
+      "lastAccessed": 1772328371745
+    },
+    {
+      "id": "MEM-1772328754480-182",
+      "timestamp": "2026-03-01T01:32:34.480Z",
+      "text": "Standard alert triggered. Solana moved 3.3% to $84.74.",
+      "importance": 6,
+      "lastAccessed": 1772328754480
+    },
+    {
+      "id": "MEM-1772329355698-159",
+      "timestamp": "2026-03-01T01:42:35.698Z",
+      "text": "Standard alert triggered. Solana moved 4.2% to $85.35.",
+      "importance": 6,
+      "lastAccessed": 1772329355698
+    },
+    {
+      "id": "MEM-1772329956803-965",
+      "timestamp": "2026-03-01T01:52:36.804Z",
+      "text": "Standard alert triggered. Solana moved 4.7% to $85.81.",
+      "importance": 6,
+      "lastAccessed": 1772329956804
+    },
+    {
+      "id": "MEM-1772330558126-99",
+      "timestamp": "2026-03-01T02:02:38.126Z",
+      "text": "Standard alert triggered. Solana moved 6.1% to $86.92.",
+      "importance": 6,
+      "lastAccessed": 1772330558126
+    },
+    {
+      "id": "MEM-1772330858820-563",
+      "timestamp": "2026-03-01T02:07:38.820Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.3% to $87.76. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772330858820
+    },
+    {
+      "id": "MEM-1772331160006-490",
+      "timestamp": "2026-03-01T02:12:40.006Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $87.69. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772331160006
+    },
+    {
+      "id": "MEM-1772331460686-801",
+      "timestamp": "2026-03-01T02:17:40.686Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.5% to $88.09. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772331460686
+    },
+    {
+      "id": "MEM-1772331669465-290",
+      "timestamp": "2026-03-01T02:21:09.465Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.3% to $87.99. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772331669466
+    },
+    {
+      "id": "MEM-1772331970233-56",
+      "timestamp": "2026-03-01T02:26:10.233Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.0% to $87.86. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772331970233
+    },
+    {
+      "id": "MEM-1772332271020-41",
+      "timestamp": "2026-03-01T02:31:11.020Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.4% to $88.19. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772332271020
+    },
+    {
+      "id": "MEM-1772332572475-235",
+      "timestamp": "2026-03-01T02:36:12.475Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.6% to $88.27. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772332572475
+    },
+    {
+      "id": "MEM-1772332873159-135",
+      "timestamp": "2026-03-01T02:41:13.159Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.5% to $88.22. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772332873159
+    },
+    {
+      "id": "MEM-1772333174530-370",
+      "timestamp": "2026-03-01T02:46:14.530Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.9% to $88.59. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772333174530
+    },
+    {
+      "id": "MEM-1772333475190-861",
+      "timestamp": "2026-03-01T02:51:15.191Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.6% to $88.36. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772333475191
+    },
+    {
+      "id": "MEM-1772333775807-188",
+      "timestamp": "2026-03-01T02:56:15.807Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.1% to $87.96. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772333775807
+    },
+    {
+      "id": "MEM-1772334006831-786",
+      "timestamp": "2026-03-01T03:00:06.831Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.1% to $87.95. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772334006831
+    },
+    {
+      "id": "MEM-1772334307565-163",
+      "timestamp": "2026-03-01T03:05:07.565Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.3% to $88.03. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772334307565
+    },
+    {
+      "id": "MEM-1772334608273-207",
+      "timestamp": "2026-03-01T03:10:08.273Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.4% to $88.04. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772334608273
+    },
+    {
+      "id": "MEM-1772334908885-686",
+      "timestamp": "2026-03-01T03:15:08.885Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.4% to $88.08. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772334908885
+    },
+    {
+      "id": "MEM-1772335209613-669",
+      "timestamp": "2026-03-01T03:20:09.613Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.5% to $88.11. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772335209613
+    },
+    {
+      "id": "MEM-1772335510247-377",
+      "timestamp": "2026-03-01T03:25:10.247Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.2% to $87.97. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772335510247
     }
   ],
   "SNIPER": [
-    {
-      "id": "MEM-1771984271553-204",
-      "timestamp": "2026-02-25T01:51:11.553Z",
-      "text": "Token 4kHu4VktgzpZW9i8LEsHZrNLJcTV98nGhyZE5JSEpump hit +10279457.79% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984271553
-    },
-    {
-      "id": "MEM-1771984287627-96",
-      "timestamp": "2026-02-25T01:51:27.627Z",
-      "text": "Token JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd hit +191605.64% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984287627
-    },
-    {
-      "id": "MEM-1771984301544-848",
-      "timestamp": "2026-02-25T01:51:41.544Z",
-      "text": "Token 4kHu4VktgzpZW9i8LEsHZrNLJcTV98nGhyZE5JSEpump hit max profit target (+10279457.79%). Dumping all bags.",
-      "importance": 9,
-      "lastAccessed": 1771984301544
-    },
-    {
-      "id": "MEM-1771984303639-298",
-      "timestamp": "2026-02-25T01:51:43.639Z",
-      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit +413.50% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984303639
-    },
-    {
-      "id": "MEM-1771984314087-800",
-      "timestamp": "2026-02-25T01:51:54.087Z",
-      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit +93592266.33% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984314087
-    },
-    {
-      "id": "MEM-1771984323748-422",
-      "timestamp": "2026-02-25T01:52:03.748Z",
-      "text": "Token 4kHu4VktgzpZW9i8LEsHZrNLJcTV98nGhyZE5JSEpump hit max profit target (+10227679.59%). Dumping all bags.",
-      "importance": 9,
-      "lastAccessed": 1771984323748
-    },
-    {
-      "id": "MEM-1771984353697-179",
-      "timestamp": "2026-02-25T01:52:33.697Z",
-      "text": "Token 4kHu4VktgzpZW9i8LEsHZrNLJcTV98nGhyZE5JSEpump hit max profit target (+10227679.59%). Dumping all bags.",
-      "importance": 9,
-      "lastAccessed": 1771984353697
-    },
-    {
-      "id": "MEM-1771984373432-899",
-      "timestamp": "2026-02-25T01:52:53.432Z",
-      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit +412.97% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984373432
-    },
-    {
-      "id": "MEM-1771984374409-255",
-      "timestamp": "2026-02-25T01:52:54.409Z",
-      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit +101.46% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984374409
-    },
-    {
-      "id": "MEM-1771984383762-175",
-      "timestamp": "2026-02-25T01:53:03.762Z",
-      "text": "Token 4kHu4VktgzpZW9i8LEsHZrNLJcTV98nGhyZE5JSEpump hit max profit target (+10227679.59%). Dumping all bags.",
-      "importance": 9,
-      "lastAccessed": 1771984383762
-    },
-    {
-      "id": "MEM-1771984383955-115",
-      "timestamp": "2026-02-25T01:53:03.955Z",
-      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit +412.97% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984383955
-    },
-    {
-      "id": "MEM-1771984412845-893",
-      "timestamp": "2026-02-25T01:53:32.845Z",
-      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit +412.97% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984412845
-    },
-    {
-      "id": "MEM-1771984413661-602",
-      "timestamp": "2026-02-25T01:53:33.661Z",
-      "text": "Token JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd hit max profit target (+190540.60%). Dumping all bags.",
-      "importance": 9,
-      "lastAccessed": 1771984413661
-    },
-    {
-      "id": "MEM-1771984433372-803",
-      "timestamp": "2026-02-25T01:53:53.372Z",
-      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit +93592266.33% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984433372
-    },
-    {
-      "id": "MEM-1771984434187-826",
-      "timestamp": "2026-02-25T01:53:54.187Z",
-      "text": "Token oraim8c9d1nkfuQk9EzGYEUGxqL3MHQYndRw1huVo5h hit +1426690.03% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984434187
-    },
-    {
-      "id": "MEM-1771984443153-200",
-      "timestamp": "2026-02-25T01:54:03.153Z",
-      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit max profit target (+412.97%). Dumping all bags.",
-      "importance": 9,
-      "lastAccessed": 1771984443153
-    },
-    {
-      "id": "MEM-1771984443835-393",
-      "timestamp": "2026-02-25T01:54:03.835Z",
-      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit +93592266.33% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984443835
-    },
-    {
-      "id": "MEM-1771984443917-800",
-      "timestamp": "2026-02-25T01:54:03.917Z",
-      "text": "Token JJ4QpqUYzs9LUPrF6uJKQbkA4ofSnvkwQ3RBcVLFSjd hit max profit target (+190540.60%). Dumping all bags.",
-      "importance": 9,
-      "lastAccessed": 1771984443917
-    },
-    {
-      "id": "MEM-1771984472587-785",
-      "timestamp": "2026-02-25T01:54:32.587Z",
-      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit +93592266.33% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984472587
-    },
-    {
-      "id": "MEM-1771984473520-28",
-      "timestamp": "2026-02-25T01:54:33.520Z",
-      "text": "Token AujTJJ7aMS8LDo3bFzoyXDwT3jBALUbu4VZhzZdTZLmG hit +93592266.33% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984473520
-    },
-    {
-      "id": "MEM-1771984473629-633",
-      "timestamp": "2026-02-25T01:54:33.629Z",
-      "text": "Token 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump hit +412.97% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984473629
-    },
-    {
-      "id": "MEM-1771984493100-166",
-      "timestamp": "2026-02-25T01:54:53.100Z",
-      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit +736759.29% PnL. Securing moonbag.",
-      "importance": 8,
-      "lastAccessed": 1771984493100
-    },
     {
       "id": "MEM-1771984493191-93",
       "timestamp": "2026-02-25T01:54:53.191Z",
@@ -2731,6 +4957,1574 @@
       "text": "Force-exited C9FVTtx4WxgHmz55FEvQgykq8rqiLS8xRBVgqQVtpump after 4h max hold. PnL at exit: -0.50%.",
       "importance": 8,
       "lastAccessed": 1771994707348
+    },
+    {
+      "id": "MEM-1772087586933-546",
+      "timestamp": "2026-02-26T06:33:06.933Z",
+      "text": "Entered F7GyEoy3YJ4nJqK8TmqqV7Q3dpdnM1wHY1j5vdxMpump via Jupiter. 0.01 SOL @ 1.658e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772087586933
+    },
+    {
+      "id": "MEM-1772087676987-772",
+      "timestamp": "2026-02-26T06:34:36.987Z",
+      "text": "Entered 4LfbbwBzJ6CN5vy9GkSeNKJQgRjaffvCuTyJrvVGdPTq via Jupiter. 0.01 SOL @ 3.600e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772087676987
+    },
+    {
+      "id": "MEM-1772087765154-702",
+      "timestamp": "2026-02-26T06:36:05.154Z",
+      "text": "Token 4LfbbwBzJ6CN5vy9GkSeNKJQgRjaffvCuTyJrvVGdPTq hit STOP LOSS (-18.14%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772087765154
+    },
+    {
+      "id": "MEM-1772087767818-146",
+      "timestamp": "2026-02-26T06:36:07.818Z",
+      "text": "Sold 4LfbbwBzJ6CN5vy9GkSeNKJQgRjaffvCuTyJrvVGdPTq via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772087767818
+    },
+    {
+      "id": "MEM-1772087781959-870",
+      "timestamp": "2026-02-26T06:36:21.959Z",
+      "text": "Entered 61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump via Jupiter. 0.01 SOL @ 3.562e-4 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772087781959
+    },
+    {
+      "id": "MEM-1772087796799-505",
+      "timestamp": "2026-02-26T06:36:36.799Z",
+      "text": "Entered 6Cka4cPGBbuQtWuyp3KpTMAnyGjjR7YXVFTafmoNpump via Jupiter. 0.01 SOL @ 1.166e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772087796799
+    },
+    {
+      "id": "MEM-1772087917527-688",
+      "timestamp": "2026-02-26T06:38:37.527Z",
+      "text": "Entered AHepBKXTAGZTXFgark8pdH4Kdch78Bgqy6Af1S2Apump via Jupiter. 0.01 SOL @ 4.532e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772087917527
+    },
+    {
+      "id": "MEM-1772088065499-520",
+      "timestamp": "2026-02-26T06:41:05.499Z",
+      "text": "Token AHepBKXTAGZTXFgark8pdH4Kdch78Bgqy6Af1S2Apump hit STOP LOSS (-36.40%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772088065499
+    },
+    {
+      "id": "MEM-1772088068114-945",
+      "timestamp": "2026-02-26T06:41:08.114Z",
+      "text": "Sold AHepBKXTAGZTXFgark8pdH4Kdch78Bgqy6Af1S2Apump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772088068114
+    },
+    {
+      "id": "MEM-1772088156881-664",
+      "timestamp": "2026-02-26T06:42:36.881Z",
+      "text": "Entered 6nDUuWpdTGiom4BRXtLMtWyT9UfNuKFLo86MYPGgpump via Jupiter. 0.01 SOL @ 6.478e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772088156881
+    },
+    {
+      "id": "MEM-1772088232624-964",
+      "timestamp": "2026-02-26T06:43:52.624Z",
+      "text": "Entered DLUeuG3bD2V9EGd6apTRns3PrcPsCit8vGkpPj3uFtvj via Jupiter. 0.01 SOL @ 6.882e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772088232624
+    },
+    {
+      "id": "MEM-1772088247715-206",
+      "timestamp": "2026-02-26T06:44:07.715Z",
+      "text": "Entered 61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump via Jupiter. 0.01 SOL @ 3.530e-4 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772088247715
+    },
+    {
+      "id": "MEM-1772088266376-592",
+      "timestamp": "2026-02-26T06:44:26.376Z",
+      "text": "Entered MangoCzJ36AjZyKwVj3VnYU4GTonjfVEnJmvvWaxLac via Jupiter. 0.01 SOL @ 3.681e-4 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772088266376
+    },
+    {
+      "id": "MEM-1772088275118-103",
+      "timestamp": "2026-02-26T06:44:35.118Z",
+      "text": "Token 6Cka4cPGBbuQtWuyp3KpTMAnyGjjR7YXVFTafmoNpump hit STOP LOSS (-23.83%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772088275118
+    },
+    {
+      "id": "MEM-1772088277588-697",
+      "timestamp": "2026-02-26T06:44:37.588Z",
+      "text": "Sold 6Cka4cPGBbuQtWuyp3KpTMAnyGjjR7YXVFTafmoNpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772088277588
+    },
+    {
+      "id": "MEM-1772088277932-691",
+      "timestamp": "2026-02-26T06:44:37.932Z",
+      "text": "Token MangoCzJ36AjZyKwVj3VnYU4GTonjfVEnJmvvWaxLac hit +8599.14% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1772088277932
+    },
+    {
+      "id": "MEM-1772088280347-599",
+      "timestamp": "2026-02-26T06:44:40.347Z",
+      "text": "Sold MangoCzJ36AjZyKwVj3VnYU4GTonjfVEnJmvvWaxLac via Jupiter upon curve completion. Reason: MOONBAG.",
+      "importance": 6,
+      "lastAccessed": 1772088280347
+    },
+    {
+      "id": "MEM-1772088305593-968",
+      "timestamp": "2026-02-26T06:45:05.593Z",
+      "text": "Token MangoCzJ36AjZyKwVj3VnYU4GTonjfVEnJmvvWaxLac hit max profit target (+8599.14%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1772088305593
+    },
+    {
+      "id": "MEM-1772088365130-247",
+      "timestamp": "2026-02-26T06:46:05.130Z",
+      "text": "Token 6nDUuWpdTGiom4BRXtLMtWyT9UfNuKFLo86MYPGgpump hit STOP LOSS (-18.48%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772088365130
+    },
+    {
+      "id": "MEM-1772088367686-162",
+      "timestamp": "2026-02-26T06:46:07.686Z",
+      "text": "Sold 6nDUuWpdTGiom4BRXtLMtWyT9UfNuKFLo86MYPGgpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772088367687
+    },
+    {
+      "id": "MEM-1772088411995-277",
+      "timestamp": "2026-02-26T06:46:51.995Z",
+      "text": "Entered 4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R via Jupiter. 0.01 SOL @ 7.101e-3 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772088411995
+    },
+    {
+      "id": "MEM-1772088817067-930",
+      "timestamp": "2026-02-26T06:53:37.067Z",
+      "text": "Entered 2Dyzu65QA9zdX1UeE7Gx71k7fiwyUK6sZdrvJ7auq5wm via Jupiter. 0.01 SOL @ 1.193e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772088817067
+    },
+    {
+      "id": "MEM-1772088845787-292",
+      "timestamp": "2026-02-26T06:54:05.787Z",
+      "text": "Token 2Dyzu65QA9zdX1UeE7Gx71k7fiwyUK6sZdrvJ7auq5wm hit +10296.03% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1772088845787
+    },
+    {
+      "id": "MEM-1772088848266-727",
+      "timestamp": "2026-02-26T06:54:08.266Z",
+      "text": "Sold 2Dyzu65QA9zdX1UeE7Gx71k7fiwyUK6sZdrvJ7auq5wm via Jupiter upon curve completion. Reason: MOONBAG.",
+      "importance": 6,
+      "lastAccessed": 1772088848266
+    },
+    {
+      "id": "MEM-1772089416989-925",
+      "timestamp": "2026-02-26T07:03:36.989Z",
+      "text": "Entered CDBdbNqmrLu1PcgjrFG52yxg71QnFhBZcUE6PSFdbonk via Jupiter. 0.01 SOL @ 7.759e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772089416989
+    },
+    {
+      "id": "MEM-1772089477163-485",
+      "timestamp": "2026-02-26T07:04:37.163Z",
+      "text": "Entered 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump via Jupiter. 0.01 SOL @ 1.362e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772089477163
+    },
+    {
+      "id": "MEM-1772089505040-895",
+      "timestamp": "2026-02-26T07:05:05.040Z",
+      "text": "Token F7GyEoy3YJ4nJqK8TmqqV7Q3dpdnM1wHY1j5vdxMpump hit STOP LOSS (-15.39%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772089505040
+    },
+    {
+      "id": "MEM-1772089507467-180",
+      "timestamp": "2026-02-26T07:05:07.467Z",
+      "text": "Sold F7GyEoy3YJ4nJqK8TmqqV7Q3dpdnM1wHY1j5vdxMpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772089507467
+    },
+    {
+      "id": "MEM-1772089567646-113",
+      "timestamp": "2026-02-26T07:06:07.646Z",
+      "text": "Entered 61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump via Jupiter. 0.01 SOL @ 3.525e-4 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772089567646
+    },
+    {
+      "id": "MEM-1772089626966-60",
+      "timestamp": "2026-02-26T07:07:06.966Z",
+      "text": "Entered J3NKxxXZcnNiMjKw9hYb2K4LUxgwB6t1FtPtQVsv3KFr via Jupiter. 0.01 SOL @ 3.712e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772089626966
+    },
+    {
+      "id": "MEM-1772089638219-916",
+      "timestamp": "2026-02-26T07:07:18.219Z",
+      "text": "Sold J3NKxxXZcnNiMjKw9hYb2K4LUxgwB6t1FtPtQVsv3KFr via Jupiter upon curve completion. Reason: EMERGENCY_SELL.",
+      "importance": 6,
+      "lastAccessed": 1772089638219
+    },
+    {
+      "id": "MEM-1772090122252-374",
+      "timestamp": "2026-02-26T07:15:22.252Z",
+      "text": "Entered DLUeuG3bD2V9EGd6apTRns3PrcPsCit8vGkpPj3uFtvj via Jupiter. 0.01 SOL @ 6.766e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772090122252
+    },
+    {
+      "id": "MEM-1772090790660-666",
+      "timestamp": "2026-02-26T07:26:30.660Z",
+      "text": "Sold DLUeuG3bD2V9EGd6apTRns3PrcPsCit8vGkpPj3uFtvj via Jupiter upon curve completion. Reason: EMERGENCY_SELL.",
+      "importance": 6,
+      "lastAccessed": 1772090790660
+    },
+    {
+      "id": "MEM-1772090826428-976",
+      "timestamp": "2026-02-26T07:27:06.428Z",
+      "text": "Token DLUeuG3bD2V9EGd6apTRns3PrcPsCit8vGkpPj3uFtvj hit STOP LOSS (-59.61%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772090826428
+    },
+    {
+      "id": "MEM-1772091186956-771",
+      "timestamp": "2026-02-26T07:33:06.956Z",
+      "text": "Token DLUeuG3bD2V9EGd6apTRns3PrcPsCit8vGkpPj3uFtvj hit STOP LOSS (-17.21%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772091186956
+    },
+    {
+      "id": "MEM-1772091190043-804",
+      "timestamp": "2026-02-26T07:33:10.043Z",
+      "text": "Sold DLUeuG3bD2V9EGd6apTRns3PrcPsCit8vGkpPj3uFtvj via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772091190043
+    },
+    {
+      "id": "MEM-1772091292984-975",
+      "timestamp": "2026-02-26T07:34:52.984Z",
+      "text": "Entered 61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump via Jupiter. 0.01 SOL @ 3.618e-4 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772091292984
+    },
+    {
+      "id": "MEM-1772091457264-976",
+      "timestamp": "2026-02-26T07:37:37.264Z",
+      "text": "Entered 7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU via Jupiter. 0.01 SOL @ 5.684e-9 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772091457264
+    },
+    {
+      "id": "MEM-1772091486006-924",
+      "timestamp": "2026-02-26T07:38:06.006Z",
+      "text": "Token 7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU hit +101245.77% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1772091486006
+    },
+    {
+      "id": "MEM-1772091488444-500",
+      "timestamp": "2026-02-26T07:38:08.444Z",
+      "text": "Sold 7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU via Jupiter upon curve completion. Reason: MOONBAG.",
+      "importance": 6,
+      "lastAccessed": 1772091488444
+    },
+    {
+      "id": "MEM-1772091516462-78",
+      "timestamp": "2026-02-26T07:38:36.462Z",
+      "text": "Token 7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU hit max profit target (+101245.77%). Dumping all bags.",
+      "importance": 9,
+      "lastAccessed": 1772091516462
+    },
+    {
+      "id": "MEM-1772091606306-332",
+      "timestamp": "2026-02-26T07:40:06.306Z",
+      "text": "Token 7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU hit STOP LOSS (-98.84%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772091606306
+    },
+    {
+      "id": "MEM-1772091608926-498",
+      "timestamp": "2026-02-26T07:40:08.926Z",
+      "text": "Sold 7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772091608926
+    },
+    {
+      "id": "MEM-1772091667200-924",
+      "timestamp": "2026-02-26T07:41:07.200Z",
+      "text": "Entered CQvadZTR8vikRqqwyhvYV8YpdfCRjUCGyQwCuY4rxBQt via Jupiter. 0.01 SOL @ 4.160e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772091667200
+    },
+    {
+      "id": "MEM-1772091712217-406",
+      "timestamp": "2026-02-26T07:41:52.217Z",
+      "text": "Entered 8x5VqbHA8D7NkD52uNuS5nnt3PwA8pLD34ymskeSo2Wn via Jupiter. 0.01 SOL @ 8.173e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772091712217
+    },
+    {
+      "id": "MEM-1772092027516-159",
+      "timestamp": "2026-02-26T07:47:07.516Z",
+      "text": "Entered 61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump via Jupiter. 0.01 SOL @ 3.641e-4 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772092027516
+    },
+    {
+      "id": "MEM-1772092102302-618",
+      "timestamp": "2026-02-26T07:48:22.302Z",
+      "text": "Entered mMb6c9FefFqvW6gJcP6MvJEkHBXHEvczheM9Vax7s2q via Jupiter. 0.01 SOL @ 6.562e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772092102302
+    },
+    {
+      "id": "MEM-1772092177956-361",
+      "timestamp": "2026-02-26T07:49:37.956Z",
+      "text": "Entered bAwSNBiVa9u1u3kQj4bqxppSAMU2d4HL5tjUyPTysRz via Jupiter. 0.01 SOL @ 5.841e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772092177956
+    },
+    {
+      "id": "MEM-1772092357955-857",
+      "timestamp": "2026-02-26T07:52:37.955Z",
+      "text": "Entered AZsHEMXd36Bj1EMNXhowJajpUXzrKcK57wW4ZGXVa7yR via Jupiter. 0.01 SOL @ 9.777e-10 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772092357955
+    },
+    {
+      "id": "MEM-1772092366417-228",
+      "timestamp": "2026-02-26T07:52:46.417Z",
+      "text": "Sold AZsHEMXd36Bj1EMNXhowJajpUXzrKcK57wW4ZGXVa7yR via Jupiter upon curve completion. Reason: EMERGENCY_SELL.",
+      "importance": 6,
+      "lastAccessed": 1772092366417
+    },
+    {
+      "id": "MEM-1772092372575-71",
+      "timestamp": "2026-02-26T07:52:52.575Z",
+      "text": "Entered Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump via Jupiter. 0.01 SOL @ 8.755e-3 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772092372575
+    },
+    {
+      "id": "MEM-1772092462953-620",
+      "timestamp": "2026-02-26T07:54:22.953Z",
+      "text": "Entered DFL1zNkaGPWm1BqAVqRjCZvHmwTFrEaJtbzJWgseoNJh via Jupiter. 0.01 SOL @ 3.363e-10 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772092462953
+    },
+    {
+      "id": "MEM-1772092477273-773",
+      "timestamp": "2026-02-26T07:54:37.273Z",
+      "text": "Token DFL1zNkaGPWm1BqAVqRjCZvHmwTFrEaJtbzJWgseoNJh hit +98775.93% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1772092477273
+    },
+    {
+      "id": "MEM-1772092480112-267",
+      "timestamp": "2026-02-26T07:54:40.112Z",
+      "text": "Sold DFL1zNkaGPWm1BqAVqRjCZvHmwTFrEaJtbzJWgseoNJh via Jupiter upon curve completion. Reason: MOONBAG.",
+      "importance": 6,
+      "lastAccessed": 1772092480112
+    },
+    {
+      "id": "MEM-1772092487776-564",
+      "timestamp": "2026-02-26T07:54:47.776Z",
+      "text": "Sold DFL1zNkaGPWm1BqAVqRjCZvHmwTFrEaJtbzJWgseoNJh via Jupiter upon curve completion. Reason: EMERGENCY_SELL.",
+      "importance": 6,
+      "lastAccessed": 1772092487776
+    },
+    {
+      "id": "MEM-1772092552908-357",
+      "timestamp": "2026-02-26T07:55:52.908Z",
+      "text": "Entered 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump via Jupiter. 0.01 SOL @ 1.363e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772092552908
+    },
+    {
+      "id": "MEM-1772092567060-875",
+      "timestamp": "2026-02-26T07:56:07.060Z",
+      "text": "Token DFL1zNkaGPWm1BqAVqRjCZvHmwTFrEaJtbzJWgseoNJh hit STOP LOSS (-98.86%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772092567060
+    },
+    {
+      "id": "MEM-1772092569918-785",
+      "timestamp": "2026-02-26T07:56:09.918Z",
+      "text": "Sold DFL1zNkaGPWm1BqAVqRjCZvHmwTFrEaJtbzJWgseoNJh via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772092569918
+    },
+    {
+      "id": "MEM-1772092597168-792",
+      "timestamp": "2026-02-26T07:56:37.168Z",
+      "text": "Entered 5Jr9hGmJgxBRjjF8XGcGgQzXUdsbpZNNMpigEv8Wpump via Jupiter. 0.01 SOL @ 3.694e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772092597168
+    },
+    {
+      "id": "MEM-1772092897177-608",
+      "timestamp": "2026-02-26T08:01:37.177Z",
+      "text": "Entered DFL1zNkaGPWm1BqAVqRjCZvHmwTFrEaJtbzJWgseoNJh via Jupiter. 0.01 SOL @ 3.358e-10 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772092897177
+    },
+    {
+      "id": "MEM-1772092986994-376",
+      "timestamp": "2026-02-26T08:03:06.994Z",
+      "text": "Token DFL1zNkaGPWm1BqAVqRjCZvHmwTFrEaJtbzJWgseoNJh hit STOP LOSS (-98.86%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772092986994
+    },
+    {
+      "id": "MEM-1772092989545-700",
+      "timestamp": "2026-02-26T08:03:09.545Z",
+      "text": "Sold DFL1zNkaGPWm1BqAVqRjCZvHmwTFrEaJtbzJWgseoNJh via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772092989545
+    },
+    {
+      "id": "MEM-1772093242359-80",
+      "timestamp": "2026-02-26T08:07:22.359Z",
+      "text": "Entered 9SRG2wEJZ35XhKsFXu11iJwuNLMrmKbAxzuKyiTCaKCp via Jupiter. 0.01 SOL @ 7.165e-11 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772093242359
+    },
+    {
+      "id": "MEM-1772093257126-3",
+      "timestamp": "2026-02-26T08:07:37.126Z",
+      "text": "Token 9SRG2wEJZ35XhKsFXu11iJwuNLMrmKbAxzuKyiTCaKCp hit STOP LOSS (-89.96%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772093257126
+    },
+    {
+      "id": "MEM-1772093286725-324",
+      "timestamp": "2026-02-26T08:08:06.725Z",
+      "text": "Token 9SRG2wEJZ35XhKsFXu11iJwuNLMrmKbAxzuKyiTCaKCp hit STOP LOSS (-98.85%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772093286725
+    },
+    {
+      "id": "MEM-1772093289192-747",
+      "timestamp": "2026-02-26T08:08:09.192Z",
+      "text": "Sold 9SRG2wEJZ35XhKsFXu11iJwuNLMrmKbAxzuKyiTCaKCp via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772093289192
+    },
+    {
+      "id": "MEM-1772093407167-329",
+      "timestamp": "2026-02-26T08:10:07.167Z",
+      "text": "Entered J3NKxxXZcnNiMjKw9hYb2K4LUxgwB6t1FtPtQVsv3KFr via Jupiter. 0.01 SOL @ 3.737e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772093407167
+    },
+    {
+      "id": "MEM-1772093437276-785",
+      "timestamp": "2026-02-26T08:10:37.276Z",
+      "text": "Token J3NKxxXZcnNiMjKw9hYb2K4LUxgwB6t1FtPtQVsv3KFr hit +9900.34% PnL. Securing moonbag.",
+      "importance": 8,
+      "lastAccessed": 1772093437276
+    },
+    {
+      "id": "MEM-1772093439748-672",
+      "timestamp": "2026-02-26T08:10:39.748Z",
+      "text": "Sold J3NKxxXZcnNiMjKw9hYb2K4LUxgwB6t1FtPtQVsv3KFr via Jupiter upon curve completion. Reason: MOONBAG.",
+      "importance": 6,
+      "lastAccessed": 1772093439748
+    },
+    {
+      "id": "MEM-1772093457238-695",
+      "timestamp": "2026-02-26T08:10:57.238Z",
+      "text": "Sold J3NKxxXZcnNiMjKw9hYb2K4LUxgwB6t1FtPtQVsv3KFr via Jupiter upon curve completion. Reason: EMERGENCY_SELL.",
+      "importance": 6,
+      "lastAccessed": 1772093457238
+    },
+    {
+      "id": "MEM-1772093632344-118",
+      "timestamp": "2026-02-26T08:13:52.344Z",
+      "text": "Entered mMb6c9FefFqvW6gJcP6MvJEkHBXHEvczheM9Vax7s2q via Jupiter. 0.01 SOL @ 6.699e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772093632344
+    },
+    {
+      "id": "MEM-1772116158681-533",
+      "timestamp": "2026-02-26T14:29:18.681Z",
+      "text": "Entered E4um9bJTEd463EaiwyNdcDrQK2Q75xyTRczu5Ym5pump via Jupiter. 0.03 SOL @ 1.555e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772116158681
+    },
+    {
+      "id": "MEM-1772116370037-913",
+      "timestamp": "2026-02-26T14:32:50.037Z",
+      "text": "Entered 723VC6j9tMtXLtiK24iATyN35PkbE84LXNu4wtx7pump via Jupiter. 0.03 SOL @ 1.085e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772116370037
+    },
+    {
+      "id": "MEM-1772116413018-790",
+      "timestamp": "2026-02-26T14:33:33.018Z",
+      "text": "Entered 4F5VG4QNMMhbZURpqdvjVkKERtD9KSuf7kPEbAd8pump via Jupiter. 0.03 SOL @ 1.183e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772116413018
+    },
+    {
+      "id": "MEM-1772116488721-633",
+      "timestamp": "2026-02-26T14:34:48.721Z",
+      "text": "Entered 8wXtPeU6557ETkp9WHFY1n1EcU6NxDvbAggHGsMYiHsB via Jupiter. 0.03 SOL @ 7.263e-9 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772116488721
+    },
+    {
+      "id": "MEM-1772116488770-65",
+      "timestamp": "2026-02-26T14:34:48.770Z",
+      "text": "Entered 3vRi6p85cuoCHb2hc9TmLSdGCiMBfxZNctTYgUQ8pump via Jupiter. 0.03 SOL @ 2.795e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772116488770
+    },
+    {
+      "id": "MEM-1772116509275-200",
+      "timestamp": "2026-02-26T14:35:09.275Z",
+      "text": "Sold 8wXtPeU6557ETkp9WHFY1n1EcU6NxDvbAggHGsMYiHsB via Jupiter upon curve completion. Reason: EMERGENCY_SELL.",
+      "importance": 6,
+      "lastAccessed": 1772116509275
+    },
+    {
+      "id": "MEM-1772116675141-591",
+      "timestamp": "2026-02-26T14:37:55.141Z",
+      "text": "Entered KwmduZkhp8j4yNsTZyG2w1kcVTFyBSH261ZF8dkpump via Jupiter. 0.03 SOL @ 2.899e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772116675141
+    },
+    {
+      "id": "MEM-1772116764215-232",
+      "timestamp": "2026-02-26T14:39:24.215Z",
+      "text": "Entered GM6bRL4fSiKJWCL6Xg8LiCETtnoHHGN1ctgNxVmdpump via Jupiter. 0.03 SOL @ 4.292e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772116764215
+    },
+    {
+      "id": "MEM-1772116854256-868",
+      "timestamp": "2026-02-26T14:40:54.256Z",
+      "text": "Token GM6bRL4fSiKJWCL6Xg8LiCETtnoHHGN1ctgNxVmdpump hit STOP LOSS (-26.20%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772116854256
+    },
+    {
+      "id": "MEM-1772116899229-870",
+      "timestamp": "2026-02-26T14:41:39.229Z",
+      "text": "Entered DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263 via Jupiter. 0.03 SOL @ 7.146e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772116899229
+    },
+    {
+      "id": "MEM-1772116915640-595",
+      "timestamp": "2026-02-26T14:41:55.640Z",
+      "text": "Token mMb6c9FefFqvW6gJcP6MvJEkHBXHEvczheM9Vax7s2q hit STOP LOSS (-57.40%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772116915640
+    },
+    {
+      "id": "MEM-1772116918319-5",
+      "timestamp": "2026-02-26T14:41:58.319Z",
+      "text": "Sold mMb6c9FefFqvW6gJcP6MvJEkHBXHEvczheM9Vax7s2q via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772116918319
+    },
+    {
+      "id": "MEM-1772116919397-892",
+      "timestamp": "2026-02-26T14:41:59.397Z",
+      "text": "Token DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263 hit STOP LOSS (-90.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772116919397
+    },
+    {
+      "id": "MEM-1772116921831-112",
+      "timestamp": "2026-02-26T14:42:01.831Z",
+      "text": "Sold DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263 via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772116921831
+    },
+    {
+      "id": "MEM-1772117182733-854",
+      "timestamp": "2026-02-26T14:46:22.733Z",
+      "text": "Token 723VC6j9tMtXLtiK24iATyN35PkbE84LXNu4wtx7pump hit STOP LOSS (-17.18%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772117182733
+    },
+    {
+      "id": "MEM-1772117198394-121",
+      "timestamp": "2026-02-26T14:46:38.394Z",
+      "text": "Entered FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump via Jupiter. 0.03 SOL @ 2.354e-8 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772117198394
+    },
+    {
+      "id": "MEM-1772117303353-34",
+      "timestamp": "2026-02-26T14:48:23.353Z",
+      "text": "Entered AZsHEMXd36Bj1EMNXhowJajpUXzrKcK57wW4ZGXVa7yR via Jupiter. 0.03 SOL @ 9.740e-10 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772117303353
+    },
+    {
+      "id": "MEM-1772117333043-59",
+      "timestamp": "2026-02-26T14:48:53.043Z",
+      "text": "Token AZsHEMXd36Bj1EMNXhowJajpUXzrKcK57wW4ZGXVa7yR hit STOP LOSS (-90.08%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772117333043
+    },
+    {
+      "id": "MEM-1772117423517-52",
+      "timestamp": "2026-02-26T14:50:23.517Z",
+      "text": "Token 723VC6j9tMtXLtiK24iATyN35PkbE84LXNu4wtx7pump hit STOP LOSS (-20.88%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772117423517
+    },
+    {
+      "id": "MEM-1772117423754-971",
+      "timestamp": "2026-02-26T14:50:23.754Z",
+      "text": "Entered peen77qWZw4XQkvxW1QF6MUJyKNLbqvMzqhkKpB1aVo via Jupiter. 0.03 SOL @ 4.697e-11 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772117423754
+    },
+    {
+      "id": "MEM-1772117453522-396",
+      "timestamp": "2026-02-26T14:50:53.522Z",
+      "text": "Token AZsHEMXd36Bj1EMNXhowJajpUXzrKcK57wW4ZGXVa7yR hit STOP LOSS (-98.85%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772117453522
+    },
+    {
+      "id": "MEM-1772117455941-875",
+      "timestamp": "2026-02-26T14:50:55.941Z",
+      "text": "Sold AZsHEMXd36Bj1EMNXhowJajpUXzrKcK57wW4ZGXVa7yR via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772117455941
+    },
+    {
+      "id": "MEM-1772117542642-122",
+      "timestamp": "2026-02-26T14:52:22.642Z",
+      "text": "Token KwmduZkhp8j4yNsTZyG2w1kcVTFyBSH261ZF8dkpump hit STOP LOSS (-22.05%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772117542642
+    },
+    {
+      "id": "MEM-1772117813678-565",
+      "timestamp": "2026-02-26T14:56:53.678Z",
+      "text": "Token 723VC6j9tMtXLtiK24iATyN35PkbE84LXNu4wtx7pump hit STOP LOSS (-17.69%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772117813678
+    },
+    {
+      "id": "MEM-1772118152251-257",
+      "timestamp": "2026-02-26T15:02:32.251Z",
+      "text": "Entered 2GPJhV9jNrj7TaLYMRgWkcy6sTKLcwntv7nZ7qDyMRGM via Jupiter. 0.03 SOL @ 1.180e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772118152251
+    },
+    {
+      "id": "MEM-1772118421277-134",
+      "timestamp": "2026-02-26T15:07:01.277Z",
+      "text": "Token 723VC6j9tMtXLtiK24iATyN35PkbE84LXNu4wtx7pump hit STOP LOSS (-27.32%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772118421277
+    },
+    {
+      "id": "MEM-1772118646854-810",
+      "timestamp": "2026-02-26T15:10:46.854Z",
+      "text": "Entered 2qEHjDLDLbuBgRYvsxhc5D6uDWAivNFZGan56P1tpump via Jupiter. 0.03 SOL @ 5.387e-4 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772118646854
+    },
+    {
+      "id": "MEM-1772118848762-995",
+      "timestamp": "2026-02-26T15:14:08.762Z",
+      "text": "Sold bAwSNBiVa9u1u3kQj4bqxppSAMU2d4HL5tjUyPTysRz via Jupiter upon curve completion. Reason: EMERGENCY_SELL.",
+      "importance": 6,
+      "lastAccessed": 1772118848762
+    },
+    {
+      "id": "MEM-1772118932291-970",
+      "timestamp": "2026-02-26T15:15:32.291Z",
+      "text": "Entered DUhWgHD3KgHHmsYdQdJHDv359bySNzigYcqJ45Gcpump via Jupiter. 0.03 SOL @ 1.979e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772118932292
+    },
+    {
+      "id": "MEM-1772159524148-137",
+      "timestamp": "2026-02-27T02:32:04.148Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772159524148
+    },
+    {
+      "id": "MEM-1772159566941-54",
+      "timestamp": "2026-02-27T02:32:46.941Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772159566941
+    },
+    {
+      "id": "MEM-1772159616998-995",
+      "timestamp": "2026-02-27T02:33:37.008Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772159617008
+    },
+    {
+      "id": "MEM-1772159661729-261",
+      "timestamp": "2026-02-27T02:34:21.729Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772159661729
+    },
+    {
+      "id": "MEM-1772159707140-981",
+      "timestamp": "2026-02-27T02:35:07.140Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772159707140
+    },
+    {
+      "id": "MEM-1772160965714-580",
+      "timestamp": "2026-02-27T02:56:05.714Z",
+      "text": "Entered 61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump via Jupiter. 0.03 SOL @ 3.329e-4 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772160965714
+    },
+    {
+      "id": "MEM-1772160977836-217",
+      "timestamp": "2026-02-27T02:56:17.836Z",
+      "text": "Token 61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772160977836
+    },
+    {
+      "id": "MEM-1772160980377-160",
+      "timestamp": "2026-02-27T02:56:20.377Z",
+      "text": "Sold 61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772160980377
+    },
+    {
+      "id": "MEM-1772160980428-983",
+      "timestamp": "2026-02-27T02:56:20.428Z",
+      "text": "Entered Rk5882wPHebgoXUe1K4yojwxD4tR5nErZDJ8JL4pump via Jupiter. 0.03 SOL @ 2.524e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772160980428
+    },
+    {
+      "id": "MEM-1772161007818-583",
+      "timestamp": "2026-02-27T02:56:47.818Z",
+      "text": "Token Rk5882wPHebgoXUe1K4yojwxD4tR5nErZDJ8JL4pump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772161007818
+    },
+    {
+      "id": "MEM-1772161070552-516",
+      "timestamp": "2026-02-27T02:57:50.552Z",
+      "text": "Entered 5Jr9hGmJgxBRjjF8XGcGgQzXUdsbpZNNMpigEv8Wpump via Jupiter. 0.03 SOL @ 3.255e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772161070552
+    },
+    {
+      "id": "MEM-1772161097812-524",
+      "timestamp": "2026-02-27T02:58:17.812Z",
+      "text": "Token 5Jr9hGmJgxBRjjF8XGcGgQzXUdsbpZNNMpigEv8Wpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772161097812
+    },
+    {
+      "id": "MEM-1772161100309-402",
+      "timestamp": "2026-02-27T02:58:20.309Z",
+      "text": "Sold 5Jr9hGmJgxBRjjF8XGcGgQzXUdsbpZNNMpigEv8Wpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772161100309
+    },
+    {
+      "id": "MEM-1772161100374-954",
+      "timestamp": "2026-02-27T02:58:20.374Z",
+      "text": "Entered C9n8PWYbZxBXq68VZjRq3neytXTNKtXfrkAHtaaE82bg via Jupiter. 0.03 SOL @ 5.261e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772161100374
+    },
+    {
+      "id": "MEM-1772161115380-464",
+      "timestamp": "2026-02-27T02:58:35.380Z",
+      "text": "Entered 4NBTf8PfLH4oLFnwf3knv46FY9i5oXjDxffCetXRpump via Jupiter. 0.03 SOL @ 1.223e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772161115380
+    },
+    {
+      "id": "MEM-1772161127810-52",
+      "timestamp": "2026-02-27T02:58:47.810Z",
+      "text": "Token 4NBTf8PfLH4oLFnwf3knv46FY9i5oXjDxffCetXRpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772161127810
+    },
+    {
+      "id": "MEM-1772161130308-525",
+      "timestamp": "2026-02-27T02:58:50.308Z",
+      "text": "Sold 4NBTf8PfLH4oLFnwf3knv46FY9i5oXjDxffCetXRpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772161130308
+    },
+    {
+      "id": "MEM-1772161130535-251",
+      "timestamp": "2026-02-27T02:58:50.535Z",
+      "text": "Token C9n8PWYbZxBXq68VZjRq3neytXTNKtXfrkAHtaaE82bg hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772161130536
+    },
+    {
+      "id": "MEM-1772161220405-246",
+      "timestamp": "2026-02-27T03:00:20.405Z",
+      "text": "Entered 6H86gfmgQ3xF5WsXPzNsHuyJqRApEKJUYb9sPBHMpump via Jupiter. 0.03 SOL @ 8.218e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772161220405
+    },
+    {
+      "id": "MEM-1772161247841-425",
+      "timestamp": "2026-02-27T03:00:47.841Z",
+      "text": "Token 6H86gfmgQ3xF5WsXPzNsHuyJqRApEKJUYb9sPBHMpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772161247841
+    },
+    {
+      "id": "MEM-1772161685494-32",
+      "timestamp": "2026-02-27T03:08:05.494Z",
+      "text": "Entered SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3 via Jupiter. 0.03 SOL @ 2.425e-4 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772161685494
+    },
+    {
+      "id": "MEM-1772161697813-464",
+      "timestamp": "2026-02-27T03:08:17.813Z",
+      "text": "Token SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3 hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772161697813
+    },
+    {
+      "id": "MEM-1772161700292-488",
+      "timestamp": "2026-02-27T03:08:20.292Z",
+      "text": "Sold SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3 via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772161700292
+    },
+    {
+      "id": "MEM-1772161940600-278",
+      "timestamp": "2026-02-27T03:12:20.600Z",
+      "text": "Entered FhqDs9nnjhQqRyiGQZ6C4FvBkBzG6sA7vmZFPZaupump via Jupiter. 0.03 SOL @ 1.473e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772161940600
+    },
+    {
+      "id": "MEM-1772161967821-59",
+      "timestamp": "2026-02-27T03:12:47.821Z",
+      "text": "Token FhqDs9nnjhQqRyiGQZ6C4FvBkBzG6sA7vmZFPZaupump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772161967821
+    },
+    {
+      "id": "MEM-1772161970349-488",
+      "timestamp": "2026-02-27T03:12:50.349Z",
+      "text": "Sold FhqDs9nnjhQqRyiGQZ6C4FvBkBzG6sA7vmZFPZaupump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772161970349
+    },
+    {
+      "id": "MEM-1772162000529-3",
+      "timestamp": "2026-02-27T03:13:20.529Z",
+      "text": "Entered Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump via Jupiter. 0.03 SOL @ 9.368e-3 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772162000529
+    },
+    {
+      "id": "MEM-1772162027867-201",
+      "timestamp": "2026-02-27T03:13:47.867Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772162027867
+    },
+    {
+      "id": "MEM-1772162058017-106",
+      "timestamp": "2026-02-27T03:14:18.017Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772162058017
+    },
+    {
+      "id": "MEM-1772162061014-675",
+      "timestamp": "2026-02-27T03:14:21.014Z",
+      "text": "Sold Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772162061014
+    },
+    {
+      "id": "MEM-1772162645821-658",
+      "timestamp": "2026-02-27T03:24:05.821Z",
+      "text": "Entered KMnDBXcPXoz6oMJW5XG4tXdwSWpmWEP2RQM1Uujpump via Jupiter. 0.03 SOL @ 3.032e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772162645821
+    },
+    {
+      "id": "MEM-1772162657944-438",
+      "timestamp": "2026-02-27T03:24:17.944Z",
+      "text": "Token KMnDBXcPXoz6oMJW5XG4tXdwSWpmWEP2RQM1Uujpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772162657944
+    },
+    {
+      "id": "MEM-1772162660440-1",
+      "timestamp": "2026-02-27T03:24:20.440Z",
+      "text": "Sold KMnDBXcPXoz6oMJW5XG4tXdwSWpmWEP2RQM1Uujpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772162660440
+    },
+    {
+      "id": "MEM-1772162690447-770",
+      "timestamp": "2026-02-27T03:24:50.447Z",
+      "text": "Entered 4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R via Jupiter. 0.03 SOL @ 7.058e-3 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772162690447
+    },
+    {
+      "id": "MEM-1772162706647-112",
+      "timestamp": "2026-02-27T03:25:06.647Z",
+      "text": "Entered ApjbGDCRsCuyhAQWUQgTxJZGLP5hqWn8TSCtrSfuzt22 via Jupiter. 0.03 SOL @ 8.578e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772162706647
+    },
+    {
+      "id": "MEM-1772162718000-715",
+      "timestamp": "2026-02-27T03:25:18.000Z",
+      "text": "Token ApjbGDCRsCuyhAQWUQgTxJZGLP5hqWn8TSCtrSfuzt22 hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772162718000
+    },
+    {
+      "id": "MEM-1772162720985-28",
+      "timestamp": "2026-02-27T03:25:20.985Z",
+      "text": "Sold ApjbGDCRsCuyhAQWUQgTxJZGLP5hqWn8TSCtrSfuzt22 via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772162720985
+    },
+    {
+      "id": "MEM-1772162721167-50",
+      "timestamp": "2026-02-27T03:25:21.167Z",
+      "text": "Token 4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772162721167
+    },
+    {
+      "id": "MEM-1772162724322-959",
+      "timestamp": "2026-02-27T03:25:24.322Z",
+      "text": "Sold 4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772162724322
+    },
+    {
+      "id": "MEM-1772162780422-799",
+      "timestamp": "2026-02-27T03:26:20.422Z",
+      "text": "Entered A9ufpXkuv4q9QTU5fygvSVEmNsz1k6WTN93ePw9Zpump via Jupiter. 0.03 SOL @ 1.375e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772162780422
+    },
+    {
+      "id": "MEM-1772162807964-409",
+      "timestamp": "2026-02-27T03:26:47.964Z",
+      "text": "Token A9ufpXkuv4q9QTU5fygvSVEmNsz1k6WTN93ePw9Zpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772162807965
+    },
+    {
+      "id": "MEM-1772162810478-186",
+      "timestamp": "2026-02-27T03:26:50.478Z",
+      "text": "Sold A9ufpXkuv4q9QTU5fygvSVEmNsz1k6WTN93ePw9Zpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772162810478
+    },
+    {
+      "id": "MEM-1772162900381-936",
+      "timestamp": "2026-02-27T03:28:20.381Z",
+      "text": "Entered 412zDygnwP9DzitnQVgRKUFFTDmrYScFch6P2k39pump via Jupiter. 0.03 SOL @ 8.912e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772162900381
+    },
+    {
+      "id": "MEM-1772162927835-844",
+      "timestamp": "2026-02-27T03:28:47.835Z",
+      "text": "Token 412zDygnwP9DzitnQVgRKUFFTDmrYScFch6P2k39pump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772162927835
+    },
+    {
+      "id": "MEM-1772163020530-928",
+      "timestamp": "2026-02-27T03:30:20.530Z",
+      "text": "Entered 6H86gfmgQ3xF5WsXPzNsHuyJqRApEKJUYb9sPBHMpump via Jupiter. 0.03 SOL @ 1.166e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772163020530
+    },
+    {
+      "id": "MEM-1772163047867-760",
+      "timestamp": "2026-02-27T03:30:47.867Z",
+      "text": "Token 6H86gfmgQ3xF5WsXPzNsHuyJqRApEKJUYb9sPBHMpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772163047867
+    },
+    {
+      "id": "MEM-1772163050445-845",
+      "timestamp": "2026-02-27T03:30:50.445Z",
+      "text": "Sold 6H86gfmgQ3xF5WsXPzNsHuyJqRApEKJUYb9sPBHMpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772163050445
+    },
+    {
+      "id": "MEM-1772163321380-985",
+      "timestamp": "2026-02-27T03:35:21.380Z",
+      "text": "Entered 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump via Jupiter. 0.03 SOL @ 1.375e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772163321380
+    },
+    {
+      "id": "MEM-1772163348169-938",
+      "timestamp": "2026-02-27T03:35:48.169Z",
+      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772163348169
+    },
+    {
+      "id": "MEM-1772163351168-641",
+      "timestamp": "2026-02-27T03:35:51.168Z",
+      "text": "Sold 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772163351168
+    },
+    {
+      "id": "MEM-1772163351368-526",
+      "timestamp": "2026-02-27T03:35:51.368Z",
+      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772163351368
+    },
+    {
+      "id": "MEM-1772163425642-216",
+      "timestamp": "2026-02-27T03:37:05.642Z",
+      "text": "Entered FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump via Jupiter. 0.03 SOL @ 7.452e-4 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772163425642
+    },
+    {
+      "id": "MEM-1772163438150-71",
+      "timestamp": "2026-02-27T03:37:18.150Z",
+      "text": "Token FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772163438150
+    },
+    {
+      "id": "MEM-1772163441115-866",
+      "timestamp": "2026-02-27T03:37:21.115Z",
+      "text": "Sold FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772163441115
+    },
+    {
+      "id": "MEM-1772164845008-427",
+      "timestamp": "2026-02-27T04:00:45.008Z",
+      "text": "Entered A9ufpXkuv4q9QTU5fygvSVEmNsz1k6WTN93ePw9Zpump via Jupiter. 0.03 SOL @ 1.073e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772164845008
+    },
+    {
+      "id": "MEM-1772164871521-256",
+      "timestamp": "2026-02-27T04:01:11.521Z",
+      "text": "Token A9ufpXkuv4q9QTU5fygvSVEmNsz1k6WTN93ePw9Zpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772164871521
+    },
+    {
+      "id": "MEM-1772164874132-414",
+      "timestamp": "2026-02-27T04:01:14.132Z",
+      "text": "Sold A9ufpXkuv4q9QTU5fygvSVEmNsz1k6WTN93ePw9Zpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772164874132
+    },
+    {
+      "id": "MEM-1772164979311-592",
+      "timestamp": "2026-02-27T04:02:59.311Z",
+      "text": "Entered AyAh823TVnfLcDgrSHYzyhY9aZ4edUPaBKzeaaQiSmMx via Jupiter. 0.03 SOL @ 8.027e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772164979311
+    },
+    {
+      "id": "MEM-1772164991577-201",
+      "timestamp": "2026-02-27T04:03:11.577Z",
+      "text": "Token AyAh823TVnfLcDgrSHYzyhY9aZ4edUPaBKzeaaQiSmMx hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772164991577
+    },
+    {
+      "id": "MEM-1772164994098-102",
+      "timestamp": "2026-02-27T04:03:14.098Z",
+      "text": "Sold AyAh823TVnfLcDgrSHYzyhY9aZ4edUPaBKzeaaQiSmMx via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772164994098
+    },
+    {
+      "id": "MEM-1772165084062-275",
+      "timestamp": "2026-02-27T04:04:44.062Z",
+      "text": "Entered C9n8PWYbZxBXq68VZjRq3neytXTNKtXfrkAHtaaE82bg via Jupiter. 0.03 SOL @ 1.244e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772165084062
+    },
+    {
+      "id": "MEM-1772165111605-8",
+      "timestamp": "2026-02-27T04:05:11.605Z",
+      "text": "Token C9n8PWYbZxBXq68VZjRq3neytXTNKtXfrkAHtaaE82bg hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772165111605
+    },
+    {
+      "id": "MEM-1772165114345-895",
+      "timestamp": "2026-02-27T04:05:14.345Z",
+      "text": "Entered 61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump via Jupiter. 0.03 SOL @ 3.578e-4 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772165114345
+    },
+    {
+      "id": "MEM-1772165114411-956",
+      "timestamp": "2026-02-27T04:05:14.411Z",
+      "text": "Sold C9n8PWYbZxBXq68VZjRq3neytXTNKtXfrkAHtaaE82bg via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772165114411
+    },
+    {
+      "id": "MEM-1772165171501-493",
+      "timestamp": "2026-02-27T04:06:11.502Z",
+      "text": "Token 61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772165171502
+    },
+    {
+      "id": "MEM-1772165173996-22",
+      "timestamp": "2026-02-27T04:06:13.996Z",
+      "text": "Sold 61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772165173996
+    },
+    {
+      "id": "MEM-1772165219641-414",
+      "timestamp": "2026-02-27T04:06:59.641Z",
+      "text": "Entered x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp via Jupiter. 0.03 SOL @ 5.746e-9 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772165219641
+    },
+    {
+      "id": "MEM-1772165291683-157",
+      "timestamp": "2026-02-27T04:08:11.683Z",
+      "text": "Token x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp hit STOP LOSS (-99.99%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772165291683
+    },
+    {
+      "id": "MEM-1772165294770-599",
+      "timestamp": "2026-02-27T04:08:14.770Z",
+      "text": "Sold x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772165294770
+    },
+    {
+      "id": "MEM-1772165324702-586",
+      "timestamp": "2026-02-27T04:08:44.702Z",
+      "text": "Entered 412zDygnwP9DzitnQVgRKUFFTDmrYScFch6P2k39pump via Jupiter. 0.03 SOL @ 3.338e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772165324702
+    },
+    {
+      "id": "MEM-1772165351513-785",
+      "timestamp": "2026-02-27T04:09:11.513Z",
+      "text": "Token 412zDygnwP9DzitnQVgRKUFFTDmrYScFch6P2k39pump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772165351513
+    },
+    {
+      "id": "MEM-1772165354070-130",
+      "timestamp": "2026-02-27T04:09:14.070Z",
+      "text": "Sold 412zDygnwP9DzitnQVgRKUFFTDmrYScFch6P2k39pump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772165354070
+    },
+    {
+      "id": "MEM-1772165384128-143",
+      "timestamp": "2026-02-27T04:09:44.128Z",
+      "text": "Entered Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump via Jupiter. 0.03 SOL @ 9.183e-3 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772165384128
+    },
+    {
+      "id": "MEM-1772165411614-642",
+      "timestamp": "2026-02-27T04:10:11.614Z",
+      "text": "Token Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772165411614
+    },
+    {
+      "id": "MEM-1772165414158-376",
+      "timestamp": "2026-02-27T04:10:14.158Z",
+      "text": "Sold Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772165414158
+    },
+    {
+      "id": "MEM-1772165684047-60",
+      "timestamp": "2026-02-27T04:14:44.047Z",
+      "text": "Entered 5jAq3rrgiz1a3i3tCDyqmSNCUrjaSocn7T1HKu4Kpump via Jupiter. 0.03 SOL @ 1.149e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772165684047
+    },
+    {
+      "id": "MEM-1772165711851-201",
+      "timestamp": "2026-02-27T04:15:11.851Z",
+      "text": "Token 5jAq3rrgiz1a3i3tCDyqmSNCUrjaSocn7T1HKu4Kpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772165711851
+    },
+    {
+      "id": "MEM-1772165759269-247",
+      "timestamp": "2026-02-27T04:15:59.269Z",
+      "text": "Entered 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump via Jupiter. 0.03 SOL @ 1.370e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772165759269
+    },
+    {
+      "id": "MEM-1772165771626-236",
+      "timestamp": "2026-02-27T04:16:11.626Z",
+      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772165771626
+    },
+    {
+      "id": "MEM-1772165774103-217",
+      "timestamp": "2026-02-27T04:16:14.103Z",
+      "text": "Sold 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772165774103
+    },
+    {
+      "id": "MEM-1772165819359-293",
+      "timestamp": "2026-02-27T04:16:59.359Z",
+      "text": "Entered 8i51XNNpGaKaj4G4nDdmQh95v4FKAxw8mhtaRoKd9tE8 via Jupiter. 0.03 SOL @ 8.460e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772165819359
+    },
+    {
+      "id": "MEM-1772165831503-925",
+      "timestamp": "2026-02-27T04:17:11.503Z",
+      "text": "Token 8i51XNNpGaKaj4G4nDdmQh95v4FKAxw8mhtaRoKd9tE8 hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772165831503
+    },
+    {
+      "id": "MEM-1772165833994-686",
+      "timestamp": "2026-02-27T04:17:13.994Z",
+      "text": "Sold 8i51XNNpGaKaj4G4nDdmQh95v4FKAxw8mhtaRoKd9tE8 via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772165833994
+    },
+    {
+      "id": "MEM-1772165834153-523",
+      "timestamp": "2026-02-27T04:17:14.153Z",
+      "text": "Entered 4fvKAJ6AfKWBtMVtEbmJUzGD9NFcrcTD7fhoJpPxpump via Jupiter. 0.03 SOL @ 3.205e-8 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772165834153
+    },
+    {
+      "id": "MEM-1772165861503-330",
+      "timestamp": "2026-02-27T04:17:41.503Z",
+      "text": "Token 4fvKAJ6AfKWBtMVtEbmJUzGD9NFcrcTD7fhoJpPxpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772165861503
+    },
+    {
+      "id": "MEM-1772165864017-373",
+      "timestamp": "2026-02-27T04:17:44.017Z",
+      "text": "Sold 4fvKAJ6AfKWBtMVtEbmJUzGD9NFcrcTD7fhoJpPxpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772165864017
+    },
+    {
+      "id": "MEM-1772165921524-192",
+      "timestamp": "2026-02-27T04:18:41.524Z",
+      "text": "Token 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772165921524
+    },
+    {
+      "id": "MEM-1772165924062-794",
+      "timestamp": "2026-02-27T04:18:44.062Z",
+      "text": "Sold 2g1Dh2j9AsdpnR5Js24cdtuUEE3KQD1YpHG8NgQ2pump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772165924062
+    },
+    {
+      "id": "MEM-1772166030288-813",
+      "timestamp": "2026-02-27T04:20:30.288Z",
+      "text": "Entered DKu9kykSfbN5LBfFXtNNDPaX35o4Fv6vJ9FKk7pZpump via Jupiter. 0.03 SOL @ 8.772e-5 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772166030288
+    },
+    {
+      "id": "MEM-1772166041640-179",
+      "timestamp": "2026-02-27T04:20:41.640Z",
+      "text": "Token DKu9kykSfbN5LBfFXtNNDPaX35o4Fv6vJ9FKk7pZpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772166041640
+    },
+    {
+      "id": "MEM-1772166044443-792",
+      "timestamp": "2026-02-27T04:20:44.443Z",
+      "text": "Sold DKu9kykSfbN5LBfFXtNNDPaX35o4Fv6vJ9FKk7pZpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772166044443
+    },
+    {
+      "id": "MEM-1772166164922-833",
+      "timestamp": "2026-02-27T04:22:44.922Z",
+      "text": "Entered AGzj864bkMRPpjY3qy1qrFn9UySDGY1pLTrfFDVqpump via Jupiter. 0.03 SOL @ 5.308e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772166164922
+    },
+    {
+      "id": "MEM-1772166191790-145",
+      "timestamp": "2026-02-27T04:23:11.790Z",
+      "text": "Token AGzj864bkMRPpjY3qy1qrFn9UySDGY1pLTrfFDVqpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772166191790
+    },
+    {
+      "id": "MEM-1772166194851-241",
+      "timestamp": "2026-02-27T04:23:14.851Z",
+      "text": "Sold AGzj864bkMRPpjY3qy1qrFn9UySDGY1pLTrfFDVqpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772166194851
+    },
+    {
+      "id": "MEM-1772166284172-851",
+      "timestamp": "2026-02-27T04:24:44.172Z",
+      "text": "Entered ACTnN2mtRDibt6N6NbqVoU1vkTcoJ6jKXL5FPk3xpump via Jupiter. 0.03 SOL @ 1.511e-7 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772166284172
+    },
+    {
+      "id": "MEM-1772166311574-884",
+      "timestamp": "2026-02-27T04:25:11.574Z",
+      "text": "Token ACTnN2mtRDibt6N6NbqVoU1vkTcoJ6jKXL5FPk3xpump hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772166311574
+    },
+    {
+      "id": "MEM-1772166314103-725",
+      "timestamp": "2026-02-27T04:25:14.103Z",
+      "text": "Sold ACTnN2mtRDibt6N6NbqVoU1vkTcoJ6jKXL5FPk3xpump via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772166314103
+    },
+    {
+      "id": "MEM-1772166569339-518",
+      "timestamp": "2026-02-27T04:29:29.339Z",
+      "text": "Entered C8cNX2D1y3jqKpMFkQhP1gGbfvTEdeckZXLBKSN5z5KF via Jupiter. 0.03 SOL @ 2.571e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772166569339
+    },
+    {
+      "id": "MEM-1772166581820-643",
+      "timestamp": "2026-02-27T04:29:41.820Z",
+      "text": "Token C8cNX2D1y3jqKpMFkQhP1gGbfvTEdeckZXLBKSN5z5KF hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772166581820
+    },
+    {
+      "id": "MEM-1772166584869-847",
+      "timestamp": "2026-02-27T04:29:44.869Z",
+      "text": "Sold C8cNX2D1y3jqKpMFkQhP1gGbfvTEdeckZXLBKSN5z5KF via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772166584869
+    },
+    {
+      "id": "MEM-1772166585020-331",
+      "timestamp": "2026-02-27T04:29:45.020Z",
+      "text": "Entered CoRAitPvr9seu5F9Hk39vbjqA1o1XuoryHjSk1Z1q2mo via Jupiter. 0.03 SOL @ 3.615e-6 SOL/uiToken.",
+      "importance": 7,
+      "lastAccessed": 1772166585020
+    },
+    {
+      "id": "MEM-1772166611681-793",
+      "timestamp": "2026-02-27T04:30:11.681Z",
+      "text": "Token CoRAitPvr9seu5F9Hk39vbjqA1o1XuoryHjSk1Z1q2mo hit STOP LOSS (-100.00%). This was a bad entry or a rug.",
+      "importance": 10,
+      "lastAccessed": 1772166611681
+    },
+    {
+      "id": "MEM-1772166614743-511",
+      "timestamp": "2026-02-27T04:30:14.743Z",
+      "text": "Sold CoRAitPvr9seu5F9Hk39vbjqA1o1XuoryHjSk1Z1q2mo via Jupiter upon curve completion. Reason: STOP_LOSS.",
+      "importance": 6,
+      "lastAccessed": 1772166614743
+    },
+    {
+      "id": "MEM-1772166971274-361",
+      "timestamp": "2026-02-27T04:36:11.274Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772166971274
+    },
+    {
+      "id": "MEM-1772210730463-411",
+      "timestamp": "2026-02-27T16:45:30.463Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772210730463
+    },
+    {
+      "id": "MEM-1772217992811-264",
+      "timestamp": "2026-02-27T18:46:32.812Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772217992812
+    },
+    {
+      "id": "MEM-1772220540832-110",
+      "timestamp": "2026-02-27T19:29:00.832Z",
+      "text": "[REFLECTION] Insight: Continuous and relentless rug pulls, high frequency of bad entries, and repeated failure to adapt to market conditions have resulted in significant losses.. Rule: Adopt a more cautious and patient approach, prioritizing research and due diligence on new tokens before entering, and implementing more aggressive stop-loss triggers to minimize losses.. Risk tweak: increase_stop_loss_triggers",
+      "importance": 10,
+      "lastAccessed": 1772220540832
+    },
+    {
+      "id": "MEM-1772225225276-470",
+      "timestamp": "2026-02-27T20:47:05.277Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772225225277
+    },
+    {
+      "id": "MEM-1772232487850-72",
+      "timestamp": "2026-02-27T22:48:07.858Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772232487858
+    },
+    {
+      "id": "MEM-1772234940649-891",
+      "timestamp": "2026-02-27T23:29:00.649Z",
+      "text": "[REFLECTION] Insight: Continuous and relentless rug pulls, high frequency of bad entries, and repeated failure to adapt to market conditions have resulted in significant losses.. Rule: Adopt a more cautious and patient approach, prioritizing research and due diligence on new tokens before entering, and implementing more aggressive stop-loss triggers to minimize losses.. Risk tweak: increase_stop_loss_triggers",
+      "importance": 10,
+      "lastAccessed": 1772234940649
+    },
+    {
+      "id": "MEM-1772239721037-124",
+      "timestamp": "2026-02-28T00:48:41.037Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772239721037
+    },
+    {
+      "id": "MEM-1772246984235-796",
+      "timestamp": "2026-02-28T02:49:44.236Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772246984236
+    },
+    {
+      "id": "MEM-1772249340556-126",
+      "timestamp": "2026-02-28T03:29:00.556Z",
+      "text": "[REFLECTION] Insight: Continuous and relentless rug pulls, high frequency of bad entries, and repeated failure to adapt to market conditions have resulted in significant losses.. Rule: Adopt a more cautious and patient approach, prioritizing research and due diligence on new tokens before entering, and implementing more aggressive stop-loss triggers to minimize losses.. Risk tweak: increase_stop_loss_triggers",
+      "importance": 10,
+      "lastAccessed": 1772249340556
+    },
+    {
+      "id": "MEM-1772254218511-730",
+      "timestamp": "2026-02-28T04:50:18.511Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772254218511
+    },
+    {
+      "id": "MEM-1772261454105-76",
+      "timestamp": "2026-02-28T06:50:54.106Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772261454106
+    },
+    {
+      "id": "MEM-1772263742407-964",
+      "timestamp": "2026-02-28T07:29:02.408Z",
+      "text": "[REFLECTION] Insight: Continuous and relentless rug pulls, high frequency of bad entries, and repeated failure to adapt to market conditions have resulted in significant losses.. Rule: Prioritize research and due diligence on new tokens before entering, and implement more aggressive stop-loss triggers to minimize losses.. Risk tweak: increase_stop_loss_triggers",
+      "importance": 10,
+      "lastAccessed": 1772263742408
+    },
+    {
+      "id": "MEM-1772268694465-171",
+      "timestamp": "2026-02-28T08:51:34.466Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772268694466
+    },
+    {
+      "id": "MEM-1772275931441-979",
+      "timestamp": "2026-02-28T10:52:11.442Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772275931442
+    },
+    {
+      "id": "MEM-1772278140619-829",
+      "timestamp": "2026-02-28T11:29:00.619Z",
+      "text": "[REFLECTION] Insight: Continuous and relentless rug pulls, high frequency of bad entries, and repeated failure to adapt to market conditions have resulted in significant losses.. Rule: Adopt a more cautious and patient approach, prioritizing research and due diligence on new tokens before entering, and implementing more aggressive stop-loss triggers to minimize losses.. Risk tweak: increase_stop_loss_triggers",
+      "importance": 10,
+      "lastAccessed": 1772278140619
+    },
+    {
+      "id": "MEM-1772283201013-595",
+      "timestamp": "2026-02-28T12:53:21.014Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772283201014
+    },
+    {
+      "id": "MEM-1772290441805-754",
+      "timestamp": "2026-02-28T14:54:01.807Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772290441807
+    },
+    {
+      "id": "MEM-1772292540822-269",
+      "timestamp": "2026-02-28T15:29:00.822Z",
+      "text": "[REFLECTION] Insight: Continuous and relentless rug pulls, high frequency of bad entries, and repeated failure to adapt to market conditions have resulted in significant losses.. Rule: Adopt a more cautious and patient approach, prioritizing research and due diligence on new tokens before entering, and implementing more aggressive stop-loss triggers to minimize losses.. Risk tweak: increase_stop_loss_triggers",
+      "importance": 10,
+      "lastAccessed": 1772292540822
+    },
+    {
+      "id": "MEM-1772297688169-218",
+      "timestamp": "2026-02-28T16:54:48.170Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772297688170
+    },
+    {
+      "id": "MEM-1772308419060-52",
+      "timestamp": "2026-02-28T19:53:39.092Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772308419092
     }
   ]
 }
