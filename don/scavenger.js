@@ -49,9 +49,36 @@ For each bounty, identify if the Syndicate (or Jules) can complete it automatica
 Provide EXACT details for Jules to generate a solution.`;
 
 // Initialize Tracker
-if (!fs.existsSync(BOUNTY_TRACKER)) {
-    fs.writeFileSync(BOUNTY_TRACKER, JSON.stringify({ found: [], submitted: [], paid: [] }, null, 2));
+function loadTracker() {
+    try {
+        if (fs.existsSync(BOUNTY_TRACKER)) {
+            const raw = fs.readFileSync(BOUNTY_TRACKER, 'utf8').trim();
+            if (!raw) throw new Error('empty file');
+            const data = JSON.parse(raw);
+            // Validate structure
+            if (!data.found || !data.submitted || !data.paid) throw new Error('malformed tracker');
+            return data;
+        }
+    } catch (e) {
+        console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ Bounty tracker corrupted/missing — resetting. (${e.message})`));
+    }
+    const fresh = { found: [], submitted: [], paid: [] };
+    saveTracker(fresh);
+    return fresh;
 }
+
+function saveTracker(data) {
+    try {
+        const tmp = BOUNTY_TRACKER + '.tmp';
+        fs.writeFileSync(tmp, JSON.stringify(data, null, 2));
+        fs.renameSync(tmp, BOUNTY_TRACKER);
+    } catch (e) {
+        console.log(chalk.red(`[SCAVENGER #${id}]: ❌ Failed to save bounty tracker: ${e.message}`));
+    }
+}
+
+// Ensure tracker exists on boot
+loadTracker();
 
 async function checkBalance() {
     return runWithRetry(async () => {
@@ -80,23 +107,38 @@ async function scrapeBounties() {
         // Strip null bytes and non-printable chars that crash JSON.parse
         const output = rawOutput.replace(/\0/g, '').replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '');
 
-        // Extract JSON array — the scraper always outputs it at the very end starting with `[\n`
-        // Don't use lazy regex: /\[[\s\S]*?\]/ matches the FIRST `]` which hits log tags like [SHADOW_SCRAPER]
-        // Instead, find where the actual standalone JSON array starts (last occurrence of `[\n`)
-        const jsonStart = output.lastIndexOf('[\n');
-        if (jsonStart === -1) throw new Error("No JSON array found in scraper output");
-        const jsonMatch = [output.slice(jsonStart)];
+        // Extract JSON array from scraper output
+        // Normalize line endings (Windows \r\n → \n) before searching
+        const normalized = output.replace(/\r\n/g, '\n');
 
+        // Find the last standalone JSON array in the output
+        // Scan backwards from end for a top-level '[' that starts a valid JSON array
         let leads = [];
-        try {
-            leads = JSON.parse(jsonMatch[0]);
-        } catch (parseError) {
-            throw new Error(`JSON parsing failed: ${parseError.message}`);
+        let jsonParsed = false;
+        let searchFrom = normalized.length;
+        while (searchFrom > 0 && !jsonParsed) {
+            const idx = normalized.lastIndexOf('[', searchFrom - 1);
+            if (idx === -1) break;
+            try {
+                const candidate = normalized.slice(idx);
+                const parsed = JSON.parse(candidate);
+                if (Array.isArray(parsed)) {
+                    leads = parsed;
+                    jsonParsed = true;
+                }
+            } catch (_) {
+                // Not valid JSON starting here, keep scanning
+            }
+            searchFrom = idx;
+        }
+
+        if (!jsonParsed) {
+            throw new Error('No valid JSON array found in scraper output');
         }
 
         console.log(chalk.green(`[SCAVENGER #${id}]: 🎯 ${leads.length} potential bounties discovered.`));
 
-        const tracker = JSON.parse(fs.readFileSync(BOUNTY_TRACKER, 'utf8'));
+        const tracker = loadTracker();
 
         for (const lead of leads) {
             if (tracker.found.includes(lead.id)) continue;
@@ -111,7 +153,7 @@ async function scrapeBounties() {
             }
         }
 
-        fs.writeFileSync(BOUNTY_TRACKER, JSON.stringify(tracker, null, 2));
+        saveTracker(tracker);
     }, 'Bounty Scrape').catch(e => {
         console.error(chalk.red(`[SCAVENGER #${id}]: ❌ Critical Scrape failure: ${e.message}`));
     });

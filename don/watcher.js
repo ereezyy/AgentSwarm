@@ -33,6 +33,12 @@ const lastSignatures = {};
 // Track total movements detected
 let movementsDetected = 0;
 
+// Rate limit backoff state
+let backoffMs = 0;
+const BACKOFF_INITIAL = 30000;   // 30s first backoff
+const BACKOFF_MAX = 300000;      // 5min max backoff
+const STAGGER_MS = 2000;         // 2s between each whale check
+
 console.log(chalk.cyan.bold(`[WATCHER #${id}]: 👁️ WHALE TRACKING v2 ACTIVE.`));
 console.log(chalk.cyan(`[WATCHER #${id}]: Monitoring ${WHALES.length} predator wallets.`));
 
@@ -176,24 +182,36 @@ async function checkWhale(whale) {
         }
 
     } catch (e) {
-        if (e.response?.status === 429) {
-            console.log(chalk.yellow(`[WATCHER #${id}]: Rate limited. Cooling 30s...`));
-            await new Promise(r => setTimeout(r, 30000));
+        if (e.response?.status === 429 || e.code === 'ERR_BAD_RESPONSE') {
+            backoffMs = backoffMs ? Math.min(backoffMs * 2, BACKOFF_MAX) : BACKOFF_INITIAL;
+            console.log(chalk.yellow(`[WATCHER #${id}]: ⏳ Rate limited. Backing off ${(backoffMs / 1000).toFixed(0)}s...`));
+            await new Promise(r => setTimeout(r, backoffMs));
+            return; // skip this whale, resume on next cycle
         }
         // Silent retry for other errors
     }
 }
 
 async function trackWhales() {
-    await Promise.all(WHALES.map(checkWhale));
+    // Sequential checks with stagger — avoids RPC rate limits
+    for (const whale of WHALES) {
+        await checkWhale(whale);
+        await new Promise(r => setTimeout(r, STAGGER_MS));
+    }
+
+    // Successful cycle = reset backoff
+    if (backoffMs > 0) {
+        backoffMs = 0;
+        console.log(chalk.green(`[WATCHER #${id}]: ✅ Rate limit cleared. Resuming normal cadence.`));
+    }
 
     // Periodic status log
     if (movementsDetected > 0 && movementsDetected % 5 === 0) {
         console.log(chalk.gray(`[WATCHER #${id}]: ${movementsDetected} whale movements tracked this session.`));
     }
 
-    // Scan every 30 seconds
-    setTimeout(trackWhales, 30000);
+    // Scan every 60 seconds (was 30 — too aggressive for most RPCs)
+    setTimeout(trackWhales, 60000);
 }
 
 // IPC Listener

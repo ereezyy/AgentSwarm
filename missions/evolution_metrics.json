@@ -1,10 +1,10 @@
 {
-  "totalAttempts": 87,
+  "totalAttempts": 153,
   "applied": 0,
-  "rejected": 26,
-  "blocked": 30,
+  "rejected": 32,
+  "blocked": 83,
   "rolledBack": 0,
-  "brainFailures": 60,
+  "brainFailures": 74,
   "lastEvolution": null,
   "agentHistory": {}
 }

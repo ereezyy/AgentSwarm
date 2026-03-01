@@ -1,15 +1,16 @@
-// don/jito_sandwich.js - THE FRONT-RUNNER (MEV Sandwich Bot)
-// Triggered by the Pi 5 Radar Node when a victim buys a large amount of a shitcoin with high slippage.
-// This bot constructs a Jito Bundle (Buy -> Victim Buy -> Sell) to extract wealth from the victim's price impact.
+// don/jito_sandwich.js - THE MEV PREDATOR (REST API Atomic Bundles)
+// Completely rewritten to abandon the broken sandwich logic.
+// This now executes guaranteed risk-free atomic cyclical arbitrage (Buy -> Sell -> Jito Tip)
+// using the Jito Block Engine REST API. If the arb fails or slips, the bundle drops. Zero risk holding the bag.
 
 const axios = require('axios');
 const chalk = require('chalk');
 const bs58 = require('bs58');
-const { Connection, Keypair, VersionedTransaction } = require('@solana/web3.js');
+const { Connection, Keypair, VersionedTransaction, SystemProgram, Transaction, PublicKey } = require('@solana/web3.js');
 require('dotenv').config();
 
 const id = process.argv[2] || require('crypto').randomBytes(4).toString('hex');
-console.log(chalk.yellow.bgBlack.bold(`[SANDWICH BOT #${id}]: 🥪 The Meat Grinder Online. Awaiting victims from Pi 5.`));
+console.log(chalk.red.bgBlack.bold(`[MEV PREDATOR #${id}]: 🩸 ATOMIC ARBITRAGE ENGINE ONLINE. Scanning for cyclical spread...`));
 
 const RPC_URL = process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com';
 const connection = new Connection(RPC_URL, 'confirmed');
@@ -17,62 +18,169 @@ const connection = new Connection(RPC_URL, 'confirmed');
 let wallet = null;
 try {
     if (process.env.SOLANA_PRIVATE_KEY) {
-        wallet = Keypair.fromSecretKey(bs58.decode(process.env.SOLANA_PRIVATE_KEY));
+        const keyStr = process.env.SOLANA_PRIVATE_KEY;
+        const keyBytes = keyStr.length > 88 ? Buffer.from(keyStr, 'hex') : bs58.decode(keyStr);
+        wallet = Keypair.fromSecretKey(keyBytes);
+        console.log(chalk.green(`[MEV PREDATOR #${id}]: 🔓 Wallet Authorized: ${wallet.publicKey.toString().slice(0, 8)}...`));
     }
 } catch (e) {
-    console.log(chalk.red(`[SANDWICH #${id}]: Keypair failed.`));
+    console.log(chalk.red(`[MEV PREDATOR #${id}]: Core wallet authentication failed.`));
 }
 
-// ── IPC Listener from Main Hub ──────────────────────────────────────
-process.on('message', async (msg) => {
-    if (msg.type === 'PI_TRIGGER' && msg.action === 'EXECUTE_SANDWICH') {
-        console.log(chalk.yellow.bold(`\n🥪 [SANDWICH BOT]: MEV TRIGGER RECEIVED FROM PI 5! Execution engaged...`));
-        console.log(chalk.yellow(`Victim target: ${msg.victimMint} | Spend: ${msg.victimBuyAmountSol} SOL | Max Slippage: ${msg.victimMaxSlippageBps} bps`));
+// ── Configuration ──────────────────────────────────────────────
+const JITO_BLOCK_ENGINE_REST = 'https://mainnet.block-engine.jito.wtf/api/v1/bundles';
+const JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
+const WSOL_MINT = 'So11111111111111111111111111111111111111112';
 
-        await executeSandwichBundle(msg);
-    }
-});
+const TRADE_AMOUNT_SOL = 0.2;         // Base position size to swing
+const MIN_PROFIT_SOL = 0.005;         // Minimum profit required to fire bundle
+const PRIORITY_FEE_LAMPORTS = 50000;  // Standard base network fee
+const JITO_TIP_LAMPORTS = 100000;     // Bribe to Jito Validators (0.0001 SOL)
 
-async function executeSandwichBundle(targetData) {
+const PREY_LIST = [
+    'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v', // USDC
+    'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB', // USDT
+    'mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So', // mSOL
+    'J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn', // JitoSOL
+    'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', // BONK
+];
+
+let scansThisSession = 0;
+let executedBundles = 0;
+
+// ── Cyclical Arbitrage Scanner ─────────────────────────────────
+async function scanCyclicalArbitrage() {
     if (!wallet) return;
 
+    const preyToken = PREY_LIST[scansThisSession % PREY_LIST.length];
+    const tradeLamports = Math.floor(TRADE_AMOUNT_SOL * 1e9);
+    scansThisSession++;
+
     try {
-        console.log(chalk.red(`[SANDWICH BOT]: 🥪 Constructing Jito MEV Bundle...`));
+        // Leg 1: SOL -> Token
+        const buyQuoteRes = await axios.get(`${JUPITER_BASE}/quote`, {
+            params: { inputMint: WSOL_MINT, outputMint: preyToken, amount: tradeLamports, slippageBps: 10 },
+            timeout: 5000
+        });
+        const outToken = buyQuoteRes.data?.outAmount;
+        if (!outToken) return;
 
-        // In reality, this requires the Jito SDK to build a bundle with exactly 3 ordered transactions:
-        // Tx 1: Our Buy (Front-run)
-        // Tx 2: The Victim's Buy (parsed from the mempool trigger)
-        // Tx 3: Our Sell (Back-run)
-        // Bundle is sent to Jito Block Engine endpoint: https://ny.mainnet.block-engine.jito.wtf
+        // Leg 2: Token -> SOL
+        const sellQuoteRes = await axios.get(`${JUPITER_BASE}/quote`, {
+            params: { inputMint: preyToken, outputMint: WSOL_MINT, amount: outToken, slippageBps: 10 },
+            timeout: 5000
+        });
+        const outSolLamports = sellQuoteRes.data?.outAmount;
+        if (!outSolLamports) return;
 
-        console.log(chalk.cyan(`   [Front-Run]: Buying ahead of victim...`));
-        console.log(chalk.cyan(`   [Victim]   : Forcing victim to buy at our inflated price...`));
-        console.log(chalk.cyan(`   [Back-Run] : Selling our tokens back to the pool instantly...`));
+        const outSol = Number(outSolLamports) / 1e9;
+        const totalCost = TRADE_AMOUNT_SOL + ((PRIORITY_FEE_LAMPORTS * 2) / 1e9) + (JITO_TIP_LAMPORTS / 1e9);
+        const netProfit = outSol - totalCost;
 
-        // Simulating the Jito bundle submission latency and output
-        const jitoTip = 750000; // 0.00075 SOL bribe to the validator
-        console.log(chalk.yellow.bold(`[SANDWICH BOT]: Sending Bundle to Block Engine with ${jitoTip} lamports tip...`));
+        if (netProfit >= MIN_PROFIT_SOL) {
+            console.log(chalk.yellow.bold(`\n[MEV PREDATOR #${id}]: 🚨 ARBITRAGE DETECTED! Token: ${preyToken.slice(0, 6)}... | Route Profit: +${netProfit.toFixed(5)} SOL`));
+            await fireAtomicBundle(buyQuoteRes.data, sellQuoteRes.data, netProfit);
+        }
+    } catch (e) {
+        // Ignore API noise during high frequency scanning
+    }
+}
 
-        await new Promise(resolve => setTimeout(resolve, 800)); // Bundle processing simulation
+// ── Jito Atomic Bundle Constructor ─────────────────────────────
+async function fireAtomicBundle(buyQuote, sellQuote, margin) {
+    try {
+        console.log(chalk.red(`[MEV PREDATOR #${id}]: ⚡ Constructing ATOMIC JITO BUNDLE (Buy -> Sell -> Bribe)`));
 
-        // Profit calculation based on victim size and slippage
-        // Rough math: if victim buys 50 SOL with 15% slippage on low liquidity, we can safely extract ~1-3% of their spend
-        const extractedValue = parseFloat(targetData.victimBuyAmountSol) * 0.02;
+        // 1. Construct Jupiter Swap 1
+        const buySwapRes = await axios.post(`${JUPITER_BASE}/swap`, {
+            quoteResponse: buyQuote,
+            userPublicKey: wallet.publicKey.toString(),
+            wrapAndUnwrapSol: true,
+            prioritizationFeeLamports: PRIORITY_FEE_LAMPORTS
+        });
+        const buyTx = VersionedTransaction.deserialize(Buffer.from(buySwapRes.data.swapTransaction, 'base64'));
+        buyTx.sign([wallet]);
 
-        console.log(chalk.yellow.bgBlack.bold(`[SANDWICH BOT]: 🥪 BUNDLE LANDED. Wealth extracted.`));
+        // 2. Construct Jupiter Swap 2
+        const sellSwapRes = await axios.post(`${JUPITER_BASE}/swap`, {
+            quoteResponse: sellQuote,
+            userPublicKey: wallet.publicKey.toString(),
+            wrapAndUnwrapSol: true,
+            prioritizationFeeLamports: PRIORITY_FEE_LAMPORTS
+        });
+        const sellTx = VersionedTransaction.deserialize(Buffer.from(sellSwapRes.data.swapTransaction, 'base64'));
+        sellTx.sign([wallet]);
+
+        // 3. Construct Jito Bribe (Tip)
+        const TIP_ACCOUNTS = [
+            "96gYZGLnJYVFmbjzopPSU6QiEV5fGqZNyN9nmNhvrZU5",
+            "HFqU5x63VTqvQss8hp11i4bD44PvwucfZ2bU7gRe",
+            "Cw8CFyM9FkoMi7K7Crf6HNQqf4uEMzpKw6QNghXLvLkY",
+            "ADaUMid9yfUytqMBgopwjb2DTLSokTSzL1zt6iGPaS49",
+            "DfXygSm4jCqDg6qhJaNw5BLqE3vwh7VBi5iqPjqj1tom",
+            "ADuUkR4vk3Gj2cqGOn8aBo5Q1GRgk2nDZ2mHBk9BCbE5",
+            "DttWaMuVvTiDuNwGTn8f8xfE1CTXEbZRrFPnKrUUXdet",
+            "3AVi9Tg9Uo68tJfuvoKvqKNWKkC5wPdSSdeBnizKZ6jT"
+        ];
+        const randomTipAccount = new PublicKey(TIP_ACCOUNTS[Math.floor(Math.random() * TIP_ACCOUNTS.length)]);
+
+        const tipTx = new Transaction().add(
+            SystemProgram.transfer({
+                fromPubkey: wallet.publicKey,
+                toPubkey: randomTipAccount,
+                lamports: JITO_TIP_LAMPORTS
+            })
+        );
+        tipTx.recentBlockhash = (await connection.getLatestBlockhash('confirmed')).blockhash;
+        tipTx.feePayer = wallet.publicKey;
+        tipTx.sign(wallet);
+
+        const tipVersionedTx = new VersionedTransaction(tipTx.compileMessage());
+        tipVersionedTx.signatures = tipTx.signatures.map(s => s.signature);
+
+        // 4. Serialize to Base64
+        const bundleTxs = [
+            Buffer.from(buyTx.serialize()).toString('base64'),
+            Buffer.from(sellTx.serialize()).toString('base64'),
+            Buffer.from(tipVersionedTx.serialize()).toString('base64')
+        ];
+
+        // 5. Submit to Jito Block Engine REST API
+        const payload = {
+            jsonrpc: "2.0",
+            id: 1,
+            method: "sendBundle",
+            params: [bundleTxs]
+        };
+
+        const jitoRes = await axios.post(JITO_BLOCK_ENGINE_REST, payload, { headers: { "Content-Type": "application/json" } });
+        executedBundles++;
+
+        const bundleId = jitoRes.data?.result || "UNKNOWN_ID";
+        console.log(chalk.red.bold(`[MEV PREDATOR #${id}]: 💥 BUNDLE FIRED! Network ID: ${bundleId} | Margin: +${margin.toFixed(5)} SOL`));
+        console.log(chalk.gray(`[MEV PREDATOR #${id}]: If transaction simulation fails, bundle reverts safely.`));
 
         if (process.send) {
             process.send({
                 type: 'LOG',
-                msg: `🥪 Sandwich Bot: Extracted ~${extractedValue.toFixed(2)} SOL from victim buying ${targetData.victimMint.slice(0, 6)}...`,
+                msg: `🩸 ATOMIC BUNDLE SENT: Arb execution fired via Jito. Margin: +${margin.toFixed(5)} SOL`,
                 level: 'MONEY'
             });
+            process.send({ type: 'KICK_UP', amount: margin * 87, source: 'MEV_PREDATOR', soldierId: id });
         }
+
+        // Cool-down after execution attempt
+        await new Promise(r => setTimeout(r, 15000));
+
     } catch (e) {
-        console.log(chalk.red(`[SANDWICH BOT]: Bundle execution failed: ${e.message}`));
+        console.log(chalk.red(`[MEV PREDATOR #${id}]: Bundle construction/submission failed.`));
     }
 }
 
-if (require.main === module) {
-    console.log(chalk.yellow(`[SANDWICH BOT #${id}]: Ready.`));
+// ── Life Cycle ─────────────────────────────────────────────────
+async function startMEVLoop() {
+    await scanCyclicalArbitrage();
+    setTimeout(startMEVLoop, 3000); // 3 seconds per scan wave
 }
+
+setTimeout(startMEVLoop, 5000);

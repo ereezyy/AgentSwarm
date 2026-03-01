@@ -1,0 +1,46 @@
+{
+  "callers": [
+    {
+      "handle": "blknoiz06",
+      "platform": "twitter",
+      "tier": "S",
+      "hitRate": 0.72,
+      "notes": "Solana OG caller"
+    },
+    {
+      "handle": "MustStopMurad",
+      "platform": "twitter",
+      "tier": "S",
+      "hitRate": 0.68,
+      "notes": "Memecoin specialist"
+    },
+    {
+      "handle": "CryptoGodJohn",
+      "platform": "twitter",
+      "tier": "A",
+      "hitRate": 0.55,
+      "notes": "High volume caller"
+    },
+    {
+      "handle": "deaborysov",
+      "platform": "twitter",
+      "tier": "A",
+      "hitRate": 0.6,
+      "notes": "DeFi alpha"
+    },
+    {
+      "handle": "inversebrah",
+      "platform": "twitter",
+      "tier": "A",
+      "hitRate": 0.58,
+      "notes": "CT degenerate"
+    }
+  ],
+  "settings": {
+    "minTier": "A",
+    "minConfidence": 0.6,
+    "maxAgeMinutes": 15,
+    "autoSnipe": true,
+    "auditFirst": true
+  }
+}

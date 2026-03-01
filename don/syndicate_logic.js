@@ -33,6 +33,7 @@ class DonCore {
         this.agentComms = []; // Agent Communication Board
         this.restartState = {}; // Per-agent restart backoff tracking
         this.agentHealth = {}; // Per-agent health status for dashboard
+        this.activityBuffer = []; // Rolling 30-min activity log for Caller recaps
         this.sessions = new SessionManager(this);
 
         // Start WebSocket Server
@@ -243,6 +244,12 @@ class DonCore {
         console.log(color(`[${icons[type] || ''} ${type}] ${msg}`));
         this.broadcast({ type: 'LOG', msg, level: type, timestamp: new Date().toISOString() });
 
+        // Feed the activity buffer (for Caller 30-min recaps)
+        if (['MONEY', 'CRYPTO', 'ERROR', 'POWER'].includes(type)) {
+            this.activityBuffer.push({ msg, type, ts: Date.now() });
+            if (this.activityBuffer.length > 100) this.activityBuffer.shift();
+        }
+
         // Audio Cue for Errors
         if (type === 'ERROR' && this.callerProcess && this.callerProcess.connected) {
             this.callerProcess.send({ type: 'PLAY_CUE', cue: 'BAD' });
@@ -381,13 +388,20 @@ class DonCore {
 
         return new Promise((resolve) => {
             const child = exec(`python "${EXECUTOR_PATH}"`, async (error, stdout, stderr) => {
-                if (error || stderr) {
-                    this.log(`Trade Executor Error: ${stderr || error.message}`, 'ERROR');
-                    resolve({ success: false, error: stderr || error.message });
+                if (error) {
+                    this.log(`Trade Executor Error: ${error.message}`, 'ERROR');
+                    resolve({ success: false, error: error.message });
                     return;
                 }
+                if (stderr) {
+                    this.log(`Trade Executor Stderr: ${stderr.trim()}`, 'INFO');
+                }
                 try {
-                    const result = JSON.parse(stdout);
+                    const jsonMatch = stdout.match(/\{[\s\S]*\}/);
+                    if (!jsonMatch) {
+                        throw new Error(`Failed to parse executor output: ${stdout}`);
+                    }
+                    const result = JSON.parse(jsonMatch[0]);
                     // FIX #2: Python only BUILDS the TX — we must BROADCAST it here
                     if (result.success && result.tx) {
                         try {
@@ -396,7 +410,17 @@ class DonCore {
                             const txBuf = Buffer.from(result.tx, 'base64');
                             const vTx = SolanaWeb3.VersionedTransaction.deserialize(txBuf);
                             const sig = await connection.sendTransaction(vTx, { skipPreflight: true, maxRetries: 3 });
-                            await connection.confirmTransaction(sig, 'confirmed');
+                            // Poll for confirmation (HTTP-only, no WebSocket needed)
+                            let txConfirmed = false;
+                            for (let i = 0; i < 15; i++) {
+                                await new Promise(r => setTimeout(r, 2000));
+                                const status = await connection.getSignatureStatuses([sig]);
+                                if (status?.value?.[0]?.confirmationStatus === 'confirmed' || status?.value?.[0]?.confirmationStatus === 'finalized') {
+                                    txConfirmed = true;
+                                    break;
+                                }
+                            }
+                            if (!txConfirmed) throw new Error('Confirmation timeout (30s)');
                             this.log(`Trade Executed On-Chain: ${sig}`, 'CRYPTO');
                             resolve({ success: true, tx: sig });
                         } catch (sendErr) {
@@ -469,7 +493,8 @@ class DonCore {
             'AIRDROP_FARMER': 'airdrop_farmer.js',
             'BLOCK0_SNIPER': 'block0_sniper.js',
             'LIQUIDATOR': 'liquidator.js',
-            'JITO_SANDWICH': 'jito_sandwich.js'
+            'JITO_SANDWICH': 'jito_sandwich.js',
+            'CONTRARIAN': 'contrarian.js'
         }[type];
 
         // Fallback for Architect-generated agents
@@ -858,6 +883,21 @@ class DonCore {
             } else if (msg.type === 'SESSION_SEND') {
                 const success = this.sessions.send(type, msg.to, msg.msg, msg.options);
                 child.send({ type: 'SESSION_SEND_RESULT', requestId: msg.requestId, success });
+            } else if (msg.type === 'RECAP_REQUEST') {
+                // Caller is asking for the last 30 minutes of activity
+                const recap = this.activityBuffer.splice(0); // drain it
+                const activeAgents = Object.keys(this.processes).filter(k => this.processes[k]?.connected).length;
+                const trades = this.loadTradeHistory();
+                child.send({
+                    type: 'RECAP_DATA',
+                    events: recap,
+                    stats: {
+                        activeAgents,
+                        warChest: this.profit,
+                        openPositions: trades.length,
+                        uptime: Math.round((Date.now() - new Date(this.telemetry.start_time).getTime()) / 60000),
+                    }
+                });
             } else if (msg.type === 'STATUS_REPORT' || msg.type === 'FARM_STATUS') {
                 this.broadcast(msg);
             }
@@ -879,8 +919,14 @@ class DonCore {
                 rs.totalCrashes++;
 
                 // Extract crash reason from stderr
-                const lastError = stderrBuffer.split('\n').filter(l => l.trim()).pop() || 'Unknown error';
-                rs.lastCrashReason = lastError.substring(0, 200);
+                const lines = stderrBuffer.split('\n').filter(l => l.trim());
+                if (lines.length > 0 && lines[lines.length - 1].startsWith('Node.js v')) {
+                    lines.pop(); // Remove the "Node.js vXX.XX.XX" line
+                }
+                const lastError = lines.length > 0 ? lines[lines.length - 1] : 'Unknown error';
+                // Try to find the actual Error: line if possible
+                const errorLine = lines.find(l => l.includes('Error:')) || lastError;
+                rs.lastCrashReason = errorLine.substring(0, 200);
 
                 this.telemetry.errors[type] = (this.telemetry.errors[type] || 0) + 1;
                 this.saveTelemetry();

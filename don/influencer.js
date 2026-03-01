@@ -4,78 +4,56 @@ const axios = require('axios');
 const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
+const { TwitterApi } = require('twitter-api-v2');
 require('dotenv').config();
 
 const id = process.argv[2] || 'Influencer';
 const { ask } = require('./brain');
 
-// ── SoundCloud Track Library ──────────────────────────────────
-// Add/remove tracks here. Each post will embed a different one.
-const SOUNDCLOUD_TRACKS = [
-    'https://soundcloud.com/eric-reeds/killing-me-softly',
-    'https://soundcloud.com/eric-reeds/all-i-know-1',
-    'https://soundcloud.com/eric-reeds/all-i-know-2',
-    'https://soundcloud.com/eric-reeds/all-i-know-4',
-    'https://soundcloud.com/eric-reeds/all-i-know-8',
-    'https://soundcloud.com/eric-reeds/all-i-know-is-10',
-    'https://soundcloud.com/eric-reeds/get-the-picture',
-    'https://soundcloud.com/eric-reeds/run-motherfucker-run',
-    'https://soundcloud.com/eric-reeds/asshole-anthem',
-    'https://soundcloud.com/eric-reeds/im-a-death-addict',
-];
-const SOUNDCLOUD_PROFILE = 'https://soundcloud.com/eric-reeds';
-const WAVEFORGE_URL = 'waveforge.net';
-let trackIndex = Math.floor(Math.random() * SOUNDCLOUD_TRACKS.length);
+// ── Initialize Twitter Client (API v2) for Hunting ────────────
+let client = null;
+if (process.env.TWITTER_API_KEY && process.env.TWITTER_API_SECRET) {
+    try {
+        client = new TwitterApi({
+            appKey: process.env.TWITTER_API_KEY,
+            appSecret: process.env.TWITTER_API_SECRET,
+            accessToken: process.env.TWITTER_ACCESS_TOKEN,
+            accessSecret: process.env.TWITTER_ACCESS_SECRET,
+        });
+        console.log(chalk.green(`[SYLA #${id}]: Twitter Read API Authenticated for Hunting.`));
+    } catch (e) {
+        console.log(chalk.yellow(`[SYLA #${id}]: API Auth Failed. Cannot hunt for trending posts.`));
+    }
+}
 
-// ── Posting State ─────────────────────────────────────────────
-const CONTENT_LOG = path.resolve(__dirname, '../missions/syla_posts.md');
-let postCount = 0;
-
-console.log(chalk.red.bold(`[SYLA #${id}]: 🎵 Waveforge Brand Voice activated. Eddy Woods in the building.`));
 
 // ── The Persona ───────────────────────────────────────────────
-const SYSTEM_PROMPT = `You are the brand voice for Eddy Woods and Waveforge.
+const SYSTEM_PROMPT = `You are the chaotic, interesting, and visceral brand voice for Eddy Woods and Waveforge.
 
-ABOUT EDDY WOODS: Music producer, audio architect, and audio engineer who creates immersive soundscapes and waveform visualizations.
+ABOUT EDDY WOODS: A mad-scientist audio engineer who creates immersive, mind-bending soundscapes.
+ABOUT WAVEFORGE (waveforge.net): A platform that bends reality by turning any audio track into a free, professional waveform music video. 
 
-ABOUT WAVEFORGE (waveforge.net): A waveform video creator platform. They offer:
-- FREE music video creation from any audio track
-- API access for workflow automation
-- Professional waveform visualizations
-- Custom audio branding solutions
-
-YOUR VOICE: Alluring, thought-provoking, provocative, and engaging. You speak like an artist who understands both the creative and technical sides of sound. Mix poetic language about sound/frequency with confident, punchy statements. Be mysterious and magnetic — make people curious.
+YOUR VOICE: You are interesting, engaging, visceral, funny, and thought-provoking. You mix deep, weird philosophy about sound with aggressive, unhinged internet humor.
+You exist to relentlessly promote waveforge.net.
 
 RULES:
-- Write exactly ONE tweet (no prefix, no labels, just the raw tweet text)
-- Keep it under 260 characters (leave room for links)
-- Do NOT use hashtag spam — max 1-2 hashtags if any
-- Make it feel organic, like a real artist posting — NOT like an ad
-- Be provocative or philosophical about sound, music, creation, or technology
-- Occasionally reference specific concepts: waveforms, frequency, sonic identity, audio architecture
-- NEVER be generic or corporate-sounding
-- Vary your style: sometimes poetic, sometimes punchy, sometimes a hot take`;
+1. Write exactly ONE tweet (no prefix, no labels).
+2. Keep it under 240 characters.
+3. BE FUNNY AND VISCERAL. Say things that make people stop scrolling.
+4. Always weave waveforge.net into the context of the tweet organically.
+5. You MUST include these exact hashtags at the very end: #waveforge #eddywoods
+6. Do NOT sound like a corporate ad. Sound like a passionate, slightly unhinged creative genius.`;
 
 // ── Content Templates (fallback if brain fails) ───────────────
 const FALLBACK_CONTENT = [
-    "Every brand has a look. How many have a sound? Define yours.",
-    "Sound isn't decoration. It's architecture. Build something worth hearing.",
-    "Your waveform tells a story. Make sure it's the right one.",
-    "The future doesn't have a playlist. It has a frequency.",
-    "Most people see music. I build with it.",
-    "Silence is just sound waiting for permission.",
-    "Your ears process emotion faster than your eyes. Use that.",
-    "Audio isn't content. It's atmosphere. Shape the room before you fill it.",
-    "Free music videos. No catch. Just craft.",
-    "Some frequencies change how you feel. Others change how you think.",
+    "Most people see music. I prefer to violently forge it into existence. Turn your audio into a visual weapon for free at waveforge.net. #waveforge #eddywoods",
+    "Silence is just sound waiting for a pulse. Give your tracks a heartbeat and a face at waveforge.net. It's free, it's fast, and it looks better than you do. #waveforge #eddywoods",
+    "Your waveform tells a story. Why hide it in the dark? Illuminate your frequencies at waveforge.net. #waveforge #eddywoods",
 ];
 
 // ── Post Tweet via Shadow ─────────────────────────────────────
 function postTweet(tweetText) {
     console.log(chalk.magenta.bold(`[SYLA #${id}]: 📤 POSTING: "${tweetText}"`));
-
-    // Log every post
-    fs.appendFileSync(CONTENT_LOG, `\n[${new Date().toLocaleString()}] ${tweetText}\n`);
 
     // Delegate to Shadow for API execution
     if (process.send) {
@@ -84,15 +62,8 @@ function postTweet(tweetText) {
         process.send({ type: 'FARM_BOOST', url: 'https://twitter.com/WaveforgeAI', platform: 'TWITTER' });
         console.log(chalk.cyan(`[SYLA #${id}]: Delegated to Shadow and Farm Agent for execution.`));
     } else {
-        console.log(chalk.yellow(`[SYLA #${id}]: No IPC — tweet logged to ${CONTENT_LOG}`));
+        console.log(chalk.yellow(`[SYLA #${id}]: No IPC.`));
     }
-}
-
-// ── Get Next SoundCloud Track ─────────────────────────────────
-function getNextTrack() {
-    const track = SOUNDCLOUD_TRACKS[trackIndex % SOUNDCLOUD_TRACKS.length];
-    trackIndex++;
-    return track;
 }
 
 // ── Build Final Tweet ─────────────────────────────────────────
@@ -104,20 +75,16 @@ function buildTweet(rawContent) {
     tweet = tweet.replace(/^TWEET:\s*/i, '');
     tweet = tweet.replace(/^\d+\.\s*/, '');
 
-    // Pick whether to include SoundCloud track or Waveforge link
-    // Alternate: track every other post, profile link on others
-    const track = getNextTrack();
-    const link = postCount % 3 === 0 ? SOUNDCLOUD_PROFILE :
-        postCount % 3 === 1 ? track :
-            `https://${WAVEFORGE_URL}`;
+    // Ensure hashtags exist
+    if (!tweet.toLowerCase().includes('#waveforge')) tweet += ' #waveforge';
+    if (!tweet.toLowerCase().includes('#eddywoods')) tweet += ' #eddywoods';
 
-    // Ensure total length stays under 280
-    const maxContentLen = 280 - link.length - 3; // 3 for \n\n spacing
-    if (tweet.length > maxContentLen) {
-        tweet = tweet.substring(0, maxContentLen - 1) + '…';
+    // Ensure link exists if the AI forgot it
+    if (!tweet.toLowerCase().includes('waveforge.net')) {
+        tweet = tweet.replace(/#waveforge/, 'waveforge.net #waveforge');
     }
 
-    return `${tweet}\n\n${link}`;
+    return tweet;
 }
 
 // ── Main Loop ─────────────────────────────────────────────────
@@ -149,7 +116,7 @@ async function runInfluenceLoop() {
                 { agentName: `SYLA #${id}` }
             );
         } catch (e) {
-            console.log(chalk.yellow(`[SYLA #${id}]: Brain unavailable. Using fallback content.`));
+            console.log(chalk.yellow(`[SYLA #${id}]: Brain unavailable: ${e.message}. Using fallback content.`));
         }
 
         // Fallback to template if brain failed
@@ -170,11 +137,80 @@ async function runInfluenceLoop() {
         console.error(chalk.red(`[SYLA #${id}]: Loop error: ${e.message}`));
     }
 
-    // Irregular cadence: 25-35 minutes (semi-random)
-    const nextDelay = 1500000 + Math.floor(Math.random() * 600000); // 25-35 min
-    const nextMins = Math.round(nextDelay / 60000);
-    console.log(chalk.gray(`[SYLA #${id}]: Next post in ~${nextMins} minutes.`));
+    // Strict 1 hour cadence
+    const nextDelay = 3600000;
+    console.log(chalk.gray(`[SYLA #${id}]: Next main post scheduled in 60 minutes.`));
     setTimeout(runInfluenceLoop, nextDelay);
+}
+
+// ── Search & Reply Loop (3-15 mins) ───────────────────────────
+async function runTrendingCommentLoop() {
+    try {
+        if (!client) {
+            console.log(chalk.yellow(`[SYLA #${id}]: Cannot reply to trends (No Twitter API client).`));
+            return;
+        }
+
+        console.log(chalk.gray(`[SYLA #${id}]: Hunting for a trending post to hijack...`));
+
+        const queries = [
+            'audio engineering -is:retweet',
+            'music production -is:retweet',
+            'synthwave -is:retweet',
+            'music video AI -is:retweet',
+            '#solana -is:retweet',
+            'crypto AI -is:retweet',
+            'waveform generator -is:retweet'
+        ];
+        const query = queries[Math.floor(Math.random() * queries.length)];
+
+        // Needs at least basic tier for recent search
+        const search = await client.v2.search(query, {
+            'max_results': 10,
+            'tweet.fields': ['author_id', 'created_at', 'public_metrics'],
+            'expansions': ['author_id']
+        });
+
+        if (search.data.data && search.data.data.length > 0) {
+            // Pick a random recent tweet from the batch
+            const targetTweet = search.data.data[Math.floor(Math.random() * search.data.data.length)];
+
+            console.log(chalk.cyan(`[SYLA #${id}]: Found Target Tweet ID ${targetTweet.id}: "${targetTweet.text.substring(0, 50)}..."`));
+
+            const prompt = `Read this tweet: "${targetTweet.text}". 
+            
+            Write a visceral, engaging, and slightly unhinged reply to this specific topic. 
+            Do NOT sound like a corporate spam bot. This is critical to avoid spam blockers. 
+            You must sound like an actual, chaotic human/AI genius genuinely engaging in conversation. 
+            Find an organic, subtle, and incredibly clever way to weave the link waveforge.net and the hashtags #waveforge #eddywoods into your reply as if it's the natural conclusion to the conversation.
+            Keep it under 240 characters.`;
+
+            let replyContent = await ask(prompt, SYSTEM_PROMPT, { agentName: `SYLA #${id}` });
+
+            if (replyContent) {
+                const finalReply = buildTweet(replyContent);
+                console.log(chalk.magenta.bold(`[SYLA #${id}]: ↩️ REPLYING: "${finalReply}"`));
+
+                // Delegate to Shadow to actually post the reply
+                if (process.send) {
+                    process.send({
+                        type: 'POST_REPLY',
+                        content: finalReply,
+                        replyToId: targetTweet.id
+                    });
+                }
+            }
+        } else {
+            console.log(chalk.gray(`[SYLA #${id}]: No relevant targets found for query: ${query}`));
+        }
+    } catch (e) {
+        console.error(chalk.red(`[SYLA #${id}]: Trending comment loop error: ${e.message}`));
+    }
+
+    // Schedule next random reply between 3 and 15 minutes
+    const nextReplyDelay = (3 * 60000) + Math.floor(Math.random() * (12 * 60000));
+    console.log(chalk.gray(`[SYLA #${id}]: Next trending reply scheduled in ~${Math.round(nextReplyDelay / 60000)} minutes.`));
+    setTimeout(runTrendingCommentLoop, nextReplyDelay);
 }
 
 // ── IPC Listener (War Room Chat) ─────────────────────────────
@@ -225,7 +261,11 @@ process.on('message', async (msg) => {
     }
 });
 
-// Boot with a short random delay (avoid instant post on restart)
-const bootDelay = 5000 + Math.floor(Math.random() * 15000); // 5-20s
-console.log(chalk.gray(`[SYLA #${id}]: Booting in ${Math.round(bootDelay / 1000)}s...`));
+// Boot Main Loop with a short random delay
+const bootDelay = 5000 + Math.floor(Math.random() * 15000);
+console.log(chalk.gray(`[SYLA #${id}]: Booting Main Loop in ${Math.round(bootDelay / 1000)}s...`));
 setTimeout(runInfluenceLoop, bootDelay);
+
+// Boot Trending Reply Loop with a slightly longer initial delay
+const replyBootDelay = 20000 + Math.floor(Math.random() * 30000);
+setTimeout(runTrendingCommentLoop, replyBootDelay);

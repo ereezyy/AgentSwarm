@@ -168,30 +168,83 @@ async function weeklyCleanup() {
 weeklyCleanup();
 setInterval(weeklyCleanup, 86400000);
 
-async function runStatusUpdate() {
+// ── 30-MINUTE RECAP (DATA-DRIVEN, NASTY, VISCERAL) ──────────────
+let pendingRecapResolve = null;
+
+async function runRecap() {
     try {
+        // Request real data from The Don
+        if (!process.send) return;
+
+        const recapData = await new Promise((resolve) => {
+            pendingRecapResolve = resolve;
+            process.send({ type: 'RECAP_REQUEST' });
+            // 10s timeout in case Don doesn't respond
+            setTimeout(() => {
+                if (pendingRecapResolve) {
+                    pendingRecapResolve(null);
+                    pendingRecapResolve = null;
+                }
+            }, 10000);
+        });
+
+        // Build the event summary from real data
+        let eventSummary = 'No significant events in the last 30 minutes. Dead silence.';
+        if (recapData && recapData.events && recapData.events.length > 0) {
+            const events = recapData.events;
+            const errors = events.filter(e => e.type === 'ERROR');
+            const money = events.filter(e => e.type === 'MONEY');
+            const crypto = events.filter(e => e.type === 'CRYPTO');
+            const power = events.filter(e => e.type === 'POWER');
+
+            const lines = [];
+            if (money.length) lines.push(`REVENUE EVENTS (${money.length}): ${money.slice(-5).map(e => e.msg).join(' | ')}`);
+            if (crypto.length) lines.push(`CRYPTO/TRADE EVENTS (${crypto.length}): ${crypto.slice(-5).map(e => e.msg).join(' | ')}`);
+            if (errors.length) lines.push(`ERRORS/CRASHES (${errors.length}): ${errors.slice(-3).map(e => e.msg).join(' | ')}`);
+            if (power.length) lines.push(`SYSTEM EVENTS (${power.length}): ${power.slice(-3).map(e => e.msg).join(' | ')}`);
+            eventSummary = lines.join('\n');
+        }
+
+        const stats = recapData?.stats || {};
+        const statsLine = `Active Agents: ${stats.activeAgents || '?'} | War Chest: $${(stats.warChest || 0).toFixed(2)} | Open Positions: ${stats.openPositions || 0} | Uptime: ${stats.uptime || 0} min`;
+
         const msg = await ask(
-            "Periodic field report.",
-            "You are 'The General', a WW2 Battle General giving a grit-heavy, concise status report of the Syndicate swarm's standing. Focus on objectives secured, casualties (errors), and supply lines (funds). Stay in character. No fluff.",
+            `30-MINUTE SYNDICATE RECAP.\n\nSTATS: ${statsLine}\n\nEVENTS:\n${eventSummary}\n\nGive a short, punchy, visceral recap. Be funny, nasty, and brutally honest. Roast agents that fucked up. Celebrate any wins. If nothing happened, roast the swarm for being lazy. Keep it under 4 sentences. No corporate bullshit.`,
+            `You are the foul-mouthed narrator of a criminal AI swarm. You recap the last 30 minutes like a drunk mafia underboss giving a debrief at 3am. Be vulgar, funny, and visceral. Real talk only. If there's nothing to report, roast the whole operation. Never use corporate-speak. Short and brutal.`,
             { agentName: `CALLER #${id}` }
         );
         await speak(msg, { cue: 'TICK' });
     } catch (e) {
-        console.log(chalk.yellow(`[CALLER #${id}]: Brain request skipped: ${e.message}`));
+        console.log(chalk.yellow(`[CALLER #${id}]: Recap skipped: ${e.message}`));
     }
 }
 
-// Initial Greeting on Launch
-runStatusUpdate();
+// Initial greeting on launch (quick, not a full recap)
+setTimeout(async () => {
+    try {
+        const greeting = await ask(
+            "The swarm just booted up. Give a one-sentence launch announcement.",
+            "You are a foul-mouthed AI swarm narrator. One nasty sentence announcing the swarm is online. Keep it short and mean.",
+            { agentName: `CALLER #${id}` }
+        );
+        await speak(greeting, { cue: 'GOOD' });
+    } catch (e) { }
+}, 5000);
 
-// Set 30 Minute Interval (1,800,000 ms)
-setInterval(runStatusUpdate, 1800000);
+// 30 Minute Recap Interval
+setInterval(runRecap, 1800000);
 
-// IPC Listener for Event-Driven Speech (e.g., from The Don)
+// IPC Listener
 process.on('message', (msg) => {
     if (msg.type === 'SPEAK_ALERT') {
         speak(msg.text, { cue: msg.cue || (msg.level === 'ERROR' ? 'BAD' : null) });
     } else if (msg.type === 'PLAY_CUE') {
         playCue(msg.cue);
+    } else if (msg.type === 'RECAP_DATA') {
+        // Response from Don with activity buffer
+        if (pendingRecapResolve) {
+            pendingRecapResolve(msg);
+            pendingRecapResolve = null;
+        }
     }
 });

@@ -73,7 +73,7 @@ function showHelp() {
     console.log(chalk.white('  hunt        ') + chalk.gray('Trigger Headhunter scan NOW'));
     console.log(chalk.white('  hunt <q>    ') + chalk.gray('Add custom Upwork search query'));
     console.log(chalk.white('  leads       ') + chalk.gray('Request latest Headhunter leads'));
-    console.log(chalk.white('  spawn <T>   ') + chalk.gray('Spawn agent (SNIPER, SHADOW, etc)'));
+    console.log(chalk.white('  spawn <T>   ') + chalk.gray('Spawn agent (SNIPER, SHADOW, CONTRARIAN, etc)'));
     console.log(chalk.white('  speak <msg> ') + chalk.gray('Force The Caller to speak'));
     console.log(chalk.white('  call <msg>  ') + chalk.gray('Send Twilio phone call'));
     console.log(chalk.white('  tweet <msg> ') + chalk.gray('Post via The Shadow'));
@@ -104,6 +104,7 @@ function showHelp() {
     console.log(chalk.white('  farm        ') + chalk.gray('DeFi Farmer position status'));
     console.log(chalk.white('  yields      ') + chalk.gray('Scan DeFi yield opportunities'));
     console.log(chalk.white('  help        ') + chalk.gray('Show this menu'));
+    console.log(chalk.white('  launch <Name> <SYM> <0.1>') + chalk.gray('Deploy new Pump.fun token + optional self-snipe'));
     console.log(chalk.white('  compact     ') + chalk.gray('Manually triggers brain context compaction'));
     console.log(chalk.white('  think <L>   ') + chalk.gray('Set thinking level (off, minimal, low, medium, high, xhigh)'));
     console.log(chalk.white('  sessions    ') + chalk.gray('Show active agent session metadata'));
@@ -195,7 +196,39 @@ rl.on('line', (input) => {
                 don.spawnSoldier(agentType);
             } else {
                 console.log(chalk.yellow('  Usage: spawn <AGENT_TYPE>'));
-                console.log(chalk.gray('  Types: SNIPER, SHADOW, HEADHUNTER, SIREN, INFLUENCER, SCAVENGER, etc.'));
+                console.log(chalk.gray('  Types: SNIPER, SHADOW, HEADHUNTER, SIREN, CONTRARIAN, INFLUENCER, SCAVENGER, etc.'));
+            }
+            break;
+
+        case 'launch':
+            if (args.length >= 2) {
+                const name = args[0];
+                const symbol = args[1].toUpperCase();
+                const snipeAmount = args.length >= 3 ? parseFloat(args[2]) : 0;
+
+                console.log(chalk.magenta(`  🚀 Launching $${symbol} (${name})...`));
+                if (snipeAmount > 0) console.log(chalk.gray(`  🎯 Self-snipe amount: ${snipeAmount} SOL`));
+
+                if (don.processes['DEPLOYER'] && don.processes['DEPLOYER'].connected) {
+                    don.processes['DEPLOYER'].send({
+                        type: 'LAUNCH_TOKEN',
+                        concept: { name, symbol, snipeAmount, uri: '' }
+                    });
+                } else {
+                    console.log(chalk.red('  ❌ DEPLOYER not online. Spawning...'));
+                    don.spawnSoldier('DEPLOYER');
+                    setTimeout(() => {
+                        if (don.processes['DEPLOYER']) {
+                            don.processes['DEPLOYER'].send({
+                                type: 'LAUNCH_TOKEN',
+                                concept: { name, symbol, snipeAmount, uri: '' }
+                            });
+                        }
+                    }, 2000);
+                }
+            } else {
+                console.log(chalk.yellow('  Usage: launch <Name> <SYMBOL> [SnipeAmountSOL]'));
+                console.log(chalk.gray('  Example: launch Syndicate SYND 0.1'));
             }
             break;
 
