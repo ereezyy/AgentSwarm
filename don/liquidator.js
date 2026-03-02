@@ -16,6 +16,22 @@ console.log(chalk.red.bgBlack.bold(`[LIQUIDATOR #${id}]: 🩸 Repo Man Online. A
 const RPC_URL = process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com';
 const connection = new Connection(RPC_URL, 'confirmed');
 
+async function withRetry(operation, maxRetries = 3, delayMs = 1000) {
+    let attempt = 0;
+    while (attempt < maxRetries) {
+        try {
+            return await operation();
+        } catch (error) {
+            attempt++;
+            if (attempt >= maxRetries) {
+                throw error;
+            }
+            console.log(chalk.yellow(`[RETRY]: Operation failed, retrying in ${delayMs}ms (Attempt ${attempt}/${maxRetries})...`));
+            await new Promise(resolve => setTimeout(resolve, delayMs));
+        }
+    }
+}
+
 let wallet = null;
 try {
     if (process.env.SOLANA_PRIVATE_KEY) {
@@ -27,18 +43,21 @@ try {
 
 // ── IPC Listener from Main Hub ──────────────────────────────────────
 process.on('message', async (msg) => {
-    if (msg.type === 'PI_TRIGGER' && msg.action === 'LIQUIDATE_TARGET') {
-        msg.account = msg.account || 'UNKNOWN';
-        msg.debtMint = msg.debtMint || 'UNKNOWN';
-        msg.collateralMint = msg.collateralMint || 'UNKNOWN';
-        msg.debtAmount = msg.debtAmount || 0;
-        msg.collateralAmount = msg.collateralAmount || 0;
+    if (msg?.type === 'PI_TRIGGER' && msg?.action === 'LIQUIDATE_TARGET') {
+        const targetData = {
+            ...msg,
+            account: msg?.account || 'UNKNOWN',
+            debtMint: msg?.debtMint || 'UNKNOWN',
+            collateralMint: msg?.collateralMint || 'UNKNOWN',
+            debtAmount: msg?.debtAmount || 0,
+            collateralAmount: msg?.collateralAmount || 0
+        };
 
         console.log(chalk.red.bold(`\n🩸 [LIQUIDATOR]: MARGIN CALL TRIGGERED FROM PI 5! Execution engaged...`));
-        console.log(chalk.red(`Victim Margin Account: ${msg.account}`));
-        console.log(chalk.red(`Debt: ${msg.debtMint} | Collateral: ${msg.collateralMint}`));
+        console.log(chalk.red(`Victim Margin Account: ${targetData.account}`));
+        console.log(chalk.red(`Debt: ${targetData.debtMint} | Collateral: ${targetData.collateralMint}`));
 
-        await executeFlashLoanLiquidation(msg);
+        await executeFlashLoanLiquidation(targetData);
     }
 });
 
@@ -50,11 +69,13 @@ async function executeFlashLoanLiquidation(targetData) {
 
     try {
         const priorityFee = 2500000; // 2.5m lamports to front-run other liquidators
+        const baseFee = 5000;
+        const requiredBalance = priorityFee + baseFee;
 
         // Add Wallet Guard (Balance Check)
-        const balance = await connection.getBalance(wallet.publicKey);
-        if (balance < priorityFee) {
-            console.log(chalk.red(`[LIQUIDATOR]: Insufficient SOL balance for network/priority fees. Need at least ${priorityFee} lamports.`));
+        const balance = await withRetry(() => connection.getBalance(wallet.publicKey));
+        if (balance < requiredBalance) {
+            console.log(chalk.red(`[LIQUIDATOR]: Insufficient SOL balance for network/priority fees. Need at least ${requiredBalance} lamports.`));
             return;
         }
 
@@ -107,7 +128,7 @@ async function executeFlashLoanLiquidation(targetData) {
                 console.log(chalk.white.bgRed.bold(`[LIQUIDATOR]: 🩸 ASSETS SEIZED. Victim Liquidated.`));
 
                 if (process.send) {
-                    const safeAccount = targetData.account || 'UNKNOWN';
+                    const safeAccount = targetData.account ? targetData.account.toString() : 'UNKNOWN';
                     process.send({
                         type: 'LOG',
                         msg: `🩸 Liquidator: Flash Loan successful. Seized assets from ${safeAccount.slice(0, 8)}... Net Profit: ~${estimatedProfit.toFixed(2)} units.`,
@@ -124,7 +145,7 @@ async function executeFlashLoanLiquidation(targetData) {
                     console.log(chalk.white.bgRed.bold(`[LIQUIDATOR]: 🩸 ASSETS SEIZED. Victim Liquidated (Simulated).`));
 
                     if (process.send) {
-                        const safeAccount = targetData.account || 'UNKNOWN';
+                        const safeAccount = targetData.account ? targetData.account.toString() : 'UNKNOWN';
                         process.send({
                             type: 'LOG',
                             msg: `🩸 Liquidator: Flash Loan successful. Seized assets from ${safeAccount.slice(0, 8)}... Net Profit: ~${estimatedProfit.toFixed(2)} units.`,
@@ -134,14 +155,15 @@ async function executeFlashLoanLiquidation(targetData) {
                 } else {
                     console.log(chalk.yellow(`[LIQUIDATOR]: Attempt ${attempt} failed: ${innerError.message}`));
                     if (attempt >= maxAttempts) {
-                        throw new Error(`Could not find swap route for collateral seizure. Last error: ${innerError.response?.data?.msg || innerError.message || 'Unknown error'}`);
+                        throw new Error(`Could not find swap route for collateral seizure. Last error: ${innerError.response?.data?.error || innerError.response?.data?.msg || innerError.message || 'Unknown error'}`);
                     }
                 }
             }
         }
     } catch (e) {
-        const errorMsg = e.message || 'Unknown error';
-        console.error(chalk.red(`[LIQUIDATOR]: Liquidation failed: ${errorMsg}\nStack Trace:\n${e.stack}`));
+        const errorMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+        const stackTrace = e?.stack || 'Not available';
+        console.error(chalk.red(`[LIQUIDATOR]: Liquidation failed: ${errorMsg}\nStack Trace:\n${stackTrace}`));
     }
 }
 
