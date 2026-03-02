@@ -144,12 +144,27 @@ async function getDynamicPriorityFee() {
 // JUPITER AGGREGATOR (RAYDIUM/ORCA FALLBACK)
 // ============================================================
 async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1000) {
+    if (!wallet || !wallet.publicKey) {
+        return { success: false, error: 'Wallet not initialized' };
+    }
+
     try {
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Requesting Jupiter Quote...`));
+
+        const amountLamports = amount;
+
         // 1. Get Quote — using lite-api.jup.ag (quote-api.jup.ag is DNS-dead on this network)
         const JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
-        const quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
-        const quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
+        const quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amountLamports}&slippageBps=${slippageBps}`;
+        let quoteResponse;
+        try {
+            quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
+        } catch (e) {
+            console.log(chalk.yellow(`[SNIPER #${id}]: lite-api failed, falling back to v6 quote API...`));
+            const FALLBACK_BASE = 'https://quote-api.jup.ag/v6';
+            const fallbackUrl = `${FALLBACK_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amountLamports}&slippageBps=${slippageBps}`;
+            quoteResponse = await axios.get(fallbackUrl, { timeout: 10000 });
+        }
         const quoteData = quoteResponse.data;
 
         if (!quoteData || quoteData.error) throw new Error(quoteData.error || 'No quote found');
@@ -161,12 +176,24 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         const priorityFeeSol = (priorityFee / 1e9).toFixed(6);
         console.log(chalk.hex('#FF6600')(`[SNIPER #${id}]: 🏎️ Priority Fee Set: ${priorityFeeSol} SOL`));
 
-        const swapResponse = await axios.post(`${JUPITER_BASE}/swap`, {
-            quoteResponse: quoteData,
-            userPublicKey: wallet.publicKey.toString(),
-            wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: priorityFee
-        }, { timeout: 10000 });
+        let swapResponse;
+        try {
+            swapResponse = await axios.post(`${JUPITER_BASE}/swap`, {
+                quoteResponse: quoteData,
+                userPublicKey: wallet.publicKey.toString(),
+                wrapAndUnwrapSol: true,
+                prioritizationFeeLamports: priorityFee
+            }, { timeout: 10000 });
+        } catch (e) {
+            console.log(chalk.yellow(`[SNIPER #${id}]: lite-api swap failed, falling back to v6 swap API...`));
+            const FALLBACK_BASE = 'https://quote-api.jup.ag/v6';
+            swapResponse = await axios.post(`${FALLBACK_BASE}/swap`, {
+                quoteResponse: quoteData,
+                userPublicKey: wallet.publicKey.toString(),
+                wrapAndUnwrapSol: true,
+                prioritizationFeeLamports: priorityFee
+            }, { timeout: 10000 });
+        }
 
         const { swapTransaction } = swapResponse.data;
 
@@ -207,17 +234,28 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
 }
 
 async function fetchCurrentPrice(mint, amount) {
-    // 1. Try Jupiter lite-api (LIVE — v6 is dead)
+    // 1. Try Jupiter lite-api
     try {
         const quoteUrl = `https://lite-api.jup.ag/swap/v1/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
         const res = await axios.get(quoteUrl, { timeout: 8000 });
         if (res.data && res.data.outAmount) {
             const solValue = Number(res.data.outAmount) / 1e9;
             const currentPrice = solValue / Number(amount);
-            return { solValue, currentPrice, source: 'JUPITER' };
+            return { solValue, currentPrice, source: 'JUPITER_LITE' };
         }
     } catch (e) {
-        // Jupiter failed, try DexScreener
+        // lite-api failed, try v6
+        try {
+            const fallbackUrl = `https://quote-api.jup.ag/v6/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
+            const fallbackRes = await axios.get(fallbackUrl, { timeout: 8000 });
+            if (fallbackRes.data && fallbackRes.data.outAmount) {
+                const solValue = Number(fallbackRes.data.outAmount) / 1e9;
+                const currentPrice = solValue / Number(amount);
+                return { solValue, currentPrice, source: 'JUPITER_V6' };
+            }
+        } catch (e2) {
+            // Jupiter completely failed, try DexScreener
+        }
     }
 
     // 2. Try DexScreener (Reliable fallback)
