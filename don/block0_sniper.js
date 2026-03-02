@@ -12,7 +12,45 @@ const id = process.argv[2] || require('crypto').randomBytes(4).toString('hex');
 console.log(chalk.red.bold(`[BLOCK-0 SNIPER #${id}]: 🔫 Locked & Loaded. Awaiting Pi 5 Radar Trigger.`));
 
 const RPC_URL = process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com';
+const FALLBACK_RPC_URL = process.env.SOLANA_FALLBACK_RPC_URL || 'https://api.mainnet-beta.solana.com';
 const connection = new Connection(RPC_URL, 'confirmed');
+const fallbackConnection = new Connection(FALLBACK_RPC_URL, 'confirmed');
+
+// Helper to wrap RPC calls with failover
+async function withFailover(primaryCall, fallbackCall, name) {
+    try {
+        return await primaryCall();
+    } catch (e) {
+        console.log(chalk.yellow(`[BLOCK-0 SNIPER]: RPC ${name} primary failed, trying fallback...`));
+        try {
+            return await fallbackCall();
+        } catch (fallbackErr) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: RPC ${name} fallback also failed.`));
+            throw fallbackErr;
+        }
+    }
+}
+
+// Helper to wrap API requests with failover (like Jupiter)
+async function fetchWithFailover(primaryUrl, fallbackUrl, method, dataOrParams, timeout = 3000) {
+    try {
+        const config = { method, url: primaryUrl, timeout };
+        if (method === 'get') config.params = dataOrParams;
+        else config.data = dataOrParams;
+        return await axios(config);
+    } catch (e) {
+        console.log(chalk.yellow(`[BLOCK-0 SNIPER]: API primary failed (${primaryUrl}), trying fallback (${fallbackUrl})...`));
+        try {
+            const config = { method, url: fallbackUrl, timeout };
+            if (method === 'get') config.params = dataOrParams;
+            else config.data = dataOrParams;
+            return await axios(config);
+        } catch (fallbackErr) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: API fallback also failed.`));
+            throw fallbackErr;
+        }
+    }
+}
 
 let wallet = null;
 try {
@@ -39,12 +77,24 @@ process.on('message', async (msg) => {
 });
 
 async function extractAndSnipe(signature) {
-    if (!wallet) return;
+    if (!wallet || !wallet.publicKey) {
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: No wallet configured or invalid keypair. Aborting.`));
+        return;
+    }
+    if (!signature) {
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid signature provided. Aborting.`));
+        return;
+    }
 
     try {
         // 1. Fetch the transaction details to find the coin mint.
         // Needs high commitment to ensure we can read it immediately.
-        const txInfo = await connection.getTransaction(signature, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 });
+        const txInfo = await withFailover(
+            () => connection.getTransaction(signature, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 }),
+            () => fallbackConnection.getTransaction(signature, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 }),
+            'getTransaction'
+        );
+
         if (!txInfo) {
             console.log(chalk.red(`[BLOCK-0 SNIPER]: Failed to fetch tx info fast enough.`));
             return;
@@ -52,7 +102,7 @@ async function extractAndSnipe(signature) {
 
         // Raydium initialize2 usually has the token mints in the account keys.
         // We know WSOL is one, the other is the shitcoin.
-        const accountKeys = txInfo.transaction.message.staticAccountKeys;
+        const accountKeys = txInfo.transaction.message.staticAccountKeys || txInfo.transaction.message.accountKeys || [];
         let targetMint = null;
 
         for (const key of accountKeys) {
@@ -77,30 +127,45 @@ async function extractAndSnipe(signature) {
 
         // 2. Fire Jupiter Swap
         const amountLamports = Math.floor(SNIPE_AMOUNT_SOL * 1e9);
-        const qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
-            params: {
+        const qRes = await fetchWithFailover(
+            'https://quote-api.jup.ag/v6/quote',
+            'https://quote-api.jup.ag/v6/quote', // In a real scenario, use an alternate endpoint
+            'get',
+            {
                 inputMint: WSOL_MINT,
                 outputMint: targetMint,
                 amount: amountLamports,
                 slippageBps: 5000 // 50% slippage, block-0 is EXTREMELY volatile
             },
-            timeout: 3000
-        });
+            3000
+        );
 
-        if (!qRes.data) return;
+        if (!qRes || !qRes.data) return;
 
-        const swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
-            quoteResponse: qRes.data,
-            userPublicKey: wallet.publicKey.toString(),
-            wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: 3000000 // MASSIVE priority fee to ensure Block-0 inclusion
-        });
+        const swapRes = await fetchWithFailover(
+            'https://quote-api.jup.ag/v6/swap',
+            'https://quote-api.jup.ag/v6/swap', // Alternate swap endpoint
+            'post',
+            {
+                quoteResponse: qRes.data,
+                userPublicKey: wallet.publicKey.toString(),
+                wrapAndUnwrapSol: true,
+                prioritizationFeeLamports: 3000000 // MASSIVE priority fee to ensure Block-0 inclusion
+            },
+            3000
+        );
+
+        if (!swapRes || !swapRes.data || !swapRes.data.swapTransaction) return;
 
         const txBuf = Buffer.from(swapRes.data.swapTransaction, 'base64');
         const tx = VersionedTransaction.deserialize(txBuf);
         tx.sign([wallet]);
 
-        const sig = await connection.sendRawTransaction(tx.serialize(), { skipPreflight: true });
+        const sig = await withFailover(
+            () => connection.sendRawTransaction(tx.serialize(), { skipPreflight: true }),
+            () => fallbackConnection.sendRawTransaction(tx.serialize(), { skipPreflight: true }),
+            'sendRawTransaction'
+        );
         console.log(chalk.white.bgRed.bold(`[BLOCK-0 SNIPER]: 💥 SNIPE EXECUTED! Sig: ${sig} 💥`));
 
         if (process.send) {
@@ -112,6 +177,9 @@ async function extractAndSnipe(signature) {
         }
 
     } catch (e) {
-        console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution failed: ${e.response?.data?.msg || e.message}`));
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution failed: ${e.response?.data?.msg || e.message || e}`));
+        if (e.stack) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Stack Trace: ${e.stack}`));
+        }
     }
 }
