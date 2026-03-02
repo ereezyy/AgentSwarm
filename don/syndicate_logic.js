@@ -114,7 +114,26 @@ class DonCore {
                 this.spawnSoldier(cmd.agent);
                 break;
 
+
+            case 'RESTART_SWARM':
+                this.log(`[DON] 🔄 Swarm Restart Initiated by Orchestrator...`, 'POWER');
+                this.saveTelemetry();
+
+                // Start a detached process of the same script
+                const child_process = require('child_process');
+                const child = child_process.spawn(process.argv[0], process.argv.slice(1), {
+                    detached: true,
+                    stdio: 'ignore'
+                });
+                child.unref();
+
+                // Graceful exit
+                this.log(`[DON] Context saved. Terminating current process. New instance starting...`, 'POWER');
+                process.exit(0);
+                break;
+
             case 'USER_CHAT':
+
                 this.log(`[DON] The Boss says: "${cmd.msg}"`, 'POWER');
 
                 // Check for Council Meeting trigger
@@ -609,8 +628,12 @@ class DonCore {
         // TRIGGER MOLTBOOK ENGAGEMENT for every new agent
         fork(path.join(__dirname, 'engage.js'), [id, type]);
 
+
         child.on('message', (msg) => {
-            if (msg.type === 'KICK_UP') {
+            if (msg.type === 'RESTART_SWARM') {
+                this.handleCommand({ type: 'RESTART_SWARM' });
+            } else if (msg.type === 'KICK_UP') {
+
                 this.processKickUp(msg.amount, id, msg.source);
                 this.telemetry.profits[type] = (this.telemetry.profits[type] || 0) + msg.amount;
                 this.saveTelemetry();

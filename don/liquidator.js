@@ -30,13 +30,22 @@ try {
 // ── REAL ON-CHAIN LIQUIDATION ENGINE ────────────────────────────
 process.on('message', async (msg) => {
     if (msg.type === 'PI_TRIGGER' && msg.action === 'LIQUIDATE_TARGET') {
+        msg.account = msg.account || 'UNKNOWN';
+        msg.debtMint = msg.debtMint || 'UNKNOWN';
+        msg.collateralMint = msg.collateralMint || 'UNKNOWN';
+        msg.debtAmount = msg.debtAmount || 0;
+        msg.collateralAmount = msg.collateralAmount || 0;
+
         process.send({ type: 'LOG', level: 'POWER', msg: `🩸 [LIQUIDATOR]: MARGIN CALL TRIGGERED! Target: ${msg.account.slice(0, 8)}...` });
         await executeOnChainLiquidation(msg);
     }
 });
 
 async function executeOnChainLiquidation(targetData) {
-    if (!wallet) return;
+    if (!wallet || !wallet.publicKey) {
+        console.log(chalk.red(`[LIQUIDATOR]: Wallet not initialized or invalid.`));
+        return;
+    }
 
     try {
         console.log(chalk.red.bold(`[LIQUIDATOR]: ⚔️ ENGAGING ATOMIC SEIZURE FOR ${targetData.account.slice(0, 8)}...`));

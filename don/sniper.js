@@ -150,8 +150,18 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
     if (!wallet || !wallet.publicKey) {
         throw new Error("Wallet not initialized. Cannot swap.");
     }
-
+    let quoteData = null;
+    let swapTransaction = null;
     try {
+        const amountLamports = parseInt(amount);
+        const priorityFee = await getDynamicPriorityFee();
+        if (inputMint === WSOL_MINT.toString()) {
+            const balance = await connection.getBalance(wallet.publicKey);
+            if (balance < amountLamports + priorityFee) {
+                throw new Error(`Insufficient SOL balance. Have ${(balance / 1e9).toFixed(6)}, need ${((amountLamports + priorityFee) / 1e9).toFixed(6)}`);
+            }
+        }
+
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Requesting Jupiter Quote...`));
         // 1. Get Quote with multi-TLD failover
         const JUPITER_QUOTE_APIS = [
@@ -159,6 +169,24 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
             'https://quote-api.jup.ag/v6/quote',
             'https://api.jup.ag/swap/v1/quote'
         ];
+
+        let qRes = null;
+        let lastErr = null;
+        const qParams = { inputMint: inputMint, outputMint: outputMint, amount: amountLamports, slippageBps: slippageBps };
+
+        for (const url of JUPITER_QUOTE_APIS) {
+            try {
+                qRes = await axios.get(url, { params: qParams, timeout: 5000 });
+                if (qRes && qRes.data) break;
+            } catch (e) {
+                lastErr = e.message;
+                console.log(chalk.yellow(`[SNIPER]: Quote API ${new URL(url).hostname} failed, trying next...`));
+            }
+        }
+
+        if (!qRes || !qRes.data || !qRes.data.outAmount) throw new Error(`Quote failed: ${lastErr}`);
+
+        quoteData = qRes.data;
 
         let qRes = null;
         let lastErr = null;
@@ -180,7 +208,6 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Jupiter Quote: ${quoteData.outAmount} out via ${quoteData.routePlan.map(r => r.swapInfo.label).join('->')}`));
 
         // 2. Get Serialized Transaction with Dynamic Fee
-        const priorityFee = await getDynamicPriorityFee();
         const priorityFeeSol = (priorityFee / 1e9).toFixed(6);
         console.log(chalk.hex('#FF6600')(`[SNIPER #${id}]: 🏎️ Priority Fee Set: ${priorityFeeSol} SOL`));
 
@@ -196,7 +223,7 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
             quoteResponse: quoteData,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: 'auto'
+            prioritizationFeeLamports: priorityFee
         };
 
         for (const url of JUPITER_SWAP_APIS) {
@@ -210,7 +237,7 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         }
 
         if (!swapRes || !swapRes.data) throw new Error(`Swap construction failed: ${lastErr}`);
-        const { swapTransaction } = swapRes.data;
+        swapTransaction = swapRes.data.swapTransaction;
 
         // 3. Deserialize and Sign
         const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
@@ -260,9 +287,12 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         return { success: true, sig, outAmount: quoteData.outAmount, mevProtected: isMevProtected };
 
     } catch (e) {
-        console.log(chalk.red(`[SNIPER]: Jupiter Execution Failed: ${e.response?.data?.msg || e.message}`));
-        if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `Sniper Jupiter Failed: ${e.message}` });
-        process.exit(1); // Trigger Jules
+        let errorMsg = e.response?.data?.error || e.response?.data?.msg || e.message;
+        if (e.code === 'ENOTFOUND') errorMsg = `DNS failure: ${e.hostname || 'Jupiter API'} unreachable`;
+        else if (e.code === 'ECONNABORTED' || e.code === 'ETIMEDOUT') errorMsg = `Network timeout reaching Jupiter API`;
+        console.error(chalk.red(`[SNIPER #${id}]: Jupiter Swap Failed: ${errorMsg}`));
+        if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `Sniper Jupiter Failed: ${errorMsg}` });
+        return { success: false, error: errorMsg };
     }
 }
 
@@ -494,7 +524,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                     mint: mintStr,
                     entryPrice: realEntryPrice,  // SOL per UI token — matches DexScreener priceNative
                     entryPriceUnit: 'ui',         // flag: already per UI token, banker should NOT multiply by 10^decimals
-                    amount: outAmt,
+                    amount: result.outAmount,
                     uiAmount: uiAmount,
                     entrySol: SOL_AMOUNT,
                     timestamp: Date.now(),
