@@ -28,11 +28,23 @@ try {
 // ── IPC Listener from Main Hub ──────────────────────────────────────
 process.on('message', async (msg) => {
     if (msg.type === 'PI_TRIGGER' && msg.action === 'LIQUIDATE_TARGET') {
-        console.log(chalk.red.bold(`\n🩸 [LIQUIDATOR]: MARGIN CALL TRIGGERED FROM PI 5! Execution engaged...`));
-        console.log(chalk.red(`Victim Margin Account: ${msg.account}`));
-        console.log(chalk.red(`Debt: ${msg.debtMint} | Collateral: ${msg.collateralMint}`));
+        const account = msg.account || 'UNKNOWN';
+        const debtMint = msg.debtMint || 'UNKNOWN';
+        const collateralMint = msg.collateralMint || 'UNKNOWN';
+        const debtAmount = msg.debtAmount || 0;
+        const collateralAmount = msg.collateralAmount || 0;
 
-        await executeFlashLoanLiquidation(msg);
+        console.log(chalk.red.bold(`\n🩸 [LIQUIDATOR]: MARGIN CALL TRIGGERED FROM PI 5! Execution engaged...`));
+        console.log(chalk.red(`Victim Margin Account: ${account}`));
+        console.log(chalk.red(`Debt: ${debtMint} | Collateral: ${collateralMint}`));
+
+        await executeFlashLoanLiquidation({
+            account,
+            debtMint,
+            collateralMint,
+            debtAmount,
+            collateralAmount
+        });
     }
 });
 
@@ -43,6 +55,13 @@ async function executeFlashLoanLiquidation(targetData) {
     }
 
     try {
+        const priorityFee = 2500000; // 2.5m lamports to front-run other liquidators
+        const balance = await connection.getBalance(wallet.publicKey);
+        if (balance < priorityFee) {
+            console.log(chalk.red(`[LIQUIDATOR]: Insufficient SOL balance to cover priority fee. Need ${priorityFee}, have ${balance}.`));
+            return;
+        }
+
         const debtMintStr = targetData.debtMint ? targetData.debtMint.toString() : 'UNKNOWN';
         const collMintStr = targetData.collateralMint ? targetData.collateralMint.toString() : 'UNKNOWN';
         const debtAmtStr = targetData.debtAmount || 0;
@@ -69,23 +88,23 @@ async function executeFlashLoanLiquidation(targetData) {
         // In a true production environment, you compile this into an Anchor instruction.
         // We will simulate the successful HTTP response from our proxy builder with retry loops and failovers.
 
-        let proxyUrl = 'https://syndicate-proxy.internal/liquidate';
-        let fallbackUrl = 'https://syndicate-proxy-backup.internal/liquidate';
+        let proxyUrl = process.env.PROXY_URL || 'https://syndicate-proxy.internal/liquidate';
+        let fallbackUrl = process.env.PROXY_URL_FALLBACK || 'https://syndicate-proxy-backup.internal/liquidate';
         let attempt = 0;
         let maxAttempts = 3;
         let success = false;
 
-        const priorityFee = 2500000; // 2.5m lamports to front-run other liquidators
         console.log(chalk.red.bold(`[LIQUIDATOR]: Seizing assets with priority fee ${priorityFee}...`));
 
+        let currentUrl = proxyUrl; // Initialize explicitly outside try-catch
         while (attempt < maxAttempts && !success) {
             try {
                 attempt++;
-                let currentUrl = attempt > 1 ? fallbackUrl : proxyUrl;
+                currentUrl = attempt > 1 ? fallbackUrl : proxyUrl;
                 console.log(chalk.yellow(`[LIQUIDATOR]: Calling Flash Loan Proxy (Attempt ${attempt}): ${currentUrl}`));
-                await new Promise(resolve => setTimeout(resolve, 600)); // Execution simulation delay
 
-                // Simulate success
+                await axios.post(currentUrl, targetData);
+
                 success = true;
                 const estimatedProfit = debtAmtStr * 0.05; // Standard 5% liquidation bounty
                 console.log(chalk.white.bgRed.bold(`[LIQUIDATOR]: 🩸 ASSETS SEIZED. Victim Liquidated.`));
@@ -105,8 +124,9 @@ async function executeFlashLoanLiquidation(targetData) {
             }
         }
     } catch (e) {
-        const errorMsg = e.response?.data?.msg || e.message || 'Unknown error';
-        console.error(chalk.red(`[LIQUIDATOR]: Liquidation failed: ${errorMsg}\nStack Trace:\n${e.stack}`));
+        const errorMsg = e.response?.data?.error || e.response?.data?.msg || e.message || 'Unknown error';
+        const stackTrace = e.stack || 'Not available';
+        console.error(chalk.red(`[LIQUIDATOR]: Liquidation failed: ${errorMsg}\nStack Trace:\n${stackTrace}`));
     }
 }
 
