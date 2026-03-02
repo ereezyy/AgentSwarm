@@ -37,13 +37,13 @@ const SNIPE_AMOUNT_SOL = 0.1;
 
 // ── IPC Listener from Main Hub ──────────────────────────────────────
 process.on('message', async (msg) => {
-    if (msg.type === 'PI_TRIGGER' && msg.action === 'BLOCK0_SNIPE') {
+    if (msg?.type === 'PI_TRIGGER' && msg?.action === 'BLOCK0_SNIPE') {
         console.log(chalk.red.bold(`\n⚡🎯 [BLOCK-0 SNIPER]: PI 5 RADAR TRIGGER RECEIVED! Execution engaged...`));
-        console.log(chalk.red(`Target LP Init Sig: ${msg.signature}`));
+        console.log(chalk.red(`Target LP Init Sig: ${msg?.signature}`));
 
         // At this specific millisecond, we know a new LP was created.
         // We need to parse that exact transaction to extract the new token mint address.
-        await extractAndSnipe(msg.signature);
+        await extractAndSnipe(msg?.signature);
     }
 });
 
@@ -51,7 +51,41 @@ async function extractAndSnipe(signature) {
     if (!wallet || !wallet.publicKey) return;
     if (typeof signature !== 'string') return;
 
+    // Validate signature is a valid base58 string of correct length
     try {
+        if (bs58.decode(signature).length !== 64) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid signature length. Aborting.`));
+            return;
+        }
+    } catch (e) {
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid base58 signature format. Aborting.`));
+        return;
+    }
+
+    try {
+        const amountLamports = Math.floor(SNIPE_AMOUNT_SOL * 1e9);
+        const requiredBalance = amountLamports + 5000000; // snipe amount + fee buffer
+
+        let currentBalance = null;
+        for (const conn of connections) {
+            try {
+                currentBalance = await conn.getBalance(wallet.publicKey);
+                if (currentBalance !== null) break;
+            } catch (err) {
+                // Try next RPC
+            }
+        }
+
+        if (currentBalance === null) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Failed to fetch wallet balance.`));
+            return;
+        }
+
+        if (currentBalance < requiredBalance) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Insufficient SOL balance. Have ${currentBalance}, need ${requiredBalance}. Aborting.`));
+            return;
+        }
+
         // 1. Fetch the transaction details to find the coin mint.
         // Needs high commitment to ensure we can read it immediately.
         let txInfo = null;
@@ -71,7 +105,7 @@ async function extractAndSnipe(signature) {
 
         // Raydium initialize2 usually has the token mints in the account keys.
         // We know WSOL is one, the other is the shitcoin.
-        const accountKeys = txInfo.transaction.message.staticAccountKeys || txInfo.transaction.message.accountKeys || [];
+        const accountKeys = txInfo?.transaction?.message?.staticAccountKeys || txInfo?.transaction?.message?.accountKeys || [];
         let targetMint = null;
 
         for (const key of accountKeys) {
@@ -95,7 +129,6 @@ async function extractAndSnipe(signature) {
         console.log(chalk.red.bold(`[BLOCK-0 SNIPER]: TARGET ACQUIRED → ${targetMint}. FIRING JUPITER...`));
 
         // 2. Fire Jupiter Swap
-        const amountLamports = Math.floor(SNIPE_AMOUNT_SOL * 1e9);
 
         let qRes = null;
         for (const apiUrl of JUP_API_URLS) {
@@ -164,6 +197,6 @@ async function extractAndSnipe(signature) {
         }
 
     } catch (e) {
-        console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution failed: ${e.response?.data?.msg || e.message}\n${e.stack}`));
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution failed: ${e.response?.data?.error || e.response?.data?.msg || e.message}\n${e.stack}`));
     }
 }
