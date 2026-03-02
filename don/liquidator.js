@@ -37,9 +37,18 @@ process.on('message', async (msg) => {
 });
 
 async function executeFlashLoanLiquidation(targetData) {
-    if (!wallet) return;
+    if (!wallet) {
+        console.log(chalk.red(`[LIQUIDATOR]: ERROR - Wallet not initialized. Cannot execute liquidation.`));
+        return;
+    }
 
     try {
+        targetData.debtAmount = targetData.debtAmount || 0;
+        targetData.collateralAmount = targetData.collateralAmount || 0;
+        targetData.debtMint = targetData.debtMint || 'Unknown';
+        targetData.collateralMint = targetData.collateralMint || 'Unknown';
+        targetData.account = targetData.account || 'Unknown';
+
         console.log(chalk.yellow(`[LIQUIDATOR]: Requesting Flash Loan for ${targetData.debtAmount} units of ${targetData.debtMint}...`));
 
         // Note: Constructing a raw Flash Loan + Liquidation + Swap atomic transaction requires
@@ -64,7 +73,38 @@ async function executeFlashLoanLiquidation(targetData) {
         const priorityFee = 2500000; // 2.5m lamports to front-run other liquidators
         console.log(chalk.red.bold(`[LIQUIDATOR]: Seizing assets with priority fee ${priorityFee}...`));
 
-        await new Promise(resolve => setTimeout(resolve, 600)); // Execution simulation delay
+        // Network failover implementation
+        const endpoints = [
+            'https://proxy1.syndicate.local/flash',
+            'https://proxy2.syndicate.local/flash',
+            'https://proxy3.syndicate.local/flash'
+        ];
+
+        let success = false;
+        let lastError = null;
+
+        for (const endpoint of endpoints) {
+            try {
+                // Simulating an actual network call which can fail.
+                // In production, this would be a real axios.post(endpoint, payload)
+                await new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        // Simulate occasional proxy failure for realism or just resolve
+                        if (Math.random() > 0.8) reject(new Error('Proxy connection reset'));
+                        else resolve();
+                    }, 200);
+                });
+                success = true;
+                break;
+            } catch (err) {
+                console.log(chalk.yellow(`[LIQUIDATOR]: Endpoint ${endpoint} failed. Trying next...`));
+                lastError = err;
+            }
+        }
+
+        if (!success) {
+            throw new Error(`All flash loan proxy endpoints failed: ${lastError.message}`);
+        }
 
         const estimatedProfit = targetData.debtAmount * 0.05; // Standard 5% liquidation bounty
         console.log(chalk.white.bgRed.bold(`[LIQUIDATOR]: 🩸 ASSETS SEIZED. Victim Liquidated.`));
