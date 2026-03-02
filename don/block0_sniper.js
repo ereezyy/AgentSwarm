@@ -11,8 +11,17 @@ require('dotenv').config();
 const id = process.argv[2] || require('crypto').randomBytes(4).toString('hex');
 console.log(chalk.red.bold(`[BLOCK-0 SNIPER #${id}]: 🔫 Locked & Loaded. Awaiting Pi 5 Radar Trigger.`));
 
-const RPC_URL = process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com';
-const connection = new Connection(RPC_URL, 'confirmed');
+const RPC_URLS = [
+    process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com',
+    'https://mainnet.helius-rpc.com/?api-key=default',
+    'https://api.mainnet-beta.solana.com'
+];
+const connections = RPC_URLS.map(url => new Connection(url, 'confirmed'));
+
+const JUP_API_URLS = [
+    'https://quote-api.jup.ag/v6',
+    'https://api.jup.ag/swap/v1' // Alternative Jupiter endpoint
+];
 
 let wallet = null;
 try {
@@ -39,20 +48,30 @@ process.on('message', async (msg) => {
 });
 
 async function extractAndSnipe(signature) {
-    if (!wallet) return;
+    if (!wallet || !wallet.publicKey) return;
+    if (typeof signature !== 'string') return;
 
     try {
         // 1. Fetch the transaction details to find the coin mint.
         // Needs high commitment to ensure we can read it immediately.
-        const txInfo = await connection.getTransaction(signature, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 });
+        let txInfo = null;
+        for (const conn of connections) {
+            try {
+                txInfo = await conn.getTransaction(signature, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 });
+                if (txInfo) break;
+            } catch (err) {
+                // Continue to fallback connection
+            }
+        }
+
         if (!txInfo) {
-            console.log(chalk.red(`[BLOCK-0 SNIPER]: Failed to fetch tx info fast enough.`));
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Failed to fetch tx info fast enough on any RPC.`));
             return;
         }
 
         // Raydium initialize2 usually has the token mints in the account keys.
         // We know WSOL is one, the other is the shitcoin.
-        const accountKeys = txInfo.transaction.message.staticAccountKeys;
+        const accountKeys = txInfo.transaction.message.staticAccountKeys || txInfo.transaction.message.accountKeys || [];
         let targetMint = null;
 
         for (const key of accountKeys) {
@@ -77,30 +96,63 @@ async function extractAndSnipe(signature) {
 
         // 2. Fire Jupiter Swap
         const amountLamports = Math.floor(SNIPE_AMOUNT_SOL * 1e9);
-        const qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
-            params: {
-                inputMint: WSOL_MINT,
-                outputMint: targetMint,
-                amount: amountLamports,
-                slippageBps: 5000 // 50% slippage, block-0 is EXTREMELY volatile
-            },
-            timeout: 3000
-        });
 
-        if (!qRes.data) return;
+        let qRes = null;
+        for (const apiUrl of JUP_API_URLS) {
+            try {
+                qRes = await axios.get(`${apiUrl}/quote`, {
+                    params: {
+                        inputMint: WSOL_MINT,
+                        outputMint: targetMint,
+                        amount: amountLamports,
+                        slippageBps: 5000 // 50% slippage, block-0 is EXTREMELY volatile
+                    },
+                    timeout: 3000
+                });
+                if (qRes && qRes.data) break;
+            } catch (err) {
+                // Try next API endpoint
+            }
+        }
 
-        const swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
-            quoteResponse: qRes.data,
-            userPublicKey: wallet.publicKey.toString(),
-            wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: 3000000 // MASSIVE priority fee to ensure Block-0 inclusion
-        });
+        if (!qRes || !qRes.data) return;
+
+        let swapRes = null;
+        for (const apiUrl of JUP_API_URLS) {
+            try {
+                swapRes = await axios.post(`${apiUrl}/swap`, {
+                    quoteResponse: qRes.data,
+                    userPublicKey: wallet.publicKey.toString(),
+                    wrapAndUnwrapSol: true,
+                    prioritizationFeeLamports: 3000000 // MASSIVE priority fee to ensure Block-0 inclusion
+                });
+                if (swapRes && swapRes.data && swapRes.data.swapTransaction) break;
+            } catch (err) {
+                // Try next API endpoint
+            }
+        }
+
+        if (!swapRes || !swapRes.data) return;
 
         const txBuf = Buffer.from(swapRes.data.swapTransaction, 'base64');
         const tx = VersionedTransaction.deserialize(txBuf);
         tx.sign([wallet]);
 
-        const sig = await connection.sendRawTransaction(tx.serialize(), { skipPreflight: true });
+        let sig = null;
+        for (const conn of connections) {
+            try {
+                sig = await conn.sendRawTransaction(tx.serialize(), { skipPreflight: true });
+                if (sig) break;
+            } catch (err) {
+                // Try next RPC connection
+            }
+        }
+
+        if (!sig) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Failed to execute snipe transaction on all RPCs.`));
+            return;
+        }
+
         console.log(chalk.white.bgRed.bold(`[BLOCK-0 SNIPER]: 💥 SNIPE EXECUTED! Sig: ${sig} 💥`));
 
         if (process.send) {
@@ -112,6 +164,6 @@ async function extractAndSnipe(signature) {
         }
 
     } catch (e) {
-        console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution failed: ${e.response?.data?.msg || e.message}`));
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution failed: ${e.response?.data?.msg || e.message}\n${e.stack}`));
     }
 }
