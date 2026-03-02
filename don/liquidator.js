@@ -37,7 +37,9 @@ process.on('message', async (msg) => {
 });
 
 async function executeFlashLoanLiquidation(targetData) {
-    if (!wallet) return;
+    if (!wallet || !wallet.publicKey) {
+        throw new Error("Wallet not initialized");
+    }
 
     try {
         console.log(chalk.yellow(`[LIQUIDATOR]: Requesting Flash Loan for ${targetData.debtAmount} units of ${targetData.debtMint}...`));
@@ -56,6 +58,33 @@ async function executeFlashLoanLiquidation(targetData) {
         console.log(chalk.cyan(`   3. Swap seized collateral back to ${targetData.debtMint.slice(0, 6)}...`));
         console.log(chalk.cyan(`   4. Repay flash loan.`));
         console.log(chalk.cyan(`   5. Extract remaining profit to Don's Hot Wallet.`));
+
+        let swapParams;
+        try {
+            const JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
+            let quoteUrl = `${JUPITER_BASE}/quote?inputMint=${targetData.collateralMint}&outputMint=${targetData.debtMint}&amount=${targetData.collateralAmount}&slippageBps=50`;
+            let res = await axios.get(quoteUrl, { timeout: 8000 });
+            if (res.data && !res.data.error) {
+                swapParams = res.data;
+            } else {
+                throw new Error(res.data.error || 'No quote found from primary');
+            }
+        } catch (e) {
+            console.log(chalk.yellow(`[LIQUIDATOR]: Primary swap route failed: ${e.response?.data?.msg || e.message}. Trying failover...`));
+            try {
+                const JUPITER_BASE_FALLBACK = 'https://quote-api.jup.ag/v6';
+                let quoteUrl = `${JUPITER_BASE_FALLBACK}/quote?inputMint=${targetData.collateralMint}&outputMint=${targetData.debtMint}&amount=${targetData.collateralAmount}&slippageBps=50`;
+                let res = await axios.get(quoteUrl, { timeout: 8000 });
+                if (res.data && !res.data.error) {
+                    swapParams = res.data;
+                } else {
+                    throw new Error(res.data.error || 'No quote found from failover');
+                }
+            } catch (err) {
+                 throw new Error(`Could not find swap route for collateral seizure. Last error: swapParams is not defined. Details: ${err.response?.data?.msg || err.message}`);
+            }
+        }
+        if (!swapParams) throw new Error("swapParams is not defined");
 
         // Simulated API Request to the Syndicate's custom Flash Loan proxy contract
         // In a true production environment, you compile this into an Anchor instruction.
@@ -77,7 +106,7 @@ async function executeFlashLoanLiquidation(targetData) {
             });
         }
     } catch (e) {
-        console.log(chalk.red(`[LIQUIDATOR]: Liquidation failed: ${e.message}`));
+        console.log(chalk.red(`[LIQUIDATOR]: Liquidation failed: ${e.stack || e.response?.data?.msg || e.message}`));
     }
 }
 
