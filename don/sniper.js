@@ -8,12 +8,12 @@
 const { Connection, PublicKey, Keypair, Transaction, TransactionInstruction, ComputeBudgetProgram, sendAndConfirmTransaction, VersionedTransaction } = require('@solana/web3.js');
 const { getAssociatedTokenAddress, createAssociatedTokenAccountInstruction, TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID } = require('@solana/spl-token');
 const chalk = require('chalk');
-const MevBundler = require('./mev_bundler');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
+const { GlobalMemory } = require('./brain');
+const MevBundler = require('./mev_bundler');
 const axios = require('axios');
 const bs58 = require('bs58');
-const { GlobalMemory } = require('./brain');
 require('dotenv').config();
 
 const id = process.argv[2] || 'Sniper';
@@ -33,51 +33,59 @@ if (!RPC_URL || !PRIVATE_KEY_HEX) {
     process.exit(1);
 }
 
-const secretKey = Buffer.from(PRIVATE_KEY_HEX, 'hex');
-const wallet = Keypair.fromSecretKey(secretKey);
+let wallet = null;
+try {
+    const keyStr = PRIVATE_KEY_HEX.trim();
+    // Support both Hex (length > 88) and Base58
+    const keyBytes = keyStr.length > 88 ? Buffer.from(keyStr, 'hex') : bs58.decode(keyStr);
+    wallet = Keypair.fromSecretKey(keyBytes);
+    console.log(chalk.green(`[SNIPER #${id}]: 🔑 Wallet loaded successfully. Address: ${wallet.publicKey.toBase58()}`));
+} catch (e) {
+    console.log(chalk.red(`[SNIPER #${id}]: ❌ CRITICAL - Keypair failed to load: ${e.message}`));
+    // Do not exit, let it run in simulation/monitoring mode if possible, 
+    // but guards will prevent transactions.
+}
 
-// ── Dynamic Risk Engine (Aggressive MEV Tuned) ──
+// ── Dynamic Risk Engine (Tuned for Profitability) ──
 let riskParams = {
-    slippage: 0.25,      // 25% slippage to punch through minor sandwiches
-    stopLoss: -8,        // [TIGHTENED] Cut losses quickly if rugged (-15% -> -8%)
-    moonbagTarget: 50,   // Take initial profit at 50%
-    maxProfitDump: 120   // Dump everything at 120% — take the bag and run
+    slippage: 0.10,      // [TIGHTENED] Max 10% slippage. Reject bad entries. Walk away if it's too volatile.
+    stopLoss: -25,       // [WIDENED] Let the trade breathe. meme coins have 15% wicks. Cut at -25%.
+    moonbagTarget: 35,   // Take initial profit at 35%
+    maxProfitDump: 100   // Dump everything at 100% — lock in 2x gains
 };
 
 // ── Spend Controls (Safety Gate) ─────────────────────────────
 // Prevents runaway buying when whale signals fire in rapid succession
 const recentBuys = new Map(); // mint -> timestamp of last buy
-const TOKEN_COOLDOWN_MS = 30 * 60 * 1000;  // 30 min per token (prevents same-token spam)
-const MAX_DAILY_SPEND_SOL = 0.5;              // Cap daily buying at 0.5 SOL — preserve capital
-const MIN_BALANCE_GUARD = 0.005;             // [REDUCED] Keep at least 0.005 SOL for gas + emergency exits
-const SPEND_FILE = path.join(__dirname, '../missions/spend_tracker.json');
+const pendingPredictions = new Map();
 
-let dailySpend = 0;
-let dailySpendReset = Date.now();
+// ── Neural Configuration ──
+let neuralConfig = {
+    rug_threshold: 0.80,
+    kelly_fraction: 0.20,
+    min_bet: 0.01,
+    max_bet: 0.1
+};
 
-function loadSpend() {
+function loadNeuralConfig() {
     try {
-        if (fs.existsSync(SPEND_FILE)) {
-            const data = JSON.parse(fs.readFileSync(SPEND_FILE, 'utf8'));
-            if (Date.now() - data.resetTime < 86400000) {
-                dailySpend = data.spend;
-                dailySpendReset = data.resetTime;
+        const configPath = path.join(__dirname, 'neural_config.json');
+        if (fs.existsSync(configPath)) {
+            const fullConfig = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+            if (fullConfig.sniper) {
+                neuralConfig = { ...neuralConfig, ...fullConfig.sniper };
             }
         }
-    } catch { }
+    } catch (e) {
+        console.log(chalk.gray(`[SNIPER #${id}]: Using default neural config.`));
+    }
 }
-
-function saveSpend() {
-    fs.writeFileSync(SPEND_FILE, JSON.stringify({ spend: dailySpend, resetTime: dailySpendReset }, null, 2));
-}
+loadNeuralConfig();
+setInterval(loadNeuralConfig, 30000); // Reload every 30s // reqId -> callback
+const TOKEN_COOLDOWN_MS = 10 * 60 * 1000;  // 10 min per token (quicker re-entry)
+const MIN_BALANCE_GUARD = 0.002;             // [REDUCED] Keep at least 0.002 SOL for gas + emergency exits
 
 function canBuy(mintStr) {
-    // Reset daily counter if new day
-    if (Date.now() - dailySpendReset > 86400000) {
-        dailySpend = 0;
-        dailySpendReset = Date.now();
-        saveSpend();
-    }
 
     // Position limit — hard stop
     const trades = loadTrades();
@@ -98,11 +106,7 @@ function canBuy(mintStr) {
         console.log(chalk.yellow(`[SNIPER #${id}]: ⏳ Token ${mintStr.substring(0, 8)}... on cooldown. Skipping.`));
         return false;
     }
-    // Check daily spend cap
-    if (dailySpend >= MAX_DAILY_SPEND_SOL) {
-        console.log(chalk.yellow(`[SNIPER #${id}]: 🛑 Daily spend cap reached (${dailySpend.toFixed(4)} SOL). Pausing buys.`));
-        return false;
-    }
+
     return true;
 }
 
@@ -112,9 +116,13 @@ const connection = new Connection(RPC_URL, { commitment: 'confirmed' });
 // Initialize MEV Protection (Graceful)
 let bundler = null;
 try {
-    bundler = new MevBundler(wallet, connection);
+    if (wallet && wallet.publicKey) {
+        bundler = new MevBundler(wallet, connection);
+    } else {
+        console.log(chalk.red(`[SNIPER #${id}]: Wallet invalid. MEV Bundling DISABLED.`));
+    }
 } catch (e) {
-    console.log(chalk.yellow(`[SNIPER #${id}]: MEV Bundler failed to load. Running unprotected.`));
+    console.log(chalk.yellow(`[SNIPER #${id}]: MEV Bundler failed to load: ${e.message}`));
 }
 
 // ============================================================
@@ -123,20 +131,15 @@ try {
 async function getDynamicPriorityFee() {
     try {
         const fees = await connection.getRecentPrioritizationFees();
-        if (!fees || fees.length === 0) return 100000; // Fallback 0.0001 SOL
+        if (!fees || fees.length === 0) return 100000;
 
-        // Sort descending and take the top 20 to get a competitive gauge
         fees.sort((a, b) => b.prioritizationFee - a.prioritizationFee);
         const topFees = fees.slice(0, 20);
         const avgTopFee = Math.floor(topFees.reduce((sum, f) => sum + f.prioritizationFee, 0) / topFees.length);
-
-        // Add a 20% premium to the average top fee to ensure inclusion
         const targetFee = Math.floor(avgTopFee * 1.2);
-
-        // Floor at 50k, Ceiling at 5M (0.005 SOL) to protect capital
         return Math.min(Math.max(targetFee, 50000), 5000000);
     } catch (e) {
-        return 100000; // Fallback on error
+        return 100000;
     }
 }
 
@@ -144,14 +147,25 @@ async function getDynamicPriorityFee() {
 // JUPITER AGGREGATOR (RAYDIUM/ORCA FALLBACK)
 // ============================================================
 async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1000) {
+    if (!wallet || !wallet.publicKey) {
+        throw new Error("Wallet not initialized. Cannot swap.");
+    }
+
     try {
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Requesting Jupiter Quote...`));
-        // 1. Get Quote — using lite-api.jup.ag (quote-api.jup.ag is DNS-dead on this network)
-        const JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
-        const quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
-        const quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
-        const quoteData = quoteResponse.data;
+        // Primary: lite-api (DNS stable)
+        const LITE_API = 'https://lite-api.jup.ag/swap/v1';
+        const LEGACY_API = 'https://quote-api.jup.ag/v6';
 
+        let quoteResponse;
+        try {
+            quoteResponse = await axios.get(`${LITE_API}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`, { timeout: 8000 });
+        } catch (e) {
+            console.log(chalk.yellow(`[SNIPER]: Lite-API failed (DNS/Network), trying Legacy API...`));
+            quoteResponse = await axios.get(`${LEGACY_API}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`, { timeout: 8000 });
+        }
+
+        const quoteData = quoteResponse.data;
         if (!quoteData || quoteData.error) throw new Error(quoteData.error || 'No quote found');
 
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Jupiter Quote: ${quoteData.outAmount} out via ${quoteData.routePlan.map(r => r.swapInfo.label).join('->')}`));
@@ -161,12 +175,20 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         const priorityFeeSol = (priorityFee / 1e9).toFixed(6);
         console.log(chalk.hex('#FF6600')(`[SNIPER #${id}]: 🏎️ Priority Fee Set: ${priorityFeeSol} SOL`));
 
-        const swapResponse = await axios.post(`${JUPITER_BASE}/swap`, {
+        let swapResponse;
+        const swapPayload = {
             quoteResponse: quoteData,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
             prioritizationFeeLamports: priorityFee
-        }, { timeout: 10000 });
+        };
+
+        try {
+            swapResponse = await axios.post(`${LITE_API}/swap`, swapPayload, { timeout: 10000 });
+        } catch (e) {
+            console.log(chalk.yellow(`[SNIPER]: Lite-API Swap failed, trying Legacy API...`));
+            swapResponse = await axios.post(`${LEGACY_API}/swap`, swapPayload, { timeout: 10000 });
+        }
 
         const { swapTransaction } = swapResponse.data;
 
@@ -176,10 +198,30 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         transaction.sign([wallet]);
 
         // 4. Send (Prefer Bundler if available, else RPC)
-        const latestBh = await connection.getLatestBlockhash('confirmed');
-        const sig = await connection.sendTransaction(transaction, { skipPreflight: true, maxRetries: 2 });
+        let sig = null;
+        let isMevProtected = false;
 
-        console.log(chalk.green.bold(`[SNIPER #${id}]: 🪐 Jupiter Swap Sent: ${sig}`));
+        if (bundler && bundler.client) {
+            console.log(chalk.magenta.bold(`[SNIPER #${id}]: 🛡️ ROUTING VIA JITO MEV BUNDLER...`));
+            const bundleId = await bundler.sendBundle(transaction, priorityFee);
+            if (bundleId) {
+                console.log(chalk.green.bold(`[SNIPER #${id}]: 🪐 Jito Bundle Sent! ID: ${bundleId}`));
+                // Jito automatically signs the tx. We wait to see if it lands on-chain.
+                isMevProtected = true;
+
+                // Extract signature from the transaction for tracking
+                sig = bs58.encode(transaction.signatures[0]);
+            } else {
+                console.log(chalk.yellow(`[SNIPER #${id}]: ⚠️ Jito Bundle failed to construct. Falling back to public mempool...`));
+            }
+        }
+
+        // Fallback to standard RPC if Jito isn't active or failed
+        if (!isMevProtected) {
+            const latestBh = await connection.getLatestBlockhash('confirmed');
+            sig = await connection.sendTransaction(transaction, { skipPreflight: true, maxRetries: 2 });
+            console.log(chalk.green.bold(`[SNIPER #${id}]: 🪐 Jupiter Swap Sent (Public Mempool): ${sig}`));
+        }
 
         // Confirm via HTTP polling (no WebSocket signatureSubscribe needed)
         let confirmed = false;
@@ -195,7 +237,7 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         }
         if (!confirmed) throw new Error('Confirmation timeout (30s)');
 
-        return { success: true, sig, outAmount: quoteData.outAmount };
+        return { success: true, sig, outAmount: quoteData.outAmount, mevProtected: isMevProtected };
 
     } catch (e) {
         let errorMsg = e.message;
@@ -206,14 +248,16 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
     }
 }
 
-async function fetchCurrentPrice(mint, amount) {
+async function fetchCurrentPrice(mint, amount, curve = null) {
     // 1. Try Jupiter lite-api (LIVE — v6 is dead)
     try {
         const quoteUrl = `https://lite-api.jup.ag/swap/v1/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
         const res = await axios.get(quoteUrl, { timeout: 8000 });
         if (res.data && res.data.outAmount) {
             const solValue = Number(res.data.outAmount) / 1e9;
-            const currentPrice = solValue / Number(amount);
+            const decimals = 6; // Standard pump.fun decimal count
+            const uiAmount = Number(amount) / Math.pow(10, decimals);
+            const currentPrice = uiAmount > 0 ? (solValue / uiAmount) : 0;
             return { solValue, currentPrice, source: 'JUPITER' };
         }
     } catch (e) {
@@ -235,9 +279,29 @@ async function fetchCurrentPrice(mint, amount) {
             return { solValue, currentPrice: priceInSol, source: 'DEXSCREENER' };
         }
     } catch (e) {
-        console.error(chalk.red(`[SNIPER]: Price fetch failed for ${mint}: ${e.message}`));
+        // DexScreener failed (not indexed yet)
     }
 
+    // 3. Try On-Chain Bonding Curve Calculation (Ultimate Fallback for brand new tokens)
+    if (curve && !curve.complete) {
+        try {
+            // Pump.fun curve math: virtualSolReserves / virtualTokenReserves
+            const virtualSol = Number(curve.virtualSolReserves) / 1e9;
+            const virtualTokens = Number(curve.virtualTokenReserves) / 1e6; // 6 decimals
+
+            if (virtualTokens > 0) {
+                const priceInSol = virtualSol / virtualTokens;
+                const uiAmount = Number(amount) / 1e6;
+                const solValue = priceInSol * uiAmount;
+
+                return { solValue, currentPrice: priceInSol, source: 'BONDING_CURVE' };
+            }
+        } catch (e) {
+            console.error(chalk.red(`[SNIPER]: Curve price calc failed for ${mint}: ${e.message}`));
+        }
+    }
+
+    console.error(chalk.red(`[SNIPER]: All price fetches failed for ${mint}`));
     return null;
 }
 
@@ -307,35 +371,89 @@ function calculateSellQuote(curve, tokenAmount) {
 // ============================================================
 // CORE BUY LOGIC (HYBRID PUMP.FUN + JUPITER)
 // ============================================================
+
+function calculateKellyBet(balanceSol, rugProb) {
+    if (balanceSol < 0.05) return 0;    // Parameters for Solana Shitcoins
+    const p = 1.0 - rugProb; // ML win probability
+    const b = 2.0;           // Expected profit ratio
+    const q = 1.0 - p;
+
+    // Kelly Formula: f = (b*p - q) / b
+    let f = (b * p - q) / b;
+
+    // Apply Fractional Kelly to handle volatility/errors
+    const fraction = neuralConfig.kelly_fraction;
+    let kellyBet = balanceSol * f * fraction;
+
+    // Safety Rails
+    const ceiling = neuralConfig.max_bet;
+    const floor = neuralConfig.min_bet;
+    const exposureLimit = balanceSol * 0.05; // 5% max exposure
+
+    let finalBet = Math.min(kellyBet, ceiling, exposureLimit);
+    finalBet = Math.max(finalBet, floor);
+
+    return parseFloat(finalBet.toFixed(3));
+}
+
 async function buyToken(mint, bondingCurve, associatedBondingCurve) {
+    if (!wallet || !wallet.publicKey) {
+        console.log(chalk.red(`[SNIPER #${id}]: Aborting buy — Wallet not loaded.`));
+        return;
+    }
     try {
         const balance = await connection.getBalance(wallet.publicKey);
-        const SOL_AMOUNT = 0.03;
         const mintStr = mint.toString();
 
         // ── Safety Gate 1: Per-token cooldown + daily cap ──
         if (!canBuy(mintStr)) return;
 
+        // ── DEEPSENTINEL NEURAL CHECK ──
+        const rugProb = await new Promise((resolve) => {
+            const reqId = require('crypto').randomUUID();
+            const timeout = setTimeout(() => {
+                pendingPredictions.delete(reqId);
+                resolve(0.5); // proceed on timeout fallback
+            }, 5000);
+
+            pendingPredictions.set(reqId, (res) => {
+                clearTimeout(timeout);
+                resolve(res.rug_probability || 0.5);
+            });
+
+            // Extract context for Raydium (mock for now, will automate in V5)
+            const features = [60, 45, 75, 50, 50, 16];
+            if (process.send) {
+                process.send({ type: 'ML_REQUEST', model: 'raydium', features, req_id: reqId });
+                console.log(chalk.cyan(`[SNIPER #${id}]: 🧠 Consulting DeepSentinel Neural Engine...`));
+            } else {
+                resolve(0.5);
+            }
+        });
+
+        if (rugProb > neuralConfig.rug_threshold) {
+            console.log(chalk.red.bold(`[SNIPER #${id}]: 💀 NEURAL BLOCK: Rug Risk ${(rugProb * 100).toFixed(1)}% | Threshold: ${neuralConfig.rug_threshold} | ABORTING.`));
+            GlobalMemory.addMemory('SNIPER', `[PREDICTION_BLOCKED] Aborted trade on ${mintStr} due to high rug risk: ${(rugProb * 100).toFixed(1)}%. Threshold: ${neuralConfig.rug_threshold}`, 5);
+            return;
+        }
+
+        const SOL_AMOUNT = calculateKellyBet(balance / 1e9, rugProb);
+
+        if (SOL_AMOUNT === 0) {
+            console.log(chalk.red.bold(`[SNIPER #${id}]: 💀 EXTREME CAPITAL GUARD: Kelly sizing zero. WALLET BALANCE LOW (${(balance / 1e9).toFixed(4)} SOL). HALTING.`));
+            return;
+        }
+
         if (balance < MIN_BALANCE_GUARD * 1e9) {
-            const pubkey = wallet.publicKey.toString();
+            const pubkey = wallet.publicKey ? wallet.publicKey.toString() : 'UNKNOWN';
             console.log(chalk.yellow(`[SNIPER #${id}]: Insufficient funds (Need >0.005 SOL). Balance: ${(balance / 1e9).toFixed(4)} SOL`));
             console.log(chalk.cyan(`[SNIPER #${id}]: ➡️ FUND WALLET: ${pubkey}`));
-            if (process.send) {
-                process.send({
-                    type: 'AGENT_COMMS',
-                    from: 'SNIPER',
-                    msg: `Stalled due to low balance. Requires ${MIN_BALANCE_GUARD} SOL at ${pubkey.substring(0, 8)}...`,
-                    timestamp: new Date().toISOString()
-                });
-            }
             return;
         }
 
         // Register this token as being bought (cooldown)
         recentBuys.set(mintStr, Date.now());
-        dailySpend += SOL_AMOUNT;
-        saveSpend();
-        console.log(chalk.green(`[SNIPER #${id}]: 🎯 CALCULATING ENTRY for ${mintStr}... [Daily: ${dailySpend.toFixed(4)}/${MAX_DAILY_SPEND_SOL} SOL]`));
+        console.log(chalk.green(`[SNIPER #${id}]: 🎯 KELLY ENTRY for ${mintStr}... | Bet: ${SOL_AMOUNT} SOL [Prob: ${((1 - rugProb) * 100).toFixed(1)}%]`));
 
         // 1. Check Curve Status
         const curve = await getBondingCurveAccount(bondingCurve);
@@ -362,13 +480,14 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                     uiAmount: uiAmount,
                     entrySol: SOL_AMOUNT,
                     timestamp: Date.now(),
-                    maxHoldUntil: Date.now() + (25 * 60 * 1000), // [TIGHTENED] 25min max hold
+                    maxHoldUntil: Date.now() + (15 * 60 * 1000), // [TIGHTENED] 15min max hold
                     moonbagSecured: false,
-                    source: 'JUPITER'
+                    source: 'JUPITER',
+                    prediction: { rug_probability: rugProb, threshold: neuralConfig.rug_threshold }
                 });
                 saveTrades(trades);
                 console.log(chalk.green(`[SNIPER #${id}]: 📌 Position recorded | Entry: ${realEntryPrice.toFixed(10)} SOL/uiToken | Amount: ${uiAmount.toLocaleString()} tokens`));
-                GlobalMemory.addMemory('SNIPER', `Entered ${mintStr} via Jupiter. ${SOL_AMOUNT} SOL @ ${realEntryPrice.toExponential(3)} SOL/uiToken.`, 7);
+                GlobalMemory.addMemory('SNIPER', `[TRADE_ENTRY] Entered ${mintStr} via Jupiter. ${SOL_AMOUNT} SOL @ ${realEntryPrice.toExponential(3)}. Risk: ${(rugProb * 100).toFixed(1)}%. Threshold: ${neuralConfig.rug_threshold}`, 7);
                 if (process.send) process.send({ type: 'TRADE_EXECUTED', mint: mintStr, amount: SOL_AMOUNT, source: 'JUPITER' });
             }
             return;
@@ -413,7 +532,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                                 uiAmount: uiAmount,
                                 entrySol: SOL_AMOUNT,
                                 timestamp: Date.now(),
-                                maxHoldUntil: Date.now() + (25 * 60 * 1000),
+                                maxHoldUntil: Date.now() + (15 * 60 * 1000),
                                 moonbagSecured: false,
                                 source: 'PUMP_FUN_PYTHON'
                             });
@@ -443,6 +562,10 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
 }
 
 async function sellToken(mint, amount, reason) {
+    if (!wallet || !wallet.publicKey) {
+        console.log(chalk.red(`[SNIPER #${id}]: Aborting sell — Wallet not loaded.`));
+        return;
+    }
     console.log(chalk.magenta(`[SNIPER #${id}]: 📉 INITIATING SELL: ${amount} of ${mint} [${reason}]`));
 
     try {
@@ -450,13 +573,27 @@ async function sellToken(mint, amount, reason) {
         const bondingCurve = getBondingCurvePDA(mintPub);
         const curve = await getBondingCurveAccount(bondingCurve);
 
+        // ── CALCULATE COST BASIS (For Accurate War Chest PnL) ──
+        const activeTrades = loadTrades();
+        const storedTrade = activeTrades.find(t => t.mint === mint);
+        let costBasisSol = 0;
+        if (storedTrade && storedTrade.entryPrice) {
+            // UI Amount * entryPrice (SOL per UI Token)
+            const uiAmount = Number(amount) / 1e6;
+            costBasisSol = uiAmount * storedTrade.entryPrice;
+        }
+
         // ── JUPITER ROUTE (Post-Migration) ──
         if (!curve || curve.complete) {
             console.log(chalk.blue(`[SNIPER #${id}]: Curve complete. Selling via JUPITER...`));
             const result = await executeJupiterSwap(mint.toString(), WSOL_MINT.toString(), amount);
             if (result.success) {
-                GlobalMemory.addMemory('SNIPER', `Sold ${mint.toString()} via Jupiter upon curve completion. Reason: ${reason}.`, 6);
-                if (process.send) process.send({ type: 'KICK_UP', amount: Number(result.outAmount) / 1e9, source: 'TRADE_EXIT_JUPITER' });
+                const outAmountSol = Number(result.outAmount) / 1e9;
+                const netProfit = outAmountSol - costBasisSol;
+                const pnlPct = costBasisSol > 0 ? (netProfit / costBasisSol) * 100 : 0;
+
+                GlobalMemory.addMemory('SNIPER', `[TRADE_EXIT] Sold ${mint.toString()} via Jupiter. PnL: ${netProfit.toFixed(4)} SOL (${pnlPct.toFixed(1)}%). Reason: ${reason}.`, netProfit > 0 ? 7 : 9);
+                if (process.send) process.send({ type: 'KICK_UP', amount: netProfit, source: 'TRADE_EXIT_JUPITER' });
             }
             return;
         }
@@ -486,8 +623,13 @@ async function sellToken(mint, amount, reason) {
                         process.off('message', handler);
                         if (m.success) {
                             console.log(chalk.green.bold(`[SNIPER #${id}]: 💸 PYTHON SELL SUCCESS! TX: ${m.tx.substring(0, 16)}...`));
-                            GlobalMemory.addMemory('SNIPER', `Successfully sold ${mint.toString()} via Pump.fun Python Muscle. Reason: ${reason}. Slippage was ${riskParams.slippage}.`, Math.abs(parseInt(reason)) > 1 ? 8 : 6);
-                            process.send({ type: 'KICK_UP', amount: Number(quote.solAmount) / 1e9, source: 'TRADE_EXIT_PYTHON' });
+
+                            const outAmountSol = Number(quote.solAmount) / 1e9;
+                            const netProfit = outAmountSol - costBasisSol;
+                            const pnlPct = costBasisSol > 0 ? (netProfit / costBasisSol) * 100 : 0;
+
+                            GlobalMemory.addMemory('SNIPER', `[TRADE_EXIT] Sold ${mint.toString()} via Pump.fun Python. PnL: ${netProfit.toFixed(4)} SOL (${pnlPct.toFixed(1)}%). Reason: ${reason}.`, netProfit > 0 ? 8 : 10);
+                            process.send({ type: 'KICK_UP', amount: netProfit, source: 'TRADE_EXIT_PYTHON' });
                             resolve({ success: true });
                         } else {
                             console.error(chalk.red(`[SNIPER #${id}]: Python Sell Failed: ${m.error}`));
@@ -623,6 +765,7 @@ async function checkPositions() {
     try {
         for (let i = trades.length - 1; i >= 0; i--) {
             const trade = trades[i];
+            let pnl = null; // Declare pnl here so the catch block ALWAYS has access to it
 
             // ── FORCE EXIT FIRST: check max hold time BEFORE price (so expired positions always close) ──
             if (trade.maxHoldUntil && Date.now() > trade.maxHoldUntil) {
@@ -636,7 +779,6 @@ async function checkPositions() {
 
             // ── Price check for PnL-based exits ──
             let currentSolValue = 0;
-            let pnl = 0;
 
             const mintPub = new PublicKey(trade.mint);
             const bondingCurve = getBondingCurvePDA(mintPub);
@@ -649,13 +791,15 @@ async function checkPositions() {
                 // standardizing to UI units: SOL per UI token (6 decimals for pump.fun)
                 const decimals = 6;
                 const uiAmount = Number(trade.amount) / Math.pow(10, decimals);
-                const currentPrice = uiAmount > 0 ? currentSolValue / uiAmount : 0;
+                const currentPrice = uiAmount > 0 ? (currentSolValue / uiAmount) : 0;
 
                 // Use stored entryPrice (always SOL/uiToken in new format)
                 const entryPrice = trade.entryPrice || currentPrice;
-                pnl = ((currentPrice - entryPrice) / entryPrice) * 100;
+                if (entryPrice > 0) {
+                    pnl = ((currentPrice - entryPrice) / entryPrice) * 100;
+                }
             } else {
-                const priceData = await fetchCurrentPrice(trade.mint, trade.amount);
+                const priceData = await fetchCurrentPrice(trade.mint, trade.amount, curve);
                 if (priceData) {
                     currentSolValue = priceData.solValue;
                     const currentPrice = priceData.currentPrice; // fetchCurrentPrice returns price per UI token
@@ -663,13 +807,45 @@ async function checkPositions() {
                     pnl = ((currentPrice - entryPrice) / entryPrice) * 100;
                 } else {
                     console.log(chalk.yellow(`  ⚠️ ${trade.mint.substring(0, 6)}: Price unavailable, skipping PnL check.`));
-                    continue;
+                    continue; // SKIP rest of the loop since PnL isn't populated
                 }
             }
 
+            if (pnl === null) continue;
+
             console.log(chalk.blue(`  💎 ${trade.mint.substring(0, 6)}: ${pnl > 0 ? '+' : ''}${pnl.toFixed(2)}% | Val: ${currentSolValue.toFixed(4)} SOL`));
 
-            if (!trade.moonbagSecured && pnl >= 100) {
+            if (!trade.highestPnl || pnl > trade.highestPnl) {
+                trade.highestPnl = pnl;
+            }
+
+            // ── STAGNATION CUT ("Mean" Execution) ──
+            const minutesHeld = (Date.now() - trade.timestamp) / 60000;
+            if (minutesHeld > 5 && pnl < 2 && trade.highestPnl < 10) {
+                console.log(chalk.red.bold(`[SNIPER #${id}]: 💀 STAGNATION CUT: ${trade.mint} (+${pnl.toFixed(2)}%)`));
+                GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} showed dead momentum. Stagnation cut executed after ${minutesHeld.toFixed(1)}m.`, 8);
+                await sellToken(trade.mint, trade.amount, 'STAGNATION_CUT');
+                trades.splice(i, 1);
+                saveTrades(trades);
+                continue;
+            }
+
+            // ── DYNAMIC TRAILING STOP ("Sexy Profit" Lock-in) ──
+            let trailingStopPnl = riskParams.stopLoss; // Base stop-loss (-25% normally)
+
+            // As peak climbs, the stop-loss climbs aggressively right behind it
+            if (trade.highestPnl > 100) {
+                trailingStopPnl = trade.highestPnl - 30; // Lock in at least +70%
+            } else if (trade.highestPnl > 50) {
+                trailingStopPnl = trade.highestPnl - 20; // Lock in at least +30%
+            } else if (trade.highestPnl > 20) {
+                trailingStopPnl = trade.highestPnl - 10; // Lock in at least +10%
+            } else if (trade.highestPnl > 10) {
+                trailingStopPnl = trade.highestPnl - 5;  // Lock in at least +5%
+            }
+
+            // ── EXIT EVALUATIONS ──
+            if (!trade.moonbagSecured && pnl >= riskParams.moonbagTarget) {
                 console.log(chalk.green.bold(`[SNIPER #${id}]: 🚀 MOONBAG SECURED: ${trade.mint} (+${pnl.toFixed(2)}%)`));
                 const halfAmount = BigInt(trade.amount) / 2n;
                 GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} hit +${pnl.toFixed(2)}% PnL. Securing moonbag.`, 8);
@@ -686,31 +862,25 @@ async function checkPositions() {
                 trades.splice(i, 1);
                 saveTrades(trades);
             }
-            else if (trade.moonbagSecured && pnl < 50) {
-                console.log(chalk.red.bold(`[SNIPER #${id}]: 📉 TRAILING STOP (Moonbag): ${trade.mint} (+${pnl.toFixed(2)}%)`));
-                GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} dipped below trailing stop after moonbag. Liquidating.`, 7);
-                await sellToken(trade.mint, trade.amount, 'TRAILING_STOP');
+            else if (pnl <= trailingStopPnl && trade.highestPnl > 10) {
+                // Tripped the dynamic profit lock
+                console.log(chalk.magenta.bold(`[SNIPER #${id}]: 📉 DYNAMIC TRAILING STOP: ${trade.mint} (+${pnl.toFixed(2)}% trailing peak +${trade.highestPnl.toFixed(2)}%)`));
+                GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} hit dynamic trailing stop. Liquidating to lock profits.`, 8);
+                await sellToken(trade.mint, trade.amount, 'DYNAMIC_TRAIL');
                 trades.splice(i, 1);
                 saveTrades(trades);
             }
-            else if (!trade.moonbagSecured && trade.highestPnl > 25 && pnl < 10) {
-                // [NEW] Pre-Moonbag Trailing Stop
-                console.log(chalk.red.bold(`[SNIPER #${id}]: 📉 PRE-MOONBAG TRAIL: ${trade.mint} (+${pnl.toFixed(2)}%)`));
-                GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} hit +25% but dumped to +10% before moonbag. Liquidating to save profits.`, 7);
-                await sellToken(trade.mint, trade.amount, 'PRE_MOONBAG_TRAIL');
-                trades.splice(i, 1);
-                saveTrades(trades);
-            }
-            else if (!trade.moonbagSecured && pnl <= riskParams.stopLoss) {
+            else if (pnl <= riskParams.stopLoss) {
+                // Hard base stop-loss
                 console.log(chalk.red.bold(`[SNIPER #${id}]: 🛑 STOP LOSS: ${trade.mint} (${pnl.toFixed(2)}%)`));
-                GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} hit STOP LOSS (${pnl.toFixed(2)}%). This was a bad entry or a rug.`, 10);
+                GlobalMemory.addMemory('SNIPER', `Token ${trade.mint} hit hard STOP LOSS (${pnl.toFixed(2)}%). Base entry failed.`, 10);
                 await sellToken(trade.mint, trade.amount, 'STOP_LOSS');
                 trades.splice(i, 1);
                 saveTrades(trades);
             }
         }
     } catch (e) {
-        console.log(chalk.yellow(`[SNIPER #${id}]: Price check error: ${e.message}`));
+        console.log(chalk.yellow(`[SNIPER #${id}]: Position cycle error: ${e.message}`));
     } finally {
         checkPositionsRunning = false;
     }
@@ -944,7 +1114,6 @@ setInterval(runAutonomousScan, 2 * 60 * 1000);
 // First scan after 30 seconds to let wallet init settle
 setTimeout(runAutonomousScan, 30000);
 
-loadSpend();
 startSurveillance();
 setInterval(checkPositions, 30000);
 
@@ -999,6 +1168,14 @@ process.on('message', async (msg) => {
                     const associatedBondingCurve = await getAssociatedTokenAddress(mintPub, bondingCurve, true);
                     await buyToken(mintPub, bondingCurve, associatedBondingCurve);
                 }
+            }
+            break;
+
+        case 'ML_RESPONSE':
+            const callback = pendingPredictions.get(msg.data.req_id);
+            if (callback) {
+                callback(msg.data);
+                pendingPredictions.delete(msg.data.req_id);
             }
             break;
     }

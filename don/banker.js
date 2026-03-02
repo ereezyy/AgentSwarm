@@ -20,9 +20,9 @@ const TRADES_PATH = path.resolve(__dirname, '../missions/active_trades.json');
 
 // ── Cold Storage Sweep Config ────────────────────────────────────
 const COLD_WALLET = '8ZWzSqqYCeRrByVZCT1xSmfnXosRDmD4JJycEhF6oN2j';
-const MIN_RESERVE_SOL = 0.005;  // [REDUCED] always keep this in the hot wallet for trading
+const MIN_RESERVE_SOL = 0.002;  // [REDUCED] stay leaner in hot wallet
 const FEE_BUFFER_SOL = 0.001;   // extra buffer for tx fees
-// Sweep trigger: when balance > MIN_RESERVE_SOL * 2 (100% over minimum)
+// Sweep trigger: when balance > 1.5 SOL (keep high working capital)
 
 // Load hot wallet keypair for signing sweeps
 let hotKeypair = null;
@@ -43,11 +43,11 @@ try {
 async function sweepProfits(solBalance, currentSolPrice) {
     if (!hotKeypair) return;
 
-    // Trigger: balance must exceed 2x minimum reserve (100% over minimum)
-    const sweepThreshold = MIN_RESERVE_SOL * 2;
+    // Trigger: sweep only when hot wallet exceeds 1.5 SOL (capital for compounding)
+    const sweepThreshold = 1.5;
     if (solBalance <= sweepThreshold) return;
 
-    const sweepableSol = solBalance - MIN_RESERVE_SOL - FEE_BUFFER_SOL;
+    const sweepableSol = solBalance - 1.5;
     if (sweepableSol <= 0) return;
 
     const lamportsToSend = Math.floor(sweepableSol * LAMPORTS_PER_SOL);
@@ -202,10 +202,10 @@ async function secureYieldUsdc(solBalance) {
 
 // ── Exit Signal Thresholds ──────────────────────────────────────
 const EXIT_RULES = {
-    TAKE_PROFIT: 30,   // % gain → take profit signal
-    STOP_LOSS: -15,   // % loss → cut losses signal
-    STRONG_SELL: 80,   // % gain → hard sell immediately
-    DUMP_ALERT: -25,   // % loss → emergency dump
+    TAKE_PROFIT: 20,   // % gain → take profit signal
+    STOP_LOSS: -5,   // % loss → cut losses signal
+    STRONG_SELL: 60,   // % gain → hard sell immediately
+    DUMP_ALERT: -10,   // % loss → emergency dump
 };
 
 // ── Trade Ledger Helpers ────────────────────────────────────────

@@ -18,7 +18,9 @@ const connection = new Connection(RPC_URL, 'confirmed');
 let wallet = null;
 try {
     if (process.env.SOLANA_PRIVATE_KEY) {
-        wallet = Keypair.fromSecretKey(bs58.decode(process.env.SOLANA_PRIVATE_KEY));
+        const keyStr = process.env.SOLANA_PRIVATE_KEY;
+        const keyBytes = keyStr.length > 88 ? Buffer.from(keyStr, 'hex') : bs58.decode(keyStr);
+        wallet = Keypair.fromSecretKey(keyBytes);
     } else {
         console.log(chalk.gray(`[MAKER #${id}]: No SOLANA_PRIVATE_KEY — running in simulation mode.`));
     }
@@ -44,10 +46,12 @@ let currentCycle = 0;
 // ── Grid Logic ──────────────────────────────────────────────────────
 async function initGrid() {
     try {
-        const res = await axios.get(`https://api.jup.ag/price/v2?ids=${WSOL_MINT}&vsToken=${USDC_MINT}`);
-        if (!res.data.data[WSOL_MINT]) return;
+        // DexScreener is 100% public (Zero 401 risk)
+        const res = await axios.get(`https://api.dexscreener.com/latest/dex/tokens/${WSOL_MINT}`);
+        if (!res.data || !res.data.pairs || res.data.pairs.length === 0) return;
 
-        centerPrice = parseFloat(res.data.data[WSOL_MINT].price);
+        const pair = res.data.pairs.find(p => p.quoteToken.address === USDC_MINT) || res.data.pairs[0];
+        centerPrice = parseFloat(pair.priceUsd);
 
         // Calculate limit levels based on center price
         buyLevels = [];
@@ -76,10 +80,11 @@ async function checkGrid() {
     }
 
     try {
-        const res = await axios.get(`https://api.jup.ag/price/v2?ids=${WSOL_MINT}&vsToken=${USDC_MINT}`);
-        if (!res.data.data[WSOL_MINT]) return;
+        const res = await axios.get(`https://api.dexscreener.com/latest/dex/tokens/${WSOL_MINT}`);
+        if (!res.data || !res.data.pairs || res.data.pairs.length === 0) return;
 
-        const currentPrice = parseFloat(res.data.data[WSOL_MINT].price);
+        const pair = res.data.pairs.find(p => p.quoteToken.address === USDC_MINT) || res.data.pairs[0];
+        const currentPrice = parseFloat(pair.priceUsd);
         currentCycle++;
 
         if (currentCycle % 6 === 0) { // Log pulse every minute

@@ -10,6 +10,8 @@ require('dotenv').config();
 const id = process.argv[2] || 'Influencer';
 const { ask } = require('./brain');
 
+let postCount = 0; // Tracks daily posts for narrative consistency
+
 // ── Initialize Twitter Client (API v2) for Hunting ────────────
 let client = null;
 if (process.env.TWITTER_API_KEY && process.env.TWITTER_API_SECRET) {

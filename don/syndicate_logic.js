@@ -74,6 +74,13 @@ class DonCore {
                             this.handleRadarTrigger(payload);
                         } else if (payload.type === 'RADAR_ONLINE') {
                             this.log(`📡 RADAR LINK VERIFIED: ${payload.node} is sending data.`, 'CRYPTO');
+
+                            // Check if node is already in crew to avoid duplicates
+                            const existingNode = this.crew.find(c => c.id === payload.node);
+                            if (!existingNode) {
+                                this.crew.push({ id: payload.node, type: 'RADAR_NODE', status: 'Online', role: 'Distributed Radar Compute' });
+                                this.broadcast({ type: 'CREW_UPDATE', crew: this.crew });
+                            }
                         }
                     } catch (e) {
                         this.log(`Radar Message Error: ${e.message}`, 'ERROR');
@@ -271,16 +278,17 @@ class DonCore {
     }
 
     processKickUp(amount, soldierId, source = 'STREET') {
-        if (amount <= 0) return; // Ignore zero or fake profits
+        const skim = amount > 0 ? amount * this.skimRate : 0;
+        const net = amount > 0 ? amount - skim : amount;
+        this.profit += amount; // Amount can be negative now
 
-        const skim = amount * this.skimRate;
-        const net = amount - skim;
-        this.profit += amount;
+        const isTradeExit = source === 'CRYPTO' || source === 'SNIPE' || source.startsWith('TRADE_EXIT');
+        const sourceLabel = isTradeExit ? 'Trade Exit' : 'External Hustle';
+        const color = amount >= 0 ? 'MONEY' : 'ERROR';
+        const sign = amount >= 0 ? '+' : '';
+        this.log(`REALIZED PnL: Soldier #${soldierId} (${sourceLabel}) closed ${sign}$${amount.toFixed(4)}. War Chest: $${this.profit.toFixed(2)}`, color);
 
-        const sourceLabel = source === 'CRYPTO' ? 'Actual Trade' : (source === 'SNIPE' ? 'Snipe Profit' : 'External Hustle');
-        this.log(`REAL PROFIT: Soldier #${soldierId} (${sourceLabel}) kicked up $${amount}. War Chest: $${this.profit.toFixed(2)}`, 'MONEY');
-
-        if (source === 'SNIPE' && this.callerProcess && this.callerProcess.connected) {
+        if (isTradeExit && this.callerProcess && this.callerProcess.connected) {
             this.callerProcess.send({ type: 'PLAY_CUE', cue: 'GOOD' });
             this.callerProcess.send({ type: 'SPEAK_ALERT', text: `Target eliminated. Sniper ${soldierId} has secured the profit.` });
         } else if (this.callerProcess && this.callerProcess.connected) {
@@ -300,6 +308,9 @@ class DonCore {
     hustle() {
         this.log("Syndicate V2 (Mainnet) Initializing. Silence is power.");
         this.orderMuscle('shakedown');
+
+        // Start DeepSentinel Neural Engine
+        this.startNeuralEngine();
 
         // Spawn THE VAULT (Sovereign Signer) FIRST
         this.spawnSoldier('VAULT');
@@ -437,6 +448,58 @@ class DonCore {
             });
             child.stdin.write(inputData);
             child.stdin.end();
+        });
+    }
+
+    startNeuralEngine() {
+        const INFERENCE_SCRIPT = path.join(__dirname, '../ai_engine/inference_server.py');
+        if (!fs.existsSync(INFERENCE_SCRIPT)) {
+            this.log('DeepSentinel Neural Engine script not found.', 'ERROR');
+            return;
+        }
+
+        this.mlProcess = require('child_process').spawn('python', [INFERENCE_SCRIPT]);
+        this.mlRequests = new Map(); // Maps reqId -> callback/agent
+
+        this.log('🧠 Booting DeepSentinel Neural Engine...', 'POWER');
+
+        let stdoutBuffer = '';
+        this.mlProcess.stdout.on('data', (data) => {
+            stdoutBuffer += data.toString();
+            let newlineIndex;
+            while ((newlineIndex = stdoutBuffer.indexOf('\n')) !== -1) {
+                const line = stdoutBuffer.slice(0, newlineIndex).trim();
+                stdoutBuffer = stdoutBuffer.slice(newlineIndex + 1);
+
+                if (!line) continue;
+                try {
+                    const res = JSON.parse(line);
+                    if (res.status === 'ready') {
+                        this.log(`🧠 Neural Engine Online (Chip: ${res.chip})`, 'POWER');
+                        this.broadcast({ type: 'NEURAL_STATUS', status: res });
+                    } else if (res.req_id) {
+                        // Route response back to requesting agent
+                        if (this.mlRequests.has(res.req_id)) {
+                            const { agentType } = this.mlRequests.get(res.req_id);
+                            if (this.processes[agentType] && this.processes[agentType].connected) {
+                                this.processes[agentType].send({ type: 'ML_RESPONSE', data: res });
+                            }
+                            this.mlRequests.delete(res.req_id);
+                        }
+                    }
+                } catch (e) {
+                    // Ignore non-JSON stdout chunks
+                }
+            }
+        });
+
+        this.mlProcess.stderr.on('data', (data) => {
+            this.log(`DeepSentinel STDERR: ${data.toString().trim()}`, 'ERROR');
+        });
+
+        this.mlProcess.on('close', (code) => {
+            this.log(`DeepSentinel crashed (Code: ${code}). Restarting in 5s...`, 'ERROR');
+            setTimeout(() => this.startNeuralEngine(), 5000);
         });
     }
 
@@ -594,6 +657,17 @@ class DonCore {
                 // Forward to Signal Bot for Telegram broadcast
                 if (this.processes['SIGNAL_BOT'] && this.processes['SIGNAL_BOT'].connected) {
                     this.processes['SIGNAL_BOT'].send(msg);
+                }
+            } else if (msg.type === 'ML_REQUEST') {
+                if (this.mlProcess && !this.mlProcess.killed) {
+                    const reqId = msg.req_id || require('crypto').randomUUID();
+                    this.mlRequests.set(reqId, { agentType: type, timestamp: Date.now() });
+                    const payload = JSON.stringify({ model: msg.model, features: msg.features, req_id: reqId });
+                    this.mlProcess.stdin.write(payload + '\n');
+                    this.log(`🧠 Neural inference requested by ${type} [${msg.model}]`, 'CRYPTO');
+                } else {
+                    // Fail gracefully
+                    child.send({ type: 'ML_RESPONSE', data: { req_id: msg.req_id, error: 'Neural Engine Offline', rug_probability: 0.5 } });
                 }
             } else if (msg.type === 'MEME_READY') {
                 this.log(`MEME GENERATED: ${msg.path}`, 'POWER');
@@ -857,10 +931,16 @@ class DonCore {
                     }
                 }
             } else if (msg.type === 'EXECUTE_TRADE') {
-                this.log(`Executing Trade for ${type} #${id}: ${msg.params.command} ${msg.params.mint}`, 'POWER');
-                // FIX #1: executor.py expects base64, env var is hex — convert here
+                this.log(`Executing Real Trade for ${type} #${id}: ${msg.params.command} ${msg.params.mint}`, 'POWER');
                 const hexKey = process.env.SOLANA_PRIVATE_KEY || '';
-                const base64Key = Buffer.from(hexKey, 'hex').toString('base64');
+                // Ensure hex is valid before conversion
+                let base64Key = '';
+                try {
+                    base64Key = Buffer.from(hexKey, 'hex').toString('base64');
+                } catch (e) {
+                    this.log(`Critical: Failed to convert private key for trade executor: ${e.message}`, 'ERROR');
+                }
+
                 this.commandTrade(id, { ...msg.params, privateKey: base64Key }).then(result => {
                     child.send({ type: 'TRADE_RESULT', requestId: msg.requestId, ...result });
                 });

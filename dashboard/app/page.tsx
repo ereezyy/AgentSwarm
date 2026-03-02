@@ -9,15 +9,17 @@ import {
   MessageSquare, Smartphone, Layers, Bell, BellOff, Wallet, Coins
 } from "lucide-react";
 
+import NeuralCore from "./NeuralCore";
+
 // ─── Type Definitions ────────────────────────────────────────
-interface LogEntry {
+export interface LogEntry {
   type: string;
   msg: string;
   level: string;
   timestamp: string;
 }
 
-interface CrewMember {
+export interface CrewMember {
   id: number;
   type: string;
   status: string;
@@ -138,10 +140,11 @@ export default function SyndicateDashboard() {
   const [alarmTime, setAlarmTime] = useState("");
   const [alarmEnabled, setAlarmEnabled] = useState(false);
   const [isRinging, setIsRinging] = useState(false);
-  const [selectedTab, setSelectedTab] = useState<"feed" | "headhunter" | "missions" | "comms" | "swarm" | "raw" | "wallet">("feed");
+  const [selectedTab, setSelectedTab] = useState<"feed" | "headhunter" | "missions" | "comms" | "swarm" | "raw" | "wallet" | "core">("core");
   const [rawSignals, setRawSignals] = useState<string[]>([]);
   const [chatInput, setChatInput] = useState("");
   const [walletData, setWalletData] = useState<WalletState | null>(null);
+  const [mounted, setMounted] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const commsRef = useRef<HTMLDivElement>(null);
   const rawScrollRef = useRef<HTMLDivElement>(null);
@@ -149,6 +152,7 @@ export default function SyndicateDashboard() {
 
   // Clock logic
   useEffect(() => {
+    setMounted(true);
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
@@ -374,7 +378,7 @@ export default function SyndicateDashboard() {
               <div className="flex items-center gap-2">
                 <Clock className="w-3 h-3 text-green-500" />
                 <span className="text-xs font-bold text-white tabular-nums">
-                  {time.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                  {mounted ? time.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }) : "00:00:00"}
                 </span>
               </div>
               <div className="flex items-center gap-2 border-t border-green-900/40 pt-1 w-full justify-center">
@@ -487,6 +491,7 @@ export default function SyndicateDashboard() {
               { key: "headhunter" as const, label: `HEADHUNTER${snipeCount > 0 ? ` (${snipeCount})` : ""}`, icon: Target },
               { key: "missions" as const, label: "OPERATIONS", icon: Zap },
               { key: "swarm" as const, label: "SWARM", icon: Wifi },
+              { key: "core" as const, label: "NEURAL CORE", icon: Activity },
             ]).map(tab => (
               <button
                 key={tab.key}
@@ -563,6 +568,11 @@ export default function SyndicateDashboard() {
                 )}
               </div>
             </div>
+          )}
+
+          {/* ─── NEURAL CORE TAB ──────────────────────────── */}
+          {selectedTab === "core" && (
+            <NeuralCore logs={logs} crew={crew} />
           )}
 
           {/* ─── WALLET TAB ─────────────────────────────── */}

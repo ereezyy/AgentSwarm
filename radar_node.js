@@ -29,9 +29,12 @@ const WSS_URL = RPC_URL.replace('https', 'wss').replace('http', 'ws');
 
 const connection = new Connection(RPC_URL, { wsEndpoint: WSS_URL, commitment: 'processed' });
 
-console.log(`📡 [RADAR NODE]: Booting Distributed Compute Engine...`);
-console.log(`📡 [RADAR NODE]: RPC: ${RPC_URL}`);
-console.log(`📡 [RADAR NODE]: Targeting Syndicate Main PC at ${MAIN_PC_IP}:${MAIN_PC_WS_PORT}`);
+// Identity
+const NODE_ID = process.argv[2] || 'Pi5-Primary';
+
+console.log(`📡 [RADAR NODE ${NODE_ID}]: Booting Distributed Compute Engine...`);
+console.log(`📡 [RADAR NODE ${NODE_ID}]: RPC: ${RPC_URL}`);
+console.log(`📡 [RADAR NODE ${NODE_ID}]: Targeting Syndicate Main PC at ${MAIN_PC_IP}:${MAIN_PC_WS_PORT}`);
 
 // ── HAILO 8L AI COPROCESSOR (The DeepSentinel) ─────────────────────
 // Spawns the Python IPC wrapper that serves both Raydium and Pump.fun models.
@@ -119,7 +122,7 @@ async function connectToSyndicate() {
 
     wsToMainPC.on('open', () => {
         console.log(`✅ [RADAR NODE]: Uplink established with Main Syndicate Hub.`);
-        wsToMainPC.send(JSON.stringify({ type: 'RADAR_ONLINE', node: 'Pi5-Primary' }));
+        wsToMainPC.send(JSON.stringify({ type: 'RADAR_ONLINE', node: NODE_ID }));
 
         // Start real blockchain listeners
         startBlockZeroSniper();

@@ -17,7 +17,10 @@ const connection = new Connection(RPC_URL, 'confirmed');
 let wallet = null;
 try {
     if (process.env.SOLANA_PRIVATE_KEY) {
-        wallet = Keypair.fromSecretKey(bs58.decode(process.env.SOLANA_PRIVATE_KEY));
+        const keyStr = process.env.SOLANA_PRIVATE_KEY;
+        const keyBytes = keyStr.length > 88 ? Buffer.from(keyStr, 'hex') : bs58.decode(keyStr);
+        wallet = Keypair.fromSecretKey(keyBytes);
+        console.log(chalk.red(`[BLOCK-0 SNIPER #${id}]: 🔑 Wallet loaded: ${wallet.publicKey.toString().slice(0, 8)}...`));
     }
 } catch (e) {
     console.log(chalk.red(`[BLOCK-0 SNIPER #${id}]: Keypair failed.`));
@@ -39,7 +42,10 @@ process.on('message', async (msg) => {
 });
 
 async function extractAndSnipe(signature) {
-    if (!wallet) return;
+    if (!wallet || !wallet.publicKey) {
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Aborting — Wallet not loaded.`));
+        return;
+    }
 
     try {
         // 1. Fetch the transaction details to find the coin mint.
@@ -77,24 +83,50 @@ async function extractAndSnipe(signature) {
 
         // 2. Fire Jupiter Swap
         const amountLamports = Math.floor(SNIPE_AMOUNT_SOL * 1e9);
-        const qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
-            params: {
-                inputMint: WSOL_MINT,
-                outputMint: targetMint,
-                amount: amountLamports,
-                slippageBps: 5000 // 50% slippage, block-0 is EXTREMELY volatile
-            },
-            timeout: 3000
-        });
+        const LITE_API = 'https://lite-api.jup.ag/swap/v1';
+        const LEGACY_API = 'https://quote-api.jup.ag/v6';
 
-        if (!qRes.data) return;
+        let qRes;
+        try {
+            qRes = await axios.get(`${LITE_API}/quote`, {
+                params: {
+                    inputMint: WSOL_MINT,
+                    outputMint: targetMint,
+                    amount: amountLamports,
+                    slippageBps: 5000
+                },
+                timeout: 3000
+            });
+        } catch (e) {
+            console.log(chalk.yellow(`[BLOCK-0]: Lite-API failed, trying Legacy...`));
+            qRes = await axios.get(`${LEGACY_API}/quote`, {
+                params: {
+                    inputMint: WSOL_MINT,
+                    outputMint: targetMint,
+                    amount: amountLamports,
+                    slippageBps: 5000
+                },
+                timeout: 3000
+            });
+        }
 
-        const swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
+        if (!qRes.data || !qRes.data.outAmount) return;
+
+        const swapPayload = {
             quoteResponse: qRes.data,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: 3000000 // MASSIVE priority fee to ensure Block-0 inclusion
-        });
+            prioritizationFeeLamports: 3000000
+        };
+
+        let swapRes;
+        try {
+            swapRes = await axios.post(`${LITE_API}/swap`, swapPayload, { timeout: 4000 });
+        } catch (e) {
+            console.log(chalk.yellow(`[BLOCK-0]: Swap API failover...`));
+            swapRes = await axios.post(`${LEGACY_API}/swap`, swapPayload, { timeout: 4000 });
+        }
+
 
         const txBuf = Buffer.from(swapRes.data.swapTransaction, 'base64');
         const tx = VersionedTransaction.deserialize(txBuf);

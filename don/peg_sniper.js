@@ -18,7 +18,9 @@ const connection = new Connection(RPC_URL, 'confirmed');
 let wallet = null;
 try {
     if (process.env.SOLANA_PRIVATE_KEY) {
-        wallet = Keypair.fromSecretKey(bs58.decode(process.env.SOLANA_PRIVATE_KEY));
+        const keyStr = process.env.SOLANA_PRIVATE_KEY;
+        const keyBytes = keyStr.length > 88 ? Buffer.from(keyStr, 'hex') : bs58.decode(keyStr);
+        wallet = Keypair.fromSecretKey(keyBytes);
     } else {
         console.log(chalk.gray(`[PEG SNIPER #${id}]: No SOLANA_PRIVATE_KEY — running in simulation mode.`));
     }

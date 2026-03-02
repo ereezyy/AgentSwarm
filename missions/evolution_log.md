@@ -573,3 +573,103 @@
 **Agent:** scavenger.js
 **Details:** Dangerous pattern: child_process require
 **Metrics:** Applied: 0 | Rejected: 32 | Blocked: 82 | Rolled Back: 0
+
+## ❌ [2026-03-01T08:09:06.814Z] Cycle #154 — REJECTED
+**Agent:** scavenger.js
+**Details:** Syntax error: missing ) after argument list
+**Metrics:** Applied: 0 | Rejected: 32 | Blocked: 83 | Rolled Back: 0
+
+## 🚫 [2026-03-01T10:08:06.805Z] Cycle #155 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 33 | Blocked: 83 | Rolled Back: 0
+
+## 🚫 [2026-03-01T11:35:13.825Z] Cycle #156 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 33 | Blocked: 84 | Rolled Back: 0
+
+## 🚫 [2026-03-01T11:48:07.914Z] Cycle #157 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous string added: "process.exit("
+**Metrics:** Applied: 0 | Rejected: 33 | Blocked: 85 | Rolled Back: 0
+
+## 🚫 [2026-03-01T12:00:43.340Z] Cycle #158 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 33 | Blocked: 86 | Rolled Back: 0
+
+## 🚫 [2026-03-01T12:40:22.356Z] Cycle #159 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 33 | Blocked: 87 | Rolled Back: 0
+
+## 🚫 [2026-03-01T14:39:22.416Z] Cycle #160 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 33 | Blocked: 88 | Rolled Back: 0
+
+## 🚫 [2026-03-01T16:39:22.050Z] Cycle #161 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 33 | Blocked: 89 | Rolled Back: 0
+
+## 🚫 [2026-03-01T18:39:23.091Z] Cycle #162 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 33 | Blocked: 90 | Rolled Back: 0
+
+## ❌ [2026-03-01T20:39:23.739Z] Cycle #163 — REJECTED
+**Agent:** scavenger.js
+**Details:** Syntax error: await is only valid in async functions and the top level bodies of modules
+**Metrics:** Applied: 0 | Rejected: 33 | Blocked: 91 | Rolled Back: 0
+
+## 🚫 [2026-03-01T22:39:22.863Z] Cycle #164 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 34 | Blocked: 91 | Rolled Back: 0
+
+## 🚫 [2026-03-01T23:28:14.019Z] Cycle #165 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 34 | Blocked: 92 | Rolled Back: 0
+
+## 🚫 [2026-03-02T00:04:42.865Z] Cycle #166 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 34 | Blocked: 93 | Rolled Back: 0
+
+## 🚫 [2026-03-02T00:07:48.119Z] Cycle #167 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 34 | Blocked: 94 | Rolled Back: 0
+
+## 🚫 [2026-03-02T00:48:18.483Z] Cycle #168 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 34 | Blocked: 95 | Rolled Back: 0
+
+## 🚫 [2026-03-02T00:59:57.336Z] Cycle #169 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 34 | Blocked: 96 | Rolled Back: 0
+
+## 🚫 [2026-03-02T01:09:43.225Z] Cycle #170 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 34 | Blocked: 97 | Rolled Back: 0
+
+## 🚫 [2026-03-02T02:07:46.235Z] Cycle #171 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 34 | Blocked: 98 | Rolled Back: 0
+
+## 🚫 [2026-03-02T02:19:22.139Z] Cycle #172 — BLOCKED
+**Agent:** scavenger.js
+**Details:** Dangerous pattern: child_process require
+**Metrics:** Applied: 0 | Rejected: 34 | Blocked: 99 | Rolled Back: 0
+
+## ❌ [2026-03-02T02:26:44.480Z] Cycle #173 — REJECTED
+**Agent:** scavenger.js
+**Details:** Syntax error: Identifier 'id' has already been declared
+**Metrics:** Applied: 0 | Rejected: 34 | Blocked: 100 | Rolled Back: 0

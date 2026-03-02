@@ -10,6 +10,8 @@ const { Connection, PublicKey, Keypair } = require('@solana/web3.js');
 const bs58 = require('bs58');
 const fs = require('fs');
 const path = require('path');
+const MevBundler = require('./mev_bundler');
+const { GlobalMemory } = require('./brain');
 require('dotenv').config();
 
 const id = process.argv[2] || require('crypto').randomBytes(4).toString('hex');
@@ -18,27 +20,54 @@ console.log(chalk.magenta.bold(`[PUMPSNIPER #${id}]: 🎯 Pump.fun Launch Sniper
 const RPC_URL = process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com';
 const connection = new Connection(RPC_URL, 'confirmed');
 const TRADES_FILE = path.resolve(__dirname, '../missions/active_trades.json');
+let wallet = null;
 
 // ── CAPITAL PRESERVATION CONFIG (~1 SOL wallet) ─────────────────
-const BUY_AMOUNT_SOL = 0.03;       // 0.03 SOL per snipe — small bets
+// BET SIZE IS NOW DYNAMICALLY CALCULATED PER TRADE TO DEFEND CAPITAL
 const MIN_RESERVE_SOL = 0.005;      // [REDUCED] Always keep 0.005 SOL for gas + exits
 const MAX_POSITIONS = 4;           // 4 max pump positions (0.12 SOL max exposure)
-const DECISION_WINDOW_MS = 10000;  // 10 seconds to prove itself
-const MIN_BUYS_TO_ACT = 5;         // 5 buys in 10s = stronger momentum required
-const MIN_SOL_VOLUME = 1.0;        // at least 1 SOL traded (real interest, not dust)
+const DECISION_WINDOW_MS = 12000;  // 12 seconds to prove real crowd momentum
+const MIN_BUYS_TO_ACT = 15;        // Need 15 buys to trigger. Reject isolated spoofing.
+const MIN_SOL_VOLUME = 4.0;        // Need 4.0 SOL of volume to trigger. Reject pennies.
 const COOLDOWN_MS = 5 * 60 * 1000; // 5min cooldown per token after action
 const cooldowns = new Set();
 
-// ── Live momentum tracker (real-time buy counting per token) ─────
-// tokenMint -> { buys: N, solVolume: N, creatorBought: bool, firstSeen: timestamp }
+// tokenMint -> { buys: N, solVolume: N, creatorBought: bool, firstSeen: timestamp, lastData: {} }
 const liveTokens = new Map();
+
+// ML Pending Requests
+const pendingPredictions = new Map();
+
+// ── Neural Configuration ──
+let neuralConfig = {
+    rug_threshold: 0.70,
+    kelly_fraction: 0.20,
+    min_bet: 0.005,
+    max_bet: 0.05
+};
+
+function loadNeuralConfig() {
+    try {
+        const configPath = path.join(__dirname, 'neural_config.json');
+        if (fs.existsSync(configPath)) {
+            const fullConfig = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+            if (fullConfig.pumpsniper) {
+                neuralConfig = { ...neuralConfig, ...fullConfig.pumpsniper };
+            }
+        }
+    } catch (e) {
+        console.log(chalk.gray(`[PUMPSNIPER #${id}]: Using default neural config.`));
+    }
+}
+loadNeuralConfig();
+setInterval(loadNeuralConfig, 30000); // Reload every 30s for adaptivity
 
 // ── Jupiter Swap ────────────────────────────────────────────────
 const WSOL_MINT = 'So11111111111111111111111111111111111111112';
 
 try {
     if (process.env.SOLANA_PRIVATE_KEY) {
-        const keyStr = process.env.SOLANA_PRIVATE_KEY;
+        const keyStr = process.env.SOLANA_PRIVATE_KEY.trim();
         const keyBytes = keyStr.length > 88 ? Buffer.from(keyStr, 'hex') : bs58.decode(keyStr);
         wallet = Keypair.fromSecretKey(keyBytes);
         console.log(chalk.magenta(`[PUMPSNIPER #${id}]: 🔑 Wallet loaded: ${wallet.publicKey.toString().slice(0, 8)}...`));
@@ -46,8 +75,7 @@ try {
         throw new Error('Missing SOLANA_PRIVATE_KEY');
     }
 } catch (e) {
-    console.log(chalk.red(`[PUMPSNIPER #${id}]: ❌ No valid SOLANA_PRIVATE_KEY — exiting.`));
-    process.exit(0);
+    console.log(chalk.red(`[PUMPSNIPER #${id}]: ❌ No valid SOLANA_PRIVATE_KEY — running in monitoring mode only.`));
 }
 
 function loadTrades() {
@@ -55,35 +83,123 @@ function loadTrades() {
 }
 function saveTrades(t) { fs.writeFileSync(TRADES_FILE, JSON.stringify(t, null, 2)); }
 
-async function executeJupiterSwap(inputMint, outputMint, lamports) {
+// Initialize MEV Protection (Graceful)
+let bundler = null;
+try {
+    bundler = new MevBundler(wallet, connection);
+} catch (e) {
+    console.log(chalk.yellow(`[PUMPSNIPER #${id}]: MEV Bundler failed to load. Running unprotected.`));
+}
+
+async function getDynamicPriorityFee() {
     try {
-        const qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
-            params: { inputMint, outputMint, amount: lamports, slippageBps: 2000 },
-            timeout: 10000,
-        });
+        const fees = await connection.getRecentPrioritizationFees();
+        if (!fees || fees.length === 0) return 100000;
+        fees.sort((a, b) => b.prioritizationFee - a.prioritizationFee);
+        const topFees = fees.slice(0, 20);
+        const avgTopFee = Math.floor(topFees.reduce((sum, f) => sum + f.prioritizationFee, 0) / topFees.length);
+        const targetFee = Math.floor(avgTopFee * 1.2);
+        return Math.min(Math.max(targetFee, 50000), 5000000); // Max 0.005 SOL
+    } catch (e) {
+        return 100000;
+    }
+}
+
+async function executeJupiterSwap(inputMint, outputMint, lamports) {
+    if (!wallet || !wallet.publicKey) return null;
+    try {
+        const LITE_API = 'https://lite-api.jup.ag/swap/v1';
+        const LEGACY_API = 'https://quote-api.jup.ag/v6';
+
+        let qRes;
+        try {
+            qRes = await axios.get(`${LITE_API}/quote`, {
+                params: { inputMint, outputMint, amount: lamports, slippageBps: 500 },
+                timeout: 8000,
+            });
+        } catch (e) {
+            console.log(chalk.yellow(`[PUMPSNIPER]: Lite-API Quote failed, trying Legacy...`));
+            qRes = await axios.get(`${LEGACY_API}/quote`, {
+                params: { inputMint, outputMint, amount: lamports, slippageBps: 500 },
+                timeout: 8000,
+            });
+        }
+
         const quote = qRes.data;
         if (!quote?.outAmount) return null;
 
-        const swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
+        const priorityFee = await getDynamicPriorityFee();
+        const swapPayload = {
             quoteResponse: quote,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
-            dynamicComputeUnitLimit: true,
-            prioritizationFeeLamports: 'auto',
-        }, { timeout: 12000 });
+            prioritizationFeeLamports: priorityFee,
+        };
+
+        let swapRes;
+        try {
+            swapRes = await axios.post(`${LITE_API}/swap`, swapPayload, { timeout: 10000 });
+        } catch (e) {
+            console.log(chalk.yellow(`[PUMPSNIPER]: Lite-API Swap failed, trying Legacy...`));
+            swapRes = await axios.post(`${LEGACY_API}/swap`, swapPayload, { timeout: 10000 });
+        }
 
         const { swapTransaction } = swapRes.data;
         const txBuf = Buffer.from(swapTransaction, 'base64');
         const { VersionedTransaction } = require('@solana/web3.js');
         const tx = VersionedTransaction.deserialize(txBuf);
         tx.sign([wallet]);
-        const sig = await connection.sendRawTransaction(tx.serialize(), { skipPreflight: true });
-        console.log(chalk.magenta.bold(`[PUMPSNIPER #${id}]: ⚡ SWAP FIRED: ${sig}`));
-        return { success: true, outAmount: quote.outAmount, sig };
+
+        let sig = null;
+        let isMevProtected = false;
+
+        if (bundler && bundler.client) {
+            console.log(chalk.magenta.bold(`[PUMPSNIPER #${id}]: 🛡️ ROUTING VIA JITO MEV BUNDLER...`));
+            const bundleId = await bundler.sendBundle(tx, priorityFee);
+            if (bundleId) {
+                console.log(chalk.green.bold(`[PUMPSNIPER #${id}]: 🪐 Jito Bundle Sent! ID: ${bundleId}`));
+                isMevProtected = true;
+                sig = bs58.encode(tx.signatures[0]);
+            }
+        }
+
+        if (!isMevProtected) {
+            sig = await connection.sendRawTransaction(tx.serialize(), { skipPreflight: true });
+            console.log(chalk.magenta.bold(`[PUMPSNIPER #${id}]: ⚡ SWAP FIRED (Public Mempool): ${sig}`));
+        }
+
+        return { success: true, outAmount: quote.outAmount, sig, mevProtected: isMevProtected };
     } catch (e) {
         console.log(chalk.red(`[PUMPSNIPER #${id}]: Jupiter error: ${e.message}`));
         return null;
     }
+}
+
+// ── Kelly Criterion Sizing ──────────────────────────────────────
+function calculateKellyBet(balanceSol, rugProb) {
+    if (balanceSol < 0.05) return 0;
+
+    // Parameters for Solana Shitcoins
+    const p = 1.0 - rugProb; // ML win probability
+    const b = 2.0;           // Expected profit ratio (Avg 2x flip)
+    const q = 1.0 - p;
+
+    // Kelly Formula: f = (b*p - q) / b
+    let f = (b * p - q) / b;
+
+    // Apply Fractional Kelly to handle volatility/errors
+    const fraction = neuralConfig.kelly_fraction;
+    let kellyBet = balanceSol * f * fraction;
+
+    // Safety Rails
+    const ceiling = neuralConfig.max_bet;
+    const floor = neuralConfig.min_bet;
+    const exposureLimit = balanceSol * 0.05; // 5% max exposure
+
+    let finalBet = Math.min(kellyBet, ceiling, exposureLimit);
+    finalBet = Math.max(finalBet, floor);
+
+    return parseFloat(finalBet.toFixed(3));
 }
 
 // ── Execute buy on a token that passed momentum check ────────────
@@ -102,27 +218,78 @@ async function executeBuy(tokenMint, name, momentum) {
         return;
     }
 
-    // Final position check (race guard)
-    if (loadTrades().length >= MAX_POSITIONS) return;
-    if (cooldowns.has(tokenMint)) return;
-    cooldowns.add(tokenMint);
-    setTimeout(() => cooldowns.delete(tokenMint), COOLDOWN_MS);
+    // ── DEEPSENTINEL NEURAL CHECK ──
+    const elapsed = Date.now() - momentum.firstSeen;
+    const buyPressure = (momentum.buys / Math.max(elapsed, 1)) * 1000 * 10;
+    const volatility = (momentum.solVolume / Math.max(momentum.buys, 1)) * 5;
+    const score = momentum.creatorBought ? 85 : 45;
 
-    const { buys, solVolume, creatorBought } = momentum;
-    const creatorTag = creatorBought ? ' 🔥DEV-BOUGHT' : '';
+    // Extract bonding stats from the last trade data received
+    const lastData = momentum.lastData || {};
+    const bonding = lastData.vSolInBondingCurve ? (lastData.vSolInBondingCurve / 85e9) * 100 : 10;
+    const top10 = 50; // fallback without holder API
+    const mcapLog = lastData.marketCapSol ? Math.log1p(lastData.marketCapSol * 240) : Math.log1p(momentum.solVolume * 1500);
+
+    const features = [
+        Math.min(buyPressure, 100),
+        Math.min(volatility, 100),
+        score,
+        Math.min(bonding, 100),
+        top10,
+        mcapLog
+    ];
+
+    console.log(chalk.cyan(`[PUMPSNIPER #${id}]: 🧠 Consulting DeepSentinel Neural Engine...`));
+
+    const rugProb = await new Promise((resolve) => {
+        const reqId = require('crypto').randomUUID();
+        const timeout = setTimeout(() => {
+            pendingPredictions.delete(reqId);
+            resolve(0.5); // proceed on timeout fallback
+        }, 5000);
+
+        pendingPredictions.set(reqId, (res) => {
+            clearTimeout(timeout);
+            resolve(res.rug_probability || 0.5);
+        });
+
+        if (process.send) {
+            process.send({ type: 'ML_REQUEST', model: 'pumpfun', features, req_id: reqId });
+        } else {
+            resolve(0.5);
+        }
+    });
+
+    if (rugProb > neuralConfig.rug_threshold) {
+        console.log(chalk.red.bold(`[PUMPSNIPER #${id}]: 💀 NEURAL ALERT: Rug Probability ${(rugProb * 100).toFixed(2)}% | ABORTING TRADE.`));
+        if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `🧠 DeepSentinel blocked trade on ${name} (${(rugProb * 100).toFixed(1)}% rug risk)` });
+        GlobalMemory.addMemory('PUMPSNIPER', `[PREDICTION_BLOCKED] Aborted trade on ${name} (${tokenMint.slice(0, 8)}...) due to high rug risk: ${(rugProb * 100).toFixed(1)}%. Threshold: ${neuralConfig.rug_threshold}`, 5);
+        return;
+    } else {
+        console.log(chalk.green(`[PUMPSNIPER #${id}]: ✅ Neural Passed: ${(rugProb * 100).toFixed(1)}% risk score. Threshold: ${neuralConfig.rug_threshold}`));
+    }
+
+    // ── DYNAMIC KELLY-SCALING BET ──
+    const balanceSol = walletBalance / 1e9;
+    const dynamicBetSol = calculateKellyBet(balanceSol, rugProb);
+
+    if (dynamicBetSol <= 0) {
+        console.log(chalk.red.bold(`[PUMPSNIPER #${id}]: 💀 CAPITAL GUARD: Kelly sizing suggests zero bet. HALTING.`));
+        return;
+    }
 
     console.log(chalk.magenta.bold(
         `[PUMPSNIPER #${id}]: 🚀🚀🚀 SNIPING: ${name} (${tokenMint.slice(0, 8)}...) ` +
-        `| ${buys} buys | ${solVolume.toFixed(2)} SOL vol | ${((Date.now() - momentum.firstSeen) / 1000).toFixed(1)}s old${creatorTag}`
+        `| KELLY BET: ${dynamicBetSol} SOL [Conf: ${((1 - rugProb) * 100).toFixed(1)}%] | ${momentum.buys} buys | ${momentum.solVolume.toFixed(2)} SOL vol`
     ));
 
-    const lamports = Math.floor(BUY_AMOUNT_SOL * 1e9);
+    const lamports = Math.floor(dynamicBetSol * 1e9);
     const result = await executeJupiterSwap(WSOL_MINT, tokenMint, lamports);
 
     if (result?.success) {
         const outAmt = Number(result.outAmount);
         const uiAmt = outAmt / 1e6;
-        const entry = uiAmt > 0 ? BUY_AMOUNT_SOL / uiAmt : 0;
+        const entry = uiAmt > 0 ? dynamicBetSol / uiAmt : 0;
         const trades = loadTrades();
         trades.push({
             mint: tokenMint,
@@ -130,21 +297,24 @@ async function executeBuy(tokenMint, name, momentum) {
             entryPriceUnit: 'ui',
             amount: outAmt,
             uiAmount: uiAmt,
-            entrySol: BUY_AMOUNT_SOL,
+            entrySol: dynamicBetSol,
             timestamp: Date.now(),
             maxHoldUntil: Date.now() + (90 * 60 * 1000), // 90min max hold (fast flips)
             moonbagSecured: false,
             source: 'PUMPSNIPER',
             tokenName: name,
-            momentum: { buys, solVolume: parseFloat(solVolume.toFixed(3)), creatorBought },
+            momentum: { buys: momentum.buys, solVolume: parseFloat(momentum.solVolume.toFixed(3)), creatorBought: momentum.creatorBought },
+            prediction: { rug_probability: rugProb, threshold: neuralConfig.rug_threshold }
         });
         saveTrades(trades);
 
+        GlobalMemory.addMemory('PUMPSNIPER', `[TRADE_ENTRY] Sniped ${name} (${tokenMint.slice(0, 8)}...) Entry: ${dynamicBetSol} SOL. Risk: ${(rugProb * 100).toFixed(1)}%. Threshold: ${neuralConfig.rug_threshold}`, 7);
+
         if (process.send) {
-            process.send({ type: 'TRADE_EXECUTED', mint: tokenMint, amount: BUY_AMOUNT_SOL, source: 'PUMPSNIPER' });
+            process.send({ type: 'TRADE_EXECUTED', mint: tokenMint, amount: dynamicBetSol, source: 'PUMPSNIPER' });
             process.send({
                 type: 'LOG', level: 'MONEY',
-                msg: `🎯 PUMP SNIPE 🎯 ${name} (${tokenMint.slice(0, 8)}...) | ${buys} buys in ${((Date.now() - momentum.firstSeen) / 1000).toFixed(0)}s | ${solVolume.toFixed(2)} SOL vol${creatorTag} | Entry: ${BUY_AMOUNT_SOL} SOL`
+                msg: `🎯 PUMP SNIPE 🎯 ${name} (${tokenMint.slice(0, 8)}...) | ${momentum.buys} buys in ${((Date.now() - momentum.firstSeen) / 1000).toFixed(0)}s | ${momentum.solVolume.toFixed(2)} SOL vol | Entry: ${dynamicBetSol} SOL`
             });
         }
     }
@@ -168,6 +338,7 @@ function onTradeEvent(data) {
     const tracker = liveTokens.get(mint);
     tracker.buys++;
     tracker.solVolume += solAmount;
+    tracker.lastData = data; // Save latest bonding curve state for ML features
 
     // Creator conviction detection
     if (data.traderPublicKey === tracker.creator) {
@@ -190,7 +361,7 @@ function onNewToken(data) {
     if (!mint || cooldowns.has(mint)) return;
     if (liveTokens.has(mint)) return; // already watching
 
-    console.log(chalk.magenta(`[PUMPSNIPER #${id}]: 🆕 NEW LAUNCH: ${name || symbol} ($${symbol}) — ${mint.slice(0, 8)}... — TRACKING`));
+    // console.log(chalk.magenta(`[PUMPSNIPER #${id}]: 🆕 NEW LAUNCH: ${name || symbol} ($${symbol}) — ${mint.slice(0, 8)}... — TRACKING`));
 
     // Start momentum tracking
     liveTokens.set(mint, {
@@ -218,9 +389,9 @@ function onNewToken(data) {
             // Squeaked in just at the deadline — still buy
             executeBuy(mint, tracker.name, tracker).catch(() => { });
         } else {
-            console.log(chalk.gray(
-                `[PUMPSNIPER #${id}]: ❌ ${tracker.name} — ${tracker.buys} buys, ${tracker.solVolume.toFixed(2)} SOL vol in ${(DECISION_WINDOW_MS / 1000)}s. Dead on arrival.`
-            ));
+            // console.log(chalk.gray(
+            //     `[PUMPSNIPER #${id}]: ❌ ${tracker.name} — ${tracker.buys} buys, ${tracker.solVolume.toFixed(2)} SOL vol in ${(DECISION_WINDOW_MS / 1000)}s. Dead on arrival.`
+            // ));
             // Unsubscribe from trades to keep WS clean
             if (currentWs && currentWs.readyState === WebSocket.OPEN) {
                 currentWs.send(JSON.stringify({ method: 'unsubscribeTokenTrade', keys: [mint] }));
@@ -285,6 +456,12 @@ process.on('message', (msg) => {
             type: 'LOG', level: 'INFO',
             msg: `PUMPSNIPER V2: Watching ${watching} live launches | ${positions} active positions | ${cooldowns.size} cooldowns | Mode: VISCERAL`
         });
+    } else if (msg.type === 'ML_RESPONSE') {
+        const callback = pendingPredictions.get(msg.data.req_id);
+        if (callback) {
+            callback(msg.data);
+            pendingPredictions.delete(msg.data.req_id);
+        }
     }
 });
 
@@ -292,8 +469,19 @@ process.on('message', (msg) => {
 setInterval(() => {
     const positions = loadTrades().filter(t => t.source === 'PUMPSNIPER').length;
     console.log(chalk.magenta(
-        `[PUMPSNIPER #${id}]: 📊 HEARTBEAT | Tracking: ${liveTokens.size} | Positions: ${positions}/${MAX_POSITIONS} | Cooldowns: ${cooldowns.size} | Buy: ${BUY_AMOUNT_SOL} SOL`
+        `[PUMPSNIPER #${id}]: 📊 HEARTBEAT | Tracking: ${liveTokens.size} | Positions: ${positions}/${MAX_POSITIONS} | Cooldowns: ${cooldowns.size} | Buy: Dynamic`
     ));
 }, 300000);
 
 connectPumpFun();
+
+// ── Adaptive Reflection: Westworld-style self-optimization ─────
+// Every hour, the agent reviews its own memories and tunes its neural levels.
+setInterval(async () => {
+    console.log(chalk.magenta(`[PUMPSNIPER #${id}]: 🧠 INITIATING DEEP REFLECTION...`));
+    const reflection = await GlobalMemory.reflect('PUMPSNIPER');
+    if (reflection) {
+        console.log(chalk.cyan.bold(`[PUMPSNIPER #${id}]: 💡 EPIPHANY: ${reflection.key_insight}`));
+        console.log(chalk.cyan(`   → Rule: ${reflection.actionable_heuristic}`));
+    }
+}, 1 * 60 * 60 * 1000); // 1 hour reflection loop

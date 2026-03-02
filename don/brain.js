@@ -452,19 +452,65 @@ Provide a single JSON object with your reflection:
 {
   "key_insight": "string, what went wrong or right",
   "actionable_heuristic": "string, a new rule to live by",
-  "risk_adjustment": "string, e.g. 'increase_slippage', 'avoid_dev_wallets', 'none'"
+  "risk_adjustment": {
+      "parameter": "string, e.g. 'rug_threshold', 'kelly_fraction'",
+      "change": "string, e.g. '+0.05', '-0.10', 'none'",
+      "reason": "string"
+  }
 }`;
 
         try {
             const reflection = await askJSON(prompt, "You are a master strategist AI.", { agentName: `${agentType}_SUBCONSCIOUS`, compact: false });
 
             // Store the reflection as a high-importance memory
-            this.addMemory(agentType, `[REFLECTION] Insight: ${reflection.key_insight}. Rule: ${reflection.actionable_heuristic}. Risk tweak: ${reflection.risk_adjustment}`, 10);
+            this.addMemory(agentType, `[REFLECTION] Insight: ${reflection.key_insight}. Rule: ${reflection.actionable_heuristic}. Risk tweak: ${JSON.stringify(reflection.risk_adjustment)}`, 10);
+
+            // AUTO-ADAPT: If a valid adjustment is proposed, apply it to the config
+            if (reflection.risk_adjustment && reflection.risk_adjustment.parameter !== 'none') {
+                await this.adaptParameters(agentType.toLowerCase(), reflection.risk_adjustment);
+            }
 
             return reflection;
         } catch (e) {
             console.error(`Reflection failed for ${agentType}: ${e.message}`);
             return null;
+        }
+    }
+
+    async adaptParameters(agent, adjustment) {
+        const configPath = path.join(__dirname, 'neural_config.json');
+        try {
+            if (!fs.existsSync(configPath)) return;
+            const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+
+            if (!config[agent]) return;
+
+            const param = adjustment.parameter;
+            const change = adjustment.change;
+            if (change === 'none') return;
+
+            const current = config[agent][param];
+            if (typeof current !== 'number') return;
+
+            const numericChange = parseFloat(change);
+            if (isNaN(numericChange)) return;
+
+            const newVal = parseFloat((current + numericChange).toFixed(4));
+
+            // Safety bounds for auto-adjustment
+            if (param === 'rug_threshold') {
+                config[agent][param] = Math.max(0.3, Math.min(newVal, 0.95));
+            } else if (param === 'kelly_fraction') {
+                config[agent][param] = Math.max(0.05, Math.min(newVal, 0.5));
+            } else {
+                config[agent][param] = newVal;
+            }
+
+            config.global.last_updated = new Date().toISOString();
+            fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+            console.log(chalk.magenta.bold(`[ADAPTIVE]: 🧠 Automatically tuned ${agent}.${param} from ${current} to ${config[agent][param]} (${adjustment.reason})`));
+        } catch (e) {
+            console.error(`Adaptation failed: ${e.message}`);
         }
     }
 }

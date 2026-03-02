@@ -1,0 +1,18 @@
+{
+    "pumpsniper": {
+        "rug_threshold": 0.70,
+        "kelly_fraction": 0.20,
+        "min_bet": 0.005,
+        "max_bet": 0.05
+    },
+    "sniper": {
+        "rug_threshold": 0.80,
+        "kelly_fraction": 0.20,
+        "min_bet": 0.01,
+        "max_bet": 0.1
+    },
+    "global": {
+        "adaptation_enabled": true,
+        "last_updated": "2026-03-01T20:00:00Z"
+    }
+}
