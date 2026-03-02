@@ -50,5 +50,17 @@
   },
   "devDependencies": {
     "jest": "^29.7.0"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ereezyy/AgentSwarm.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ereezyy/AgentSwarm/issues"
+  },
+  "homepage": "https://github.com/ereezyy/AgentSwarm#readme"
 }

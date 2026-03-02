@@ -14,6 +14,9 @@ console.log(chalk.red.bold(`[BLOCK-0 SNIPER #${id}]: 🔫 Locked & Loaded. Await
 const RPC_URL = process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com';
 const connection = new Connection(RPC_URL, 'confirmed');
 
+const FALLBACK_RPC_URL = process.env.SOLANA_FALLBACK_RPC_URL || 'https://rpc.ankr.com/solana';
+const fallbackConnection = new Connection(FALLBACK_RPC_URL, 'confirmed');
+
 let wallet = null;
 try {
     if (process.env.SOLANA_PRIVATE_KEY) {
@@ -39,12 +42,27 @@ process.on('message', async (msg) => {
 });
 
 async function extractAndSnipe(signature) {
-    if (!wallet) return;
+    if (!wallet) {
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution aborted. Wallet not initialized.`));
+        return;
+    }
+
+    if (!signature || typeof signature !== 'string' || signature.length < 80 || signature.length > 90) {
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid signature size/format: ${signature}`));
+        return;
+    }
 
     try {
         // 1. Fetch the transaction details to find the coin mint.
         // Needs high commitment to ensure we can read it immediately.
-        const txInfo = await connection.getTransaction(signature, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 });
+        let txInfo = null;
+        try {
+            txInfo = await connection.getTransaction(signature, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 });
+        } catch (err) {
+            console.log(chalk.yellow(`[BLOCK-0 SNIPER]: Primary RPC failed for getTransaction, falling back...`));
+            txInfo = await fallbackConnection.getTransaction(signature, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 });
+        }
+
         if (!txInfo) {
             console.log(chalk.red(`[BLOCK-0 SNIPER]: Failed to fetch tx info fast enough.`));
             return;
@@ -77,30 +95,55 @@ async function extractAndSnipe(signature) {
 
         // 2. Fire Jupiter Swap
         const amountLamports = Math.floor(SNIPE_AMOUNT_SOL * 1e9);
-        const qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
-            params: {
-                inputMint: WSOL_MINT,
-                outputMint: targetMint,
-                amount: amountLamports,
-                slippageBps: 5000 // 50% slippage, block-0 is EXTREMELY volatile
-            },
-            timeout: 3000
-        });
+        let qRes = null;
+        for (let i = 0; i < 3; i++) {
+            try {
+                qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
+                    params: {
+                        inputMint: WSOL_MINT,
+                        outputMint: targetMint,
+                        amount: amountLamports,
+                        slippageBps: 5000 // 50% slippage, block-0 is EXTREMELY volatile
+                    },
+                    timeout: 3000
+                });
+                if (qRes && qRes.data) break;
+            } catch (err) {
+                if (i === 2) throw new Error(`Jupiter Quote API failed after 3 attempts: ${err.message}`);
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
 
-        if (!qRes.data) return;
+        if (!qRes || !qRes.data) return;
 
-        const swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
-            quoteResponse: qRes.data,
-            userPublicKey: wallet.publicKey.toString(),
-            wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: 3000000 // MASSIVE priority fee to ensure Block-0 inclusion
-        });
+        let swapRes = null;
+        for (let i = 0; i < 3; i++) {
+            try {
+                swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
+                    quoteResponse: qRes.data,
+                    userPublicKey: wallet.publicKey.toString(),
+                    wrapAndUnwrapSol: true,
+                    prioritizationFeeLamports: 3000000 // MASSIVE priority fee to ensure Block-0 inclusion
+                });
+                if (swapRes && swapRes.data) break;
+            } catch (err) {
+                if (i === 2) throw new Error(`Jupiter Swap API failed after 3 attempts: ${err.message}`);
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
 
         const txBuf = Buffer.from(swapRes.data.swapTransaction, 'base64');
         const tx = VersionedTransaction.deserialize(txBuf);
         tx.sign([wallet]);
 
-        const sig = await connection.sendRawTransaction(tx.serialize(), { skipPreflight: true });
+        let sig;
+        try {
+            sig = await connection.sendRawTransaction(tx.serialize(), { skipPreflight: true });
+        } catch (err) {
+            console.log(chalk.yellow(`[BLOCK-0 SNIPER]: Primary RPC failed for sendRawTransaction, falling back...`));
+            sig = await fallbackConnection.sendRawTransaction(tx.serialize(), { skipPreflight: true });
+        }
+
         console.log(chalk.white.bgRed.bold(`[BLOCK-0 SNIPER]: 💥 SNIPE EXECUTED! Sig: ${sig} 💥`));
 
         if (process.send) {
