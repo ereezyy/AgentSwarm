@@ -6,6 +6,11 @@ const mockReadFileSync = jest.fn();
 const mockMkdirSync = jest.fn();
 const mockWriteFileSync = jest.fn();
 
+// Mock dotenv
+jest.mock('dotenv', () => ({
+    config: jest.fn()
+}));
+
 // Mock fs module with singleton mock object
 jest.mock('fs', () => ({
     existsSync: mockExistsSync,

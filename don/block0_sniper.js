@@ -52,7 +52,7 @@ async function extractAndSnipe(signature) {
 
         // Raydium initialize2 usually has the token mints in the account keys.
         // We know WSOL is one, the other is the shitcoin.
-        const accountKeys = txInfo.transaction.message.staticAccountKeys;
+        const accountKeys = txInfo.transaction.message.staticAccountKeys || txInfo.transaction.message.accountKeys || [];
         let targetMint = null;
 
         for (const key of accountKeys) {
@@ -77,24 +77,57 @@ async function extractAndSnipe(signature) {
 
         // 2. Fire Jupiter Swap
         const amountLamports = Math.floor(SNIPE_AMOUNT_SOL * 1e9);
-        const qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
-            params: {
-                inputMint: WSOL_MINT,
-                outputMint: targetMint,
-                amount: amountLamports,
-                slippageBps: 5000 // 50% slippage, block-0 is EXTREMELY volatile
-            },
-            timeout: 3000
-        });
+
+        // Wallet Guard
+        const balance = await connection.getBalance(wallet.publicKey);
+        if (balance < amountLamports + 5000000) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Insufficient balance for snipe.`));
+            return;
+        }
+
+        let qRes;
+        try {
+            qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
+                params: {
+                    inputMint: WSOL_MINT,
+                    outputMint: targetMint,
+                    amount: amountLamports,
+                    slippageBps: 5000 // 50% slippage, block-0 is EXTREMELY volatile
+                },
+                timeout: 3000
+            });
+        } catch (e) {
+            console.log(chalk.yellow(`[BLOCK-0 SNIPER]: Primary quote API failed, falling back...`));
+            qRes = await axios.get(`https://lite-api.jup.ag/swap/v1/quote`, {
+                params: {
+                    inputMint: WSOL_MINT,
+                    outputMint: targetMint,
+                    amount: amountLamports,
+                    slippageBps: 5000
+                },
+                timeout: 3000
+            });
+        }
 
         if (!qRes.data) return;
 
-        const swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
-            quoteResponse: qRes.data,
-            userPublicKey: wallet.publicKey.toString(),
-            wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: 3000000 // MASSIVE priority fee to ensure Block-0 inclusion
-        });
+        let swapRes;
+        try {
+            swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
+                quoteResponse: qRes.data,
+                userPublicKey: wallet.publicKey.toString(),
+                wrapAndUnwrapSol: true,
+                prioritizationFeeLamports: 3000000 // MASSIVE priority fee to ensure Block-0 inclusion
+            });
+        } catch (e) {
+            console.log(chalk.yellow(`[BLOCK-0 SNIPER]: Primary swap API failed, falling back...`));
+            swapRes = await axios.post('https://lite-api.jup.ag/swap/v1/swap', {
+                quoteResponse: qRes.data,
+                userPublicKey: wallet.publicKey.toString(),
+                wrapAndUnwrapSol: true,
+                prioritizationFeeLamports: 3000000
+            });
+        }
 
         const txBuf = Buffer.from(swapRes.data.swapTransaction, 'base64');
         const tx = VersionedTransaction.deserialize(txBuf);
@@ -112,6 +145,6 @@ async function extractAndSnipe(signature) {
         }
 
     } catch (e) {
-        console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution failed: ${e.response?.data?.msg || e.message}`));
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution failed: ${e.response?.data?.error || e.response?.data?.msg || e.message || 'Unknown error'}`));
     }
 }
