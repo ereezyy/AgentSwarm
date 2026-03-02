@@ -37,6 +37,11 @@ const SNIPE_AMOUNT_SOL = 0.1;
 
 // ── IPC Listener from Main Hub ──────────────────────────────────────
 process.on('message', async (msg) => {
+    msg = msg || {};
+    msg.type = msg.type || '';
+    msg.action = msg.action || '';
+    msg.signature = msg.signature || '';
+
     if (msg.type === 'PI_TRIGGER' && msg.action === 'BLOCK0_SNIPE') {
         console.log(chalk.red.bold(`\n⚡🎯 [BLOCK-0 SNIPER]: PI 5 RADAR TRIGGER RECEIVED! Execution engaged...`));
         console.log(chalk.red(`Target LP Init Sig: ${msg.signature}`));
@@ -52,6 +57,38 @@ async function extractAndSnipe(signature) {
     if (typeof signature !== 'string') return;
 
     try {
+        const decodedSig = bs58.decode(signature);
+        if (decodedSig.length !== 64) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid signature length.`));
+            return;
+        }
+    } catch (e) {
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid base58 signature.`));
+        return;
+    }
+
+    try {
+        let balance = null;
+        for (const conn of connections) {
+            try {
+                balance = await conn.getBalance(wallet.publicKey);
+                if (balance !== null) break;
+            } catch (e) {
+                // Try next RPC
+            }
+        }
+
+        if (balance === null) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Failed to fetch wallet balance on any RPC.`));
+            return;
+        }
+
+        const requiredBalance = (SNIPE_AMOUNT_SOL + 0.005) * 1e9;
+        if (balance < requiredBalance) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Insufficient SOL balance. Have ${balance / 1e9}, need > ${(requiredBalance / 1e9).toFixed(3)}.`));
+            return;
+        }
+
         // 1. Fetch the transaction details to find the coin mint.
         // Needs high commitment to ensure we can read it immediately.
         let txInfo = null;
@@ -71,7 +108,7 @@ async function extractAndSnipe(signature) {
 
         // Raydium initialize2 usually has the token mints in the account keys.
         // We know WSOL is one, the other is the shitcoin.
-        const accountKeys = txInfo.transaction.message.staticAccountKeys || txInfo.transaction.message.accountKeys || [];
+        const accountKeys = txInfo.transaction?.message?.staticAccountKeys || txInfo.transaction?.message?.accountKeys || [];
         let targetMint = null;
 
         for (const key of accountKeys) {
@@ -164,6 +201,6 @@ async function extractAndSnipe(signature) {
         }
 
     } catch (e) {
-        console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution failed: ${e.response?.data?.msg || e.message}\n${e.stack}`));
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution failed: ${e.response?.data?.error || e.response?.data?.msg || e.message}\n${e.stack}`));
     }
 }
