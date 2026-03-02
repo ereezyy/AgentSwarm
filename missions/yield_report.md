@@ -1,6 +1,6 @@
 # 🌾 DeFi Farmer — Yield Report
 
-**Generated:** 3/1/2026, 8:26:27 PM
+**Generated:** 3/1/2026, 8:58:36 PM
 
 ## 📊 Lifetime Stats
 
@@ -26,11 +26,11 @@
 | raydium-amm | USD1-ONE | 2081.8% | $14K | 🔴 HIGH |
 | raydium-amm | WSOL-LOBSTAR | 2062.5% | $11K | 🔴 HIGH |
 | orca-dex | GORK-USDC | 2022.0% | $10K | 🔴 HIGH |
-| Raydium (Top Pools) | CATVAX/WSOL | 531.7% | $54K | 🔴 HIGH |
-| Raydium (Top Pools) | WSOL/arc | 361.8% | $2.8M | 🟡 MEDIUM |
-| Raydium (Top Pools) | WSOL/Oil | 215.1% | $154K | 🟡 MEDIUM |
-| Raydium (Top Pools) | SpaceX/WSOL | 168.8% | $140K | 🟡 MEDIUM |
-| Raydium (Top Pools) | WSOL/MUSHU | 143.5% | $200K | 🟡 MEDIUM |
+| Raydium (Top Pools) | CATVAX/WSOL | 516.5% | $55K | 🔴 HIGH |
+| Raydium (Top Pools) | WSOL/arc | 355.1% | $2.8M | 🟡 MEDIUM |
+| Raydium (Top Pools) | WSOL/Oil | 208.8% | $157K | 🟡 MEDIUM |
+| Raydium (Top Pools) | SpaceX/WSOL | 166.6% | $145K | 🟡 MEDIUM |
+| Raydium (Top Pools) | WSOL/MUSHU | 143.9% | $198K | 🟡 MEDIUM |
 
 ---
 *DeFi Farmer — Automated Yield Intelligence*

@@ -38,7 +38,7 @@ Please identify the root cause and provide a fix. Ensure any missing variables a
                 sourceContext: {
                     source: SOURCE,
                     githubRepoContext: {
-                        startingBranch: 'main'
+                        startingBranch: 'master'
                     }
                 },
                 automationMode: 'AUTO_CREATE_PR',

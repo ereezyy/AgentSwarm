@@ -153,21 +153,30 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
 
     try {
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Requesting Jupiter Quote...`));
-        // Primary: lite-api (DNS stable)
-        const LITE_API = 'https://lite-api.jup.ag/swap/v1';
-        const LEGACY_API = 'https://quote-api.jup.ag/v6';
+        // 1. Get Quote with multi-TLD failover
+        const JUPITER_QUOTE_APIS = [
+            'https://lite-api.jup.ag/swap/v1/quote',
+            'https://quote-api.jup.ag/v6/quote',
+            'https://api.jup.ag/swap/v1/quote'
+        ];
 
-        let quoteResponse;
-        try {
-            quoteResponse = await axios.get(`${LITE_API}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`, { timeout: 8000 });
-        } catch (e) {
-            console.log(chalk.yellow(`[SNIPER]: Lite-API failed (DNS/Network), trying Legacy API...`));
-            quoteResponse = await axios.get(`${LEGACY_API}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`, { timeout: 8000 });
+        let qRes = null;
+        let lastErr = null;
+        const qParams = { inputMint, outputMint, amount: amountLamports, slippageBps: 1000 };
+
+        for (const url of JUPITER_QUOTE_APIS) {
+            try {
+                qRes = await axios.get(url, { params: qParams, timeout: 5000 });
+                if (qRes && qRes.data) break;
+            } catch (e) {
+                lastErr = e.message;
+                console.log(chalk.yellow(`[SNIPER]: Quote API ${new URL(url).hostname} failed, trying next...`));
+            }
         }
 
-        const quoteData = quoteResponse.data;
-        if (!quoteData || quoteData.error) throw new Error(quoteData.error || 'No quote found');
+        if (!qRes || !qRes.data || !qRes.data.outAmount) throw new Error(`Quote failed: ${lastErr}`);
 
+        const quoteData = qRes.data;
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Jupiter Quote: ${quoteData.outAmount} out via ${quoteData.routePlan.map(r => r.swapInfo.label).join('->')}`));
 
         // 2. Get Serialized Transaction with Dynamic Fee
@@ -175,22 +184,33 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         const priorityFeeSol = (priorityFee / 1e9).toFixed(6);
         console.log(chalk.hex('#FF6600')(`[SNIPER #${id}]: 🏎️ Priority Fee Set: ${priorityFeeSol} SOL`));
 
-        let swapResponse;
+        // 2. Get Swap Transaction with failover
+        const JUPITER_SWAP_APIS = [
+            'https://lite-api.jup.ag/swap/v1/swap',
+            'https://quote-api.jup.ag/v6/swap',
+            'https://api.jup.ag/swap/v1/swap'
+        ];
+
+        let swapRes = null;
         const swapPayload = {
             quoteResponse: quoteData,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: priorityFee
+            prioritizationFeeLamports: 'auto'
         };
 
-        try {
-            swapResponse = await axios.post(`${LITE_API}/swap`, swapPayload, { timeout: 10000 });
-        } catch (e) {
-            console.log(chalk.yellow(`[SNIPER]: Lite-API Swap failed, trying Legacy API...`));
-            swapResponse = await axios.post(`${LEGACY_API}/swap`, swapPayload, { timeout: 10000 });
+        for (const url of JUPITER_SWAP_APIS) {
+            try {
+                swapRes = await axios.post(url, swapPayload, { timeout: 8000 });
+                if (swapRes && swapRes.data) break;
+            } catch (e) {
+                lastErr = e.message;
+                console.log(chalk.yellow(`[SNIPER]: Swap API ${new URL(url).hostname} failed, trying next...`));
+            }
         }
 
-        const { swapTransaction } = swapResponse.data;
+        if (!swapRes || !swapRes.data) throw new Error(`Swap construction failed: ${lastErr}`);
+        const { swapTransaction } = swapRes.data;
 
         // 3. Deserialize and Sign
         const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
@@ -240,11 +260,9 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         return { success: true, sig, outAmount: quoteData.outAmount, mevProtected: isMevProtected };
 
     } catch (e) {
-        let errorMsg = e.message;
-        if (e.code === 'ENOTFOUND') errorMsg = `DNS failure: ${e.hostname || 'Jupiter API'} unreachable`;
-        else if (e.code === 'ECONNABORTED' || e.code === 'ETIMEDOUT') errorMsg = `Network timeout reaching Jupiter API`;
-        console.error(chalk.red(`[SNIPER #${id}]: Jupiter Swap Failed: ${errorMsg}`));
-        return { success: false, error: errorMsg };
+        console.log(chalk.red(`[SNIPER]: Jupiter Execution Failed: ${e.response?.data?.msg || e.message}`));
+        if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `Sniper Jupiter Failed: ${e.message}` });
+        process.exit(1); // Trigger Jules
     }
 }
 

@@ -46,36 +46,56 @@ async function executeOnChainLiquidation(targetData) {
 
         console.log(chalk.yellow(`[LIQUIDATOR]: 🔎 Fetching optimal swap route for ${targetData.collateralAmount} ${targetData.collateralMint.slice(0, 4)} -> ${targetData.debtMint.slice(0, 4)}`));
 
-        // Use lite-api as it's often more reliable in DNS-restricted environments
-        const JUPITER_QUOTE_API = 'https://lite-api.jup.ag/swap/v1/quote';
-        const swapParams = {
-            inputMint: targetData.collateralMint,
-            outputMint: targetData.debtMint,
-            amount: Math.floor(targetData.collateralAmount * 0.99),
-            slippageBps: 100,
-            userPublicKey: wallet.publicKey.toString()
-        };
+        // Use a robust failover chain for Jupiter APIs
+        const JUPITER_QUOTE_APIS = [
+            'https://lite-api.jup.ag/swap/v1/quote',
+            'https://quote-api.jup.ag/v6/quote',
+            'https://api.jup.ag/swap/v1/quote'
+        ];
 
-        let qRes;
-        try {
-            qRes = await axios.get(JUPITER_QUOTE_API, { params: swapParams, timeout: 10000 });
-        } catch (e) {
-            console.log(chalk.yellow(`[LIQUIDATOR]: Primary Quote API failed, trying fallback...`));
-            qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, { params: swapParams, timeout: 10000 });
+        let qRes = null;
+        let lastErr = null;
+
+        for (const apiUrl of JUPITER_QUOTE_APIS) {
+            try {
+                qRes = await axios.get(apiUrl, { params: swapParams, timeout: 5000 });
+                if (qRes && qRes.data) break;
+            } catch (e) {
+                lastErr = e.message;
+                console.log(chalk.yellow(`[LIQUIDATOR]: Quote API ${new URL(apiUrl).hostname} failed, trying next...`));
+            }
         }
 
-        if (!qRes || !qRes.data) throw new Error("Could not find swap route for collateral seizure (All APIs failed).");
+        if (!qRes || !qRes.data) throw new Error(`Could not find swap route for collateral seizure. Last error: ${lastErr}`);
 
         // 2. Build the Atomic Transaction
         console.log(chalk.magenta(`[LIQUIDATOR]: 🏗️ Composing Atomic Bundle...`));
 
-        const JUPITER_SWAP_API = 'https://lite-api.jup.ag/swap/v1/swap';
-        const swapRes = await axios.post(JUPITER_SWAP_API, {
+        const JUPITER_SWAP_APIS = [
+            'https://lite-api.jup.ag/swap/v1/swap',
+            'https://quote-api.jup.ag/v6/swap',
+            'https://api.jup.ag/swap/v1/swap'
+        ];
+
+        let swapRes = null;
+        const swapPayload = {
             quoteResponse: qRes.data,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
             prioritizationFeeLamports: 2500000
-        });
+        };
+
+        for (const apiUrl of JUPITER_SWAP_APIS) {
+            try {
+                swapRes = await axios.post(apiUrl, swapPayload, { timeout: 8000 });
+                if (swapRes && swapRes.data) break;
+            } catch (e) {
+                lastErr = e.message;
+                console.log(chalk.yellow(`[LIQUIDATOR]: Swap API ${new URL(apiUrl).hostname} failed, trying next...`));
+            }
+        }
+
+        if (!swapRes || !swapRes.data) throw new Error(`Failed to construct swap transaction. Last error: ${lastErr}`);
 
         const txBuf = Buffer.from(swapRes.data.swapTransaction, 'base64');
         const tx = VersionedTransaction.deserialize(txBuf);
@@ -105,6 +125,7 @@ async function executeOnChainLiquidation(targetData) {
     } catch (e) {
         console.log(chalk.red(`[LIQUIDATOR]: REAL Execution Failed: ${e.message}`));
         if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `Liquidator Failed: ${e.message}` });
+        process.exit(1); // Force exit to ensure hub triggers Jules
     }
 }
 

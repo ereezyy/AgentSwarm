@@ -108,41 +108,54 @@ async function getDynamicPriorityFee() {
 async function executeJupiterSwap(inputMint, outputMint, lamports) {
     if (!wallet || !wallet.publicKey) return null;
     try {
-        const LITE_API = 'https://lite-api.jup.ag/swap/v1';
-        const LEGACY_API = 'https://quote-api.jup.ag/v6';
+        const JUPITER_QUOTE_APIS = [
+            'https://lite-api.jup.ag/swap/v1/quote',
+            'https://quote-api.jup.ag/v6/quote',
+            'https://api.jup.ag/swap/v1/quote'
+        ];
 
-        let qRes;
-        try {
-            qRes = await axios.get(`${LITE_API}/quote`, {
-                params: { inputMint, outputMint, amount: lamports, slippageBps: 500 },
-                timeout: 8000,
-            });
-        } catch (e) {
-            console.log(chalk.yellow(`[PUMPSNIPER]: Lite-API Quote failed, trying Legacy...`));
-            qRes = await axios.get(`${LEGACY_API}/quote`, {
-                params: { inputMint, outputMint, amount: lamports, slippageBps: 500 },
-                timeout: 8000,
-            });
+        const JUPITER_SWAP_APIS = [
+            'https://lite-api.jup.ag/swap/v1/swap',
+            'https://quote-api.jup.ag/v6/swap',
+            'https://api.jup.ag/swap/v1/swap'
+        ];
+
+        const qParams = { inputMint, outputMint, amount: lamports, slippageBps: 500 };
+        let qRes = null;
+        let lastErr = null;
+
+        for (const url of JUPITER_QUOTE_APIS) {
+            try {
+                qRes = await axios.get(url, { params: qParams, timeout: 5000 });
+                if (qRes && qRes.data) break;
+            } catch (e) {
+                lastErr = e.message;
+                console.log(chalk.gray(`[PUMPSNIPER]: Quote API ${new URL(url).hostname} failed.`));
+            }
         }
 
-        const quote = qRes.data;
-        if (!quote?.outAmount) return null;
+        if (!qRes || !qRes.data || !qRes.data.outAmount) throw new Error(`Quote failed: ${lastErr}`);
 
         const priorityFee = await getDynamicPriorityFee();
         const swapPayload = {
-            quoteResponse: quote,
+            quoteResponse: qRes.data,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
             prioritizationFeeLamports: priorityFee,
         };
 
-        let swapRes;
-        try {
-            swapRes = await axios.post(`${LITE_API}/swap`, swapPayload, { timeout: 10000 });
-        } catch (e) {
-            console.log(chalk.yellow(`[PUMPSNIPER]: Lite-API Swap failed, trying Legacy...`));
-            swapRes = await axios.post(`${LEGACY_API}/swap`, swapPayload, { timeout: 10000 });
+        let swapRes = null;
+        for (const url of JUPITER_SWAP_APIS) {
+            try {
+                swapRes = await axios.post(url, swapPayload, { timeout: 8000 });
+                if (swapRes && swapRes.data) break;
+            } catch (e) {
+                lastErr = e.message;
+                console.log(chalk.gray(`[PUMPSNIPER]: Swap API ${new URL(url).hostname} failed.`));
+            }
         }
+
+        if (!swapRes || !swapRes.data) throw new Error(`Swap failed: ${lastErr}`);
 
         const { swapTransaction } = swapRes.data;
         const txBuf = Buffer.from(swapTransaction, 'base64');
@@ -171,7 +184,8 @@ async function executeJupiterSwap(inputMint, outputMint, lamports) {
         return { success: true, outAmount: quote.outAmount, sig, mevProtected: isMevProtected };
     } catch (e) {
         console.log(chalk.red(`[PUMPSNIPER #${id}]: Jupiter error: ${e.message}`));
-        return null;
+        if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `PumpSniper Execution Failed: ${e.message}` });
+        process.exit(1); // Trigger Jules
     }
 }
 

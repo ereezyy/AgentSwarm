@@ -1,13 +1,13 @@
 {
-  "start_time": "2026-03-02T02:25:19.245Z",
+  "start_time": "2026-03-02T03:11:04.485Z",
   "sessions": 0,
   "errors": {
-    "SYSTEM": 32,
-    "SNIPER": 1
+    "SYSTEM": 5,
+    "LIQUIDATOR": 1
   },
   "agents_spawned": 0,
   "uptime": 0,
   "profit": 0,
   "profits": {},
-  "lastUpdated": 1772418795116
+  "lastUpdated": 1772421099184
 }

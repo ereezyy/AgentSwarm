@@ -1,35 +1,5 @@
 [
   {
-    "id": "ZR-MM2JGX3J",
-    "timestamp": "2026-02-25T21:20:55.951Z",
-    "mint": "CniPCE4b3s8g...",
-    "fullMint": "CniPCE4b3s8gSUPhUiyMjXnytrEqUrMfSsnbBjLCpump",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
-    "id": "ZR-MM2KBX8M",
-    "timestamp": "2026-02-25T21:45:02.470Z",
-    "mint": "Dfh5DzRgSvvC...",
-    "fullMint": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
-    "id": "ZR-MM2L9JLM",
-    "timestamp": "2026-02-25T22:11:11.099Z",
-    "mint": "61V8vBaqAGMp...",
-    "fullMint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
     "id": "ZR-MM2LJVCC",
     "timestamp": "2026-02-25T22:19:12.876Z",
     "mint": "DLUeuG3bD2V9...",
@@ -4994,6 +4964,36 @@
     "timestamp": "2026-03-02T02:32:44.745Z",
     "mint": "2ajYe8eh8btU...",
     "fullMint": "2ajYe8eh8btUZRpaZ1v7ewWDkcYJmVGvPuDTU5xrpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM8L2OPA",
+    "timestamp": "2026-03-02T02:52:28.174Z",
+    "mint": "5XqzzdodsNtA...",
+    "fullMint": "5XqzzdodsNtAM8TtQyiqGVbD7GwLBBN7oVnRA3hLpump",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM8L657H",
+    "timestamp": "2026-03-02T02:55:09.533Z",
+    "mint": "GEJpt3Wjmr62...",
+    "fullMint": "GEJpt3Wjmr628FqXxTgxMce1pLntcPV4uFi8ksxMyPQh",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM8LOX80",
+    "timestamp": "2026-03-02T03:09:45.648Z",
+    "mint": "7dHbWXmci3dT...",
+    "fullMint": "7dHbWXmci3dT8UFYWYZweBLXgycu7Y3iL6trKn1Y7ARj",
     "source": "Whale Alpha",
     "gateResult": "APPROVED",
     "reason": "CLEAN",

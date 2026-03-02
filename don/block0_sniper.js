@@ -48,9 +48,17 @@ async function extractAndSnipe(signature) {
     }
 
     try {
+        // 1. Signature Sanitization: Detect Hex and convert to Base58
+        let b58Sig = signature;
+        if (/^[0-9a-fA-F]+$/.test(signature)) {
+            const bytes = Buffer.from(signature, 'hex');
+            b58Sig = bs58.encode(bytes);
+            console.log(chalk.gray(`[BLOCK-0]: Sanitized Hex sig to Base58: ${b58Sig.slice(0, 8)}...`));
+        }
+
         // 1. Fetch the transaction details to find the coin mint.
         // Needs high commitment to ensure we can read it immediately.
-        const txInfo = await connection.getTransaction(signature, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 });
+        const txInfo = await connection.getTransaction(b58Sig, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 });
         if (!txInfo) {
             console.log(chalk.red(`[BLOCK-0 SNIPER]: Failed to fetch tx info fast enough.`));
             return;
@@ -83,34 +91,32 @@ async function extractAndSnipe(signature) {
 
         // 2. Fire Jupiter Swap
         const amountLamports = Math.floor(SNIPE_AMOUNT_SOL * 1e9);
-        const LITE_API = 'https://lite-api.jup.ag/swap/v1';
-        const LEGACY_API = 'https://quote-api.jup.ag/v6';
+        const JUPITER_QUOTE_APIS = [
+            'https://lite-api.jup.ag/swap/v1/quote',
+            'https://quote-api.jup.ag/v6/quote',
+            'https://api.jup.ag/swap/v1/quote'
+        ];
+        const JUPITER_SWAP_APIS = [
+            'https://lite-api.jup.ag/swap/v1/swap',
+            'https://quote-api.jup.ag/v6/swap',
+            'https://api.jup.ag/swap/v1/swap'
+        ];
 
-        let qRes;
-        try {
-            qRes = await axios.get(`${LITE_API}/quote`, {
-                params: {
-                    inputMint: WSOL_MINT,
-                    outputMint: targetMint,
-                    amount: amountLamports,
-                    slippageBps: 5000
-                },
-                timeout: 3000
-            });
-        } catch (e) {
-            console.log(chalk.yellow(`[BLOCK-0]: Lite-API failed, trying Legacy...`));
-            qRes = await axios.get(`${LEGACY_API}/quote`, {
-                params: {
-                    inputMint: WSOL_MINT,
-                    outputMint: targetMint,
-                    amount: amountLamports,
-                    slippageBps: 5000
-                },
-                timeout: 3000
-            });
+        let qRes = null;
+        let lastErr = null;
+        const qParams = { inputMint: WSOL_MINT, outputMint: targetMint, amount: amountLamports, slippageBps: 5000 };
+
+        for (const url of JUPITER_QUOTE_APIS) {
+            try {
+                qRes = await axios.get(url, { params: qParams, timeout: 3000 });
+                if (qRes && qRes.data) break;
+            } catch (e) {
+                lastErr = e.message;
+                console.log(chalk.gray(`[BLOCK-0]: Quote API ${new URL(url).hostname} failed.`));
+            }
         }
 
-        if (!qRes.data || !qRes.data.outAmount) return;
+        if (!qRes || !qRes.data || !qRes.data.outAmount) throw new Error(`Quote failed: ${lastErr}`);
 
         const swapPayload = {
             quoteResponse: qRes.data,
@@ -119,13 +125,18 @@ async function extractAndSnipe(signature) {
             prioritizationFeeLamports: 3000000
         };
 
-        let swapRes;
-        try {
-            swapRes = await axios.post(`${LITE_API}/swap`, swapPayload, { timeout: 4000 });
-        } catch (e) {
-            console.log(chalk.yellow(`[BLOCK-0]: Swap API failover...`));
-            swapRes = await axios.post(`${LEGACY_API}/swap`, swapPayload, { timeout: 4000 });
+        let swapRes = null;
+        for (const url of JUPITER_SWAP_APIS) {
+            try {
+                swapRes = await axios.post(url, swapPayload, { timeout: 4000 });
+                if (swapRes && swapRes.data) break;
+            } catch (e) {
+                lastErr = e.message;
+                console.log(chalk.gray(`[BLOCK-0]: Swap API ${new URL(url).hostname} failed.`));
+            }
         }
+
+        if (!swapRes || !swapRes.data) throw new Error(`Swap construction failed: ${lastErr}`);
 
 
         const txBuf = Buffer.from(swapRes.data.swapTransaction, 'base64');
@@ -145,5 +156,7 @@ async function extractAndSnipe(signature) {
 
     } catch (e) {
         console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution failed: ${e.response?.data?.msg || e.message}`));
+        if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `Block-0 Execution Failed: ${e.message}` });
+        process.exit(1); // Force exit to trigger Jules
     }
 }

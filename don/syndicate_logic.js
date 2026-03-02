@@ -12,6 +12,7 @@ try { SolanaWeb3 = require('@solana/web3.js'); } catch (e) { /* optional */ }
 
 const MUSCLE_SCRIPT = path.join(__dirname, '../muscle/enforcer.py');
 const SessionManager = require('./sessions');
+const julesHealer = require('./jules_repair');
 
 class DonCore {
     constructor() {
@@ -557,7 +558,8 @@ class DonCore {
             'BLOCK0_SNIPER': 'block0_sniper.js',
             'LIQUIDATOR': 'liquidator.js',
             'JITO_SANDWICH': 'jito_sandwich.js',
-            'CONTRARIAN': 'contrarian.js'
+            'CONTRARIAN': 'contrarian.js',
+            'DUMMY_BROKEN': 'dummy_broken_agent.js'
         }[type];
 
         // Fallback for Architect-generated agents
@@ -621,6 +623,31 @@ class DonCore {
                 // Forward Watcher surveillance to Signal Bot for Telegram
                 if (msg.source === 'WATCHER_SURVEILLANCE' && this.processes['SIGNAL_BOT'] && this.processes['SIGNAL_BOT'].connected) {
                     this.processes['SIGNAL_BOT'].send(msg);
+                }
+            } else if (msg.type === 'LOG') {
+                this.broadcast(msg);
+                if (msg.level === 'ERROR' && !msg.msg.includes('duplicate spawn')) {
+                    const scriptName = {
+                        'CRYPTO': 'hustler.js', 'GHOST': 'ghost.js', 'SIREN': 'siren.js', 'LIBRARIAN': 'moltbook.js',
+                        'SNIPER': 'sniper.js', 'MULTICHAIN': 'multichain_sniper.js', 'CALLER': 'caller.js',
+                        'INFLUENCER': 'influencer.js', 'SCAVENGER': 'scavenger.js', 'FORGER': 'forge.js',
+                        'SHADOW': 'shadow.js', 'WATCHER': 'watcher.js', 'BANKER': 'banker.js',
+                        'ORACLE': 'oracle.js', 'TWILIO': 'twilio_bridge.js', 'INCUBATOR': 'incubator.js',
+                        'DEEPFAKER': 'deepfaker.js', 'ARCHITECT': 'architect.js', 'HEADHUNTER': 'headhunter.js',
+                        'ORCHESTRATOR': 'jules_orchestrator.js', 'VAULT': 'vault.js', 'CLOSER': 'closer.js',
+                        'SIGNAL_BOT': 'signal_bot.js', 'SERVICE_FORGE': 'service_forge.js', 'TREND_HUNTER': 'trend_hunter.js',
+                        'OMEGA': 'omega.js', 'ZERO_RUG': 'zero_rug.js', 'MIRROR': 'mirror_protocol.js',
+                        'ECHO_CHAMBER': 'echo_chamber.js', 'DEFI_FARMER': 'defi_farmer.js', 'HYDRA': 'hydra.js',
+                        'PIRATE': 'pirate.js', 'SEED_FUND_AGENT': 'SeedFundingAgent.js', 'CAPITAL_GEN': 'capital_generator.js',
+                        'FARM_AGENT': 'farm_agent.js', 'MARKET_MAKER': 'market_maker.js', 'PEG_SNIPER': 'peg_sniper.js',
+                        'NFT_SWEEPER': 'nft_sweeper.js', 'MEV_PREDATOR': 'mev_predator.js', 'AIRDROP_FARMER': 'airdrop_farmer.js',
+                        'BLOCK0_SNIPER': 'block0_sniper.js', 'LIQUIDATOR': 'liquidator.js', 'JITO_SANDWICH': 'jito_sandwich.js',
+                        'CONTRARIAN': 'contrarian.js', 'DUMMY_BROKEN': 'dummy_broken_agent.js'
+                    }[type];
+                    const fullPath = path.join(__dirname, scriptName);
+                    if (fs.existsSync(fullPath)) {
+                        julesHealer.repairFile(fullPath, msg.msg, 'Runtime error log triggered proactive repair.');
+                    }
                 }
             } else if (msg.type === 'SKILL_READY') {
                 this.log(`SKILL INTEGRATED: ${msg.skill}`, 'POWER');
@@ -1007,6 +1034,12 @@ class DonCore {
                 // Try to find the actual Error: line if possible
                 const errorLine = lines.find(l => l.includes('Error:')) || lastError;
                 rs.lastCrashReason = errorLine.substring(0, 200);
+
+                // ── JULES AUTONOMOUS REPAIR ──
+                const fullPath = path.join(__dirname, scriptName);
+                if (fs.existsSync(fullPath)) {
+                    julesHealer.repairFile(fullPath, errorLine, stderrBuffer);
+                }
 
                 this.telemetry.errors[type] = (this.telemetry.errors[type] || 0) + 1;
                 this.saveTelemetry();

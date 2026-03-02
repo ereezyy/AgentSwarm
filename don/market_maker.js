@@ -138,24 +138,53 @@ async function checkGrid() {
 
 async function executeJupiterSwap(inputMint, outputMint, amountBaseUnits) {
     try {
-        const qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
-            params: {
-                inputMint,
-                outputMint,
-                amount: amountBaseUnits,
-                slippageBps: 100 // 1% tolerance for grid execution
-            },
-            timeout: 5000
-        });
+        const JUPITER_QUOTE_APIS = [
+            'https://lite-api.jup.ag/swap/v1/quote',
+            'https://quote-api.jup.ag/v6/quote',
+            'https://api.jup.ag/swap/v1/quote'
+        ];
 
-        if (!qRes.data || !qRes.data.outAmount) return false;
+        const JUPITER_SWAP_APIS = [
+            'https://lite-api.jup.ag/swap/v1/swap',
+            'https://quote-api.jup.ag/v6/swap',
+            'https://api.jup.ag/swap/v1/swap'
+        ];
 
-        const swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
+        const qParams = { inputMint, outputMint, amount: amountBaseUnits, slippageBps: 100 };
+        let qRes = null;
+        let lastErr = null;
+
+        for (const url of JUPITER_QUOTE_APIS) {
+            try {
+                qRes = await axios.get(url, { params: qParams, timeout: 5000 });
+                if (qRes && qRes.data) break;
+            } catch (e) {
+                lastErr = e.message;
+                console.log(chalk.gray(`[MAKER]: Quote API ${new URL(url).hostname} failed, trying next...`));
+            }
+        }
+
+        if (!qRes || !qRes.data) throw new Error(`Quote failed: ${lastErr}`);
+
+        let swapRes = null;
+        const swapPayload = {
             quoteResponse: qRes.data,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: 'auto'
-        });
+            prioritizationFeeLamports: 1000000
+        };
+
+        for (const url of JUPITER_SWAP_APIS) {
+            try {
+                swapRes = await axios.post(url, swapPayload, { timeout: 8000 });
+                if (swapRes && swapRes.data) break;
+            } catch (e) {
+                lastErr = e.message;
+                console.log(chalk.gray(`[MAKER]: Swap API ${new URL(url).hostname} failed, trying next...`));
+            }
+        }
+
+        if (!swapRes || !swapRes.data) throw new Error(`Swap construction failed: ${lastErr}`);
 
         const txBuf = Buffer.from(swapRes.data.swapTransaction, 'base64');
         const tx = VersionedTransaction.deserialize(txBuf);
@@ -166,6 +195,7 @@ async function executeJupiterSwap(inputMint, outputMint, amountBaseUnits) {
         return true;
     } catch (e) {
         console.log(chalk.red(`[MAKER #${id}]: Execution failed: ${e.message}`));
+        if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `Market Maker Execution Failed: ${e.message}` });
         return false;
     }
 }
