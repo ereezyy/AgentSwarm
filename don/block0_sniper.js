@@ -26,6 +26,18 @@ try {
 const WSOL_MINT = 'So11111111111111111111111111111111111111112';
 const SNIPE_AMOUNT_SOL = 0.1;
 
+async function withRetry(operation, maxRetries = 3, delayMs = 1000) {
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            return await operation();
+        } catch (error) {
+            if (i === maxRetries - 1) throw error;
+            console.log(chalk.yellow(`[BLOCK-0 SNIPER]: Transient error encountered (${error.message || 'unknown'}). Retrying in ${delayMs}ms...`));
+            await new Promise(resolve => setTimeout(resolve, delayMs));
+        }
+    }
+}
+
 // ── IPC Listener from Main Hub ──────────────────────────────────────
 process.on('message', async (msg) => {
     if (msg.type === 'PI_TRIGGER' && msg.action === 'BLOCK0_SNIPE') {
@@ -39,12 +51,26 @@ process.on('message', async (msg) => {
 });
 
 async function extractAndSnipe(signature) {
-    if (!wallet) return;
+    if (!wallet) {
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Wallet not initialized. Aborting.`));
+        return;
+    }
+
+    try {
+        const decodedSig = bs58.decode(signature);
+        if (decodedSig.length !== 64) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid signature length (${decodedSig.length} bytes). Aborting.`));
+            return;
+        }
+    } catch (e) {
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid base58 signature format. Aborting.`));
+        return;
+    }
 
     try {
         // 1. Fetch the transaction details to find the coin mint.
         // Needs high commitment to ensure we can read it immediately.
-        const txInfo = await connection.getTransaction(signature, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 });
+        const txInfo = await withRetry(() => connection.getTransaction(signature, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 }));
         if (!txInfo) {
             console.log(chalk.red(`[BLOCK-0 SNIPER]: Failed to fetch tx info fast enough.`));
             return;
@@ -52,7 +78,7 @@ async function extractAndSnipe(signature) {
 
         // Raydium initialize2 usually has the token mints in the account keys.
         // We know WSOL is one, the other is the shitcoin.
-        const accountKeys = txInfo.transaction.message.staticAccountKeys;
+        const accountKeys = txInfo.transaction?.message?.staticAccountKeys || txInfo.transaction?.message?.accountKeys || [];
         let targetMint = null;
 
         for (const key of accountKeys) {
@@ -77,7 +103,7 @@ async function extractAndSnipe(signature) {
 
         // 2. Fire Jupiter Swap
         const amountLamports = Math.floor(SNIPE_AMOUNT_SOL * 1e9);
-        const qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
+        const qRes = await withRetry(() => axios.get(`https://quote-api.jup.ag/v6/quote`, {
             params: {
                 inputMint: WSOL_MINT,
                 outputMint: targetMint,
@@ -85,22 +111,22 @@ async function extractAndSnipe(signature) {
                 slippageBps: 5000 // 50% slippage, block-0 is EXTREMELY volatile
             },
             timeout: 3000
-        });
+        }));
 
         if (!qRes.data) return;
 
-        const swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
+        const swapRes = await withRetry(() => axios.post('https://quote-api.jup.ag/v6/swap', {
             quoteResponse: qRes.data,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
             prioritizationFeeLamports: 3000000 // MASSIVE priority fee to ensure Block-0 inclusion
-        });
+        }));
 
         const txBuf = Buffer.from(swapRes.data.swapTransaction, 'base64');
         const tx = VersionedTransaction.deserialize(txBuf);
         tx.sign([wallet]);
 
-        const sig = await connection.sendRawTransaction(tx.serialize(), { skipPreflight: true });
+        const sig = await withRetry(() => connection.sendRawTransaction(tx.serialize(), { skipPreflight: true }));
         console.log(chalk.white.bgRed.bold(`[BLOCK-0 SNIPER]: 💥 SNIPE EXECUTED! Sig: ${sig} 💥`));
 
         if (process.send) {
