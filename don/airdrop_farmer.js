@@ -31,8 +31,8 @@ try {
 
 // ── Farm Config ─────────────────────────────────────────────
 const WSOL_MINT = 'So11111111111111111111111111111111111111112';
-const MIN_RESERVE_SOL = 0.20; // Never dip below this
-const FARM_AMOUNT_SOL = 0.05; // Amount to cycle through protocols
+const MIN_RESERVE_SOL = 0.01; // Never dip below this
+const FARM_AMOUNT_SOL = 0.005; // Amount to cycle through protocols
 const FARM_CYCLE_MS = 45 * 60 * 1000; // Run a farm cycle every 45 minutes
 
 // Target tokens for airdrop farming (LSTs and high-tier DeFi tokens)

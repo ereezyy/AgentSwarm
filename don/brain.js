@@ -43,16 +43,7 @@ if (process.env.GEMINI_API_KEY) {
 }
 
 // 2b. Vertex AI - Enterprise (High Rate Limits)
-if (process.env.GOOGLE_VERTEX_API_KEY) {
-    PROVIDERS.push({
-        name: 'Vertex',
-        type: 'gemini',
-        apiKey: process.env.GOOGLE_VERTEX_API_KEY,
-        model: 'gemini-2.0-flash-exp', // Or vertex specific
-        maxRetries: 1,
-        color: chalk.cyan
-    });
-}
+// Removed due to endpoint misconfiguration (Gemini AI Studio vs Vertex API) and 401 errors.
 
 // 3. xAI (Grok) - PAID (use only when free options exhausted)
 if (process.env.XAI_API_KEY) {

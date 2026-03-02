@@ -178,6 +178,13 @@ async function fireAtomicBundle(buyQuote, sellQuote, margin) {
 }
 
 // ── Life Cycle ─────────────────────────────────────────────────
+process.on('message', async (msg) => {
+    if (msg.action === 'EXECUTE_SANDWICH' || msg.type === 'EXECUTE_SANDWICH') {
+        console.log(chalk.red.bgBlack.bold(`[MEV PREDATOR #${id}]: 🩸 RADAR TRIGGER RECEIVED! Scanning immediately...`));
+        await scanCyclicalArbitrage();
+    }
+});
+
 async function startMEVLoop() {
     await scanCyclicalArbitrage();
     setTimeout(startMEVLoop, 3000); // 3 seconds per scan wave

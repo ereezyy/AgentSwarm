@@ -1,39 +1,6 @@
 {
   "signals": [
     {
-      "id": "sig-1772284628516-f373f",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-28T13:17:08.516Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "7m2TUkpPZCScBhPJnGjWjbh75KkDNnwAdd7i74m8awad",
-        "detectedAmount": 104166.80570100248,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1772285008215-shzf4",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-28T13:23:28.215Z",
-      "data": "WHALE Whale Alpha: SENT 0.001 SOL. Sig: oQitZcDyFkP3Jedv...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1772285008223-2iiyg",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-28T13:23:28.223Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "8FqXr6dw5NHA2TtwFeDz6q9p7y9uWyoEdZmpXqqUpump",
-        "detectedAmount": 546127.4357440174,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
       "id": "sig-1772285088113-m4tcz",
       "type": "WHALE_MOVEMENT",
       "timestamp": "2026-02-28T13:24:48.113Z",
@@ -4255,10 +4222,37 @@
         "confidence": "HIGH"
       },
       "telegramSent": false
+    },
+    {
+      "id": "sig-1772426355956-7h5q7",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-02T04:39:15.956Z",
+      "data": "WHALE Whale Alpha: SENT 0.4468 SOL. Sig: 3A3tqFrrzTZmspvx...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772426434901-ygaqv",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-02T04:40:34.902Z",
+      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 51MTB7Gbmr58R3zY...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772426434907-i2zyf",
+      "type": "COPY_TRADE_SIGNAL",
+      "timestamp": "2026-03-02T04:40:34.907Z",
+      "data": {
+        "type": "COPY_TRADE_SIGNAL",
+        "whale": "Whale Alpha",
+        "mint": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+        "detectedAmount": 7.401012999999693,
+        "confidence": "HIGH"
+      },
+      "telegramSent": false
     }
   ],
   "stats": {
-    "totalSignals": 2303,
+    "totalSignals": 2306,
     "totalTelegramSent": 0
   }
 }

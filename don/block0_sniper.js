@@ -50,7 +50,7 @@ async function extractAndSnipe(signature) {
     try {
         // 1. Signature Sanitization: Detect Hex and convert to Base58
         let b58Sig = signature;
-        if (/^[0-9a-fA-F]+$/.test(signature)) {
+        if (/^[0-9a-fA-F]+$/.test(signature) && signature.length === 128) {
             const bytes = Buffer.from(signature, 'hex');
             b58Sig = bs58.encode(bytes);
             console.log(chalk.gray(`[BLOCK-0]: Sanitized Hex sig to Base58: ${b58Sig.slice(0, 8)}...`));

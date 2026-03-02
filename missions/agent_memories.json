@@ -3408,58 +3408,30 @@
       "text": "Standard alert triggered. Solana moved -4.7% to $84.29.",
       "importance": 6,
       "lastAccessed": 1772419863441
+    },
+    {
+      "id": "MEM-1772425551432-74",
+      "timestamp": "2026-03-02T04:25:51.432Z",
+      "text": "Standard alert triggered. Solana moved -3.2% to $84.52.",
+      "importance": 6,
+      "lastAccessed": 1772425551433
+    },
+    {
+      "id": "MEM-1772426152797-80",
+      "timestamp": "2026-03-02T04:35:52.797Z",
+      "text": "Standard alert triggered. Solana moved -3.5% to $84.57.",
+      "importance": 6,
+      "lastAccessed": 1772426152797
+    },
+    {
+      "id": "MEM-1772426755903-248",
+      "timestamp": "2026-03-02T04:45:55.903Z",
+      "text": "Standard alert triggered. Solana moved -3.7% to $84.41.",
+      "importance": 6,
+      "lastAccessed": 1772426755903
     }
   ],
   "SNIPER": [
-    {
-      "id": "MEM-1772396651967-150",
-      "timestamp": "2026-03-01T20:24:11.967Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772396651967
-    },
-    {
-      "id": "MEM-1772396681971-751",
-      "timestamp": "2026-03-01T20:24:41.971Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772396681971
-    },
-    {
-      "id": "MEM-1772396711971-58",
-      "timestamp": "2026-03-01T20:25:11.971Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772396711971
-    },
-    {
-      "id": "MEM-1772396742116-634",
-      "timestamp": "2026-03-01T20:25:42.116Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772396742116
-    },
-    {
-      "id": "MEM-1772396772118-826",
-      "timestamp": "2026-03-01T20:26:12.118Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772396772118
-    },
-    {
-      "id": "MEM-1772396802118-472",
-      "timestamp": "2026-03-01T20:26:42.118Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772396802118
-    },
-    {
-      "id": "MEM-1772396832128-640",
-      "timestamp": "2026-03-01T20:27:12.128Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772396832128
-    },
     {
       "id": "MEM-1772396862127-192",
       "timestamp": "2026-03-01T20:27:42.127Z",
@@ -6910,6 +6882,55 @@
       "text": "Token M4GsCVqGF7F7smRNoLmMczdm36YBrzh2pBUYoe1pump showed dead momentum. Stagnation cut executed after 23.7m.",
       "importance": 8,
       "lastAccessed": 1772421099025
+    },
+    {
+      "id": "MEM-1772426794520-18",
+      "timestamp": "2026-03-02T04:46:34.520Z",
+      "text": "Token M4GsCVqGF7F7smRNoLmMczdm36YBrzh2pBUYoe1pump showed dead momentum. Stagnation cut executed after 118.6m.",
+      "importance": 8,
+      "lastAccessed": 1772426794520
+    },
+    {
+      "id": "MEM-1772426839491-537",
+      "timestamp": "2026-03-02T04:47:19.491Z",
+      "text": "Token M4GsCVqGF7F7smRNoLmMczdm36YBrzh2pBUYoe1pump showed dead momentum. Stagnation cut executed after 119.3m.",
+      "importance": 8,
+      "lastAccessed": 1772426839491
+    },
+    {
+      "id": "MEM-1772426883197-573",
+      "timestamp": "2026-03-02T04:48:03.197Z",
+      "text": "Force-exited M4GsCVqGF7F7smRNoLmMczdm36YBrzh2pBUYoe1pump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772426883197
+    },
+    {
+      "id": "MEM-1772426927568-411",
+      "timestamp": "2026-03-02T04:48:47.568Z",
+      "text": "Force-exited M4GsCVqGF7F7smRNoLmMczdm36YBrzh2pBUYoe1pump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772426927568
+    },
+    {
+      "id": "MEM-1772426971909-600",
+      "timestamp": "2026-03-02T04:49:31.909Z",
+      "text": "Force-exited M4GsCVqGF7F7smRNoLmMczdm36YBrzh2pBUYoe1pump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772426971909
+    },
+    {
+      "id": "MEM-1772427014705-931",
+      "timestamp": "2026-03-02T04:50:14.705Z",
+      "text": "Force-exited M4GsCVqGF7F7smRNoLmMczdm36YBrzh2pBUYoe1pump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772427014705
+    },
+    {
+      "id": "MEM-1772427015073-569",
+      "timestamp": "2026-03-02T04:50:15.073Z",
+      "text": "[PREDICTION_BLOCKED] Aborted trade on BGREbP6VHaMWt7AEd8m8LhUkhyfwo4Yk1MgK5eMipump due to high rug risk: 84.1%. Threshold: 0.8",
+      "importance": 5,
+      "lastAccessed": 1772427015073
     }
   ]
 }

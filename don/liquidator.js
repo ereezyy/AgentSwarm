@@ -55,6 +55,12 @@ async function executeOnChainLiquidation(targetData) {
 
         let qRes = null;
         let lastErr = null;
+        const swapParams = {
+            inputMint: targetData.collateralMint,
+            outputMint: targetData.debtMint,
+            amount: targetData.collateralAmount,
+            slippageBps: 50
+        };
 
         for (const apiUrl of JUPITER_QUOTE_APIS) {
             try {

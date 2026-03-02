@@ -140,3 +140,171 @@
 - **Jules Session**: `15174705937581561367`
 - **Status**: `Initiated / Awaiting PR`
 ---
+
+## 🛠️ Repair Session: 2026-03-02T04:26:07.166Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Liquidator Failed: Could not find swap route for collateral seizure. Last error: swapParams is not defined`
+- **Jules Session**: `3112066036934718026`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:26:07.402Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Unknown error`
+- **Jules Session**: `13579584016223921314`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:26:20.694Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\sniper.js`
+- **Error**: `Sniper Jupiter Failed: amountLamports is not defined`
+- **Jules Session**: `2562715521298783005`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:26:21.262Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\sniper.js`
+- **Error**: `bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)`
+- **Jules Session**: `18053797638925592650`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:26:25.736Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Unknown error`
+- **Jules Session**: `8943726671399277046`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:26:26.339Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Liquidator Failed: Could not find swap route for collateral seizure. Last error: swapParams is not defined`
+- **Jules Session**: `4126199607943899253`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:26:37.838Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Unknown error`
+- **Jules Session**: `14085972998274520206`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:26:38.572Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Liquidator Failed: Could not find swap route for collateral seizure. Last error: swapParams is not defined`
+- **Jules Session**: `17476871851438646607`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:26:46.885Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Liquidator Failed: Could not find swap route for collateral seizure. Last error: swapParams is not defined`
+- **Jules Session**: `15959240989056170984`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:26:47.408Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Unknown error`
+- **Jules Session**: `5021398907168506874`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:26:50.919Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\block0_sniper.js`
+- **Error**: `Unknown error`
+- **Jules Session**: `5194776702965155268`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:26:51.385Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\block0_sniper.js`
+- **Error**: `Block-0 Execution Failed: failed to get transaction: Invalid param: WrongSize`
+- **Jules Session**: `15633849563950894241`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:27:05.052Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\sniper.js`
+- **Error**: `Sniper Jupiter Failed: amountLamports is not defined`
+- **Jules Session**: `15490849305991227567`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:27:05.827Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\sniper.js`
+- **Error**: `bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)`
+- **Jules Session**: `9405670041316080737`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:41:37.333Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Liquidator Failed: Could not find swap route for collateral seizure. Last error: Request failed with status code 401`
+- **Jules Session**: `9783682344811693643`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:43:34.319Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\sniper.js`
+- **Error**: `Sniper Jupiter Failed: Quote failed: Request failed with status code 401`
+- **Jules Session**: `10623467741546661642`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:43:36.864Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Unknown error`
+- **Jules Session**: `9371638159534811783`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:45:25.251Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\block0_sniper.js`
+- **Error**: `Block-0 Execution Failed: failed to get transaction: Invalid param: Invalid`
+- **Jules Session**: `2349573455865009041`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:45:25.671Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\block0_sniper.js`
+- **Error**: `Unknown error`
+- **Jules Session**: `18330825733136208037`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:45:51.457Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Liquidator Failed: Could not find swap route for collateral seizure. Last error: Request failed with status code 401`
+- **Jules Session**: `14523475266058548561`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:48:17.748Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\block0_sniper.js`
+- **Error**: `Unknown error`
+- **Jules Session**: `15721945782529765830`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:48:28.973Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Liquidator Failed: Could not find swap route for collateral seizure. Last error: Request failed with status code 401`
+- **Jules Session**: `5155896289786491029`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:49:14.840Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Unknown error`
+- **Jules Session**: `2527523600141627435`
+- **Status**: `Initiated / Awaiting PR`
+---
+
+## 🛠️ Repair Session: 2026-03-02T04:50:06.896Z
+- **File**: `C:\Users\Yella\.gemini\antigravity\playground\infinite-hypernova\don\liquidator.js`
+- **Error**: `Liquidator Failed: Could not find swap route for collateral seizure. Last error: Request failed with status code 401`
+- **Jules Session**: `3956438168765394261`
+- **Status**: `Initiated / Awaiting PR`
+---

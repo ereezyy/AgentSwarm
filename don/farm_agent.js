@@ -13,7 +13,7 @@ console.log(chalk.green.bold(`[${type} #${id}]: Physical Swarm Controller Online
 
 // Engagement metrics
 let engagementTotal = 0;
-let isPaused = true; // PAUSED FOR REPAIR per user request
+let isPaused = false; // UNPAUSED
 
 process.on('message', async (msg) => {
     if (msg.type === 'FARM_BOOST') {

@@ -2263,5 +2263,1095 @@
     "timestamp": "2026-03-02T03:11:38.085Z",
     "agent": "BLOCK0_SNIPER_OPERATIVE_38ed0643",
     "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:44.847Z",
+    "agent": "VAULT_OPERATIVE_68b0f0ac",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:46.766Z",
+    "agent": "SNIPER_OPERATIVE_c5f57ad6",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:47.810Z",
+    "agent": "PUMPSNIPER_OPERATIVE_14ad1a25",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:48.398Z",
+    "agent": "MEV_PREDATOR_OPERATIVE_0eddf2b0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:48.748Z",
+    "agent": "AIRDROP_FARMER_OPERATIVE_10538c11",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:49.603Z",
+    "agent": "MARKET_MAKER_OPERATIVE_3355b064",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:49.878Z",
+    "agent": "PEG_SNIPER_OPERATIVE_dda00a44",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:50.397Z",
+    "agent": "NFT_SWEEPER_OPERATIVE_e5db9c0c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:50.835Z",
+    "agent": "CRYPTO_OPERATIVE_efe4ec87",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:51.569Z",
+    "agent": "SIREN_OPERATIVE_dd181688",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:52.814Z",
+    "agent": "GHOST_OPERATIVE_7b067e54",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:53.940Z",
+    "agent": "INFLUENCER_OPERATIVE_dcaaf1c9",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:54.883Z",
+    "agent": "SCAVENGER_OPERATIVE_69dca210",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:55.294Z",
+    "agent": "LIBRARIAN_OPERATIVE_646a13e2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:55.530Z",
+    "agent": "FORGER_OPERATIVE_6ca0cb9b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:55.958Z",
+    "agent": "JITO_SANDWICH_OPERATIVE_08a72fb5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:56.669Z",
+    "agent": "SHADOW_OPERATIVE_9bc506c2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:57.210Z",
+    "agent": "ORACLE_OPERATIVE_3ce26103",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:57.680Z",
+    "agent": "WATCHER_OPERATIVE_87a859d9",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:58.124Z",
+    "agent": "FARM_AGENT_OPERATIVE_f8de7467",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:58.577Z",
+    "agent": "CALLER_OPERATIVE_a628bcf3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:59.444Z",
+    "agent": "BANKER_OPERATIVE_ab605a91",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:25:59.869Z",
+    "agent": "INCUBATOR_OPERATIVE_9b61d07e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:00.935Z",
+    "agent": "ARCHITECT_OPERATIVE_4370e347",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:01.263Z",
+    "agent": "TWILIO_OPERATIVE_c019f5cf",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:03.217Z",
+    "agent": "DEEPFAKER_OPERATIVE_089c8d12",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:03.917Z",
+    "agent": "HEADHUNTER_OPERATIVE_2d34d595",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:04.234Z",
+    "agent": "HYDRA_OPERATIVE_d934f84d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:04.785Z",
+    "agent": "ORCHESTRATOR_OPERATIVE_7802c247",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:05.271Z",
+    "agent": "PIRATE_OPERATIVE_4ea32d1b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:05.835Z",
+    "agent": "ZERO_RUG_OPERATIVE_950af8df",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:06.534Z",
+    "agent": "DEFI_FARMER_OPERATIVE_45d752b3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:06.567Z",
+    "agent": "ECHO_CHAMBER_OPERATIVE_022aaff0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:06.920Z",
+    "agent": "MIRROR_OPERATIVE_b3a96c8d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:07.545Z",
+    "agent": "SIGNAL_BOT_OPERATIVE_19f2d88e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:08.755Z",
+    "agent": "SEED_FUND_AGENT_OPERATIVE_f096bd08",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:10.091Z",
+    "agent": "CAPITAL_GEN_OPERATIVE_655f6dca",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:10.853Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_e597fefe",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:13.876Z",
+    "agent": "LIQUIDATOR_OPERATIVE_6d76d514",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:28.886Z",
+    "agent": "LIQUIDATOR_OPERATIVE_21cf25ac",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:29.675Z",
+    "agent": "SNIPER_OPERATIVE_b40cdebc",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:43.713Z",
+    "agent": "LIQUIDATOR_OPERATIVE_2b3e155c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:58.140Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_a96f059c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:26:59.048Z",
+    "agent": "LIQUIDATOR_OPERATIVE_b3e06211",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:27:08.897Z",
+    "agent": "LIQUIDATOR_OPERATIVE_cd1fad4f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:27:13.070Z",
+    "agent": "SNIPER_OPERATIVE_51106094",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:27:15.841Z",
+    "agent": "LIQUIDATOR_OPERATIVE_2d7a794b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:27:27.487Z",
+    "agent": "LIQUIDATOR_OPERATIVE_a470d4fd",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:27:35.241Z",
+    "agent": "LIQUIDATOR_OPERATIVE_974cdc63",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:27:35.645Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_40d7ecd0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:27:41.869Z",
+    "agent": "LIQUIDATOR_OPERATIVE_f53a3ac3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:27:55.238Z",
+    "agent": "SNIPER_OPERATIVE_20202469",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:27:58.904Z",
+    "agent": "LIQUIDATOR_OPERATIVE_901f564c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:28:05.618Z",
+    "agent": "LIQUIDATOR_OPERATIVE_a7948c72",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:28:20.564Z",
+    "agent": "LIQUIDATOR_OPERATIVE_2578165f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:28:22.636Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_704ab621",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:28:37.014Z",
+    "agent": "SNIPER_OPERATIVE_1bc5a6ba",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:28:48.904Z",
+    "agent": "LIQUIDATOR_OPERATIVE_6e613d35",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:28:49.540Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_80f18daf",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:29:05.564Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_5d2bc64c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:29:13.696Z",
+    "agent": "LIQUIDATOR_OPERATIVE_ddfeed84",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:29:18.948Z",
+    "agent": "SNIPER_OPERATIVE_b25aae87",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:29:20.210Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_9bfa705b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:29:33.130Z",
+    "agent": "LIQUIDATOR_OPERATIVE_7a607e2a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:29:49.595Z",
+    "agent": "LIQUIDATOR_OPERATIVE_5ef5408d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:29:56.977Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_e9088c2c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:30:00.697Z",
+    "agent": "SNIPER_OPERATIVE_68beb18e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:30:03.162Z",
+    "agent": "LIQUIDATOR_OPERATIVE_57fedf9e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:30:16.978Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_ae7008b2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:30:29.524Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_ddfca5da",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:30:34.557Z",
+    "agent": "LIQUIDATOR_OPERATIVE_2961582b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:30:42.409Z",
+    "agent": "SNIPER_OPERATIVE_dd09d810",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:30:48.155Z",
+    "agent": "LIQUIDATOR_OPERATIVE_29a4e103",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:30:53.880Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_8b525887",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:31:24.153Z",
+    "agent": "SNIPER_OPERATIVE_cc867bde",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:31:29.558Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_571e81be",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:31:43.150Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_7a4420b3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:31:45.384Z",
+    "agent": "LIQUIDATOR_OPERATIVE_8e3fdf9d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:31:52.004Z",
+    "agent": "LIQUIDATOR_OPERATIVE_3e4f0a20",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:31:57.471Z",
+    "agent": "LIQUIDATOR_OPERATIVE_7626e940",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:32:05.766Z",
+    "agent": "SNIPER_OPERATIVE_e4227815",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:32:07.729Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_2c91d304",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:32:09.816Z",
+    "agent": "LIQUIDATOR_OPERATIVE_52feaaa1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:32:28.934Z",
+    "agent": "LIQUIDATOR_OPERATIVE_933de1a7",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:32:37.380Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_bbb04bf3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:32:44.193Z",
+    "agent": "LIQUIDATOR_OPERATIVE_2797d536",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:32:47.629Z",
+    "agent": "SNIPER_OPERATIVE_23fc04c7",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:32:49.664Z",
+    "agent": "LIQUIDATOR_OPERATIVE_b7290a7a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:32:54.030Z",
+    "agent": "LIQUIDATOR_OPERATIVE_280e843e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:32:58.840Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_11a07171",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:33:05.649Z",
+    "agent": "LIQUIDATOR_OPERATIVE_26392d1c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:33:18.978Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_94138ba6",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:33:22.116Z",
+    "agent": "LIQUIDATOR_OPERATIVE_0d8bbcdc",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:33:29.762Z",
+    "agent": "SNIPER_OPERATIVE_8d521add",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:33:43.707Z",
+    "agent": "LIQUIDATOR_OPERATIVE_3305c142",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:34:04.574Z",
+    "agent": "LIQUIDATOR_OPERATIVE_9985d04c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:34:11.383Z",
+    "agent": "SNIPER_OPERATIVE_ca9c4f00",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:34:19.626Z",
+    "agent": "LIQUIDATOR_OPERATIVE_7180d6c7",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:34:27.744Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_605b4759",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:34:38.905Z",
+    "agent": "LIQUIDATOR_OPERATIVE_d771789f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:34:49.021Z",
+    "agent": "LIQUIDATOR_OPERATIVE_0c5495e0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:34:53.723Z",
+    "agent": "SNIPER_OPERATIVE_a39c2b39",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:34:56.991Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_afd1a506",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:34:58.729Z",
+    "agent": "LIQUIDATOR_OPERATIVE_3d3721ae",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:35:04.429Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_2725e765",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:35:28.472Z",
+    "agent": "LIQUIDATOR_OPERATIVE_c958c8c3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:35:35.702Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_4dfda2c8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:35:36.584Z",
+    "agent": "SNIPER_OPERATIVE_27f94a4f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:35:39.631Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_4845a975",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:35:41.902Z",
+    "agent": "LIQUIDATOR_OPERATIVE_4d2df240",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:35:52.602Z",
+    "agent": "LIQUIDATOR_OPERATIVE_1dccb06d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:35:58.220Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_87ba46f6",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:36:13.907Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_375cdb16",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:36:20.224Z",
+    "agent": "SNIPER_OPERATIVE_ea82c838",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:36:26.074Z",
+    "agent": "LIQUIDATOR_OPERATIVE_b492a941",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:36:38.501Z",
+    "agent": "LIQUIDATOR_OPERATIVE_78dc9eac",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:37:06.373Z",
+    "agent": "SNIPER_OPERATIVE_935a9129",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:37:10.922Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_ace3dd9f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:37:28.939Z",
+    "agent": "LIQUIDATOR_OPERATIVE_94d4ab60",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:37:35.255Z",
+    "agent": "LIQUIDATOR_OPERATIVE_08fd3a9b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:37:48.253Z",
+    "agent": "SNIPER_OPERATIVE_7a8e7adf",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:37:48.268Z",
+    "agent": "LIQUIDATOR_OPERATIVE_e3c6c07b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:37:50.633Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_c23c4b41",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:37:55.570Z",
+    "agent": "LIQUIDATOR_OPERATIVE_8bff2aba",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:38:00.169Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_91cf063d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:38:05.937Z",
+    "agent": "LIQUIDATOR_OPERATIVE_d0ebb83d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:38:22.174Z",
+    "agent": "LIQUIDATOR_OPERATIVE_499ed12b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:38:28.880Z",
+    "agent": "LIQUIDATOR_OPERATIVE_d2695402",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:38:30.317Z",
+    "agent": "SNIPER_OPERATIVE_84d8c0e0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:38:33.905Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_3a13eda6",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:38:35.589Z",
+    "agent": "LIQUIDATOR_OPERATIVE_a1356d8e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:38:40.406Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_f546f015",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:38:59.676Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_4ca410ee",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:39:05.654Z",
+    "agent": "LIQUIDATOR_OPERATIVE_e59156d7",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:39:12.252Z",
+    "agent": "SNIPER_OPERATIVE_b981638d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:39:22.127Z",
+    "agent": "LIQUIDATOR_OPERATIVE_f3f01498",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:39:38.927Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_a935ac96",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:39:43.974Z",
+    "agent": "LIQUIDATOR_OPERATIVE_c72957e2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:39:54.524Z",
+    "agent": "SNIPER_OPERATIVE_f3753fe2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:40:08.955Z",
+    "agent": "LIQUIDATOR_OPERATIVE_d8ec87a3",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:40:23.363Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_f78da817",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:40:34.703Z",
+    "agent": "LIQUIDATOR_OPERATIVE_dd180e37",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:40:36.591Z",
+    "agent": "SNIPER_OPERATIVE_1fdb4a41",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:40:55.757Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_6d0d53d4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:41:12.817Z",
+    "agent": "LIQUIDATOR_OPERATIVE_33be3c22",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:41:19.667Z",
+    "agent": "LIQUIDATOR_OPERATIVE_06acd4fa",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:41:22.647Z",
+    "agent": "SNIPER_OPERATIVE_980f4877",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:41:39.820Z",
+    "agent": "LIQUIDATOR_OPERATIVE_593cdd41",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:41:50.334Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_e63fdc2b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:41:52.519Z",
+    "agent": "LIQUIDATOR_OPERATIVE_3cd5d110",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:42:05.753Z",
+    "agent": "LIQUIDATOR_OPERATIVE_84e1dd16",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:42:10.165Z",
+    "agent": "SNIPER_OPERATIVE_2af8ed15",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:42:19.288Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_5d0823b1",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:42:23.254Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_3ea32956",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:42:29.314Z",
+    "agent": "LIQUIDATOR_OPERATIVE_c690fe1f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:42:35.840Z",
+    "agent": "LIQUIDATOR_OPERATIVE_0f58f1a8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:42:56.053Z",
+    "agent": "SNIPER_OPERATIVE_748c98c7",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:43:01.118Z",
+    "agent": "LIQUIDATOR_OPERATIVE_319662aa",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:43:02.895Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_2aa13846",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:43:11.962Z",
+    "agent": "LIQUIDATOR_OPERATIVE_28e3f920",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:43:27.652Z",
+    "agent": "LIQUIDATOR_OPERATIVE_7ee9f6a7",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:43:43.825Z",
+    "agent": "SNIPER_OPERATIVE_a7d8afb8",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:43:51.262Z",
+    "agent": "LIQUIDATOR_OPERATIVE_9e028076",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:43:55.780Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_6316ad8c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:44:12.737Z",
+    "agent": "LIQUIDATOR_OPERATIVE_014be81b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:44:21.989Z",
+    "agent": "LIQUIDATOR_OPERATIVE_a8c9e824",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:44:31.237Z",
+    "agent": "SNIPER_OPERATIVE_ac23e5c2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:44:36.122Z",
+    "agent": "LIQUIDATOR_OPERATIVE_1f9f8756",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:44:41.985Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_d535067d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:44:50.457Z",
+    "agent": "LIQUIDATOR_OPERATIVE_85a11d3c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:44:55.536Z",
+    "agent": "LIQUIDATOR_OPERATIVE_cea698d9",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:45:15.906Z",
+    "agent": "SNIPER_OPERATIVE_fe7aa418",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:45:19.560Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_b95f3255",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:45:23.794Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_999552fe",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:45:35.364Z",
+    "agent": "LIQUIDATOR_OPERATIVE_6259b413",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:45:45.954Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_3c2b1f96",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:45:54.197Z",
+    "agent": "LIQUIDATOR_OPERATIVE_9baecfc0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:45:59.653Z",
+    "agent": "LIQUIDATOR_OPERATIVE_c1d18763",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:46:01.000Z",
+    "agent": "SNIPER_OPERATIVE_af86c0d2",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:46:04.210Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_b0826e00",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:46:06.768Z",
+    "agent": "LIQUIDATOR_OPERATIVE_5d8da515",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:46:10.263Z",
+    "agent": "LIQUIDATOR_OPERATIVE_28fe1352",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:46:19.356Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_5cf694d4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:46:27.881Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_27ddd981",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:46:33.643Z",
+    "agent": "LIQUIDATOR_OPERATIVE_3e67403d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:46:37.378Z",
+    "agent": "LIQUIDATOR_OPERATIVE_0380546c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:46:43.694Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_865fc649",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:46:46.207Z",
+    "agent": "SNIPER_OPERATIVE_6378bf0b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:46:49.966Z",
+    "agent": "LIQUIDATOR_OPERATIVE_a313eb72",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:46:54.255Z",
+    "agent": "LIQUIDATOR_OPERATIVE_916c58fd",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:47:03.286Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_d7cd87e4",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:47:12.601Z",
+    "agent": "LIQUIDATOR_OPERATIVE_7f78c69e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:47:25.271Z",
+    "agent": "LIQUIDATOR_OPERATIVE_c2271388",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:47:25.921Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_bdb9ebd0",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:47:30.628Z",
+    "agent": "SNIPER_OPERATIVE_c24bab16",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:47:43.323Z",
+    "agent": "LIQUIDATOR_OPERATIVE_16b7ff7d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:47:50.766Z",
+    "agent": "LIQUIDATOR_OPERATIVE_f41b103e",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:47:59.246Z",
+    "agent": "LIQUIDATOR_OPERATIVE_97c6a53f",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:47:59.540Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_7a5dd479",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:48:05.809Z",
+    "agent": "LIQUIDATOR_OPERATIVE_16b617a5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:48:14.359Z",
+    "agent": "SNIPER_OPERATIVE_e4d90095",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:48:22.411Z",
+    "agent": "LIQUIDATOR_OPERATIVE_0d6732cd",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:48:35.358Z",
+    "agent": "LIQUIDATOR_OPERATIVE_1e4b2cae",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:48:39.307Z",
+    "agent": "LIQUIDATOR_OPERATIVE_80daf77b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:48:52.171Z",
+    "agent": "LIQUIDATOR_OPERATIVE_f4dc575c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:48:59.155Z",
+    "agent": "SNIPER_OPERATIVE_5459a53c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:48:59.319Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_f035957c",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:49:14.055Z",
+    "agent": "LIQUIDATOR_OPERATIVE_55011cf7",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:49:17.245Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_6ee81688",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:49:39.052Z",
+    "agent": "LIQUIDATOR_OPERATIVE_d59f972a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:49:42.870Z",
+    "agent": "SNIPER_OPERATIVE_2d665f4a",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:49:57.135Z",
+    "agent": "LIQUIDATOR_OPERATIVE_f45f2e6b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:50:02.064Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_1bc48fd7",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:50:20.348Z",
+    "agent": "LIQUIDATOR_OPERATIVE_38577ae5",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:50:26.046Z",
+    "agent": "SNIPER_OPERATIVE_aeeafe08",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:50:27.145Z",
+    "agent": "LIQUIDATOR_OPERATIVE_5a447a7d",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:50:27.888Z",
+    "agent": "BLOCK0_SNIPER_OPERATIVE_1cb9695b",
+    "status": "ENGAGED"
+  },
+  {
+    "timestamp": "2026-03-02T04:50:42.728Z",
+    "agent": "LIQUIDATOR_OPERATIVE_2623fa21",
+    "status": "ENGAGED"
   }
 ]

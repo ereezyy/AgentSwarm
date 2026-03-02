@@ -162,7 +162,7 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
 
         let qRes = null;
         let lastErr = null;
-        const qParams = { inputMint, outputMint, amount: amountLamports, slippageBps: 1000 };
+        const qParams = { inputMint, outputMint, amount, slippageBps: 1000 };
 
         for (const url of JUPITER_QUOTE_APIS) {
             try {

@@ -33,6 +33,7 @@ ${stackTrace || 'Not available'}
 
 Please identify the root cause and provide a fix. Ensure any missing variables are initialized, network failovers are implemented for API calls, and wallet guards are present.`;
 
+            const cleanError = errorMsg.replace(/[\r\n]+/g, ' ').replace(/\u001b\[.*?m/g, '');
             const response = await axios.post(`${BASE_URL}/sessions`, {
                 prompt: prompt,
                 sourceContext: {
@@ -42,7 +43,7 @@ Please identify the root cause and provide a fix. Ensure any missing variables a
                     }
                 },
                 automationMode: 'AUTO_CREATE_PR',
-                title: `Repair ${path.basename(filePath)}: ${errorMsg.slice(0, 30)}`
+                title: `Repair ${path.basename(filePath)}: ${cleanError.slice(0, 30).trim()}`
             }, {
                 headers: {
                     'X-Goog-Api-Key': API_KEY,
