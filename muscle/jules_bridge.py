@@ -103,8 +103,26 @@ class JulesBridge:
 
 if __name__ == "__main__":
     bridge = JulesBridge()
+
     if len(sys.argv) > 1:
-        if sys.argv[1] == "--list":
+        if sys.argv[1] == "--create" and len(sys.argv) > 3:
+            prompt = sys.argv[2]
+            source = sys.argv[3]
+            title = "Syndicate Task"
+            auto_pr = False
+
+            # Parse optional arguments
+            args = sys.argv[4:]
+            if "--title" in args:
+                title_idx = args.index("--title")
+                if title_idx + 1 < len(args):
+                    title = args[title_idx + 1]
+            if "--auto-pr" in args:
+                auto_pr = True
+
+            print(json.dumps(bridge.create_session(prompt, source, title, auto_pr), indent=2))
+        elif sys.argv[1] == "--list":
+
             print(json.dumps(bridge.list_sources(), indent=2))
         elif sys.argv[1] == "--list-sessions":
             print(json.dumps(bridge.list_sessions(), indent=2))
