@@ -1,20 +1,6 @@
 {
   "signals": [
     {
-      "id": "sig-1772285088113-m4tcz",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-28T13:24:48.113Z",
-      "data": "WHALE Whale Alpha: SENT 0.0122 SOL. Sig: 5rnjNstotZBz1PpB...",
-      "telegramSent": false
-    },
-    {
-      "id": "sig-1772285357693-3u9s1",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-28T13:29:17.693Z",
-      "data": "WHALE Whale Alpha: RECEIVED 0.0457 SOL. Sig: 4Az67Vt2yi2UE6Ta...",
-      "telegramSent": false
-    },
-    {
       "id": "sig-1772285357701-wdb71",
       "type": "COPY_TRADE_SIGNAL",
       "timestamp": "2026-02-28T13:29:17.701Z",
@@ -4249,10 +4235,24 @@
         "confidence": "HIGH"
       },
       "telegramSent": false
+    },
+    {
+      "id": "sig-1772427076207-7wj1r",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-02T04:51:16.208Z",
+      "data": "WHALE Whale Alpha: SENT 0.0036 SOL. Sig: 66xCLfWDFGz54195...",
+      "telegramSent": false
+    },
+    {
+      "id": "sig-1772427548308-941wg",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-02T04:59:08.308Z",
+      "data": "WHALE Whale Alpha: SENT 0.0003 SOL. Sig: 4mc46riFJMBkA1U9...",
+      "telegramSent": false
     }
   ],
   "stats": {
-    "totalSignals": 2306,
+    "totalSignals": 2308,
     "totalTelegramSent": 0
   }
 }

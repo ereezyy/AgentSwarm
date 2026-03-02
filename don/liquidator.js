@@ -137,8 +137,8 @@ async function executeOnChainLiquidation(targetData) {
 
 async function getSolPriceAcrossDEXs() {
     try {
-        const res = await axios.get('https://api.jup.ag/price/v1/search?ids=So11111111111111111111111111111111111111112');
-        return res.data.data['So11111111111111111111111111111111111111112'].price || 150;
+        const res = await axios.get('https://api.dexscreener.com/latest/dex/tokens/So11111111111111111111111111111111111111112');
+        return parseFloat(res.data?.pairs[0]?.priceUsd) || 150;
     } catch (e) { return 150; }
 }
 
