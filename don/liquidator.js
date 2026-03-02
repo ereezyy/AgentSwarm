@@ -27,12 +27,12 @@ try {
 
 // ── IPC Listener from Main Hub ──────────────────────────────────────
 process.on('message', async (msg) => {
-    if (msg.type === 'PI_TRIGGER' && msg.action === 'LIQUIDATE_TARGET') {
-        msg.account = msg.account || 'UNKNOWN';
-        msg.debtMint = msg.debtMint || 'UNKNOWN';
-        msg.collateralMint = msg.collateralMint || 'UNKNOWN';
-        msg.debtAmount = msg.debtAmount || 0;
-        msg.collateralAmount = msg.collateralAmount || 0;
+    if (msg?.type === 'PI_TRIGGER' && msg?.action === 'LIQUIDATE_TARGET') {
+        msg.account = msg?.account?.toString() || 'UNKNOWN';
+        msg.debtMint = msg?.debtMint?.toString() || 'UNKNOWN';
+        msg.collateralMint = msg?.collateralMint?.toString() || 'UNKNOWN';
+        msg.debtAmount = msg?.debtAmount || 0;
+        msg.collateralAmount = msg?.collateralAmount || 0;
 
         console.log(chalk.red.bold(`\n🩸 [LIQUIDATOR]: MARGIN CALL TRIGGERED FROM PI 5! Execution engaged...`));
         console.log(chalk.red(`Victim Margin Account: ${msg.account}`));
@@ -52,7 +52,15 @@ async function executeFlashLoanLiquidation(targetData) {
         const priorityFee = 2500000; // 2.5m lamports to front-run other liquidators
 
         // Add Wallet Guard (Balance Check)
-        const balance = await connection.getBalance(wallet.publicKey);
+        let balance;
+        try {
+            balance = await connection.getBalance(wallet.publicKey);
+        } catch (balError) {
+            console.log(chalk.yellow(`[LIQUIDATOR]: Primary RPC failed for balance check, falling back to secondary RPC...`));
+            const fallbackConnection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+            balance = await fallbackConnection.getBalance(wallet.publicKey);
+        }
+
         if (balance < priorityFee) {
             console.log(chalk.red(`[LIQUIDATOR]: Insufficient SOL balance for network/priority fees. Need at least ${priorityFee} lamports.`));
             return;
@@ -132,16 +140,17 @@ async function executeFlashLoanLiquidation(targetData) {
                         });
                     }
                 } else {
-                    console.log(chalk.yellow(`[LIQUIDATOR]: Attempt ${attempt} failed: ${innerError.message}`));
+                    const innerErrorMsg = innerError?.response?.data?.error || innerError?.response?.data?.msg || innerError?.message || 'Unknown error';
+                    console.log(chalk.yellow(`[LIQUIDATOR]: Attempt ${attempt} failed: ${innerErrorMsg}`));
                     if (attempt >= maxAttempts) {
-                        throw new Error(`Could not find swap route for collateral seizure. Last error: ${innerError.response?.data?.msg || innerError.message || 'Unknown error'}`);
+                        throw new Error(`Could not find swap route for collateral seizure. Last error: ${innerErrorMsg}`);
                     }
                 }
             }
         }
     } catch (e) {
-        const errorMsg = e.message || 'Unknown error';
-        console.error(chalk.red(`[LIQUIDATOR]: Liquidation failed: ${errorMsg}\nStack Trace:\n${e.stack}`));
+        const errorMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+        console.error(chalk.red(`[LIQUIDATOR]: Liquidation failed: ${errorMsg}\nStack Trace:\n${e?.stack || 'Not available'}`));
     }
 }
 
