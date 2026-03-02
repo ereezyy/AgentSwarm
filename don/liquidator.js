@@ -37,7 +37,10 @@ process.on('message', async (msg) => {
 });
 
 async function executeFlashLoanLiquidation(targetData) {
-    if (!wallet) return;
+    if (!wallet) {
+        console.log(chalk.red(`[LIQUIDATOR]: Execution aborted. No wallet initialized.`));
+        return;
+    }
 
     try {
         console.log(chalk.yellow(`[LIQUIDATOR]: Requesting Flash Loan for ${targetData.debtAmount} units of ${targetData.debtMint}...`));
@@ -64,7 +67,25 @@ async function executeFlashLoanLiquidation(targetData) {
         const priorityFee = 2500000; // 2.5m lamports to front-run other liquidators
         console.log(chalk.red.bold(`[LIQUIDATOR]: Seizing assets with priority fee ${priorityFee}...`));
 
-        await new Promise(resolve => setTimeout(resolve, 600)); // Execution simulation delay
+        let swapParams = null;
+        let lastError = null;
+        const endpoints = ['https://quote-api.jup.ag/v6/quote', 'https://lite-api.jup.ag/swap/v1/quote'];
+
+        for (const ep of endpoints) {
+            try {
+                const res = await axios.get(`${ep}?inputMint=${targetData.collateralMint}&outputMint=${targetData.debtMint}&amount=${targetData.collateralAmount}&slippageBps=50`);
+                if (res.data) {
+                    swapParams = res.data;
+                    break;
+                }
+            } catch (e) {
+                lastError = e.message;
+            }
+        }
+
+        if (!swapParams) {
+            throw new Error(`Could not find swap route for collateral seizure. Last error: ${lastError || 'swapParams is not defined'}`);
+        }
 
         const estimatedProfit = targetData.debtAmount * 0.05; // Standard 5% liquidation bounty
         console.log(chalk.white.bgRed.bold(`[LIQUIDATOR]: 🩸 ASSETS SEIZED. Victim Liquidated.`));
