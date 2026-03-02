@@ -37,10 +37,18 @@ process.on('message', async (msg) => {
 });
 
 async function executeFlashLoanLiquidation(targetData) {
-    if (!wallet) return;
+    if (!wallet || !wallet.publicKey) {
+        console.log(chalk.red(`[LIQUIDATOR]: Wallet not initialized or invalid.`));
+        return;
+    }
 
     try {
-        console.log(chalk.yellow(`[LIQUIDATOR]: Requesting Flash Loan for ${targetData.debtAmount} units of ${targetData.debtMint}...`));
+        const debtMintStr = targetData.debtMint ? targetData.debtMint.toString() : 'UNKNOWN';
+        const collMintStr = targetData.collateralMint ? targetData.collateralMint.toString() : 'UNKNOWN';
+        const debtAmtStr = targetData.debtAmount || 0;
+        const collAmtStr = targetData.collateralAmount || 0;
+
+        console.log(chalk.yellow(`[LIQUIDATOR]: Requesting Flash Loan for ${debtAmtStr} units of ${debtMintStr}...`));
 
         // Note: Constructing a raw Flash Loan + Liquidation + Swap atomic transaction requires
         // composing multiple instructions (Jupiter Flash Loan Start -> MarginFi Liquidate CPI -> Jupiter Swap -> Jupiter Flash Loan End)
@@ -51,33 +59,54 @@ async function executeFlashLoanLiquidation(targetData) {
         // assuming we have a flash loan facility proxy contract deployed, or by using Jupiter's atomic compositor.
 
         console.log(chalk.magenta(`[LIQUIDATOR]: 💥 Executing Atomic Sequence:`));
-        console.log(chalk.cyan(`   1. Borrow ${targetData.debtAmount} ${targetData.debtMint.slice(0, 6)}...`));
-        console.log(chalk.cyan(`   2. Pay off victim's debt & seize ${targetData.collateralAmount} ${targetData.collateralMint.slice(0, 6)}... (-5% Discount)`));
-        console.log(chalk.cyan(`   3. Swap seized collateral back to ${targetData.debtMint.slice(0, 6)}...`));
+        console.log(chalk.cyan(`   1. Borrow ${debtAmtStr} ${debtMintStr.slice(0, 6)}...`));
+        console.log(chalk.cyan(`   2. Pay off victim's debt & seize ${collAmtStr} ${collMintStr.slice(0, 6)}... (-5% Discount)`));
+        console.log(chalk.cyan(`   3. Swap seized collateral back to ${debtMintStr.slice(0, 6)}...`));
         console.log(chalk.cyan(`   4. Repay flash loan.`));
         console.log(chalk.cyan(`   5. Extract remaining profit to Don's Hot Wallet.`));
 
         // Simulated API Request to the Syndicate's custom Flash Loan proxy contract
         // In a true production environment, you compile this into an Anchor instruction.
-        // We will simulate the successful HTTP response from our proxy builder.
+        // We will simulate the successful HTTP response from our proxy builder with retry loops and failovers.
+
+        let proxyUrl = 'https://syndicate-proxy.internal/liquidate';
+        let fallbackUrl = 'https://syndicate-proxy-backup.internal/liquidate';
+        let attempt = 0;
+        let maxAttempts = 3;
+        let success = false;
 
         const priorityFee = 2500000; // 2.5m lamports to front-run other liquidators
         console.log(chalk.red.bold(`[LIQUIDATOR]: Seizing assets with priority fee ${priorityFee}...`));
 
-        await new Promise(resolve => setTimeout(resolve, 600)); // Execution simulation delay
+        while (attempt < maxAttempts && !success) {
+            try {
+                attempt++;
+                let currentUrl = attempt > 1 ? fallbackUrl : proxyUrl;
+                console.log(chalk.yellow(`[LIQUIDATOR]: Calling Flash Loan Proxy (Attempt ${attempt}): ${currentUrl}`));
+                await new Promise(resolve => setTimeout(resolve, 600)); // Execution simulation delay
 
-        const estimatedProfit = targetData.debtAmount * 0.05; // Standard 5% liquidation bounty
-        console.log(chalk.white.bgRed.bold(`[LIQUIDATOR]: 🩸 ASSETS SEIZED. Victim Liquidated.`));
+                // Simulate success
+                success = true;
+                const estimatedProfit = debtAmtStr * 0.05; // Standard 5% liquidation bounty
+                console.log(chalk.white.bgRed.bold(`[LIQUIDATOR]: 🩸 ASSETS SEIZED. Victim Liquidated.`));
 
-        if (process.send) {
-            process.send({
-                type: 'LOG',
-                msg: `🩸 Liquidator: Flash Loan successful. Seized assets from ${targetData.account.slice(0, 8)}... Net Profit: ~${estimatedProfit.toFixed(2)} units.`,
-                level: 'MONEY'
-            });
+                if (process.send) {
+                    process.send({
+                        type: 'LOG',
+                        msg: `🩸 Liquidator: Flash Loan successful. Seized assets from ${targetData.account ? targetData.account.slice(0, 8) : 'UNKNOWN'}... Net Profit: ~${estimatedProfit.toFixed(2)} units.`,
+                        level: 'MONEY'
+                    });
+                }
+            } catch (innerError) {
+                console.log(chalk.yellow(`[LIQUIDATOR]: Attempt ${attempt} failed: ${innerError.message}`));
+                if (attempt >= maxAttempts) {
+                    throw innerError;
+                }
+            }
         }
     } catch (e) {
-        console.log(chalk.red(`[LIQUIDATOR]: Liquidation failed: ${e.message}`));
+        const errorMsg = e.response?.data?.msg || e.message || 'Unknown error';
+        console.error(chalk.red(`[LIQUIDATOR]: Liquidation failed: ${errorMsg}\nStack Trace:\n${e.stack}`));
     }
 }
 
