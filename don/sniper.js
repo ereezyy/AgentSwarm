@@ -144,20 +144,48 @@ async function getDynamicPriorityFee() {
 // JUPITER AGGREGATOR (RAYDIUM/ORCA FALLBACK)
 // ============================================================
 async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1000) {
+    let quoteData = null;
+    let priorityFee = 0;
+    const amountLamports = amount;
+
     try {
+        if (!wallet || !wallet.publicKey) {
+            throw new Error('Wallet not initialized or missing public key');
+        }
+
+        // Wallet guard
+        const balance = await connection.getBalance(wallet.publicKey);
+        const requiredBalance = inputMint === WSOL_MINT.toString() ? Number(amountLamports) + 500000 : 500000;
+        if (balance < requiredBalance) {
+            throw new Error(`Insufficient SOL balance for swap + fees. Have ${balance}, need ${requiredBalance}`);
+        }
+
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Requesting Jupiter Quote...`));
-        // 1. Get Quote — using lite-api.jup.ag (quote-api.jup.ag is DNS-dead on this network)
-        const JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
-        const quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
-        const quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
-        const quoteData = quoteResponse.data;
+
+        // Network Failover
+        let quoteResponse;
+        const liteApiBase = 'https://lite-api.jup.ag/swap/v1';
+        const v6ApiBase = 'https://quote-api.jup.ag/v6';
+        let JUPITER_BASE = liteApiBase;
+
+        try {
+            const quoteUrl = `${liteApiBase}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amountLamports}&slippageBps=${slippageBps}`;
+            quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
+        } catch (e) {
+            console.log(chalk.yellow(`[SNIPER #${id}]: 🪐 lite-api failed, trying v6 fallback...`));
+            JUPITER_BASE = v6ApiBase;
+            const quoteUrl = `${v6ApiBase}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amountLamports}&slippageBps=${slippageBps}`;
+            quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
+        }
+
+        quoteData = quoteResponse.data;
 
         if (!quoteData || quoteData.error) throw new Error(quoteData.error || 'No quote found');
 
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Jupiter Quote: ${quoteData.outAmount} out via ${quoteData.routePlan.map(r => r.swapInfo.label).join('->')}`));
 
         // 2. Get Serialized Transaction with Dynamic Fee
-        const priorityFee = await getDynamicPriorityFee();
+        priorityFee = await getDynamicPriorityFee();
         const priorityFeeSol = (priorityFee / 1e9).toFixed(6);
         console.log(chalk.hex('#FF6600')(`[SNIPER #${id}]: 🏎️ Priority Fee Set: ${priorityFeeSol} SOL`));
 
@@ -195,23 +223,36 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         }
         if (!confirmed) throw new Error('Confirmation timeout (30s)');
 
-        return { success: true, sig, outAmount: quoteData.outAmount };
+        // Ensure string
+        return { success: true, sig, outAmount: String(quoteData.outAmount) };
 
     } catch (e) {
-        let errorMsg = e.message;
+        let errorMsg = e.response?.data?.error || e.response?.data?.msg || e.message;
         if (e.code === 'ENOTFOUND') errorMsg = `DNS failure: ${e.hostname || 'Jupiter API'} unreachable`;
         else if (e.code === 'ECONNABORTED' || e.code === 'ETIMEDOUT') errorMsg = `Network timeout reaching Jupiter API`;
         console.error(chalk.red(`[SNIPER #${id}]: Jupiter Swap Failed: ${errorMsg}`));
+        if (e.stack) {
+            console.error(e.stack);
+        }
         return { success: false, error: errorMsg };
     }
 }
 
 async function fetchCurrentPrice(mint, amount) {
+    let res;
     // 1. Try Jupiter lite-api (LIVE — v6 is dead)
     try {
-        const quoteUrl = `https://lite-api.jup.ag/swap/v1/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
-        const res = await axios.get(quoteUrl, { timeout: 8000 });
-        if (res.data && res.data.outAmount) {
+        const liteApiBase = 'https://lite-api.jup.ag/swap/v1';
+        const v6ApiBase = 'https://quote-api.jup.ag/v6';
+        try {
+            const quoteUrl = `${liteApiBase}/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
+            res = await axios.get(quoteUrl, { timeout: 8000 });
+        } catch (e) {
+            const quoteUrl = `${v6ApiBase}/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
+            res = await axios.get(quoteUrl, { timeout: 8000 });
+        }
+
+        if (res && res.data && res.data.outAmount) {
             const solValue = Number(res.data.outAmount) / 1e9;
             const currentPrice = solValue / Number(amount);
             return { solValue, currentPrice, source: 'JUPITER' };
@@ -222,9 +263,9 @@ async function fetchCurrentPrice(mint, amount) {
 
     // 2. Try DexScreener (Reliable fallback)
     try {
-        const res = await axios.get(`https://api.dexscreener.com/latest/dex/tokens/${mint}`, { timeout: 8000 });
-        if (res.data && res.data.pairs && res.data.pairs.length > 0) {
-            const pair = res.data.pairs.find(p => p.quoteToken.address === WSOL_MINT.toString()) || res.data.pairs[0];
+        const dexRes = await axios.get(`https://api.dexscreener.com/latest/dex/tokens/${mint}`, { timeout: 8000 });
+        if (dexRes.data && dexRes.data.pairs && dexRes.data.pairs.length > 0) {
+            const pair = dexRes.data.pairs.find(p => p.quoteToken.address === WSOL_MINT.toString()) || dexRes.data.pairs[0];
             const priceInSol = parseFloat(pair.priceNative); // Price in SOL per UI token
 
             // Fix: Standardize to UI units (6 decimals for Pump.fun)
@@ -235,7 +276,11 @@ async function fetchCurrentPrice(mint, amount) {
             return { solValue, currentPrice: priceInSol, source: 'DEXSCREENER' };
         }
     } catch (e) {
-        console.error(chalk.red(`[SNIPER]: Price fetch failed for ${mint}: ${e.message}`));
+        let errorMsg = e.response?.data?.error || e.response?.data?.msg || e.message;
+        console.error(chalk.red(`[SNIPER]: Price fetch failed for ${mint}: ${errorMsg}`));
+        if (e.stack) {
+            console.error(e.stack);
+        }
     }
 
     return null;
@@ -343,7 +388,8 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
         // ── JUPITER ROUTE (Post-Migration) ──
         if (!curve || curve.complete) {
             console.log(chalk.blue(`[SNIPER #${id}]: Bonding curve complete/gone. Routing via JUPITER...`));
-            const result = await executeJupiterSwap(WSOL_MINT.toString(), mint.toString(), Math.floor(SOL_AMOUNT * 1e9));
+            const amountLamports = Math.floor(SOL_AMOUNT * 1e9);
+            const result = await executeJupiterSwap(WSOL_MINT.toString(), mint.toString(), amountLamports);
 
             if (result.success) {
                 // Store entryPrice in SOL per UI token — same unit as DexScreener priceNative
@@ -358,7 +404,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                     mint: mintStr,
                     entryPrice: realEntryPrice,  // SOL per UI token — matches DexScreener priceNative
                     entryPriceUnit: 'ui',         // flag: already per UI token, banker should NOT multiply by 10^decimals
-                    amount: outAmt,
+                    amount: String(result.outAmount), // EXACT STRING
                     uiAmount: uiAmount,
                     entrySol: SOL_AMOUNT,
                     timestamp: Date.now(),
