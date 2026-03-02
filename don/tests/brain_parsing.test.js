@@ -1,5 +1,4 @@
 const assert = require('node:assert');
-const test = require('node:test');
 const { parseJSONFromText } = require('../brain.js');
 
 test('parseJSONFromText parses clean JSON', () => {
