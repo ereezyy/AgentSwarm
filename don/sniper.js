@@ -16,6 +16,13 @@ const bs58 = require('bs58');
 const { GlobalMemory } = require('./brain');
 require('dotenv').config();
 
+// Suppress non-fatal bigint warning
+const originalWarn = console.warn;
+console.warn = (...args) => {
+    if (args[0] && typeof args[0] === 'string' && args[0].includes('bigint: Failed to load bindings')) return;
+    originalWarn(...args);
+};
+
 const id = process.argv[2] || 'Sniper';
 const RPC_URL = process.env.SOLANA_RPC_URL;
 const PRIVATE_KEY_HEX = process.env.SOLANA_PRIVATE_KEY;
@@ -54,6 +61,9 @@ const SPEND_FILE = path.join(__dirname, '../missions/spend_tracker.json');
 
 let dailySpend = 0;
 let dailySpendReset = Date.now();
+
+// How many open positions we allow simultaneously
+const MAX_OPEN_POSITIONS = 5;
 
 function loadSpend() {
     try {
@@ -109,6 +119,17 @@ function canBuy(mintStr) {
 // ── Connection Setup (HTTP-only, no WebSocket spam) ──
 const connection = new Connection(RPC_URL, { commitment: 'confirmed' });
 
+async function withRetry(fn, retries = 3, delayMs = 1000) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            return await fn();
+        } catch (e) {
+            if (i === retries - 1) throw e;
+            await new Promise(r => setTimeout(r, delayMs));
+        }
+    }
+}
+
 // Initialize MEV Protection (Graceful)
 let bundler = null;
 try {
@@ -122,7 +143,7 @@ try {
 // ============================================================
 async function getDynamicPriorityFee() {
     try {
-        const fees = await connection.getRecentPrioritizationFees();
+        const fees = await withRetry(() => connection.getRecentPrioritizationFees());
         if (!fees || fees.length === 0) return 100000; // Fallback 0.0001 SOL
 
         // Sort descending and take the top 20 to get a competitive gauge
@@ -146,11 +167,23 @@ async function getDynamicPriorityFee() {
 async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1000) {
     try {
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Requesting Jupiter Quote...`));
-        // 1. Get Quote — using lite-api.jup.ag (quote-api.jup.ag is DNS-dead on this network)
-        const JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
-        const quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
-        const quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
-        const quoteData = quoteResponse.data;
+        // 1. Get Quote — trying lite-api first, fallback to v6
+        let quoteData = null;
+        let swapApiUrl = 'https://lite-api.jup.ag/swap/v1';
+
+        try {
+            const JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
+            const quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
+            const quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
+            quoteData = quoteResponse.data;
+        } catch (e) {
+            console.log(chalk.yellow(`[SNIPER #${id}]: lite-api failed, falling back to quote-api.jup.ag/v6...`));
+            swapApiUrl = 'https://quote-api.jup.ag/v6';
+            const JUPITER_BASE_FALLBACK = 'https://quote-api.jup.ag/v6';
+            const quoteUrlFallback = `${JUPITER_BASE_FALLBACK}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
+            const quoteResponseFallback = await axios.get(quoteUrlFallback, { timeout: 10000 });
+            quoteData = quoteResponseFallback.data;
+        }
 
         if (!quoteData || quoteData.error) throw new Error(quoteData.error || 'No quote found');
 
@@ -161,14 +194,29 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         const priorityFeeSol = (priorityFee / 1e9).toFixed(6);
         console.log(chalk.hex('#FF6600')(`[SNIPER #${id}]: 🏎️ Priority Fee Set: ${priorityFeeSol} SOL`));
 
-        const swapResponse = await axios.post(`${JUPITER_BASE}/swap`, {
-            quoteResponse: quoteData,
-            userPublicKey: wallet.publicKey.toString(),
-            wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: priorityFee
-        }, { timeout: 10000 });
-
-        const { swapTransaction } = swapResponse.data;
+        let swapTransaction;
+        try {
+            const swapResponse = await axios.post(`${swapApiUrl}/swap`, {
+                quoteResponse: quoteData,
+                userPublicKey: wallet.publicKey.toString(),
+                wrapAndUnwrapSol: true,
+                prioritizationFeeLamports: priorityFee
+            }, { timeout: 10000 });
+            swapTransaction = swapResponse.data.swapTransaction;
+        } catch (e) {
+            if (swapApiUrl === 'https://lite-api.jup.ag/swap/v1') {
+                console.log(chalk.yellow(`[SNIPER #${id}]: lite-api swap failed, falling back to quote-api.jup.ag/v6 swap...`));
+                const swapResponseFallback = await axios.post(`https://quote-api.jup.ag/v6/swap`, {
+                    quoteResponse: quoteData,
+                    userPublicKey: wallet.publicKey.toString(),
+                    wrapAndUnwrapSol: true,
+                    prioritizationFeeLamports: priorityFee
+                }, { timeout: 10000 });
+                swapTransaction = swapResponseFallback.data.swapTransaction;
+            } else {
+                throw e;
+            }
+        }
 
         // 3. Deserialize and Sign
         const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
@@ -176,8 +224,8 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         transaction.sign([wallet]);
 
         // 4. Send (Prefer Bundler if available, else RPC)
-        const latestBh = await connection.getLatestBlockhash('confirmed');
-        const sig = await connection.sendTransaction(transaction, { skipPreflight: true, maxRetries: 2 });
+        const latestBh = await withRetry(() => connection.getLatestBlockhash('confirmed'));
+        const sig = await withRetry(() => connection.sendTransaction(transaction, { skipPreflight: true, maxRetries: 2 }));
 
         console.log(chalk.green.bold(`[SNIPER #${id}]: 🪐 Jupiter Swap Sent: ${sig}`));
 
@@ -185,7 +233,7 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         let confirmed = false;
         for (let i = 0; i < 15; i++) {
             await new Promise(r => setTimeout(r, 2000));
-            const status = await connection.getSignatureStatuses([sig]);
+            const status = await withRetry(() => connection.getSignatureStatuses([sig]));
             const cs = status?.value?.[0]?.confirmationStatus;
             if (cs === 'confirmed' || cs === 'finalized') {
                 confirmed = true;
@@ -207,17 +255,24 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
 }
 
 async function fetchCurrentPrice(mint, amount) {
-    // 1. Try Jupiter lite-api (LIVE — v6 is dead)
+    // 1. Try Jupiter lite-api, fallback to v6
     try {
-        const quoteUrl = `https://lite-api.jup.ag/swap/v1/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
-        const res = await axios.get(quoteUrl, { timeout: 8000 });
-        if (res.data && res.data.outAmount) {
+        let res;
+        try {
+            const quoteUrl = `https://lite-api.jup.ag/swap/v1/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
+            res = await axios.get(quoteUrl, { timeout: 8000 });
+        } catch (liteErr) {
+            const fallbackUrl = `https://quote-api.jup.ag/v6/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
+            res = await axios.get(fallbackUrl, { timeout: 8000 });
+        }
+
+        if (res && res.data && res.data.outAmount) {
             const solValue = Number(res.data.outAmount) / 1e9;
             const currentPrice = solValue / Number(amount);
             return { solValue, currentPrice, source: 'JUPITER' };
         }
     } catch (e) {
-        // Jupiter failed, try DexScreener
+        // Jupiter completely failed, try DexScreener
     }
 
     // 2. Try DexScreener (Reliable fallback)
@@ -254,7 +309,7 @@ function getBondingCurvePDA(mint) {
 
 async function getBondingCurveAccount(bondingCurvePDA) {
     try {
-        const account = await connection.getAccountInfo(bondingCurvePDA);
+        const account = await withRetry(() => connection.getAccountInfo(bondingCurvePDA));
         if (!account || !account.data) return null; // Curve might be closed/migrated
 
         const buffer = account.data;
@@ -309,22 +364,23 @@ function calculateSellQuote(curve, tokenAmount) {
 // ============================================================
 async function buyToken(mint, bondingCurve, associatedBondingCurve) {
     try {
-        const balance = await connection.getBalance(wallet.publicKey);
+        const balance = await withRetry(() => connection.getBalance(wallet.publicKey));
         const SOL_AMOUNT = 0.03;
         const mintStr = mint.toString();
 
         // ── Safety Gate 1: Per-token cooldown + daily cap ──
         if (!canBuy(mintStr)) return;
 
-        if (balance < MIN_BALANCE_GUARD * 1e9) {
+        const requiredBalance = (SOL_AMOUNT + MIN_BALANCE_GUARD) * 1e9;
+        if (balance < requiredBalance) {
             const pubkey = wallet.publicKey.toString();
-            console.log(chalk.yellow(`[SNIPER #${id}]: Insufficient funds (Need >0.005 SOL). Balance: ${(balance / 1e9).toFixed(4)} SOL`));
+            console.log(chalk.yellow(`[SNIPER #${id}]: Insufficient funds (Need >${SOL_AMOUNT + MIN_BALANCE_GUARD} SOL). Balance: ${(balance / 1e9).toFixed(4)} SOL`));
             console.log(chalk.cyan(`[SNIPER #${id}]: ➡️ FUND WALLET: ${pubkey}`));
             if (process.send) {
                 process.send({
                     type: 'AGENT_COMMS',
                     from: 'SNIPER',
-                    msg: `Stalled due to low balance. Requires ${MIN_BALANCE_GUARD} SOL at ${pubkey.substring(0, 8)}...`,
+                    msg: `Stalled due to low balance. Requires ${SOL_AMOUNT + MIN_BALANCE_GUARD} SOL at ${pubkey.substring(0, 8)}...`,
                     timestamp: new Date().toISOString()
                 });
             }
@@ -530,7 +586,7 @@ async function startSurveillance() {
     setInterval(async () => {
         for (const walletAddr of TARGET_WALLETS) {
             try {
-                const sigs = await connection.getSignaturesForAddress(new PublicKey(walletAddr), { limit: 1 });
+                const sigs = await withRetry(() => connection.getSignaturesForAddress(new PublicKey(walletAddr), { limit: 1 }));
                 if (sigs.length === 0) continue;
 
                 const latestSig = sigs[0].signature;
@@ -544,7 +600,7 @@ async function startSurveillance() {
                 lastSeenSigs[walletAddr] = latestSig;
                 console.log(chalk.yellow(`[SNIPER #${id}]: 🔔 ACTIVITY ON TARGET: ${walletAddr.substring(0, 8)}...`));
 
-                const tx = await connection.getParsedTransaction(latestSig, { maxSupportedTransactionVersion: 0 });
+                const tx = await withRetry(() => connection.getParsedTransaction(latestSig, { maxSupportedTransactionVersion: 0 }));
                 if (!tx || !tx.meta) continue;
 
                 const logs = tx.meta.logMessages || [];
@@ -769,9 +825,6 @@ setInterval(async () => {
 // Runs every 2 minutes, scores candidates, buys on high-confidence signals
 // Sell is handled by checkPositions() which polls every 30s
 // ============================================================
-
-// How many open positions we allow simultaneously
-const MAX_OPEN_POSITIONS = 5;
 
 // Tokens scanned this session — avoid re-scanning the same tokens
 const scannedThisSession = new Set();
