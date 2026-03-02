@@ -10,6 +10,18 @@ const bs58 = require('bs58');
 const { Connection, Keypair, VersionedTransaction } = require('@solana/web3.js');
 require('dotenv').config();
 
+async function withRetry(fn, retries = 3, delayMs = 1000) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            return await fn();
+        } catch (error) {
+            if (i === retries - 1) throw error;
+            console.log(chalk.yellow(`[LIQUIDATOR]: RPC/API call failed. Retrying in ${delayMs}ms... (${i + 1}/${retries})`));
+            await new Promise(resolve => setTimeout(resolve, delayMs));
+        }
+    }
+}
+
 const id = process.argv[2] || require('crypto').randomBytes(4).toString('hex');
 console.log(chalk.red.bgBlack.bold(`[LIQUIDATOR #${id}]: 🩸 Repo Man Online. Awaiting targets from Pi 5 Radar.`));
 
@@ -52,16 +64,19 @@ async function executeFlashLoanLiquidation(targetData) {
         const priorityFee = 2500000; // 2.5m lamports to front-run other liquidators
 
         // Add Wallet Guard (Balance Check)
-        const balance = await connection.getBalance(wallet.publicKey);
-        if (balance < priorityFee) {
+        const balance = await withRetry(() => connection.getBalance(wallet.publicKey));
+
+        // Ensure tradeAmount is 0 for flash loan initiation as requested by the plan
+        const tradeAmount = 0;
+        if (balance < priorityFee + tradeAmount) {
             console.log(chalk.red(`[LIQUIDATOR]: Insufficient SOL balance for network/priority fees. Need at least ${priorityFee} lamports.`));
             return;
         }
 
         const debtMintStr = targetData.debtMint ? targetData.debtMint.toString() : 'UNKNOWN';
         const collMintStr = targetData.collateralMint ? targetData.collateralMint.toString() : 'UNKNOWN';
-        const debtAmtStr = targetData.debtAmount || 0;
-        const collAmtStr = targetData.collateralAmount || 0;
+        const debtAmtStr = targetData.debtAmount ? targetData.debtAmount.toString() : '0';
+        const collAmtStr = targetData.collateralAmount ? targetData.collateralAmount.toString() : '0';
 
         console.log(chalk.yellow(`[LIQUIDATOR]: Requesting Flash Loan for ${debtAmtStr} units of ${debtMintStr}...`));
 
@@ -92,14 +107,15 @@ async function executeFlashLoanLiquidation(targetData) {
 
         console.log(chalk.red.bold(`[LIQUIDATOR]: Seizing assets with priority fee ${priorityFee}...`));
 
+        let currentUrl = null;
         while (attempt < maxAttempts && !success) {
-            let currentUrl;
             try {
                 attempt++;
                 currentUrl = attempt > 1 ? fallbackUrl : proxyUrl;
                 console.log(chalk.yellow(`[LIQUIDATOR]: Calling Flash Loan Proxy (Attempt ${attempt}): ${currentUrl}`));
 
-                await axios.post(currentUrl, targetData, { timeout: 5000 });
+                // Apply withRetry and wait for the axios call
+                await withRetry(() => axios.post(currentUrl, targetData, { timeout: 5000 }));
 
                 // Simulate success if post passes
                 success = true;
@@ -132,9 +148,10 @@ async function executeFlashLoanLiquidation(targetData) {
                         });
                     }
                 } else {
-                    console.log(chalk.yellow(`[LIQUIDATOR]: Attempt ${attempt} failed: ${innerError.message}`));
+                    const nestedError = innerError.response?.data?.error || innerError.response?.data?.msg || innerError.message || 'Unknown error';
+                    console.log(chalk.yellow(`[LIQUIDATOR]: Attempt ${attempt} failed: ${nestedError}`));
                     if (attempt >= maxAttempts) {
-                        throw new Error(`Could not find swap route for collateral seizure. Last error: ${innerError.response?.data?.msg || innerError.message || 'Unknown error'}`);
+                        throw new Error(`Could not find swap route for collateral seizure. Last error: ${nestedError}`);
                     }
                 }
             }
