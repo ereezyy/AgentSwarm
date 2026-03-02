@@ -37,7 +37,9 @@ process.on('message', async (msg) => {
 });
 
 async function executeFlashLoanLiquidation(targetData) {
-    if (!wallet) return;
+    if (!wallet || !wallet.publicKey) {
+        throw new Error("Liquidator Failed: Wallet not initialized");
+    }
 
     try {
         console.log(chalk.yellow(`[LIQUIDATOR]: Requesting Flash Loan for ${targetData.debtAmount} units of ${targetData.debtMint}...`));
@@ -60,6 +62,26 @@ async function executeFlashLoanLiquidation(targetData) {
         // Simulated API Request to the Syndicate's custom Flash Loan proxy contract
         // In a true production environment, you compile this into an Anchor instruction.
         // We will simulate the successful HTTP response from our proxy builder.
+
+        let swapParams;
+        try {
+            const jupQuoteUrl = `https://quote-api.jup.ag/v6/quote?inputMint=${targetData.collateralMint}&outputMint=${targetData.debtMint}&amount=${targetData.collateralAmount}&slippageBps=50`;
+            const response = await axios.get(jupQuoteUrl, { timeout: 5000 });
+            swapParams = response.data;
+        } catch (err) {
+            console.log(chalk.yellow(`[LIQUIDATOR]: Primary Jupiter API failed, falling back to lite-api...`));
+            try {
+                const fallbackUrl = `https://lite-api.jup.ag/swap/v1/quote?inputMint=${targetData.collateralMint}&outputMint=${targetData.debtMint}&amount=${targetData.collateralAmount}&slippageBps=50`;
+                const fallbackResponse = await axios.get(fallbackUrl, { timeout: 5000 });
+                swapParams = fallbackResponse.data;
+            } catch (fallbackErr) {
+                // Both failed, swapParams remains undefined
+            }
+        }
+
+        if (!swapParams) {
+            throw new Error("Liquidator Failed: Could not find swap route for collateral seizure. Last error: swapParams is not defined");
+        }
 
         const priorityFee = 2500000; // 2.5m lamports to front-run other liquidators
         console.log(chalk.red.bold(`[LIQUIDATOR]: Seizing assets with priority fee ${priorityFee}...`));
