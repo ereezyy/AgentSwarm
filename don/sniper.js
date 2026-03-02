@@ -144,13 +144,31 @@ async function getDynamicPriorityFee() {
 // JUPITER AGGREGATOR (RAYDIUM/ORCA FALLBACK)
 // ============================================================
 async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1000) {
+    if (!wallet || !wallet.publicKey) {
+        console.error(chalk.red(`[SNIPER #${id}]: ERROR - Wallet not initialized.`));
+        return { success: false, error: 'Wallet not initialized' };
+    }
+
+    let quoteData;
+    let JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
+
     try {
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Requesting Jupiter Quote...`));
-        // 1. Get Quote — using lite-api.jup.ag (quote-api.jup.ag is DNS-dead on this network)
-        const JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
-        const quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
-        const quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
-        const quoteData = quoteResponse.data;
+
+        // 1. Get Quote — Try lite-api first, fallback to quote-api
+        let quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
+        let quoteResponse;
+
+        try {
+             quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
+        } catch (e) {
+            console.log(chalk.yellow(`[SNIPER #${id}]: ⚠️ lite-api failed, trying fallback v6...`));
+            JUPITER_BASE = 'https://quote-api.jup.ag/v6';
+            quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
+            quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
+        }
+
+        quoteData = quoteResponse.data;
 
         if (!quoteData || quoteData.error) throw new Error(quoteData.error || 'No quote found');
 
@@ -195,29 +213,44 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         }
         if (!confirmed) throw new Error('Confirmation timeout (30s)');
 
-        return { success: true, sig, outAmount: quoteData.outAmount };
+        // Return exact string for precision
+        return { success: true, sig, outAmount: String(quoteData.outAmount) };
 
     } catch (e) {
-        let errorMsg = e.message;
+        let errorMsg = e.response?.data?.error || e.response?.data?.msg || e.message;
         if (e.code === 'ENOTFOUND') errorMsg = `DNS failure: ${e.hostname || 'Jupiter API'} unreachable`;
         else if (e.code === 'ECONNABORTED' || e.code === 'ETIMEDOUT') errorMsg = `Network timeout reaching Jupiter API`;
+
         console.error(chalk.red(`[SNIPER #${id}]: Jupiter Swap Failed: ${errorMsg}`));
+        if (e.stack) {
+            console.error(chalk.red(`Stack Trace: ${e.stack}`));
+        }
+
         return { success: false, error: errorMsg };
     }
 }
 
 async function fetchCurrentPrice(mint, amount) {
-    // 1. Try Jupiter lite-api (LIVE — v6 is dead)
+    // 1. Try Jupiter lite-api and fallback to quote-api
     try {
-        const quoteUrl = `https://lite-api.jup.ag/swap/v1/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
-        const res = await axios.get(quoteUrl, { timeout: 8000 });
+        let quoteUrl = `https://lite-api.jup.ag/swap/v1/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
+        let res;
+        try {
+            res = await axios.get(quoteUrl, { timeout: 8000 });
+        } catch (e) {
+            // fallback to v6 if lite-api fails
+            quoteUrl = `https://quote-api.jup.ag/v6/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
+            res = await axios.get(quoteUrl, { timeout: 8000 });
+        }
+
         if (res.data && res.data.outAmount) {
             const solValue = Number(res.data.outAmount) / 1e9;
             const currentPrice = solValue / Number(amount);
             return { solValue, currentPrice, source: 'JUPITER' };
         }
     } catch (e) {
-        // Jupiter failed, try DexScreener
+        // Jupiter failed entirely, try DexScreener
+        console.log(chalk.yellow(`[SNIPER #${id}]: Jupiter price fetch failed for ${mint}, falling back to DexScreener...`));
     }
 
     // 2. Try DexScreener (Reliable fallback)
@@ -316,9 +349,10 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
         // ── Safety Gate 1: Per-token cooldown + daily cap ──
         if (!canBuy(mintStr)) return;
 
-        if (balance < MIN_BALANCE_GUARD * 1e9) {
+        // Ensure we have enough SOL for the trade + a safety guard for fees
+        if (balance < (SOL_AMOUNT + MIN_BALANCE_GUARD) * 1e9) {
             const pubkey = wallet.publicKey.toString();
-            console.log(chalk.yellow(`[SNIPER #${id}]: Insufficient funds (Need >0.005 SOL). Balance: ${(balance / 1e9).toFixed(4)} SOL`));
+            console.log(chalk.yellow(`[SNIPER #${id}]: Insufficient funds (Need >${(SOL_AMOUNT + MIN_BALANCE_GUARD).toFixed(3)} SOL). Balance: ${(balance / 1e9).toFixed(4)} SOL`));
             console.log(chalk.cyan(`[SNIPER #${id}]: ➡️ FUND WALLET: ${pubkey}`));
             if (process.send) {
                 process.send({
@@ -446,6 +480,17 @@ async function sellToken(mint, amount, reason) {
     console.log(chalk.magenta(`[SNIPER #${id}]: 📉 INITIATING SELL: ${amount} of ${mint} [${reason}]`));
 
     try {
+        if (!wallet || !wallet.publicKey) {
+            console.error(chalk.red(`[SNIPER #${id}]: SELL FAILED - Wallet not initialized.`));
+            return;
+        }
+
+        const balance = await connection.getBalance(wallet.publicKey);
+        if (balance < MIN_BALANCE_GUARD * 1e9) {
+            console.log(chalk.red(`[SNIPER #${id}]: SELL FAILED - Insufficient SOL for gas (${(balance / 1e9).toFixed(4)} SOL). Need ${MIN_BALANCE_GUARD} SOL.`));
+            return;
+        }
+
         const mintPub = new PublicKey(mint);
         const bondingCurve = getBondingCurvePDA(mintPub);
         const curve = await getBondingCurveAccount(bondingCurve);
