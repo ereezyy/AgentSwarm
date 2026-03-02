@@ -28,6 +28,12 @@ try {
 // ── IPC Listener from Main Hub ──────────────────────────────────────
 process.on('message', async (msg) => {
     if (msg.type === 'PI_TRIGGER' && msg.action === 'LIQUIDATE_TARGET') {
+        msg.account = msg.account || 'UNKNOWN';
+        msg.debtMint = msg.debtMint || 'UNKNOWN';
+        msg.collateralMint = msg.collateralMint || 'UNKNOWN';
+        msg.debtAmount = msg.debtAmount || 0;
+        msg.collateralAmount = msg.collateralAmount || 0;
+
         console.log(chalk.red.bold(`\n🩸 [LIQUIDATOR]: MARGIN CALL TRIGGERED FROM PI 5! Execution engaged...`));
         console.log(chalk.red(`Victim Margin Account: ${msg.account}`));
         console.log(chalk.red(`Debt: ${msg.debtMint} | Collateral: ${msg.collateralMint}`));
@@ -39,6 +45,13 @@ process.on('message', async (msg) => {
 async function executeFlashLoanLiquidation(targetData) {
     if (!wallet || !wallet.publicKey) {
         console.log(chalk.red(`[LIQUIDATOR]: Wallet not initialized or invalid.`));
+        return;
+    }
+
+    const priorityFee = 2500000; // 2.5m lamports to front-run other liquidators
+    const balance = await connection.getBalance(wallet.publicKey);
+    if (balance < priorityFee) {
+        console.log(chalk.red('[LIQUIDATOR]: Insufficient SOL balance'));
         return;
     }
 
@@ -69,13 +82,21 @@ async function executeFlashLoanLiquidation(targetData) {
         // In a true production environment, you compile this into an Anchor instruction.
         // We will simulate the successful HTTP response from our proxy builder with retry loops and failovers.
 
-        let proxyUrl = 'https://syndicate-proxy.internal/liquidate';
-        let fallbackUrl = 'https://syndicate-proxy-backup.internal/liquidate';
+        let proxyUrl = process.env.PROXY_URL || 'https://syndicate-proxy.internal/liquidate';
+        let fallbackUrl = process.env.PROXY_URL_FALLBACK || 'https://syndicate-proxy-backup.internal/liquidate';
         let attempt = 0;
         let maxAttempts = 3;
         let success = false;
 
-        const priorityFee = 2500000; // 2.5m lamports to front-run other liquidators
+        const swapParams = {
+            target: targetData.account,
+            debtMint: debtMintStr,
+            collateralMint: collMintStr,
+            debtAmount: debtAmtStr,
+            collateralAmount: collAmtStr,
+            priorityFee
+        };
+
         console.log(chalk.red.bold(`[LIQUIDATOR]: Seizing assets with priority fee ${priorityFee}...`));
 
         while (attempt < maxAttempts && !success) {
@@ -83,7 +104,7 @@ async function executeFlashLoanLiquidation(targetData) {
                 attempt++;
                 let currentUrl = attempt > 1 ? fallbackUrl : proxyUrl;
                 console.log(chalk.yellow(`[LIQUIDATOR]: Calling Flash Loan Proxy (Attempt ${attempt}): ${currentUrl}`));
-                await new Promise(resolve => setTimeout(resolve, 600)); // Execution simulation delay
+                await axios.post(currentUrl, swapParams);
 
                 // Simulate success
                 success = true;
@@ -98,9 +119,10 @@ async function executeFlashLoanLiquidation(targetData) {
                     });
                 }
             } catch (innerError) {
-                console.log(chalk.yellow(`[LIQUIDATOR]: Attempt ${attempt} failed: ${innerError.message}`));
+                const innerErrorMsg = innerError.response?.data?.error || innerError.response?.data?.msg || innerError.message;
+                console.log(chalk.yellow(`[LIQUIDATOR]: Attempt ${attempt} failed: ${innerErrorMsg}`));
                 if (attempt >= maxAttempts) {
-                    throw innerError;
+                    throw new Error(`Liquidator Failed: Could not find swap route for collateral seizure. Last error: ${innerErrorMsg}`);
                 }
             }
         }
