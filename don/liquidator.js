@@ -28,6 +28,10 @@ try {
 // ── IPC Listener from Main Hub ──────────────────────────────────────
 process.on('message', async (msg) => {
     if (msg.type === 'PI_TRIGGER' && msg.action === 'LIQUIDATE_TARGET') {
+        msg.account = msg.account || 'UNKNOWN';
+        msg.debtMint = msg.debtMint || 'UNKNOWN';
+        msg.collateralMint = msg.collateralMint || 'UNKNOWN';
+
         console.log(chalk.red.bold(`\n🩸 [LIQUIDATOR]: MARGIN CALL TRIGGERED FROM PI 5! Execution engaged...`));
         console.log(chalk.red(`Victim Margin Account: ${msg.account}`));
         console.log(chalk.red(`Debt: ${msg.debtMint} | Collateral: ${msg.collateralMint}`));
@@ -43,6 +47,13 @@ async function executeFlashLoanLiquidation(targetData) {
     }
 
     try {
+        const balance = await connection.getBalance(wallet.publicKey);
+        const priorityFee = 2500000;
+        if (balance < priorityFee) {
+            console.log(chalk.red(`[LIQUIDATOR]: Insufficient SOL balance for priority fee.`));
+            return;
+        }
+
         const debtMintStr = targetData.debtMint ? targetData.debtMint.toString() : 'UNKNOWN';
         const collMintStr = targetData.collateralMint ? targetData.collateralMint.toString() : 'UNKNOWN';
         const debtAmtStr = targetData.debtAmount || 0;
@@ -69,13 +80,12 @@ async function executeFlashLoanLiquidation(targetData) {
         // In a true production environment, you compile this into an Anchor instruction.
         // We will simulate the successful HTTP response from our proxy builder with retry loops and failovers.
 
-        let proxyUrl = 'https://syndicate-proxy.internal/liquidate';
-        let fallbackUrl = 'https://syndicate-proxy-backup.internal/liquidate';
+        let proxyUrl = process.env.PROXY_URL || 'https://syndicate-proxy.internal/liquidate';
+        let fallbackUrl = process.env.PROXY_URL_FALLBACK || 'https://syndicate-proxy-backup.internal/liquidate';
         let attempt = 0;
         let maxAttempts = 3;
         let success = false;
 
-        const priorityFee = 2500000; // 2.5m lamports to front-run other liquidators
         console.log(chalk.red.bold(`[LIQUIDATOR]: Seizing assets with priority fee ${priorityFee}...`));
 
         while (attempt < maxAttempts && !success) {
@@ -83,7 +93,7 @@ async function executeFlashLoanLiquidation(targetData) {
                 attempt++;
                 let currentUrl = attempt > 1 ? fallbackUrl : proxyUrl;
                 console.log(chalk.yellow(`[LIQUIDATOR]: Calling Flash Loan Proxy (Attempt ${attempt}): ${currentUrl}`));
-                await new Promise(resolve => setTimeout(resolve, 600)); // Execution simulation delay
+                await axios.post(currentUrl, targetData);
 
                 // Simulate success
                 success = true;
@@ -105,7 +115,7 @@ async function executeFlashLoanLiquidation(targetData) {
             }
         }
     } catch (e) {
-        const errorMsg = e.response?.data?.msg || e.message || 'Unknown error';
+        const errorMsg = e.response?.data?.error || e.response?.data?.msg || e.message || 'Unknown error';
         console.error(chalk.red(`[LIQUIDATOR]: Liquidation failed: ${errorMsg}\nStack Trace:\n${e.stack}`));
     }
 }
