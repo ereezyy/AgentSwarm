@@ -144,31 +144,62 @@ async function getDynamicPriorityFee() {
 // JUPITER AGGREGATOR (RAYDIUM/ORCA FALLBACK)
 // ============================================================
 async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1000) {
+    let quoteData = null;
+    let swapTransaction = null;
     try {
+        const amountLamports = parseInt(amount);
+        const priorityFee = await getDynamicPriorityFee();
+        if (inputMint === WSOL_MINT.toString()) {
+            const balance = await connection.getBalance(wallet.publicKey);
+            if (balance < amountLamports + priorityFee) {
+                throw new Error(`Insufficient SOL balance. Have ${(balance / 1e9).toFixed(6)}, need ${((amountLamports + priorityFee) / 1e9).toFixed(6)}`);
+            }
+        }
+
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Requesting Jupiter Quote...`));
-        // 1. Get Quote — using lite-api.jup.ag (quote-api.jup.ag is DNS-dead on this network)
-        const JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
-        const quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
-        const quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
-        const quoteData = quoteResponse.data;
+
+        // 1. Get Quote — with network failover
+        try {
+            const JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
+            const quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
+            const quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
+            quoteData = quoteResponse.data;
+        } catch (e) {
+            console.log(chalk.yellow(`[SNIPER #${id}]: lite-api quote failed, trying quote-api.jup.ag/v6...`));
+            const JUPITER_FALLBACK = 'https://quote-api.jup.ag/v6';
+            const quoteUrl = `${JUPITER_FALLBACK}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
+            const quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
+            quoteData = quoteResponse.data;
+        }
 
         if (!quoteData || quoteData.error) throw new Error(quoteData.error || 'No quote found');
 
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Jupiter Quote: ${quoteData.outAmount} out via ${quoteData.routePlan.map(r => r.swapInfo.label).join('->')}`));
 
         // 2. Get Serialized Transaction with Dynamic Fee
-        const priorityFee = await getDynamicPriorityFee();
         const priorityFeeSol = (priorityFee / 1e9).toFixed(6);
         console.log(chalk.hex('#FF6600')(`[SNIPER #${id}]: 🏎️ Priority Fee Set: ${priorityFeeSol} SOL`));
 
-        const swapResponse = await axios.post(`${JUPITER_BASE}/swap`, {
-            quoteResponse: quoteData,
-            userPublicKey: wallet.publicKey.toString(),
-            wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: priorityFee
-        }, { timeout: 10000 });
-
-        const { swapTransaction } = swapResponse.data;
+        try {
+            const JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
+            const swapResponse = await axios.post(`${JUPITER_BASE}/swap`, {
+                quoteResponse: quoteData,
+                userPublicKey: wallet.publicKey.toString(),
+                wrapAndUnwrapSol: true,
+                prioritizationFeeLamports: priorityFee
+            }, { timeout: 10000 });
+            swapTransaction = swapResponse.data.swapTransaction;
+        } catch (e) {
+            console.log(chalk.yellow(`[SNIPER #${id}]: lite-api swap failed, trying quote-api.jup.ag/v6...`));
+            const JUPITER_FALLBACK = 'https://quote-api.jup.ag/v6';
+            const swapResponse = await axios.post(`${JUPITER_FALLBACK}/swap`, {
+                quoteResponse: quoteData,
+                userPublicKey: wallet.publicKey.toString(),
+                wrapAndUnwrapSol: true,
+                prioritizationFeeLamports: priorityFee
+            }, { timeout: 10000 });
+            swapTransaction = swapResponse.data.swapTransaction;
+        }
 
         // 3. Deserialize and Sign
         const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
@@ -198,10 +229,11 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         return { success: true, sig, outAmount: quoteData.outAmount };
 
     } catch (e) {
-        let errorMsg = e.message;
+        let errorMsg = e.response?.data?.error || e.response?.data?.msg || e.message;
         if (e.code === 'ENOTFOUND') errorMsg = `DNS failure: ${e.hostname || 'Jupiter API'} unreachable`;
         else if (e.code === 'ECONNABORTED' || e.code === 'ETIMEDOUT') errorMsg = `Network timeout reaching Jupiter API`;
         console.error(chalk.red(`[SNIPER #${id}]: Jupiter Swap Failed: ${errorMsg}`));
+        console.error(e.stack);
         return { success: false, error: errorMsg };
     }
 }
@@ -358,7 +390,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                     mint: mintStr,
                     entryPrice: realEntryPrice,  // SOL per UI token — matches DexScreener priceNative
                     entryPriceUnit: 'ui',         // flag: already per UI token, banker should NOT multiply by 10^decimals
-                    amount: outAmt,
+                    amount: result.outAmount,
                     uiAmount: uiAmount,
                     entrySol: SOL_AMOUNT,
                     timestamp: Date.now(),
