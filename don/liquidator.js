@@ -72,7 +72,9 @@ async function executeOnChainLiquidation(targetData) {
             }
         }
 
-        if (!qRes || !qRes.data) throw new Error(`Could not find swap route for collateral seizure. Last error: ${lastErr}`);
+        if (!qRes || !qRes.data) {
+            throw new Error(`Could not find swap route for collateral seizure. Last error: ${lastErr}`);
+        }
 
         // 2. Build the Atomic Transaction
         console.log(chalk.magenta(`[LIQUIDATOR]: 🏗️ Composing Atomic Bundle...`));
@@ -96,12 +98,14 @@ async function executeOnChainLiquidation(targetData) {
                 swapRes = await axios.post(apiUrl, swapPayload, { timeout: 8000 });
                 if (swapRes && swapRes.data) break;
             } catch (e) {
-                lastErr = e.message;
-                console.log(chalk.yellow(`[LIQUIDATOR]: Swap API ${new URL(apiUrl).hostname} failed, trying next...`));
+                lastErr = e.response?.data?.error || e.message;
+                console.log(chalk.yellow(`[LIQUIDATOR]: Swap API ${new URL(apiUrl).hostname} failed: ${lastErr}`));
             }
         }
 
-        if (!swapRes || !swapRes.data) throw new Error(`Failed to construct swap transaction. Last error: ${lastErr}`);
+        if (!swapRes || !swapRes.data) {
+            throw new Error(`Failed to construct swap transaction. Last error: ${lastErr}`);
+        }
 
         const txBuf = Buffer.from(swapRes.data.swapTransaction, 'base64');
         const tx = VersionedTransaction.deserialize(txBuf);

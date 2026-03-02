@@ -8,15 +8,5 @@
     "maxHoldUntil": 1772422137010,
     "moonbagSecured": false,
     "source": "RECOVERED"
-  },
-  {
-    "mint": "M4GsCVqGF7F7smRNoLmMczdm36YBrzh2pBUYoe1pump",
-    "entryPrice": 4.545e-8,
-    "amount": 219082198479,
-    "entrySol": 0.01,
-    "timestamp": 1772419679304,
-    "maxHoldUntil": 1772426879304,
-    "moonbagSecured": false,
-    "source": "RECOVERED"
   }
 ]

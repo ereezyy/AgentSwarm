@@ -1,19 +1,6 @@
 {
   "signals": [
     {
-      "id": "sig-1772285357701-wdb71",
-      "type": "COPY_TRADE_SIGNAL",
-      "timestamp": "2026-02-28T13:29:17.701Z",
-      "data": {
-        "type": "COPY_TRADE_SIGNAL",
-        "whale": "Whale Alpha",
-        "mint": "HBgmREqCUnGPGEWCii8YBrguQvbyZS6cc9SGmU24jmxZ",
-        "detectedAmount": 628.1168709993362,
-        "confidence": "HIGH"
-      },
-      "telegramSent": false
-    },
-    {
       "id": "sig-1772285549735-chuxa",
       "type": "WHALE_MOVEMENT",
       "timestamp": "2026-02-28T13:32:29.735Z",
@@ -4249,10 +4236,17 @@
       "timestamp": "2026-03-02T04:59:08.308Z",
       "data": "WHALE Whale Alpha: SENT 0.0003 SOL. Sig: 4mc46riFJMBkA1U9...",
       "telegramSent": false
+    },
+    {
+      "id": "sig-1772427807036-asezq",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-02T05:03:27.036Z",
+      "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 53FwCnqSWwRFnRxP...",
+      "telegramSent": false
     }
   ],
   "stats": {
-    "totalSignals": 2308,
+    "totalSignals": 2309,
     "totalTelegramSent": 0
   }
 }

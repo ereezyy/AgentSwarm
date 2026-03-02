@@ -3433,55 +3433,6 @@
   ],
   "SNIPER": [
     {
-      "id": "MEM-1772397162276-251",
-      "timestamp": "2026-03-01T20:32:42.276Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772397162276
-    },
-    {
-      "id": "MEM-1772397192280-859",
-      "timestamp": "2026-03-01T20:33:12.280Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772397192280
-    },
-    {
-      "id": "MEM-1772397222275-355",
-      "timestamp": "2026-03-01T20:33:42.275Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772397222275
-    },
-    {
-      "id": "MEM-1772397252275-44",
-      "timestamp": "2026-03-01T20:34:12.275Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772397252275
-    },
-    {
-      "id": "MEM-1772397282277-67",
-      "timestamp": "2026-03-01T20:34:42.277Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772397282277
-    },
-    {
-      "id": "MEM-1772397312278-71",
-      "timestamp": "2026-03-01T20:35:12.278Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772397312278
-    },
-    {
-      "id": "MEM-1772397342282-383",
-      "timestamp": "2026-03-01T20:35:42.282Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772397342282
-    },
-    {
       "id": "MEM-1772397372359-124",
       "timestamp": "2026-03-01T20:36:12.359Z",
       "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
@@ -6931,6 +6882,55 @@
       "text": "Force-exited M4GsCVqGF7F7smRNoLmMczdm36YBrzh2pBUYoe1pump after max hold time expired.",
       "importance": 8,
       "lastAccessed": 1772427524618
+    },
+    {
+      "id": "MEM-1772427745774-501",
+      "timestamp": "2026-03-02T05:02:25.774Z",
+      "text": "Force-exited M4GsCVqGF7F7smRNoLmMczdm36YBrzh2pBUYoe1pump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772427745774
+    },
+    {
+      "id": "MEM-1772427746316-54",
+      "timestamp": "2026-03-02T05:02:26.316Z",
+      "text": "[PREDICTION_BLOCKED] Aborted trade on BorBvxBN9oDk232U6WQvUwkyxoxBCcJsBkQg1iWbpump due to high rug risk: 82.7%. Threshold: 0.8",
+      "importance": 5,
+      "lastAccessed": 1772427746316
+    },
+    {
+      "id": "MEM-1772427749155-918",
+      "timestamp": "2026-03-02T05:02:29.155Z",
+      "text": "[TRADE_EXIT] Sold M4GsCVqGF7F7smRNoLmMczdm36YBrzh2pBUYoe1pump via Jupiter. PnL: -0.0002 SOL (-2.5%). Reason: TIME_EXIT.",
+      "importance": 9,
+      "lastAccessed": 1772427749155
+    },
+    {
+      "id": "MEM-1772427749163-617",
+      "timestamp": "2026-03-02T05:02:29.163Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772427749163
+    },
+    {
+      "id": "MEM-1772427792929-315",
+      "timestamp": "2026-03-02T05:03:12.929Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772427792929
+    },
+    {
+      "id": "MEM-1772427841865-446",
+      "timestamp": "2026-03-02T05:04:01.865Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772427841865
+    },
+    {
+      "id": "MEM-1772427884727-662",
+      "timestamp": "2026-03-02T05:04:44.727Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772427884727
     }
   ]
 }

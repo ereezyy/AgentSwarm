@@ -54,6 +54,9 @@ async function extractAndSnipe(signature) {
             const bytes = Buffer.from(signature, 'hex');
             b58Sig = bs58.encode(bytes);
             console.log(chalk.gray(`[BLOCK-0]: Sanitized Hex sig to Base58: ${b58Sig.slice(0, 8)}...`));
+        } else if (signature.length !== 87 && signature.length !== 88) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid signature format/length: ${signature}`));
+            return;
         }
 
         // 1. Fetch the transaction details to find the coin mint.
