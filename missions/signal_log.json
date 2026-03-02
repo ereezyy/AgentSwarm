@@ -1,13 +1,6 @@
 {
   "signals": [
     {
-      "id": "sig-1772285549735-chuxa",
-      "type": "WHALE_MOVEMENT",
-      "timestamp": "2026-02-28T13:32:29.735Z",
-      "data": "WHALE Whale Alpha: SENT 0 SOL. Sig: 3iijBdSw5Ymm6Pab...",
-      "telegramSent": false
-    },
-    {
       "id": "sig-1772285709416-nodar",
       "type": "WHALE_MOVEMENT",
       "timestamp": "2026-02-28T13:35:09.416Z",
@@ -4243,10 +4236,17 @@
       "timestamp": "2026-03-02T05:03:27.036Z",
       "data": "WHALE Whale Alpha: SENT 0.0001 SOL. Sig: 53FwCnqSWwRFnRxP...",
       "telegramSent": false
+    },
+    {
+      "id": "sig-1772434788527-jhp7x",
+      "type": "WHALE_MOVEMENT",
+      "timestamp": "2026-03-02T06:59:48.527Z",
+      "data": "WHALE Whale Alpha: SENT 0.7377 SOL. Sig: 33VUhLYKSGf6fuNX...",
+      "telegramSent": false
     }
   ],
   "stats": {
-    "totalSignals": 2309,
+    "totalSignals": 2310,
     "totalTelegramSent": 0
   }
 }

@@ -3429,6 +3429,27 @@
       "text": "Standard alert triggered. Solana moved -3.7% to $84.41.",
       "importance": 6,
       "lastAccessed": 1772426755903
+    },
+    {
+      "id": "MEM-1772434699280-66",
+      "timestamp": "2026-03-02T06:58:19.280Z",
+      "text": "Standard alert triggered. Solana moved -4.1% to $83.19.",
+      "importance": 6,
+      "lastAccessed": 1772434699280
+    },
+    {
+      "id": "MEM-1772434863567-684",
+      "timestamp": "2026-03-02T07:01:03.567Z",
+      "text": "Standard alert triggered. Solana moved -4.0% to $83.22.",
+      "importance": 6,
+      "lastAccessed": 1772434863567
+    },
+    {
+      "id": "MEM-1772435478664-563",
+      "timestamp": "2026-03-02T07:11:18.664Z",
+      "text": "Standard alert triggered. Solana moved -4.6% to $82.75.",
+      "importance": 6,
+      "lastAccessed": 1772435478665
     }
   ],
   "SNIPER": [
