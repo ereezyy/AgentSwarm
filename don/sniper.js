@@ -1,3 +1,10 @@
+const originalWarn = console.warn;
+console.warn = function (msg) {
+    if (typeof msg === "string" && msg.includes("bigint: Failed to load bindings")) {
+        return;
+    }
+    originalWarn.apply(console, arguments);
+};
 // don/sniper.js - THE MAINNET SNIPER V4 (PUMP.FUN + JUPITER/RAYDIUM AGGREGATION)
 // Capabilities:
 // 1. Shadow Protocol: Tracks whales and copies trades.
@@ -109,6 +116,21 @@ function canBuy(mintStr) {
 // ── Connection Setup (HTTP-only, no WebSocket spam) ──
 const connection = new Connection(RPC_URL, { commitment: 'confirmed' });
 
+async function withRetry(promiseFactory, maxRetries = 3, delayMs = 1000) {
+    let lastError;
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            return await promiseFactory();
+        } catch (error) {
+            lastError = error;
+            if (i < maxRetries - 1) {
+                await new Promise(res => setTimeout(res, delayMs));
+            }
+        }
+    }
+    throw lastError;
+}
+
 // Initialize MEV Protection (Graceful)
 let bundler = null;
 try {
@@ -122,7 +144,7 @@ try {
 // ============================================================
 async function getDynamicPriorityFee() {
     try {
-        const fees = await connection.getRecentPrioritizationFees();
+        const fees = await withRetry(() => connection.getRecentPrioritizationFees());
         if (!fees || fees.length === 0) return 100000; // Fallback 0.0001 SOL
 
         // Sort descending and take the top 20 to get a competitive gauge
@@ -147,9 +169,17 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
     try {
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Requesting Jupiter Quote...`));
         // 1. Get Quote — using lite-api.jup.ag (quote-api.jup.ag is DNS-dead on this network)
-        const JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
-        const quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
-        const quoteResponse = await axios.get(quoteUrl, { timeout: 10000 });
+        let JUPITER_BASE = 'https://lite-api.jup.ag/swap/v1';
+        let quoteResponse;
+        let swapResponse;
+        try {
+            const quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
+            quoteResponse = await withRetry(() => axios.get(quoteUrl, { timeout: 10000 }));
+        } catch(e) {
+            JUPITER_BASE = 'https://quote-api.jup.ag/v6';
+            const quoteUrl = `${JUPITER_BASE}/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=${slippageBps}`;
+            quoteResponse = await withRetry(() => axios.get(quoteUrl, { timeout: 10000 }));
+        }
         const quoteData = quoteResponse.data;
 
         if (!quoteData || quoteData.error) throw new Error(quoteData.error || 'No quote found');
@@ -161,12 +191,20 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         const priorityFeeSol = (priorityFee / 1e9).toFixed(6);
         console.log(chalk.hex('#FF6600')(`[SNIPER #${id}]: 🏎️ Priority Fee Set: ${priorityFeeSol} SOL`));
 
-        const swapResponse = await axios.post(`${JUPITER_BASE}/swap`, {
+        // Wallet Guard
+        const currentBalance = await withRetry(() => connection.getBalance(wallet.publicKey));
+        const requiredBalance = inputMint === WSOL_MINT.toString() ? Number(amount) + priorityFee : priorityFee;
+        if (currentBalance < requiredBalance) {
+            console.log(chalk.red(`[SNIPER #${id}]: 🚨 INSUFFICIENT SOL: Has ${currentBalance}, needs ${requiredBalance}`));
+            return { success: false, error: 'Insufficient SOL for trade + fees' };
+        }
+
+        swapResponse = await withRetry(() => axios.post(`${JUPITER_BASE}/swap`, {
             quoteResponse: quoteData,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
             prioritizationFeeLamports: priorityFee
-        }, { timeout: 10000 });
+        }, { timeout: 10000 }));
 
         const { swapTransaction } = swapResponse.data;
 
@@ -176,8 +214,8 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         transaction.sign([wallet]);
 
         // 4. Send (Prefer Bundler if available, else RPC)
-        const latestBh = await connection.getLatestBlockhash('confirmed');
-        const sig = await connection.sendTransaction(transaction, { skipPreflight: true, maxRetries: 2 });
+        const latestBh = await withRetry(() => connection.getLatestBlockhash('confirmed'));
+        const sig = await withRetry(() => connection.sendTransaction(transaction, { skipPreflight: true, maxRetries: 2 }));
 
         console.log(chalk.green.bold(`[SNIPER #${id}]: 🪐 Jupiter Swap Sent: ${sig}`));
 
@@ -185,7 +223,7 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         let confirmed = false;
         for (let i = 0; i < 15; i++) {
             await new Promise(r => setTimeout(r, 2000));
-            const status = await connection.getSignatureStatuses([sig]);
+            const status = await withRetry(() => connection.getSignatureStatuses([sig]));
             const cs = status?.value?.[0]?.confirmationStatus;
             if (cs === 'confirmed' || cs === 'finalized') {
                 confirmed = true;
@@ -198,9 +236,9 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         return { success: true, sig, outAmount: quoteData.outAmount };
 
     } catch (e) {
-        let errorMsg = e.message;
-        if (e.code === 'ENOTFOUND') errorMsg = `DNS failure: ${e.hostname || 'Jupiter API'} unreachable`;
-        else if (e.code === 'ECONNABORTED' || e.code === 'ETIMEDOUT') errorMsg = `Network timeout reaching Jupiter API`;
+        let errorMsg = e && e.message ? e.message : 'Unknown error';
+        if (e && e.code === 'ENOTFOUND') errorMsg = `DNS failure: ${e.hostname || 'Jupiter API'} unreachable`;
+        else if (e && (e.code === 'ECONNABORTED' || e.code === 'ETIMEDOUT')) errorMsg = `Network timeout reaching Jupiter API`;
         console.error(chalk.red(`[SNIPER #${id}]: Jupiter Swap Failed: ${errorMsg}`));
         return { success: false, error: errorMsg };
     }
@@ -209,8 +247,14 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
 async function fetchCurrentPrice(mint, amount) {
     // 1. Try Jupiter lite-api (LIVE — v6 is dead)
     try {
-        const quoteUrl = `https://lite-api.jup.ag/swap/v1/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
-        const res = await axios.get(quoteUrl, { timeout: 8000 });
+        let res;
+        try {
+            const quoteUrl = `https://lite-api.jup.ag/swap/v1/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
+            res = await withRetry(() => axios.get(quoteUrl, { timeout: 8000 }));
+        } catch (e) {
+            const quoteUrl = `https://quote-api.jup.ag/v6/quote?inputMint=${mint}&outputMint=${WSOL_MINT.toString()}&amount=${amount}&slippageBps=100`;
+            res = await withRetry(() => axios.get(quoteUrl, { timeout: 8000 }));
+        }
         if (res.data && res.data.outAmount) {
             const solValue = Number(res.data.outAmount) / 1e9;
             const currentPrice = solValue / Number(amount);
@@ -222,7 +266,7 @@ async function fetchCurrentPrice(mint, amount) {
 
     // 2. Try DexScreener (Reliable fallback)
     try {
-        const res = await axios.get(`https://api.dexscreener.com/latest/dex/tokens/${mint}`, { timeout: 8000 });
+        const res = await withRetry(() => axios.get(`https://api.dexscreener.com/latest/dex/tokens/${mint}`, { timeout: 8000 }));
         if (res.data && res.data.pairs && res.data.pairs.length > 0) {
             const pair = res.data.pairs.find(p => p.quoteToken.address === WSOL_MINT.toString()) || res.data.pairs[0];
             const priceInSol = parseFloat(pair.priceNative); // Price in SOL per UI token
@@ -254,7 +298,7 @@ function getBondingCurvePDA(mint) {
 
 async function getBondingCurveAccount(bondingCurvePDA) {
     try {
-        const account = await connection.getAccountInfo(bondingCurvePDA);
+        const account = await withRetry(() => connection.getAccountInfo(bondingCurvePDA));
         if (!account || !account.data) return null; // Curve might be closed/migrated
 
         const buffer = account.data;
@@ -309,7 +353,7 @@ function calculateSellQuote(curve, tokenAmount) {
 // ============================================================
 async function buyToken(mint, bondingCurve, associatedBondingCurve) {
     try {
-        const balance = await connection.getBalance(wallet.publicKey);
+        const balance = await withRetry(() => connection.getBalance(wallet.publicKey));
         const SOL_AMOUNT = 0.03;
         const mintStr = mint.toString();
 
@@ -530,7 +574,7 @@ async function startSurveillance() {
     setInterval(async () => {
         for (const walletAddr of TARGET_WALLETS) {
             try {
-                const sigs = await connection.getSignaturesForAddress(new PublicKey(walletAddr), { limit: 1 });
+                const sigs = await withRetry(() => connection.getSignaturesForAddress(new PublicKey(walletAddr), { limit: 1 }));
                 if (sigs.length === 0) continue;
 
                 const latestSig = sigs[0].signature;
@@ -544,7 +588,7 @@ async function startSurveillance() {
                 lastSeenSigs[walletAddr] = latestSig;
                 console.log(chalk.yellow(`[SNIPER #${id}]: 🔔 ACTIVITY ON TARGET: ${walletAddr.substring(0, 8)}...`));
 
-                const tx = await connection.getParsedTransaction(latestSig, { maxSupportedTransactionVersion: 0 });
+                const tx = await withRetry(() => connection.getParsedTransaction(latestSig, { maxSupportedTransactionVersion: 0 }));
                 if (!tx || !tx.meta) continue;
 
                 const logs = tx.meta.logMessages || [];
@@ -847,10 +891,10 @@ async function runAutonomousScan() {
     let candidates = [];
     try {
         // Pull latest new pairs on Solana (sorted by creation time)
-        const res = await axios.get(
+        const res = await withRetry(() => axios.get(
             'https://api.dexscreener.com/token-profiles/latest/v1',
             { timeout: 12000 }
-        );
+        ));
         const profiles = Array.isArray(res.data) ? res.data : [];
 
         // Filter for Solana tokens only, not already scanned
@@ -866,10 +910,10 @@ async function runAutonomousScan() {
 
         if (solProfiles.length === 0) {
             // Fallback: check trending pairs
-            const trendRes = await axios.get(
+            const trendRes = await withRetry(() => axios.get(
                 'https://api.dexscreener.com/token-boosts/latest/v1',
                 { timeout: 12000 }
-            );
+            ));
             const boosted = Array.isArray(trendRes.data) ? trendRes.data : [];
             const solBoosted = boosted.filter(p => p.chainId === 'solana').slice(0, 15);
             solProfiles.push(...solBoosted);
@@ -879,10 +923,10 @@ async function runAutonomousScan() {
         const tokenAddresses = solProfiles.map(p => p.tokenAddress).filter(Boolean).slice(0, 15);
         if (tokenAddresses.length === 0) return;
 
-        const pairRes = await axios.get(
+        const pairRes = await withRetry(() => axios.get(
             `https://api.dexscreener.com/tokens/v1/solana/${tokenAddresses.join(',')}`,
             { timeout: 12000 }
-        );
+        ));
         const pairs = Array.isArray(pairRes.data) ? pairRes.data : [];
 
         // Score each unique token (pick best pair per token)
