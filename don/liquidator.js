@@ -28,6 +28,12 @@ try {
 // ── IPC Listener from Main Hub ──────────────────────────────────────
 process.on('message', async (msg) => {
     if (msg.type === 'PI_TRIGGER' && msg.action === 'LIQUIDATE_TARGET') {
+        msg.account = msg.account || 'UNKNOWN_ACCOUNT';
+        msg.debtMint = msg.debtMint || 'UNKNOWN_MINT';
+        msg.collateralMint = msg.collateralMint || 'UNKNOWN_MINT';
+        msg.debtAmount = msg.debtAmount || 0;
+        msg.collateralAmount = msg.collateralAmount || 0;
+
         console.log(chalk.red.bold(`\n🩸 [LIQUIDATOR]: MARGIN CALL TRIGGERED FROM PI 5! Execution engaged...`));
         console.log(chalk.red(`Victim Margin Account: ${msg.account}`));
         console.log(chalk.red(`Debt: ${msg.debtMint} | Collateral: ${msg.collateralMint}`));
@@ -37,7 +43,10 @@ process.on('message', async (msg) => {
 });
 
 async function executeFlashLoanLiquidation(targetData) {
-    if (!wallet) return;
+    if (!wallet || !wallet.publicKey) {
+        console.log(chalk.red('[LIQUIDATOR]: Wallet not initialized or invalid. Aborting liquidation.'));
+        return;
+    }
 
     try {
         console.log(chalk.yellow(`[LIQUIDATOR]: Requesting Flash Loan for ${targetData.debtAmount} units of ${targetData.debtMint}...`));
@@ -65,6 +74,23 @@ async function executeFlashLoanLiquidation(targetData) {
         console.log(chalk.red.bold(`[LIQUIDATOR]: Seizing assets with priority fee ${priorityFee}...`));
 
         await new Promise(resolve => setTimeout(resolve, 600)); // Execution simulation delay
+
+        // Implement network failovers for simulated API Call to Proxy
+        const proxyPrimary = process.env.PROXY_URL || 'http://localhost/primary';
+        const proxySecondary = process.env.PROXY_URL_FALLBACK || 'http://localhost/secondary';
+
+        try {
+            console.log(chalk.yellow(`[LIQUIDATOR]: Attempting to contact primary proxy at ${proxyPrimary}...`));
+            await axios.post(proxyPrimary, targetData, { timeout: 5000 });
+        } catch (e) {
+            console.log(chalk.red(`[LIQUIDATOR]: Primary proxy failed: ${e.message}. Attempting secondary proxy at ${proxySecondary}...`));
+            try {
+                await axios.post(proxySecondary, targetData, { timeout: 5000 });
+            } catch (e2) {
+                console.log(chalk.red(`[LIQUIDATOR]: Secondary proxy also failed: ${e2.message}. Execution aborted.`));
+                throw new Error('All proxy endpoints failed.');
+            }
+        }
 
         const estimatedProfit = targetData.debtAmount * 0.05; // Standard 5% liquidation bounty
         console.log(chalk.white.bgRed.bold(`[LIQUIDATOR]: 🩸 ASSETS SEIZED. Victim Liquidated.`));
