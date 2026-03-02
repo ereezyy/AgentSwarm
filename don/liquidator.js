@@ -37,10 +37,38 @@ process.on('message', async (msg) => {
 });
 
 async function executeFlashLoanLiquidation(targetData) {
-    if (!wallet) return;
+    if (!wallet || !wallet.publicKey) return;
 
     try {
         console.log(chalk.yellow(`[LIQUIDATOR]: Requesting Flash Loan for ${targetData.debtAmount} units of ${targetData.debtMint}...`));
+
+        let swapParams;
+        let lastError = "swapParams is not defined";
+        const endpoints = ['https://quote-api.jup.ag/v6/quote', 'https://api.jup.ag/swap/v1/quote'];
+
+        for (const endpoint of endpoints) {
+            try {
+                const response = await axios.get(endpoint, {
+                    params: {
+                        inputMint: targetData.collateralMint,
+                        outputMint: targetData.debtMint,
+                        amount: targetData.collateralAmount,
+                        slippageBps: 50
+                    }
+                });
+
+                if (response.data) {
+                    swapParams = response.data;
+                    break;
+                }
+            } catch (err) {
+                lastError = err.message;
+            }
+        }
+
+        if (!swapParams) {
+            throw new Error("Could not find swap route for collateral seizure. Last error: " + lastError);
+        }
 
         // Note: Constructing a raw Flash Loan + Liquidation + Swap atomic transaction requires
         // composing multiple instructions (Jupiter Flash Loan Start -> MarginFi Liquidate CPI -> Jupiter Swap -> Jupiter Flash Loan End)
@@ -77,7 +105,7 @@ async function executeFlashLoanLiquidation(targetData) {
             });
         }
     } catch (e) {
-        console.log(chalk.red(`[LIQUIDATOR]: Liquidation failed: ${e.message}`));
+        console.log(chalk.red(`Liquidator Failed: ${e.message}`));
     }
 }
 
