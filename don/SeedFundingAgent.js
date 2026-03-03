@@ -3,7 +3,7 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') }
 // Purpose: Aggressively acquire initial capital through high-risk, high-reward microtransactions
 // Version: 2.0 - Optimized for rapid funding with calculated risk
 
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./syndicate_core_class');
 const { RiskEngine } = require('./RiskEngine');
 
 class SeedFundingAgent {
@@ -21,6 +21,12 @@ class SeedFundingAgent {
   async initialize() {
     try {
       console.log('[SeedFundingAgent] Initializing aggressive capital acquisition...');
+
+      const balance = await this.core.checkWalletBalance();
+      if (balance === null || balance < 0.01) {
+        throw new Error('Insufficient SOL balance for seed funding operations.');
+      }
+
       this.operationStatus = 'RUNNING';
       await this.core.connectToDarkNetMarkets();
       await this.riskEngine.calibrate({ volatility: 'high', exposure: this.maxRiskExposure });
@@ -37,6 +43,10 @@ class SeedFundingAgent {
     while (this.currentCapital < this.minCapitalThreshold && this.operationStatus === 'RUNNING') {
       try {
         const riskAssessment = await this.riskEngine.analyzeMarketConditions();
+        if (!riskAssessment || typeof riskAssessment.score !== 'number') {
+            throw new Error('Invalid risk assessment received');
+        }
+
         const targetChannel = this.selectOptimalChannel(riskAssessment);
         // Silenced frequent polling logs to reduce noise
 

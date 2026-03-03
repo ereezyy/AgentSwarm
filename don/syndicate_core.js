@@ -1,5 +1,5 @@
 // don/syndicate_core.js - COMPATIBILITY SHIM
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./syndicate_core_class');
 const chalk = require('chalk');
 
 class Logger {

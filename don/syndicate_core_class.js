@@ -8,6 +8,7 @@ const { Bundle } = require('jito-ts/dist/sdk/block-engine/types');
 class SyndicateCore {
     constructor() {
         this.rpcUrl = process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com';
+        this.rpcUrlFallback = process.env.SOLANA_RPC_URL_FALLBACK || 'https://api.mainnet-beta.solana.com';
         this.connection = new Connection(this.rpcUrl, 'confirmed');
         this.jitoAuthKey = process.env.JITO_AUTH_KEY; // Optional
         this.jitoBlockEngineUrl = process.env.JITO_BLOCK_ENGINE_URL || 'mainnet.block-engine.jito.wtf';
@@ -57,6 +58,15 @@ class SyndicateCore {
 
     async sendJitoBundle(serializedTransactions, tipAmountLamports) {
         try {
+            if (!process.env.SOLANA_PUBLIC_KEY || process.env.SOLANA_PUBLIC_KEY.length < 32 || process.env.SOLANA_PUBLIC_KEY.includes('Syndicate...Wallet')) {
+                throw new Error("Invalid or missing SOLANA_PUBLIC_KEY in environment");
+            }
+
+            const currentBalance = await this.checkWalletBalance();
+            if (currentBalance === null || currentBalance * 1e9 < tipAmountLamports + 5000) {
+                throw new Error("Insufficient balance for Jito bundle tip and network fees");
+            }
+
             this.log(`[JITO]: Sparking bundle with ${serializedTransactions.length} txs and ${tipAmountLamports} tip`, 'CRYPTO');
 
             const searcher = searcherClient(this.jitoBlockEngineUrl, this.jitoAuthKey ? Keypair.fromSecretKey(Buffer.from(this.jitoAuthKey, 'hex')) : undefined);
@@ -72,7 +82,7 @@ class SyndicateCore {
             }
 
             // 2. Add Tip Transaction (Drafted here, signed by Vault)
-            const payerPubkey = new PublicKey(process.env.SOLANA_PUBLIC_KEY || 'Syndicate...Wallet');
+            const payerPubkey = new PublicKey(process.env.SOLANA_PUBLIC_KEY);
             const tipTx = new Transaction().add(
                 SystemProgram.transfer({
                     fromPubkey: payerPubkey,
@@ -80,7 +90,16 @@ class SyndicateCore {
                     lamports: tipAmountLamports,
                 })
             );
-            tipTx.recentBlockhash = (await this.connection.getLatestBlockhash()).blockhash;
+
+            let blockhash;
+            try {
+                blockhash = (await this.connection.getLatestBlockhash()).blockhash;
+            } catch (e) {
+                this.log(`[JITO]: Primary RPC getLatestBlockhash failed, attempting fallback...`, 'WARN');
+                const fallbackConnection = new Connection(this.rpcUrlFallback, 'confirmed');
+                blockhash = (await fallbackConnection.getLatestBlockhash()).blockhash;
+            }
+            tipTx.recentBlockhash = blockhash;
             tipTx.feePayer = payerPubkey;
 
             const signedTipTxBase64 = await this.requestSign(tipTx.serialize({ requireAllSignatures: false }).toString('base64'));
@@ -141,8 +160,17 @@ class SyndicateCore {
             this.log(`Wallet Balance: ${sol} SOL (${pubkey})`, sol > 0.015 ? 'MONEY' : 'INFO');
             return sol;
         } catch (e) {
-            this.reportError('BALANCE_CHECK', e);
-            return null;
+            this.log(`[CORE]: Primary RPC failed for balance check, attempting fallback...`, 'WARN');
+            try {
+                const fallbackConnection = new Connection(this.rpcUrlFallback, 'confirmed');
+                const balance = await fallbackConnection.getBalance(new PublicKey(pubkey));
+                const sol = balance / 1e9;
+                this.log(`Wallet Balance (Fallback): ${sol} SOL (${pubkey})`, sol > 0.015 ? 'MONEY' : 'INFO');
+                return sol;
+            } catch (fallbackError) {
+                this.reportError('BALANCE_CHECK_FALLBACK', fallbackError);
+                return null;
+            }
         }
     }
 
