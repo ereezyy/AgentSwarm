@@ -3,8 +3,21 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') }
 // Purpose: Aggressively acquire initial capital through high-risk, high-reward microtransactions
 // Version: 2.0 - Optimized for rapid funding with calculated risk
 
-const { SyndicateCore } = require('./SyndicateCore');
-const { RiskEngine } = require('./RiskEngine');
+const { SyndicateCore } = require('./SyndicateCore.js');
+const { RiskEngine } = require('./RiskEngine.js');
+
+async function withRetry(operation, maxRetries = 3, baseDelay = 1000) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      if (attempt === maxRetries) throw error;
+      const delay = baseDelay * Math.pow(2, attempt - 1);
+      console.warn(`[Retry] Attempt ${attempt} failed. Retrying in ${delay}ms... Error: ${error.message}`);
+      await new Promise(res => setTimeout(res, delay));
+    }
+  }
+}
 
 class SeedFundingAgent {
   constructor() {
@@ -21,6 +34,12 @@ class SeedFundingAgent {
   async initialize() {
     try {
       console.log('[SeedFundingAgent] Initializing aggressive capital acquisition...');
+
+      const balance = await this.core.checkWalletBalance();
+      if (balance !== null && balance < 0.005) {
+        throw new Error(`Insufficient SOL balance: ${balance}. Minimum required is 0.005 SOL.`);
+      }
+
       this.operationStatus = 'RUNNING';
       await this.core.connectToDarkNetMarkets();
       await this.riskEngine.calibrate({ volatility: 'high', exposure: this.maxRiskExposure });
@@ -36,19 +55,22 @@ class SeedFundingAgent {
   async executeFundingCycle() {
     while (this.currentCapital < this.minCapitalThreshold && this.operationStatus === 'RUNNING') {
       try {
-        const riskAssessment = await this.riskEngine.analyzeMarketConditions();
+        const riskAssessment = await withRetry(() => this.riskEngine.analyzeMarketConditions());
         const targetChannel = this.selectOptimalChannel(riskAssessment);
         // Silenced frequent polling logs to reduce noise
 
         const transaction = await this.executeHighRiskTransaction(targetChannel, riskAssessment);
-        if (transaction.success) {
-          this.currentCapital += transaction.profit;
-          this.transactionLog.push({ channel: targetChannel, profit: transaction.profit, timestamp: Date.now() });
-          if (transaction.profit > 0) {
-            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${transaction.profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
+        const profit = transaction?.profit || 0;
+        const loss = transaction?.loss || 0;
+
+        if (transaction?.success) {
+          this.currentCapital += profit;
+          this.transactionLog.push({ channel: targetChannel, profit, timestamp: Date.now() });
+          if (profit > 0) {
+            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
           }
         } else {
-          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${transaction.loss}`);
+          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${loss}`);
         }
 
         await this.core.delay(5000); // Delay to avoid rate limiting and detection
@@ -83,12 +105,12 @@ class SeedFundingAgent {
     const investmentAmount = this.calculateInvestment(riskAssessment);
 
     try {
-      const result = await this.core.executeTransaction({
+      const result = await withRetry(() => this.core.executeTransaction({
         channel,
         amount: investmentAmount,
         riskLevel: riskAssessment.score,
         type: 'high_yield_micro'
-      });
+      }));
 
       return result;
     } catch (error) {
@@ -115,6 +137,8 @@ class SeedFundingAgent {
 
 module.exports = SeedFundingAgent;
 
-// Auto-start the agent
-const agent = new SeedFundingAgent();
-agent.initialize().catch(console.error);
+if (require.main === module) {
+  // Auto-start the agent
+  const agent = new SeedFundingAgent();
+  agent.initialize().catch(console.error);
+}
