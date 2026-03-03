@@ -3,7 +3,7 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') }
 // Purpose: Aggressively acquire initial capital through high-risk, high-reward microtransactions
 // Version: 2.0 - Optimized for rapid funding with calculated risk
 
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./syndicate_core');
 const { RiskEngine } = require('./RiskEngine');
 
 class SeedFundingAgent {
@@ -34,36 +34,75 @@ class SeedFundingAgent {
   }
 
   async executeFundingCycle() {
+    let loopErrorCount = 0;
     while (this.currentCapital < this.minCapitalThreshold && this.operationStatus === 'RUNNING') {
+      let riskAssessment = null;
+      let targetChannel = null;
       try {
-        const riskAssessment = await this.riskEngine.analyzeMarketConditions();
-        const targetChannel = this.selectOptimalChannel(riskAssessment);
+        // Wallet guard: Check balance before executing transactions
+        let solBalance = 0;
+        try {
+          const balance = await this.core.checkWalletBalance();
+          solBalance = balance || 0;
+        } catch (balanceError) {
+          console.warn(`[SeedFundingAgent] Wallet balance check failed. Using fallback 0.`, balanceError?.message);
+        }
+
+        if (solBalance < 0.01) {
+          console.warn(`[SeedFundingAgent] Wallet guard triggered. Insufficient SOL balance: ${solBalance}. Pausing cycle...`);
+          await this.core.delay(10000);
+          continue;
+        }
+
+        riskAssessment = await this.riskEngine.analyzeMarketConditions();
+        targetChannel = this.selectOptimalChannel(riskAssessment);
         // Silenced frequent polling logs to reduce noise
 
         const transaction = await this.executeHighRiskTransaction(targetChannel, riskAssessment);
         if (transaction.success) {
-          this.currentCapital += transaction.profit;
-          this.transactionLog.push({ channel: targetChannel, profit: transaction.profit, timestamp: Date.now() });
-          if (transaction.profit > 0) {
-            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${transaction.profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
+          // Initialize profit just in case it's undefined
+          const profit = typeof transaction.profit === 'number' && !isNaN(transaction.profit) ? transaction.profit : 0;
+          this.currentCapital += profit;
+          this.transactionLog.push({ channel: targetChannel, profit: profit, timestamp: Date.now() });
+          if (profit > 0) {
+            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
           }
         } else {
-          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${transaction.loss}`);
+          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${transaction.loss || 0}`);
         }
 
+        loopErrorCount = 0; // reset on success
         await this.core.delay(5000); // Delay to avoid rate limiting and detection
       } catch (error) {
-        console.error('[SeedFundingAgent] Funding cycle error:', error);
-        await this.core.reportError('SeedFundingAgent_Cycle_Failure', error);
-        this.operationStatus = 'PAUSED';
-        await this.core.delay(10000); // Pause before retry
-        this.operationStatus = 'RUNNING';
+        loopErrorCount++;
+        const errorMessage = error?.response?.data?.error || error?.response?.data?.msg || error?.message || 'Unknown error';
+        console.error(`[SeedFundingAgent] Funding cycle error: ${errorMessage}`);
+
+        try {
+           await this.core.reportError('SeedFundingAgent_Cycle_Failure', error);
+        } catch (reportError) {
+           console.error('[SeedFundingAgent] Failed to report error:', reportError?.message);
+        }
+
+        if (loopErrorCount > 5) {
+            console.error('[SeedFundingAgent] Too many consecutive failures. Pausing operations...');
+            this.operationStatus = 'PAUSED';
+            await this.core.delay(30000); // Pause longer before retry
+            this.operationStatus = 'RUNNING';
+            loopErrorCount = 0;
+        } else {
+            await this.core.delay(10000); // Pause before retry
+        }
       }
     }
 
     if (this.currentCapital >= this.minCapitalThreshold) {
       console.log('[SeedFundingAgent] Seed capital threshold reached. Transferring to Syndicate Core...');
-      await this.core.transferFunds(this.currentCapital, 'SeedFundingAgent', 'SyndicateCore');
+      try {
+        await this.core.transferFunds(this.currentCapital, 'SeedFundingAgent', 'SyndicateCore');
+      } catch (err) {
+        console.error('[SeedFundingAgent] Failed to transfer seed capital.', err?.message);
+      }
       this.operationStatus = 'COMPLETED';
     }
   }
@@ -83,16 +122,18 @@ class SeedFundingAgent {
     const investmentAmount = this.calculateInvestment(riskAssessment);
 
     try {
+      // API Network failover simulated/handled gracefully inside executeTransaction
       const result = await this.core.executeTransaction({
         channel,
         amount: investmentAmount,
-        riskLevel: riskAssessment.score,
+        riskLevel: riskAssessment?.score || 0,
         type: 'high_yield_micro'
       });
 
       return result;
     } catch (error) {
-      console.error(`[SeedFundingAgent] Transaction error on ${channel}:`, error);
+      const errorMessage = error?.response?.data?.error || error?.response?.data?.msg || error?.message || 'Unknown error';
+      console.error(`[SeedFundingAgent] Transaction error on ${channel}: ${errorMessage}`);
       return { success: false, loss: investmentAmount };
     }
   }
