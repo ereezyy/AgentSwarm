@@ -1,3 +1,17 @@
+jest.mock('chalk', () => {
+    const chalkMock = Object.assign(jest.fn(text => text), {
+        bold: jest.fn(text => text),
+        yellow: Object.assign(jest.fn(text => text), { bold: jest.fn(text => text) }),
+        red: Object.assign(jest.fn(text => text), { bold: jest.fn(text => text) }),
+        cyan: Object.assign(jest.fn(text => text), { bold: jest.fn(text => text) }),
+        green: Object.assign(jest.fn(text => text), { bold: jest.fn(text => text) }),
+        blue: Object.assign(jest.fn(text => text), { bold: jest.fn(text => text) }),
+        magenta: Object.assign(jest.fn(text => text), { bold: jest.fn(text => text) })
+    });
+    return chalkMock;
+}, { virtual: true });
+jest.mock("dotenv", () => ({ config: jest.fn() }), { virtual: true });
+jest.mock("axios", () => ({}), { virtual: true });
 const assert = require('node:assert');
 const { parseJSONFromText } = require('../brain.js');
 
