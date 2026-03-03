@@ -499,3 +499,12 @@ setInterval(async () => {
         console.log(chalk.cyan(`   → Rule: ${reflection.actionable_heuristic}`));
     }
 }, 1 * 60 * 60 * 1000); // 1 hour reflection loop
+
+
+// Testing exports
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        calculateKellyBet,
+        neuralConfig
+    };
+}

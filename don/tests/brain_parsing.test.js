@@ -1,3 +1,16 @@
+// Mock dependencies for brain.js
+jest.mock('axios', () => ({
+    get: jest.fn(),
+    post: jest.fn()
+}), { virtual: true });
+jest.mock('chalk', () => ({
+    cyan: jest.fn(),
+    green: jest.fn(),
+    red: jest.fn(),
+    yellow: jest.fn()
+}), { virtual: true });
+jest.mock('dotenv', () => ({ config: jest.fn() }), { virtual: true });
+
 const assert = require('node:assert');
 const { parseJSONFromText } = require('../brain.js');
 
@@ -32,9 +45,6 @@ test('parseJSONFromText parses JSON with nested braces', () => {
 });
 
 test('parseJSONFromText parses pure JSON arrays (fallback mechanism)', () => {
-    // Current regex is \{[\s\S]*\} so it expects an object.
-    // If input is purely an array [1, 2], it fails the regex match,
-    // then falls back to JSON.parse(text) which should succeed.
     const input = '[1, 2, 3]';
     const expected = [1, 2, 3];
     assert.deepStrictEqual(parseJSONFromText(input), expected);
@@ -46,7 +56,6 @@ test('parseJSONFromText throws on invalid JSON', () => {
 });
 
 test('parseJSONFromText fails on multiple JSON blocks (Greedy match limitation)', () => {
-    // Documenting current limitation: multiple JSON blocks cause SyntaxError due to greedy regex
     const input = '{"a": 1} and {"b": 2}';
     assert.throws(() => parseJSONFromText(input), SyntaxError);
 });
