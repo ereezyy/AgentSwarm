@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const id = process.argv[2] || 'Scavenger';
 const { ask } = require('./brain');
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./syndicate_core_main');
 const core = new SyndicateCore();
 
 const MAX_RETRIES = 3;
@@ -29,6 +29,10 @@ async function runWithRetry(fn, label) {
 }
 
 // Derive Wallet from .env
+if (!process.env.SOLANA_PRIVATE_KEY) {
+    console.error(chalk.red(`[SCAVENGER #${id}]: ❌ CRITICAL ERROR: SOLANA_PRIVATE_KEY is missing from .env`));
+    process.exit(1);
+}
 const secretKey = Buffer.from(process.env.SOLANA_PRIVATE_KEY, 'hex');
 const keypair = Keypair.fromSecretKey(secretKey);
 const WALLET = keypair.publicKey.toString();
@@ -80,13 +84,26 @@ function saveTracker(data) {
 // Ensure tracker exists on boot
 loadTracker();
 
+// ── NETWORK FAILOVER HELPER ──
+async function withConnectionFailover(operation) {
+    try {
+        return await operation(core.connection);
+    } catch (e) {
+        console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ Primary connection failed, attempting fallback...`));
+        const { Connection } = require('@solana/web3.js');
+        const fallbackConnection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+        return await operation(fallbackConnection);
+    }
+}
+
 async function checkBalance() {
     return runWithRetry(async () => {
-        const connection = core.connection;
-        const lamports = await connection.getBalance(keypair.publicKey);
-        const sol = (lamports / 1e9).toFixed(4);
-        console.log(chalk.green(`[SCAVENGER #${id}]: 💰 Balance: ${sol} SOL`));
-        return parseFloat(sol);
+        return await withConnectionFailover(async (connection) => {
+            const lamports = await connection.getBalance(keypair.publicKey);
+            const sol = (lamports / 1e9).toFixed(4);
+            console.log(chalk.green(`[SCAVENGER #${id}]: 💰 Balance: ${sol} SOL`));
+            return parseFloat(sol);
+        });
     }, 'Balance Check').catch(e => {
         console.error(chalk.red(`[SCAVENGER #${id}]: Error checking balance: ${e.message}`));
         return 0;
@@ -141,9 +158,10 @@ async function scrapeBounties() {
         const tracker = loadTracker();
 
         for (const lead of leads) {
-            if (tracker.found.includes(lead.id)) continue;
+            if (!lead?.id || tracker.found.includes(lead.id)) continue;
 
-            console.log(chalk.yellow(`[SCAVENGER #${id}]: 💎 New Bounty: ${lead.title} (${lead.budget.range || lead.budget.amount})`));
+            const budgetStr = lead?.budget?.range || lead?.budget?.amount || 'Unknown Budget';
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: 💎 New Bounty: ${lead?.title || 'Untitled'} (${budgetStr})`));
             tracker.found.push(lead.id);
 
             // Draft Proposal via Jules if it's technical
@@ -161,29 +179,35 @@ async function scrapeBounties() {
 
 async function draftBountySolution(bounty) {
     try {
-        console.log(chalk.magenta(`[SCAVENGER #${id}]: 🧬 Sending bounty "${bounty.title}" to Jules for solution drafting...`));
+        const title = bounty?.title || 'Untitled';
+        const description = bounty?.description || 'No description provided';
+        const budget = bounty?.budget ? JSON.stringify(bounty.budget) : 'Unknown';
+        const url = bounty?.url || 'No URL provided';
+        const idStr = bounty?.id || 'UnknownID';
+
+        console.log(chalk.magenta(`[SCAVENGER #${id}]: 🧬 Sending bounty "${title}" to Jules for solution drafting...`));
 
         const prompt = `Draft a technical solution and a submission proposal for this bounty:
-Title: ${bounty.title}
-Desc: ${bounty.description}
-Budget: ${JSON.stringify(bounty.budget)}
-URL: ${bounty.url}
+Title: ${title}
+Desc: ${description}
+Budget: ${budget}
+URL: ${url}
 
 If the bounty requires a script, write the script. If it requires a guide, write the guide. 
 Save the result as a polished submission.`;
 
         const bridgePath = path.join(__dirname, '../muscle/jules_bridge.py');
-        const cmd = `python "${bridgePath}" --create "${prompt}" "syndicate-repo" --title "Bounty: ${bounty.id}" --auto-pr`;
+        const cmd = `python "${bridgePath}" --create "${prompt}" "syndicate-repo" --title "Bounty: ${idStr}" --auto-pr`;
 
         exec(cmd, (err, stdout) => {
             if (err) return;
-            console.log(chalk.green(`[SCAVENGER #${id}]: ✅ Jules session created for bounty ${bounty.id}.`));
+            console.log(chalk.green(`[SCAVENGER #${id}]: ✅ Jules session created for bounty ${idStr}.`));
 
             if (process.send) {
                 process.send({
                     type: 'AGENT_COMMS',
                     from: 'SCAVENGER',
-                    msg: `💎 Bounty hunter at work. Sparked Jules evolution for: "${bounty.title}". Solution incoming.`,
+                    msg: `💎 Bounty hunter at work. Sparked Jules evolution for: "${title}". Solution incoming.`,
                     timestamp: new Date().toISOString()
                 });
             }
@@ -200,35 +224,42 @@ async function sweepDust() {
         const { PublicKey, Transaction } = require('@solana/web3.js');
         const { TOKEN_PROGRAM_ID, createCloseAccountInstruction } = require('@solana/spl-token');
 
-        const connection = core.connection;
-        const walletKey = keypair.publicKey;
-
-        const accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
-        const emptyAccounts = accounts.value.filter(acc => acc.account.data.parsed.info.tokenAmount.uiAmount === 0);
-
-        if (emptyAccounts.length === 0) return;
-
-        const tx = new Transaction();
-        for (const acc of emptyAccounts.slice(0, 5)) {
-            tx.add(createCloseAccountInstruction(acc.pubkey, walletKey, walletKey));
+        const currentBalance = await checkBalance();
+        if (currentBalance < 0.005) {
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ Insufficient SOL for rent reclaim fees (${currentBalance} SOL). Skipping.`));
+            return;
         }
 
-        const { blockhash } = await connection.getLatestBlockhash();
-        tx.recentBlockhash = blockhash;
-        tx.feePayer = walletKey;
+        await withConnectionFailover(async (connection) => {
+            const walletKey = keypair.publicKey;
 
-        // Request signature from VAULT via SyndicateCore
-        const serializedTx = tx.serialize({ requireAllSignatures: false }).toString('base64');
+            const accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+            const emptyAccounts = accounts.value.filter(acc => acc.account.data.parsed.info.tokenAmount.uiAmount === 0);
 
-        if (process.env.LIVE_MODE === 'true') {
-            core.log('Requesting VAULT signature for rent reclamation...', 'POWER');
-            const signedTxBase64 = await core.requestSign(serializedTx);
-            const signedTx = Transaction.from(Buffer.from(signedTxBase64, 'base64'));
-            const sig = await connection.sendRawTransaction(signedTx.serialize());
-            core.log(`Reclaimed rent. Sig: ${sig}`, 'MONEY');
-        } else {
-            console.log(chalk.gray(`[SCAVENGER]: SIMULATION: Would reclaimed rent from ${emptyAccounts.length} accounts via VAULT.`));
-        }
+            if (emptyAccounts.length === 0) return;
+
+            const tx = new Transaction();
+            for (const acc of emptyAccounts.slice(0, 5)) {
+                tx.add(createCloseAccountInstruction(acc.pubkey, walletKey, walletKey));
+            }
+
+            const { blockhash } = await connection.getLatestBlockhash();
+            tx.recentBlockhash = blockhash;
+            tx.feePayer = walletKey;
+
+            // Request signature from VAULT via SyndicateCore
+            const serializedTx = tx.serialize({ requireAllSignatures: false }).toString('base64');
+
+            if (process.env.LIVE_MODE === 'true') {
+                core.log('Requesting VAULT signature for rent reclamation...', 'POWER');
+                const signedTxBase64 = await core.requestSign(serializedTx);
+                const signedTx = Transaction.from(Buffer.from(signedTxBase64, 'base64'));
+                const sig = await connection.sendRawTransaction(signedTx.serialize());
+                core.log(`Reclaimed rent. Sig: ${sig}`, 'MONEY');
+            } else {
+                console.log(chalk.gray(`[SCAVENGER]: SIMULATION: Would reclaimed rent from ${emptyAccounts.length} accounts via VAULT.`));
+            }
+        });
     } catch (e) {
         console.error(chalk.red(`[SCAVENGER]: Rent reclaim failed: ${e.message}`));
     }
