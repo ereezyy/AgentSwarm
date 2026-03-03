@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const id = process.argv[2] || 'Scavenger';
 const { ask } = require('./brain');
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./syndicate_core');
 const core = new SyndicateCore();
 
 const MAX_RETRIES = 3;
@@ -29,7 +29,12 @@ async function runWithRetry(fn, label) {
 }
 
 // Derive Wallet from .env
-const secretKey = Buffer.from(process.env.SOLANA_PRIVATE_KEY, 'hex');
+const privateKeyHex = process.env.SOLANA_PRIVATE_KEY;
+if (!privateKeyHex) {
+    console.error(chalk.red(`[SCAVENGER #${id}]: ❌ SOLANA_PRIVATE_KEY not found in .env. Exiting to prevent crash.`));
+    process.exit(1);
+}
+const secretKey = Buffer.from(privateKeyHex, 'hex');
 const keypair = Keypair.fromSecretKey(secretKey);
 const WALLET = keypair.publicKey.toString();
 
@@ -82,8 +87,16 @@ loadTracker();
 
 async function checkBalance() {
     return runWithRetry(async () => {
-        const connection = core.connection;
-        const lamports = await connection.getBalance(keypair.publicKey);
+        let connection = core.connection;
+        let lamports;
+        try {
+            lamports = await connection.getBalance(keypair.publicKey);
+        } catch (e) {
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ Primary RPC failed for getBalance, using fallback...`));
+            const { Connection } = require('@solana/web3.js');
+            connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+            lamports = await connection.getBalance(keypair.publicKey);
+        }
         const sol = (lamports / 1e9).toFixed(4);
         console.log(chalk.green(`[SCAVENGER #${id}]: 💰 Balance: ${sol} SOL`));
         return parseFloat(sol);
@@ -197,13 +210,30 @@ Save the result as a polished submission.`;
 async function sweepDust() {
     try {
         console.log(chalk.yellow(`[SCAVENGER #${id}]: 🧹 Reclaiming rent via VAULT...`));
-        const { PublicKey, Transaction } = require('@solana/web3.js');
+        const { PublicKey, Transaction, Connection } = require('@solana/web3.js');
         const { TOKEN_PROGRAM_ID, createCloseAccountInstruction } = require('@solana/spl-token');
 
-        const connection = core.connection;
+        let connection = core.connection;
         const walletKey = keypair.publicKey;
 
-        const accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+        // Wallet Guard: Check balance before spending fees on sweep
+        const balance = await checkBalance();
+        if (balance < 0.001) {
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ Insufficient SOL for network fees. Skipping sweep.`));
+            return;
+        }
+
+        let accounts, blockhash;
+        try {
+            accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+            blockhash = (await connection.getLatestBlockhash()).blockhash;
+        } catch (e) {
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ Primary RPC failed for sweepDust, using fallback...`));
+            connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+            accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+            blockhash = (await connection.getLatestBlockhash()).blockhash;
+        }
+
         const emptyAccounts = accounts.value.filter(acc => acc.account.data.parsed.info.tokenAmount.uiAmount === 0);
 
         if (emptyAccounts.length === 0) return;
@@ -213,7 +243,6 @@ async function sweepDust() {
             tx.add(createCloseAccountInstruction(acc.pubkey, walletKey, walletKey));
         }
 
-        const { blockhash } = await connection.getLatestBlockhash();
         tx.recentBlockhash = blockhash;
         tx.feePayer = walletKey;
 
