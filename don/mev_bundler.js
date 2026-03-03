@@ -20,7 +20,7 @@ class MevBundler {
         try {
             // Initialize Jito client
             // Standard bundles on public engines often don't require an auth keypair, but it's hit or miss.
-            this.client = searcher.searcherClient(BLOCK_ENGINE_URL, undefined);
+            this.client = searcher.searcherClient(BLOCK_ENGINE_URL, this.wallet);
             console.log(chalk.blue(`[MEV BUNDLER]: Jito Client Initialized. Protected Mode Active.`));
         } catch (e) {
             console.log(chalk.yellow(`[MEV BUNDLER]: Failed to init Jito client: ${e.message}`));
@@ -33,6 +33,28 @@ class MevBundler {
 
         try {
             console.log(chalk.magenta(`[MEV BUNDLER]: 🛡️ Creating Jito Bundle (Tip: ${tipAmount} lamports)...`));
+
+            // Wallet Guard
+            let balance = 0;
+            try {
+                balance = await this.connection.getBalance(this.wallet.publicKey);
+            } catch (e) {
+                if (process.env.SOLANA_RPC_URL_FALLBACK) {
+                    try {
+                        const { Connection } = require('@solana/web3.js');
+                        const fallbackConn = new Connection(process.env.SOLANA_RPC_URL_FALLBACK);
+                        balance = await fallbackConn.getBalance(this.wallet.publicKey);
+                    } catch (fallbackErr) {
+                        throw new Error(`Failed to check balance even with fallback: ${fallbackErr.message}`);
+                    }
+                } else {
+                    throw new Error(`Failed to check balance: ${e.message}`);
+                }
+            }
+            if (balance < tipAmount) {
+                console.log(chalk.red(`[MEV BUNDLER]: 🛑 Wallet guard triggered: Balance ${balance} < Tip ${tipAmount}`));
+                return null;
+            }
 
             const JITO_TIP_ACCOUNTS = [
                 "96gYZGLnJYVFmbjzopPSU6QiEV5fGqZNyN9nmNhvrZU5",

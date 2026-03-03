@@ -113,6 +113,20 @@ function canBuy(mintStr) {
 // ── Connection Setup (HTTP-only, no WebSocket spam) ──
 const connection = new Connection(RPC_URL, { commitment: 'confirmed' });
 
+// Helper for RPC failover
+async function rpcWithFailover(methodName, ...args) {
+    try {
+        return await connection[methodName](...args);
+    } catch (error) {
+        if (process.env.SOLANA_RPC_URL_FALLBACK) {
+            console.log(chalk.yellow(`[SNIPER #${id}]: Primary RPC failed for ${methodName}. Attempting fallback...`));
+            const fallbackConnection = new Connection(process.env.SOLANA_RPC_URL_FALLBACK, { commitment: 'confirmed' });
+            return await fallbackConnection[methodName](...args);
+        }
+        throw error;
+    }
+}
+
 // Initialize MEV Protection (Graceful)
 let bundler = null;
 try {
@@ -156,7 +170,7 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         const amountLamports = parseInt(amount);
         const priorityFee = await getDynamicPriorityFee();
         if (inputMint === WSOL_MINT.toString()) {
-            const balance = await connection.getBalance(wallet.publicKey);
+            const balance = await rpcWithFailover('getBalance', wallet.publicKey);
             if (balance < amountLamports + priorityFee) {
                 throw new Error(`Insufficient SOL balance. Have ${(balance / 1e9).toFixed(6)}, need ${((amountLamports + priorityFee) / 1e9).toFixed(6)}`);
             }
@@ -187,24 +201,6 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         if (!qRes || !qRes.data || !qRes.data.outAmount) throw new Error(`Quote failed: ${lastErr}`);
 
         quoteData = qRes.data;
-
-        let qRes = null;
-        let lastErr = null;
-        const qParams = { inputMint, outputMint, amount, slippageBps: 1000 };
-
-        for (const url of JUPITER_QUOTE_APIS) {
-            try {
-                qRes = await axios.get(url, { params: qParams, timeout: 5000 });
-                if (qRes && qRes.data) break;
-            } catch (e) {
-                lastErr = e.message;
-                console.log(chalk.yellow(`[SNIPER]: Quote API ${new URL(url).hostname} failed, trying next...`));
-            }
-        }
-
-        if (!qRes || !qRes.data || !qRes.data.outAmount) throw new Error(`Quote failed: ${lastErr}`);
-
-        const quoteData = qRes.data;
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Jupiter Quote: ${quoteData.outAmount} out via ${quoteData.routePlan.map(r => r.swapInfo.label).join('->')}`));
 
         // 2. Get Serialized Transaction with Dynamic Fee
@@ -450,7 +446,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
         return;
     }
     try {
-        const balance = await connection.getBalance(wallet.publicKey);
+        const balance = await rpcWithFailover('getBalance', wallet.publicKey);
         const mintStr = mint.toString();
 
         // ── Safety Gate 1: Per-token cooldown + daily cap ──
