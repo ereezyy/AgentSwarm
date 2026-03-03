@@ -113,51 +113,52 @@ else:
     models['pumpfun'] = None
     pump_mode = "Fallback"
 
-# ── Boot ─────────────────────────────────────────────────────────────
-status = {
-    "status": "ready",
-    "chip": "ARM-Cortex-A76 (Pure Python)",
-    "models": {
-        "raydium": {"mode": ray_mode, "accuracy": "80.73%"},
-        "pumpfun": {"mode": pump_mode, "accuracy": "97.06%"}
+if __name__ == '__main__':
+    # ── Boot ─────────────────────────────────────────────────────────────
+    status = {
+        "status": "ready",
+        "chip": "ARM-Cortex-A76 (Pure Python)",
+        "models": {
+            "raydium": {"mode": ray_mode, "accuracy": "80.73%"},
+            "pumpfun": {"mode": pump_mode, "accuracy": "97.06%"}
+        }
     }
-}
-print(json.dumps(status))
-sys.stdout.flush()
+    print(json.dumps(status))
+    sys.stdout.flush()
 
-# ── Main Loop ────────────────────────────────────────────────────────
-for line in sys.stdin:
-    try:
-        req = json.loads(line.strip())
-        req_id = req.get('req_id', None)
-        model_id = req.get('model', 'raydium')
-        features = req.get('features', [])
-        
-        # Normalize
-        s_min, s_max = scalers.get(model_id, ([0]*6, [1]*6))
-        features_norm = []
-        for i in range(len(features)):
-            denom = (s_max[i] - s_min[i])
-            if denom == 0: denom = 1e-8
-            features_norm.append((features[i] - s_min[i]) / denom)
-        
-        # Predict
-        mlp = models.get(model_id)
-        if mlp:
-            prob = mlp.predict(features_norm)
-        else:
-            prob = random.uniform(0.01, 0.99)
-        
-        res = {"rug_probability": prob, "model": model_id}
-        if req_id is not None:
-            res['req_id'] = req_id
+    # ── Main Loop ────────────────────────────────────────────────────────
+    for line in sys.stdin:
+        try:
+            req = json.loads(line.strip())
+            req_id = req.get('req_id', None)
+            model_id = req.get('model', 'raydium')
+            features = req.get('features', [])
             
-        print(json.dumps(res))
-        sys.stdout.flush()
-        
-    except Exception as e:
-        err_res = {"error": str(e), "model": "unknown"}
-        if 'req' in locals() and isinstance(req, dict) and 'req_id' in req:
-            err_res['req_id'] = req['req_id']
-        print(json.dumps(err_res))
-        sys.stdout.flush()
+            # Normalize
+            s_min, s_max = scalers.get(model_id, ([0]*6, [1]*6))
+            features_norm = []
+            for i in range(len(features)):
+                denom = (s_max[i] - s_min[i])
+                if denom == 0: denom = 1e-8
+                features_norm.append((features[i] - s_min[i]) / denom)
+
+            # Predict
+            mlp = models.get(model_id)
+            if mlp:
+                prob = mlp.predict(features_norm)
+            else:
+                prob = random.uniform(0.01, 0.99)
+
+            res = {"rug_probability": prob, "model": model_id}
+            if req_id is not None:
+                res['req_id'] = req_id
+
+            print(json.dumps(res))
+            sys.stdout.flush()
+
+        except Exception as e:
+            err_res = {"error": str(e), "model": "unknown"}
+            if 'req' in locals() and isinstance(req, dict) and 'req_id' in req:
+                err_res['req_id'] = req['req_id']
+            print(json.dumps(err_res))
+            sys.stdout.flush()
