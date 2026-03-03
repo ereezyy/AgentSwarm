@@ -16,7 +16,7 @@ const RPC_URLS = [
     'https://mainnet.helius-rpc.com/?api-key=default',
     'https://api.mainnet-beta.solana.com'
 ];
-const connections = RPC_URLS.map(url => new Connection(url, 'confirmed'));
+const connections = RPC_URLS.map(url => new Connection(url, { commitment: 'confirmed', disableRetryOnRateLimit: true }));
 
 const JUP_API_URLS = [
     'https://quote-api.jup.ag/v6',
@@ -38,15 +38,38 @@ try {
 const WSOL_MINT = 'So11111111111111111111111111111111111111112';
 const SNIPE_AMOUNT_SOL = 0.1;
 
+// Helper to retry strictly on HTTP 429
+async function withRetry(operation, maxRetries = 3, baseDelay = 1000) {
+    let attempt = 0;
+    while (attempt < maxRetries) {
+        try {
+            return await operation();
+        } catch (error) {
+            attempt++;
+            const is429 = error.response?.status === 429 || error.message?.includes('429');
+            if (is429 && attempt < maxRetries) {
+                const delayMs = baseDelay * Math.pow(2, attempt - 1); // Exponential backoff
+                console.log(chalk.yellow(`[BLOCK-0]: Rate limit (429) hit. Retrying in ${delayMs}ms... (Attempt ${attempt}/${maxRetries})`));
+                await new Promise(res => setTimeout(res, delayMs));
+            } else {
+                throw error;
+            }
+        }
+    }
+}
+
 // ── IPC Listener from Main Hub ──────────────────────────────────────
 process.on('message', async (msg) => {
-    if (msg.type === 'PI_TRIGGER' && msg.action === 'BLOCK0_SNIPE') {
+    if (msg?.type === 'PI_TRIGGER' && msg?.action === 'BLOCK0_SNIPE') {
+        const sig = msg.signature ? msg.signature.toString() : null;
+        if (!sig) return;
+
         console.log(chalk.red.bold(`\n⚡🎯 [BLOCK-0 SNIPER]: PI 5 RADAR TRIGGER RECEIVED! Execution engaged...`));
-        console.log(chalk.red(`Target LP Init Sig: ${msg.signature}`));
+        console.log(chalk.red(`Target LP Init Sig: ${sig}`));
 
         // At this specific millisecond, we know a new LP was created.
         // We need to parse that exact transaction to extract the new token mint address.
-        await extractAndSnipe(msg.signature);
+        await extractAndSnipe(sig);
     }
 });
 
@@ -64,8 +87,16 @@ async function extractAndSnipe(signature) {
             const bytes = Buffer.from(signature, 'hex');
             b58Sig = bs58.encode(bytes);
             console.log(chalk.gray(`[BLOCK-0]: Sanitized Hex sig to Base58: ${b58Sig.slice(0, 8)}...`));
-        } else if (signature.length !== 87 && signature.length !== 88) {
-            console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid signature format/length: ${signature}`));
+        }
+
+        try {
+            const decoded = bs58.decode(b58Sig);
+            if (decoded.length !== 64) {
+                console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid signature length (${decoded.length} bytes): ${signature}`));
+                return;
+            }
+        } catch (e) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid base58 signature: ${signature}`));
             return;
         }
 
@@ -74,7 +105,7 @@ async function extractAndSnipe(signature) {
         let txInfo = null;
         for (const conn of connections) {
             try {
-                txInfo = await conn.getTransaction(b58Sig, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 });
+                txInfo = await withRetry(() => conn.getTransaction(b58Sig, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 }));
                 if (txInfo) break;
             } catch (err) {
                 // Continue to fallback connection
@@ -87,7 +118,7 @@ async function extractAndSnipe(signature) {
 
         // Raydium initialize2 usually has the token mints in the account keys.
         // We know WSOL is one, the other is the shitcoin.
-        const accountKeys = txInfo.transaction.message.staticAccountKeys || txInfo.transaction.message.accountKeys || [];
+        const accountKeys = txInfo?.transaction?.message?.staticAccountKeys || txInfo?.transaction?.message?.accountKeys || [];
         let targetMint = null;
 
         for (const key of accountKeys) {
@@ -110,8 +141,26 @@ async function extractAndSnipe(signature) {
 
         console.log(chalk.red.bold(`[BLOCK-0 SNIPER]: TARGET ACQUIRED → ${targetMint}. FIRING JUPITER...`));
 
-        // 2. Fire Jupiter Swap
+        // 2. Wallet Balance Guard
+        let balanceLamports = 0;
+        for (const conn of connections) {
+            try {
+                balanceLamports = await withRetry(() => conn.getBalance(wallet.publicKey));
+                break;
+            } catch (err) {
+                // Try next connection
+            }
+        }
+
         const amountLamports = Math.floor(SNIPE_AMOUNT_SOL * 1e9);
+        const jupPriorityFee = 3000000;
+
+        if (balanceLamports < (amountLamports + jupPriorityFee + 5000)) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Insufficient SOL balance (${balanceLamports / 1e9} SOL). Need at least ${(amountLamports + jupPriorityFee + 5000) / 1e9} SOL.`));
+            return;
+        }
+
+        // 3. Fire Jupiter Swap
         const JUPITER_QUOTE_APIS = [
             'https://lite-api.jup.ag/swap/v1/quote',
             'https://quote-api.jup.ag/v6/quote',
@@ -129,35 +178,39 @@ async function extractAndSnipe(signature) {
 
         for (const url of JUPITER_QUOTE_APIS) {
             try {
-                qRes = await axios.get(url, { params: qParams, timeout: 3000 });
-                if (qRes && qRes.data) break;
+                qRes = await withRetry(() => axios.get(url, { params: qParams, timeout: 3000 }));
+                if (qRes?.data?.outAmount) break;
             } catch (e) {
-                lastErr = e.message;
-                console.log(chalk.gray(`[BLOCK-0]: Quote API ${new URL(url).hostname} failed.`));
+                lastErr = e?.response?.data?.error || e?.message || 'Unknown error';
+                let hostname = url;
+                try { hostname = new URL(url).hostname; } catch(err) {}
+                console.log(chalk.gray(`[BLOCK-0]: Quote API ${hostname} failed: ${lastErr}`));
             }
         }
 
-        if (!qRes || !qRes.data || !qRes.data.outAmount) throw new Error(`Quote failed: ${lastErr}`);
+        if (!qRes?.data?.outAmount) throw new Error(`Quote failed on all endpoints. Last error: ${lastErr}`);
 
         const swapPayload = {
             quoteResponse: qRes.data,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: 3000000
+            prioritizationFeeLamports: jupPriorityFee
         };
 
         let swapRes = null;
         for (const url of JUPITER_SWAP_APIS) {
             try {
-                swapRes = await axios.post(url, swapPayload, { timeout: 4000 });
-                if (swapRes && swapRes.data) break;
+                swapRes = await withRetry(() => axios.post(url, swapPayload, { timeout: 4000 }));
+                if (swapRes?.data?.swapTransaction) break;
             } catch (e) {
-                lastErr = e.message;
-                console.log(chalk.gray(`[BLOCK-0]: Swap API ${new URL(url).hostname} failed.`));
+                lastErr = e?.response?.data?.error || e?.message || 'Unknown error';
+                let hostname = url;
+                try { hostname = new URL(url).hostname; } catch(err) {}
+                console.log(chalk.gray(`[BLOCK-0]: Swap API ${hostname} failed: ${lastErr}`));
             }
         }
 
-        if (!swapRes || !swapRes.data) throw new Error(`Swap construction failed: ${lastErr}`);
+        if (!swapRes?.data?.swapTransaction) throw new Error(`Swap construction failed on all endpoints. Last error: ${lastErr}`);
 
         const txBuf = Buffer.from(swapRes.data.swapTransaction, 'base64');
         const tx = VersionedTransaction.deserialize(txBuf);
@@ -166,7 +219,7 @@ async function extractAndSnipe(signature) {
         let sig = null;
         for (const conn of connections) {
             try {
-                sig = await conn.sendRawTransaction(tx.serialize(), { skipPreflight: true });
+                sig = await withRetry(() => conn.sendRawTransaction(tx.serialize(), { skipPreflight: true }));
                 if (sig) break;
             } catch (err) {
                 // Try next RPC connection
