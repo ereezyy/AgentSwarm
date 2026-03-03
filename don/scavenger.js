@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const id = process.argv[2] || 'Scavenger';
 const { ask } = require('./brain');
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./SyndicateCore.js');
 const core = new SyndicateCore();
 
 const MAX_RETRIES = 3;
@@ -29,9 +29,27 @@ async function runWithRetry(fn, label) {
 }
 
 // Derive Wallet from .env
-const secretKey = Buffer.from(process.env.SOLANA_PRIVATE_KEY, 'hex');
-const keypair = Keypair.fromSecretKey(secretKey);
-const WALLET = keypair.publicKey.toString();
+let keypair = null;
+let WALLET = 'SIMULATION_MODE';
+
+try {
+    if (process.env.SOLANA_PRIVATE_KEY) {
+        let secretKey;
+        try {
+            // Attempt to parse as JSON array first
+            secretKey = Buffer.from(JSON.parse(process.env.SOLANA_PRIVATE_KEY));
+        } catch (e) {
+            // Fallback to hex string
+            secretKey = Buffer.from(process.env.SOLANA_PRIVATE_KEY, 'hex');
+        }
+        keypair = Keypair.fromSecretKey(secretKey);
+        WALLET = keypair.publicKey.toString();
+    } else {
+        console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ SOLANA_PRIVATE_KEY not found. Running in SIMULATION MODE.`));
+    }
+} catch (e) {
+    console.log(chalk.red(`[SCAVENGER #${id}]: ❌ Error parsing SOLANA_PRIVATE_KEY: ${e.message}. Running in SIMULATION MODE.`));
+}
 
 const REPORT_PATH = path.resolve(__dirname, '../missions/scavenge_leads.md');
 const BOUNTY_TRACKER = path.resolve(__dirname, '../missions/bounty_tracker.json');
@@ -81,14 +99,28 @@ function saveTracker(data) {
 loadTracker();
 
 async function checkBalance() {
+    if (!keypair) {
+        console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ SIMULATION MODE: Skipping balance check.`));
+        return 0;
+    }
     return runWithRetry(async () => {
-        const connection = core.connection;
-        const lamports = await connection.getBalance(keypair.publicKey);
-        const sol = (lamports / 1e9).toFixed(4);
-        console.log(chalk.green(`[SCAVENGER #${id}]: 💰 Balance: ${sol} SOL`));
-        return parseFloat(sol);
+        try {
+            const connection = core.connection;
+            const lamports = await connection.getBalance(keypair.publicKey);
+            const sol = (lamports / 1e9).toFixed(4);
+            console.log(chalk.green(`[SCAVENGER #${id}]: 💰 Balance: ${sol} SOL`));
+            return parseFloat(sol);
+        } catch (e) {
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: Primary RPC failed for balance check. Falling back to secondary RPC...`));
+            const { Connection } = require('@solana/web3.js');
+            const fallbackConnection = new Connection(process.env.SOLANA_RPC_URL_FALLBACK || 'https://api.mainnet-beta.solana.com');
+            const lamports = await fallbackConnection.getBalance(keypair.publicKey);
+            const sol = (lamports / 1e9).toFixed(4);
+            console.log(chalk.green(`[SCAVENGER #${id}]: 💰 Balance (Fallback): ${sol} SOL`));
+            return parseFloat(sol);
+        }
     }, 'Balance Check').catch(e => {
-        console.error(chalk.red(`[SCAVENGER #${id}]: Error checking balance: ${e.message}`));
+        console.error(chalk.red(`[SCAVENGER #${id}]: Error checking balance after fallbacks: ${e.message}`));
         return 0;
     });
 }
@@ -141,13 +173,15 @@ async function scrapeBounties() {
         const tracker = loadTracker();
 
         for (const lead of leads) {
-            if (tracker.found.includes(lead.id)) continue;
+            if (tracker.found.includes(lead?.id)) continue;
 
-            console.log(chalk.yellow(`[SCAVENGER #${id}]: 💎 New Bounty: ${lead.title} (${lead.budget.range || lead.budget.amount})`));
-            tracker.found.push(lead.id);
+            const title = lead?.title || 'Unknown Title';
+            const budget = lead?.budget?.range || lead?.budget?.amount || 'Unknown Budget';
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: 💎 New Bounty: ${title} (${budget})`));
+            tracker.found.push(lead?.id);
 
             // Draft Proposal via Jules if it's technical
-            const isTechnical = lead.skills?.some(s => ['python', 'node', 'solana', 'javascript', 'ts', 'web3'].includes(s.toLowerCase()));
+            const isTechnical = lead?.skills?.some(s => ['python', 'node', 'solana', 'javascript', 'ts', 'web3'].includes(s?.toLowerCase()));
             if (isTechnical) {
                 await draftBountySolution(lead);
             }
@@ -161,29 +195,35 @@ async function scrapeBounties() {
 
 async function draftBountySolution(bounty) {
     try {
-        console.log(chalk.magenta(`[SCAVENGER #${id}]: 🧬 Sending bounty "${bounty.title}" to Jules for solution drafting...`));
+        const title = bounty?.title || 'Unknown Title';
+        const idStr = bounty?.id || 'unknown_id';
+        const desc = bounty?.description || 'No description provided.';
+        const budgetStr = bounty?.budget ? JSON.stringify(bounty.budget) : 'Unknown';
+        const urlStr = bounty?.url || 'No URL provided.';
+
+        console.log(chalk.magenta(`[SCAVENGER #${id}]: 🧬 Sending bounty "${title}" to Jules for solution drafting...`));
 
         const prompt = `Draft a technical solution and a submission proposal for this bounty:
-Title: ${bounty.title}
-Desc: ${bounty.description}
-Budget: ${JSON.stringify(bounty.budget)}
-URL: ${bounty.url}
+Title: ${title}
+Desc: ${desc}
+Budget: ${budgetStr}
+URL: ${urlStr}
 
 If the bounty requires a script, write the script. If it requires a guide, write the guide. 
 Save the result as a polished submission.`;
 
         const bridgePath = path.join(__dirname, '../muscle/jules_bridge.py');
-        const cmd = `python "${bridgePath}" --create "${prompt}" "syndicate-repo" --title "Bounty: ${bounty.id}" --auto-pr`;
+        const cmd = `python "${bridgePath}" --create "${prompt}" "syndicate-repo" --title "Bounty: ${idStr}" --auto-pr`;
 
         exec(cmd, (err, stdout) => {
             if (err) return;
-            console.log(chalk.green(`[SCAVENGER #${id}]: ✅ Jules session created for bounty ${bounty.id}.`));
+            console.log(chalk.green(`[SCAVENGER #${id}]: ✅ Jules session created for bounty ${idStr}.`));
 
             if (process.send) {
                 process.send({
                     type: 'AGENT_COMMS',
                     from: 'SCAVENGER',
-                    msg: `💎 Bounty hunter at work. Sparked Jules evolution for: "${bounty.title}". Solution incoming.`,
+                    msg: `💎 Bounty hunter at work. Sparked Jules evolution for: "${title}". Solution incoming.`,
                     timestamp: new Date().toISOString()
                 });
             }
@@ -195,15 +235,28 @@ Save the result as a polished submission.`;
 
 // ── RENT RECLAMATION (Standard Sweep via VAULT) ──
 async function sweepDust() {
+    if (!keypair) {
+        console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ SIMULATION MODE: Skipping rent reclamation.`));
+        return;
+    }
     try {
         console.log(chalk.yellow(`[SCAVENGER #${id}]: 🧹 Reclaiming rent via VAULT...`));
         const { PublicKey, Transaction } = require('@solana/web3.js');
         const { TOKEN_PROGRAM_ID, createCloseAccountInstruction } = require('@solana/spl-token');
 
-        const connection = core.connection;
+        let connection = core.connection;
         const walletKey = keypair.publicKey;
 
-        const accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+        let accounts;
+        try {
+            accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+        } catch (e) {
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: Primary RPC failed for rent check. Falling back to secondary RPC...`));
+            const { Connection } = require('@solana/web3.js');
+            connection = new Connection(process.env.SOLANA_RPC_URL_FALLBACK || 'https://api.mainnet-beta.solana.com');
+            accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+        }
+
         const emptyAccounts = accounts.value.filter(acc => acc.account.data.parsed.info.tokenAmount.uiAmount === 0);
 
         if (emptyAccounts.length === 0) return;
@@ -213,7 +266,16 @@ async function sweepDust() {
             tx.add(createCloseAccountInstruction(acc.pubkey, walletKey, walletKey));
         }
 
-        const { blockhash } = await connection.getLatestBlockhash();
+        let blockhash;
+        try {
+             ({ blockhash } = await connection.getLatestBlockhash());
+        } catch (e) {
+             console.log(chalk.yellow(`[SCAVENGER #${id}]: Primary RPC failed getting blockhash. Falling back...`));
+             const { Connection } = require('@solana/web3.js');
+             const fallbackConnection = new Connection(process.env.SOLANA_RPC_URL_FALLBACK || 'https://api.mainnet-beta.solana.com');
+             ({ blockhash } = await fallbackConnection.getLatestBlockhash());
+        }
+
         tx.recentBlockhash = blockhash;
         tx.feePayer = walletKey;
 
