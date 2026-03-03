@@ -3,8 +3,24 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') }
 // Purpose: Aggressively acquire initial capital through high-risk, high-reward microtransactions
 // Version: 2.0 - Optimized for rapid funding with calculated risk
 
-const { SyndicateCore } = require('./SyndicateCore');
-const { RiskEngine } = require('./RiskEngine');
+const { SyndicateCore } = require('./SyndicateCore.js');
+const { RiskEngine } = require('./RiskEngine.js');
+
+async function withRetry(fn, maxRetries = 3, initialDelayMs = 1000) {
+  let attempt = 0;
+  while (attempt < maxRetries) {
+    try {
+      return await fn();
+    } catch (error) {
+      attempt++;
+      console.warn(`[Retry Wrapper] Attempt ${attempt}/${maxRetries} failed: ${error?.message || error}.`);
+      if (attempt >= maxRetries) throw error;
+      const delay = initialDelayMs * Math.pow(2, attempt - 1);
+      console.log(`[Retry Wrapper] Waiting ${delay}ms before next attempt...`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+}
 
 class SeedFundingAgent {
   constructor() {
@@ -21,8 +37,15 @@ class SeedFundingAgent {
   async initialize() {
     try {
       console.log('[SeedFundingAgent] Initializing aggressive capital acquisition...');
+
+      // Wallet Guard
+      const balance = await this.core.checkWalletBalance();
+      if (balance === null || balance < 0.005) {
+        throw new Error(`Insufficient SOL balance for high-risk operations. Found: ${balance}`);
+      }
+
       this.operationStatus = 'RUNNING';
-      await this.core.connectToDarkNetMarkets();
+      await withRetry(() => this.core.connectToDarkNetMarkets());
       await this.riskEngine.calibrate({ volatility: 'high', exposure: this.maxRiskExposure });
       console.log('[SeedFundingAgent] Calibration complete. Targeting seed capital.');
       this.executeFundingCycle();
@@ -40,15 +63,18 @@ class SeedFundingAgent {
         const targetChannel = this.selectOptimalChannel(riskAssessment);
         // Silenced frequent polling logs to reduce noise
 
-        const transaction = await this.executeHighRiskTransaction(targetChannel, riskAssessment);
-        if (transaction.success) {
-          this.currentCapital += transaction.profit;
-          this.transactionLog.push({ channel: targetChannel, profit: transaction.profit, timestamp: Date.now() });
-          if (transaction.profit > 0) {
-            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${transaction.profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
+        const transaction = await withRetry(() => this.executeHighRiskTransaction(targetChannel, riskAssessment));
+        const profit = transaction?.profit || 0;
+        const loss = transaction?.loss || 0;
+
+        if (transaction?.success) {
+          this.currentCapital += profit;
+          this.transactionLog.push({ channel: targetChannel, profit: profit, timestamp: Date.now() });
+          if (profit > 0) {
+            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
           }
         } else {
-          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${transaction.loss}`);
+          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${loss}`);
         }
 
         await this.core.delay(5000); // Delay to avoid rate limiting and detection
