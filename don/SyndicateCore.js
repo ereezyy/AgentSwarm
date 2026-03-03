@@ -141,8 +141,17 @@ class SyndicateCore {
             this.log(`Wallet Balance: ${sol} SOL (${pubkey})`, sol > 0.015 ? 'MONEY' : 'INFO');
             return sol;
         } catch (e) {
-            this.reportError('BALANCE_CHECK', e);
-            return null;
+            try {
+                this.log('RPC failed, trying fallback connection for balance check...', 'WARN');
+                const fallbackConnection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+                const balance = await fallbackConnection.getBalance(new PublicKey(pubkey));
+                const sol = balance / 1e9;
+                this.log(`Wallet Balance (fallback): ${sol} SOL (${pubkey})`, sol > 0.015 ? 'MONEY' : 'INFO');
+                return sol;
+            } catch (fallbackError) {
+                this.reportError('BALANCE_CHECK', fallbackError);
+                return null;
+            }
         }
     }
 

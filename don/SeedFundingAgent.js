@@ -3,8 +3,8 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') }
 // Purpose: Aggressively acquire initial capital through high-risk, high-reward microtransactions
 // Version: 2.0 - Optimized for rapid funding with calculated risk
 
-const { SyndicateCore } = require('./SyndicateCore');
-const { RiskEngine } = require('./RiskEngine');
+const { SyndicateCore } = require('./SyndicateCore.js');
+const { RiskEngine } = require('./RiskEngine.js');
 
 class SeedFundingAgent {
   constructor() {
@@ -22,6 +22,14 @@ class SeedFundingAgent {
     try {
       console.log('[SeedFundingAgent] Initializing aggressive capital acquisition...');
       this.operationStatus = 'RUNNING';
+
+      const balance = await this.core.checkWalletBalance();
+      if (balance === null || balance < 0.005) {
+        console.error('[SeedFundingAgent] Insufficient funds');
+        this.operationStatus = 'ERROR';
+        return;
+      }
+
       await this.core.connectToDarkNetMarkets();
       await this.riskEngine.calibrate({ volatility: 'high', exposure: this.maxRiskExposure });
       console.log('[SeedFundingAgent] Calibration complete. Targeting seed capital.');
@@ -33,22 +41,35 @@ class SeedFundingAgent {
     }
   }
 
+  async withRetry(fn, retries = 3) {
+    for (let i = 0; i < retries; i++) {
+      try {
+        return await fn();
+      } catch (error) {
+        if (i === retries - 1) throw error;
+        await this.core.delay(2000 * (i + 1));
+      }
+    }
+  }
+
   async executeFundingCycle() {
     while (this.currentCapital < this.minCapitalThreshold && this.operationStatus === 'RUNNING') {
       try {
-        const riskAssessment = await this.riskEngine.analyzeMarketConditions();
+        const riskAssessment = await this.withRetry(() => this.riskEngine.analyzeMarketConditions());
         const targetChannel = this.selectOptimalChannel(riskAssessment);
         // Silenced frequent polling logs to reduce noise
 
         const transaction = await this.executeHighRiskTransaction(targetChannel, riskAssessment);
         if (transaction.success) {
-          this.currentCapital += transaction.profit;
-          this.transactionLog.push({ channel: targetChannel, profit: transaction.profit, timestamp: Date.now() });
-          if (transaction.profit > 0) {
-            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${transaction.profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
+          const profit = transaction?.profit || 0;
+          this.currentCapital += profit;
+          this.transactionLog.push({ channel: targetChannel, profit, timestamp: Date.now() });
+          if (profit > 0) {
+            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
           }
         } else {
-          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${transaction.loss}`);
+          const loss = transaction?.loss || 0;
+          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${loss}`);
         }
 
         await this.core.delay(5000); // Delay to avoid rate limiting and detection
@@ -81,14 +102,15 @@ class SeedFundingAgent {
 
   async executeHighRiskTransaction(channel, riskAssessment) {
     const investmentAmount = this.calculateInvestment(riskAssessment);
+    const score = riskAssessment?.score || 0;
 
     try {
-      const result = await this.core.executeTransaction({
+      const result = await this.withRetry(() => this.core.executeTransaction({
         channel,
         amount: investmentAmount,
-        riskLevel: riskAssessment.score,
+        riskLevel: score,
         type: 'high_yield_micro'
-      });
+      }));
 
       return result;
     } catch (error) {
@@ -99,7 +121,8 @@ class SeedFundingAgent {
 
   calculateInvestment(riskAssessment) {
     const baseAmount = this.currentCapital * 0.2;
-    const riskMultiplier = riskAssessment.score > 0.5 ? 1.5 : 0.8;
+    const score = riskAssessment?.score || 0;
+    const riskMultiplier = score > 0.5 ? 1.5 : 0.8;
     return Math.min(baseAmount * riskMultiplier, this.currentCapital * this.maxRiskExposure);
   }
 
