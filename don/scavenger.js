@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const id = process.argv[2] || 'Scavenger';
 const { ask } = require('./brain');
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./syndicate_core_impl');
 const core = new SyndicateCore();
 
 const MAX_RETRIES = 3;
@@ -29,9 +29,26 @@ async function runWithRetry(fn, label) {
 }
 
 // Derive Wallet from .env
-const secretKey = Buffer.from(process.env.SOLANA_PRIVATE_KEY, 'hex');
-const keypair = Keypair.fromSecretKey(secretKey);
-const WALLET = keypair.publicKey.toString();
+let keypair;
+let WALLET = 'SIMULATION_MODE';
+let SIMULATION_MODE = false;
+
+try {
+    const secretKeyStr = process.env.SOLANA_PRIVATE_KEY;
+    if (!secretKeyStr) throw new Error('SOLANA_PRIVATE_KEY is undefined');
+
+    let secretKey;
+    try {
+        secretKey = Buffer.from(JSON.parse(secretKeyStr));
+    } catch (e) {
+        secretKey = Buffer.from(secretKeyStr, 'hex');
+    }
+    keypair = Keypair.fromSecretKey(secretKey);
+    WALLET = keypair.publicKey.toString();
+} catch (e) {
+    console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ Wallet Guard Triggered: ${e.message}. Defaulting to SIMULATION_MODE.`));
+    SIMULATION_MODE = true;
+}
 
 const REPORT_PATH = path.resolve(__dirname, '../missions/scavenge_leads.md');
 const BOUNTY_TRACKER = path.resolve(__dirname, '../missions/bounty_tracker.json');
@@ -81,9 +98,22 @@ function saveTracker(data) {
 loadTracker();
 
 async function checkBalance() {
+    if (SIMULATION_MODE || !keypair) {
+        console.log(chalk.gray(`[SCAVENGER #${id}]: SIMULATION_MODE: Skipping balance check.`));
+        return 0;
+    }
     return runWithRetry(async () => {
-        const connection = core.connection;
-        const lamports = await connection.getBalance(keypair.publicKey);
+        let connection = core.connection;
+        let lamports;
+        try {
+            lamports = await connection.getBalance(keypair.publicKey);
+        } catch (e) {
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: Primary RPC failed, failing over...`));
+            const { Connection } = require('@solana/web3.js');
+            connection = new Connection(process.env.SOLANA_RPC_FALLBACK_URL || 'https://api.mainnet-beta.solana.com');
+            lamports = await connection.getBalance(keypair.publicKey);
+        }
+
         const sol = (lamports / 1e9).toFixed(4);
         console.log(chalk.green(`[SCAVENGER #${id}]: 💰 Balance: ${sol} SOL`));
         return parseFloat(sol);
@@ -195,15 +225,27 @@ Save the result as a polished submission.`;
 
 // ── RENT RECLAMATION (Standard Sweep via VAULT) ──
 async function sweepDust() {
+    if (SIMULATION_MODE || !keypair) {
+        console.log(chalk.gray(`[SCAVENGER #${id}]: SIMULATION_MODE: Skipping rent reclamation.`));
+        return;
+    }
     try {
         console.log(chalk.yellow(`[SCAVENGER #${id}]: 🧹 Reclaiming rent via VAULT...`));
-        const { PublicKey, Transaction } = require('@solana/web3.js');
+        const { PublicKey, Transaction, Connection } = require('@solana/web3.js');
         const { TOKEN_PROGRAM_ID, createCloseAccountInstruction } = require('@solana/spl-token');
 
-        const connection = core.connection;
+        let connection = core.connection;
         const walletKey = keypair.publicKey;
 
-        const accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+        let accounts;
+        try {
+            accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+        } catch (e) {
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: Primary RPC failed for sweepDust, failing over...`));
+            connection = new Connection(process.env.SOLANA_RPC_FALLBACK_URL || 'https://api.mainnet-beta.solana.com');
+            accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+        }
+
         const emptyAccounts = accounts.value.filter(acc => acc.account.data.parsed.info.tokenAmount.uiAmount === 0);
 
         if (emptyAccounts.length === 0) return;
@@ -213,7 +255,14 @@ async function sweepDust() {
             tx.add(createCloseAccountInstruction(acc.pubkey, walletKey, walletKey));
         }
 
-        const { blockhash } = await connection.getLatestBlockhash();
+        let blockhash;
+        try {
+            ({ blockhash } = await connection.getLatestBlockhash());
+        } catch (e) {
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: Primary RPC failed for getLatestBlockhash, failing over...`));
+            connection = new Connection(process.env.SOLANA_RPC_FALLBACK_URL || 'https://api.mainnet-beta.solana.com');
+            ({ blockhash } = await connection.getLatestBlockhash());
+        }
         tx.recentBlockhash = blockhash;
         tx.feePayer = walletKey;
 
