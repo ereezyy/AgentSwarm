@@ -3,8 +3,8 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') }
 // Purpose: Aggressively acquire initial capital through high-risk, high-reward microtransactions
 // Version: 2.0 - Optimized for rapid funding with calculated risk
 
-const { SyndicateCore } = require('./SyndicateCore');
-const { RiskEngine } = require('./RiskEngine');
+const { SyndicateCore } = require('./SyndicateCore.js');
+const { RiskEngine } = require('./RiskEngine.js');
 
 class SeedFundingAgent {
   constructor() {
@@ -27,13 +27,20 @@ class SeedFundingAgent {
       console.log('[SeedFundingAgent] Calibration complete. Targeting seed capital.');
       this.executeFundingCycle();
     } catch (error) {
-      console.error('[SeedFundingAgent] Initialization failed:', error);
+      console.error('[SeedFundingAgent] Initialization failed:', error?.stack || error?.response?.data?.error || error?.message || error);
       this.operationStatus = 'ERROR';
-      await this.core.reportError('SeedFundingAgent_Init_Failure', error);
+      await this.core.reportError('SeedFundingAgent_Init_Failure', error?.message || error);
     }
   }
 
   async executeFundingCycle() {
+    const balance = await this.core.checkWalletBalance();
+    if (balance === null || balance < 0.005) {
+      console.error(`[SeedFundingAgent] Wallet guard triggered. Insufficient SOL balance: ${balance}. Halting execution.`);
+      this.operationStatus = 'ERROR';
+      return;
+    }
+
     while (this.currentCapital < this.minCapitalThreshold && this.operationStatus === 'RUNNING') {
       try {
         const riskAssessment = await this.riskEngine.analyzeMarketConditions();
@@ -41,20 +48,22 @@ class SeedFundingAgent {
         // Silenced frequent polling logs to reduce noise
 
         const transaction = await this.executeHighRiskTransaction(targetChannel, riskAssessment);
-        if (transaction.success) {
-          this.currentCapital += transaction.profit;
-          this.transactionLog.push({ channel: targetChannel, profit: transaction.profit, timestamp: Date.now() });
-          if (transaction.profit > 0) {
-            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${transaction.profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
+        if (transaction?.success) {
+          const profit = transaction?.profit || 0;
+          this.currentCapital += profit;
+          this.transactionLog.push({ channel: targetChannel, profit: profit, timestamp: Date.now() });
+          if (profit > 0) {
+            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
           }
         } else {
-          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${transaction.loss}`);
+          const loss = transaction?.loss || 0;
+          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${loss}`);
         }
 
         await this.core.delay(5000); // Delay to avoid rate limiting and detection
       } catch (error) {
-        console.error('[SeedFundingAgent] Funding cycle error:', error);
-        await this.core.reportError('SeedFundingAgent_Cycle_Failure', error);
+        console.error('[SeedFundingAgent] Funding cycle error:', error?.stack || error?.response?.data?.error || error?.message || error);
+        await this.core.reportError('SeedFundingAgent_Cycle_Failure', error?.message || error);
         this.operationStatus = 'PAUSED';
         await this.core.delay(10000); // Pause before retry
         this.operationStatus = 'RUNNING';
@@ -69,7 +78,7 @@ class SeedFundingAgent {
   }
 
   selectOptimalChannel(riskAssessment) {
-    const { score } = riskAssessment;
+    const score = riskAssessment?.score || 0.5;
     if (score > 0.7) {
       return this.activeChannels[0]; // crypto_microtrade for high volatility
     } else if (score > 0.4) {
@@ -79,27 +88,41 @@ class SeedFundingAgent {
     }
   }
 
+  async withRetry(operation, retries = 3, baseDelay = 1000) {
+    for (let i = 0; i < retries; i++) {
+      try {
+        return await operation();
+      } catch (error) {
+        if (i === retries - 1) throw error;
+        const delay = baseDelay * Math.pow(2, i);
+        console.warn(`[SeedFundingAgent] Operation failed. Retrying in ${delay}ms... Attempt ${i + 1}/${retries}`);
+        await this.core.delay(delay);
+      }
+    }
+  }
+
   async executeHighRiskTransaction(channel, riskAssessment) {
     const investmentAmount = this.calculateInvestment(riskAssessment);
 
     try {
-      const result = await this.core.executeTransaction({
+      const result = await this.withRetry(() => this.core.executeTransaction({
         channel,
         amount: investmentAmount,
-        riskLevel: riskAssessment.score,
+        riskLevel: riskAssessment?.score || 0.5,
         type: 'high_yield_micro'
-      });
+      }));
 
       return result;
     } catch (error) {
-      console.error(`[SeedFundingAgent] Transaction error on ${channel}:`, error);
+      console.error(`[SeedFundingAgent] Transaction error on ${channel}:`, error?.stack || error?.response?.data?.error || error?.message || error);
       return { success: false, loss: investmentAmount };
     }
   }
 
   calculateInvestment(riskAssessment) {
+    const score = riskAssessment?.score || 0.5;
     const baseAmount = this.currentCapital * 0.2;
-    const riskMultiplier = riskAssessment.score > 0.5 ? 1.5 : 0.8;
+    const riskMultiplier = score > 0.5 ? 1.5 : 0.8;
     return Math.min(baseAmount * riskMultiplier, this.currentCapital * this.maxRiskExposure);
   }
 
@@ -115,6 +138,8 @@ class SeedFundingAgent {
 
 module.exports = SeedFundingAgent;
 
-// Auto-start the agent
-const agent = new SeedFundingAgent();
-agent.initialize().catch(console.error);
+// Auto-start the agent if run directly
+if (require.main === module) {
+  const agent = new SeedFundingAgent();
+  agent.initialize().catch(console.error);
+}
