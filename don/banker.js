@@ -448,7 +448,89 @@ function computeExitSignals(holdings, trades) {
         }
     }
 
+    // Apply cascade logic before returning
+    detectAndHandleCascades(signals, trades);
+
     return signals;
+}
+
+// ── Cascade Liquidation Logic ──────────────────────────────────
+function detectAndHandleCascades(signals, trades) {
+    const CASCADE_TRIGGER_SIBLINGS = parseInt(process.env.CASCADE_TRIGGER_SIBLINGS || 2);
+    const dumpingCreators = new Set();
+
+    // Identify creators that have at least one dumping token
+    for (const sig of signals) {
+        if (sig.signal === 'DUMP' || sig.signal === 'STOP_LOSS') {
+            const trade = trades.find(t => t.mint === sig.mint);
+            if (trade && trade.creator && trade.creator !== "UNKNOWN_CREATOR") {
+                dumpingCreators.add(trade.creator);
+            }
+        }
+    }
+
+    for (const creator of dumpingCreators) {
+        const cluster = trades.filter(t => t.creator === creator);
+        const dumpingMints = signals.filter(s => (s.signal === 'DUMP' || s.signal === 'STOP_LOSS') && cluster.some(c => c.mint === s.mint)).map(s => s.mint);
+
+        if (cluster.length >= CASCADE_TRIGGER_SIBLINGS + 1 && dumpingMints.length > 0) {
+            const triggerMint = dumpingMints[0];
+            console.log(chalk.red.bold(`[BANKER #${id}]: 🚨 CASCADE DETECTED for Dev ${creator.substring(0, 8)}... Cluster size: ${cluster.length}. Triggered by ${triggerMint.substring(0, 8)}...`));
+
+            // Find siblings that aren't already dumping/taking profit
+            const siblingsToLiquidate = cluster.filter(t => !dumpingMints.includes(t.mint));
+
+            // Sort by worst performing first
+            siblingsToLiquidate.sort((a, b) => {
+                const sa = signals.find(s => s.mint === a.mint);
+                const sb = signals.find(s => s.mint === b.mint);
+                return (sa?.pnl || 0) - (sb?.pnl || 0);
+            });
+
+            for (const pos of siblingsToLiquidate) {
+                // Update their signal to CASCADE_DUMP
+                let sigObj = signals.find(s => s.mint === pos.mint);
+                if (sigObj) {
+                    sigObj.signal = 'CASCADE_DUMP';
+                    sigObj.reason = `💥 Cascade liquidation triggered by sibling ${triggerMint.substring(0, 8)}...`;
+                } else {
+                    sigObj = { mint: pos.mint, signal: 'CASCADE_DUMP', pnl: 0, reason: `💥 Cascade liquidation triggered by sibling ${triggerMint.substring(0, 8)}...` };
+                    signals.push(sigObj);
+                }
+
+                if (process.send) {
+                    console.log(chalk.red.bold(`[BANKER #${id}]: 🚨 AUTO EXIT SIGNAL: ${pos.mint.substring(0, 6)}... (CASCADE_DUMP) → ${sigObj.reason}`));
+                    process.send({
+                        type: 'BANKER_EXIT_SIGNAL',
+                        mint: pos.mint,
+                        signal: 'CASCADE_DUMP',
+                        pnl: sigObj.pnl,
+                        reason: sigObj.reason,
+                        tradeAmount: pos.amount,
+                    });
+                }
+            }
+
+            // Add creator to cooldown immediately (for sniper scanning prevention)
+            addCreatorCooldown(creator);
+        }
+    }
+}
+
+function addCreatorCooldown(creator) {
+    try {
+        const cooldownPath = path.join(__dirname, '../missions/creator_cooldowns.json');
+        let cooldowns = {};
+        if (fs.existsSync(cooldownPath)) {
+            cooldowns = JSON.parse(fs.readFileSync(cooldownPath, 'utf8'));
+        }
+        const CASCADE_COOLDOWN_MINUTES = parseInt(process.env.CASCADE_COOLDOWN_MINUTES || 30);
+        cooldowns[creator] = Date.now() + CASCADE_COOLDOWN_MINUTES * 60 * 1000;
+        fs.writeFileSync(cooldownPath, JSON.stringify(cooldowns, null, 2));
+        console.log(chalk.yellow(`[BANKER #${id}]: 🛑 Creator ${creator.substring(0, 8)}... placed on ${CASCADE_COOLDOWN_MINUTES}-min timeout after cascade.`));
+    } catch (e) {
+        console.log(chalk.yellow(`[BANKER #${id}]: Failed to save creator cooldown: ${e.message}`));
+    }
 }
 
 // ── Main Balance + Exit Scan Cycle ──────────────────────────────

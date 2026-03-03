@@ -458,14 +458,58 @@ class DonCore {
                             const connection = new SolanaWeb3.Connection(rpcUrl, 'confirmed');
                             const txBuf = Buffer.from(result.tx, 'base64');
                             const vTx = SolanaWeb3.VersionedTransaction.deserialize(txBuf);
-                            const sig = await connection.sendTransaction(vTx, { skipPreflight: true, maxRetries: 3 });
-                            // Poll for confirmation (HTTP-only, no WebSocket needed)
+
+                            let sig = null;
                             let txConfirmed = false;
+                            const priorityFee = params.priorityFee || 100000;
+
+                            // MEV BUNDLER INTEGRATION
+                            try {
+                                const bs58 = require('bs58');
+                                const MevBundler = require('./mev_bundler');
+                                const pk = process.env.SOLANA_PRIVATE_KEY.trim();
+                                const keyBytes = pk.length > 88 ? Buffer.from(pk, 'hex') : bs58.decode(pk);
+                                const walletKeypair = SolanaWeb3.Keypair.fromSecretKey(keyBytes);
+                                const bundler = new MevBundler(walletKeypair, connection);
+
+                                sig = bs58.encode(vTx.signatures[0]); // Sig is 1st element
+                                this.log(`🛡️ Routing trade via Jito MEV Bundler (Tip: ${priorityFee})...`, 'CRYPTO');
+                                const bundleId = await bundler.sendBundle(vTx, priorityFee);
+
+                                if (bundleId) {
+                                    this.log(`🪐 Jito Bundle Sent! ID: ${bundleId}`, 'CRYPTO');
+                                    if (!this.telemetry.metrics) this.telemetry.metrics = {};
+                                    this.telemetry.metrics['jito_bundles_sent'] = (this.telemetry.metrics['jito_bundles_sent'] || 0) + 1;
+                                    this.telemetry.metrics['jito_bundles_total_lamports'] = (this.telemetry.metrics['jito_bundles_total_lamports'] || 0) + priorityFee;
+                                    this.saveTelemetry();
+
+                                    this.log(`⏳ Polling Jito Bundle Status...`, 'CRYPTO');
+                                    const bundleStatus = await bundler.pollBundleStatus(bundleId);
+                                    if (bundleStatus.success) {
+                                        this.log(`✅ BUNDLE LANDED (Slot: ${bundleStatus.landedSlot})`, 'CRYPTO');
+                                        this.handleBundleLanded({ success: true, tip: priorityFee, reason: null });
+                                    } else if (bundleStatus.reason === 'failed' || bundleStatus.reason === 'timeout') {
+                                        this.log(`❌ BUNDLE ${bundleStatus.reason.toUpperCase()}`, 'ERROR');
+                                        this.handleBundleLanded({ success: false, tip: priorityFee, reason: bundleStatus.reason });
+                                    }
+                                } else {
+                                    this.log(`⚠️ Jito Bundle failed to construct. Falling back to public mempool...`, 'ERROR');
+                                    sig = await connection.sendTransaction(vTx, { skipPreflight: true, maxRetries: 3 });
+                                }
+                            } catch (bundlerErr) {
+                                this.log(`MevBundler setup failed: ${bundlerErr.message}. Falling back directly...`, 'ERROR');
+                                sig = await connection.sendTransaction(vTx, { skipPreflight: true, maxRetries: 3 });
+                            }
+
+                            // Poll for confirmation (HTTP-only, no WebSocket needed)
                             for (let i = 0; i < 15; i++) {
                                 await new Promise(r => setTimeout(r, 2000));
                                 const status = await connection.getSignatureStatuses([sig]);
                                 if (status?.value?.[0]?.confirmationStatus === 'confirmed' || status?.value?.[0]?.confirmationStatus === 'finalized') {
                                     txConfirmed = true;
+                                    if (status.value[0].err) {
+                                        throw new Error(`TX Failed: ${JSON.stringify(status.value[0].err)}`);
+                                    }
                                     break;
                                 }
                             }
@@ -539,6 +583,36 @@ class DonCore {
             this.log(`DeepSentinel crashed (Code: ${code}). Restarting in 5s...`, 'ERROR');
             setTimeout(() => this.startNeuralEngine(), 5000);
         });
+    }
+
+    handleBundleLanded(msg) {
+        try {
+            const histFile = path.join(__dirname, '../missions/bundle_history.json');
+            let history = [];
+            if (fs.existsSync(histFile)) {
+                history = JSON.parse(fs.readFileSync(histFile, 'utf8'));
+            }
+            history.push({
+                timestamp: new Date().toISOString(),
+                success: msg.success,
+                tip: msg.tip,
+                reason: msg.reason || null
+            });
+            // Keep history trimmed to last 200 entries to prevent bloat
+            if (history.length > 200) history = history.slice(-200);
+            fs.writeFileSync(histFile, JSON.stringify(history, null, 2));
+
+            // Optional: Increment success/fail count directly in telemetry metrics
+            if (!this.telemetry.metrics) this.telemetry.metrics = {};
+            if (msg.success) {
+                this.telemetry.metrics['jito_bundles_landed'] = (this.telemetry.metrics['jito_bundles_landed'] || 0) + 1;
+            } else {
+                this.telemetry.metrics['jito_bundles_failed'] = (this.telemetry.metrics['jito_bundles_failed'] || 0) + 1;
+            }
+            this.saveTelemetry();
+        } catch (e) {
+            this.log(`Failed to save bundle history: ${e.message}`, 'ERROR');
+        }
     }
 
     spawnSoldier(type = 'STREET') {
@@ -650,6 +724,32 @@ class DonCore {
         child.on('message', (msg) => {
             if (msg.type === 'RESTART_SWARM') {
                 this.handleCommand({ type: 'RESTART_SWARM' });
+            } else if (msg.type === 'TELEMETRY_UPDATE') {
+                if (!this.telemetry.metrics) this.telemetry.metrics = {};
+                this.telemetry.metrics[msg.metric] = (this.telemetry.metrics[msg.metric] || 0) + msg.inc;
+                if (msg.val) {
+                    this.telemetry.metrics[`${msg.metric}_total_lamports`] = (this.telemetry.metrics[`${msg.metric}_total_lamports`] || 0) + msg.val;
+                }
+                this.saveTelemetry();
+            } else if (msg.type === 'TRAINING_LABEL') {
+                try {
+                    const labelsFile = path.join(__dirname, '../missions/trade_labels.json');
+                    let labels = [];
+                    if (fs.existsSync(labelsFile)) labels = JSON.parse(fs.readFileSync(labelsFile, 'utf8'));
+                    labels.push(msg.label);
+                    fs.writeFileSync(labelsFile, JSON.stringify(labels, null, 2));
+                    this.log(`🧠 Acquired new DeepSentinel training label for ${msg.label.mint}`, 'POWER');
+
+                    // Periodic Retrain Check
+                    if (labels.length > 0 && labels.length % 50 === 0) {
+                        this.log(`🧠 Label threshold triggered (${labels.length}). Delegating DeepSentinel Offline Retrain...`, 'POWER');
+                        this.orderMuscle('retrain_model');
+                    }
+                } catch (e) {
+                    this.log(`Failed to save training label: ${e.message}`, 'ERROR');
+                }
+            } else if (msg.type === 'BUNDLE_LANDED') {
+                this.handleBundleLanded(msg);
             } else if (msg.type === 'KICK_UP') {
 
                 this.processKickUp(msg.amount, id, msg.source);
@@ -817,7 +917,7 @@ class DonCore {
                 const { mint, signal, pnl, reason, tradeAmount } = msg;
                 this.log(`📊 BANKER EXIT SIGNAL: ${signal} on ${mint?.slice(0, 8)}... PnL: ${pnl?.toFixed(1)}% — ${reason}`, 'MONEY');
 
-                if (signal === 'STRONG_SELL' || signal === 'DUMP' || signal === 'STOP_LOSS' || signal === 'TAKE_PROFIT') {
+                if (signal === 'STRONG_SELL' || signal === 'DUMP' || signal === 'STOP_LOSS' || signal === 'TAKE_PROFIT' || signal === 'CASCADE_DUMP') {
                     if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
                         this.processes['SNIPER'].send({
                             type: 'EMERGENCY_SELL',

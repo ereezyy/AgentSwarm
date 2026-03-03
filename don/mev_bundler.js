@@ -117,6 +117,44 @@ class MevBundler {
             return null;
         }
     }
+
+    /**
+     * Poll Jito Bundle Status to determine if the tip and trade fully landed.
+     * @param {string} bundleId 
+     * @param {number} maxAttempts 
+     * @param {number} intervalMs 
+     * @returns {Promise<{success: boolean, landedSlot: number|null, reason: string|null, err: any}>}
+     */
+    async pollBundleStatus(bundleId, maxAttempts = 30, intervalMs = 2000) {
+        for (let i = 0; i < maxAttempts; i++) {
+            try {
+                const response = await axios.post(`${JITO_BASE_URL}/bundles`, {
+                    jsonrpc: "2.0",
+                    id: 1,
+                    method: "getBundleStatuses",
+                    params: [[bundleId]]
+                }, {
+                    headers: { 'Content-Type': 'application/json' },
+                    timeout: 5000
+                });
+
+                if (response.data && response.data.result && response.data.result.value && response.data.result.value.length > 0) {
+                    const status = response.data.result.value[0];
+                    if (status) {
+                        if (status.confirmationStatus === 'confirmed' || status.confirmationStatus === 'finalized' || status.slot) {
+                            return { success: true, landedSlot: status.slot, reason: null, err: null };
+                        } else if (status.err || status.status === 'Failed') {
+                            return { success: false, landedSlot: null, reason: 'failed', err: status.err };
+                        }
+                    }
+                }
+            } catch (e) {
+                // Ignore transient polling errors
+            }
+            await new Promise(r => setTimeout(r, intervalMs));
+        }
+        return { success: false, landedSlot: null, reason: 'timeout', err: null };
+    }
 }
 
 module.exports = MevBundler;

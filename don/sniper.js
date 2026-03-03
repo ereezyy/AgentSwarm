@@ -85,12 +85,45 @@ setInterval(loadNeuralConfig, 30000); // Reload every 30s // reqId -> callback
 const TOKEN_COOLDOWN_MS = 10 * 60 * 1000;  // 10 min per token (quicker re-entry)
 const MIN_BALANCE_GUARD = 0.002;             // [REDUCED] Keep at least 0.002 SOL for gas + emergency exits
 
+async function getPumpMetadata(mintStr) {
+    try {
+        const res = await axios.get(`https://frontend-api.pump.fun/coins/${mintStr}`, { timeout: 5000 });
+        if (res.data) return {
+            creator: res.data.creator || "UNKNOWN_CREATOR",
+            name: res.data.name || "",
+            description: res.data.description || ""
+        };
+    } catch (e) { }
+    return { creator: "UNKNOWN_CREATOR", name: "", description: "" };
+}
+
+// ── SEMANTIC SIMILARITY HELPERS ──
+function getTrigrams(str) {
+    const s = '  ' + (str || '').toLowerCase().replace(/[^a-z0-9]/g, '') + '  ';
+    const trigrams = new Set();
+    for (let i = 0; i < s.length - 2; i++) {
+        trigrams.add(s.substring(i, i + 3));
+    }
+    return Array.from(trigrams);
+}
+
+function calculateSimilarity(str1, str2) {
+    if (!str1 || !str2) return 0;
+    const t1 = getTrigrams(str1);
+    const t2 = getTrigrams(str2);
+    if (t1.length === 0 || t2.length === 0) return 0;
+    const intersection = t1.filter(x => t2.includes(x)).length;
+    const union = new Set([...t1, ...t2]).size;
+    return (intersection / union);
+}
+
 function canBuy(mintStr) {
 
     // Position limit — hard stop
     const trades = loadTrades();
-    if (trades.length >= MAX_OPEN_POSITIONS) {
-        console.log(chalk.yellow(`[SNIPER #${id}]: 🛑 At position limit (${trades.length}/${MAX_OPEN_POSITIONS}). No more buys.`));
+    const MAX_CONCURRENT = parseInt(process.env.MAX_CONCURRENT || 6);
+    if (trades.length >= MAX_CONCURRENT) {
+        console.log(chalk.yellow(`[SNIPER #${id}]: 🛑 At position limit (${trades.length}/${MAX_CONCURRENT}). No more buys.`));
         return false;
     }
 
@@ -136,7 +169,28 @@ async function getDynamicPriorityFee() {
         fees.sort((a, b) => b.prioritizationFee - a.prioritizationFee);
         const topFees = fees.slice(0, 20);
         const avgTopFee = Math.floor(topFees.reduce((sum, f) => sum + f.prioritizationFee, 0) / topFees.length);
-        const targetFee = Math.floor(avgTopFee * 1.2);
+
+        // ── Dynamic Multiplier from Jito Bundle History ──
+        let multiplier = 1.2;
+        try {
+            const histFile = path.join(__dirname, '../missions/bundle_history.json');
+            if (fs.existsSync(histFile)) {
+                let history = JSON.parse(fs.readFileSync(histFile, 'utf8'));
+                // Take last 50 bundles
+                history = history.slice(-50);
+                if (history.length > 5) {
+                    const successes = history.filter(h => h.success).length;
+                    const rollingSuccessRate = successes / history.length;
+
+                    if (rollingSuccessRate < 0.70) multiplier = 1.3;
+                    else if (rollingSuccessRate > 0.90) multiplier = 1.05;
+                }
+            }
+        } catch (e) {
+            // fallback to 1.2
+        }
+
+        const targetFee = Math.floor(avgTopFee * multiplier);
         return Math.min(Math.max(targetFee, 50000), 5000000);
     } catch (e) {
         return 100000;
@@ -249,7 +303,7 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         let sig = null;
         let isMevProtected = false;
 
-        if (bundler && bundler.client) {
+        if (bundler) {
             console.log(chalk.magenta.bold(`[SNIPER #${id}]: 🛡️ ROUTING VIA JITO MEV BUNDLER...`));
             const bundleId = await bundler.sendBundle(transaction, priorityFee);
             if (bundleId) {
@@ -259,6 +313,19 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
 
                 // Extract signature from the transaction for tracking
                 sig = bs58.encode(transaction.signatures[0]);
+                if (process.send) process.send({ type: 'TELEMETRY_UPDATE', metric: 'jito_bundles_sent', inc: 1, val: priorityFee });
+
+                // Poll actual status instead of blindly trusting
+                console.log(chalk.gray(`[SNIPER #${id}]: ⏳ Polling Jito Bundle Status...`));
+                const bundleStatus = await bundler.pollBundleStatus(bundleId);
+                if (bundleStatus.success) {
+                    console.log(chalk.green.bold(`[SNIPER #${id}]: ✅ BUNDLE LANDED (Slot: ${bundleStatus.landedSlot})`));
+                    if (process.send) process.send({ type: 'BUNDLE_LANDED', success: true, tip: priorityFee, reason: null });
+                } else if (bundleStatus.reason === 'failed' || bundleStatus.reason === 'timeout') {
+                    console.log(chalk.red(`[SNIPER #${id}]: ❌ BUNDLE ${bundleStatus.reason.toUpperCase()}`));
+                    if (process.send) process.send({ type: 'BUNDLE_LANDED', success: false, tip: priorityFee, reason: bundleStatus.reason });
+                    // If it failed in bundle, it might not land, but we still check the mempool just in case Jito delayed status
+                }
             } else {
                 console.log(chalk.yellow(`[SNIPER #${id}]: ⚠️ Jito Bundle failed to construct. Falling back to public mempool...`));
             }
@@ -514,6 +581,69 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
             return;
         }
 
+        // ── EXPOSURE & CORRELATION RISK BRAKES ──
+        const walletBalanceSol = balance / 1e9;
+        const MAX_PORTFOLIO_EXPOSURE_PCT = parseFloat(process.env.MAX_PORTFOLIO_EXPOSURE_PCT || 20);
+        const MAX_PER_CREATOR = parseInt(process.env.MAX_PER_CREATOR || 3);
+
+        const trades = loadTrades();
+        const currentExposureSol = trades.reduce((sum, t) => sum + (parseFloat(t.entrySol) || 0), 0);
+        const proposedExposurePct = ((currentExposureSol + SOL_AMOUNT) / walletBalanceSol) * 100;
+
+        if (proposedExposurePct > MAX_PORTFOLIO_EXPOSURE_PCT) {
+            console.log(chalk.yellow.bold(`[SNIPER #${id}]: 🛑 EXPOSURE CAP REACHED: Proposed ${proposedExposurePct.toFixed(1)}% > ${MAX_PORTFOLIO_EXPOSURE_PCT}%. Aborting snipe on ${mintStr}.`));
+            GlobalMemory.addMemory('SNIPER', `Aborted buy for ${mintStr}. Exposure ${proposedExposurePct.toFixed(1)}% > ${MAX_PORTFOLIO_EXPOSURE_PCT}%.`, 6);
+            return;
+        }
+
+        const metadata = await getPumpMetadata(mintStr);
+        const creatorAddr = metadata.creator;
+
+        if (creatorAddr !== "UNKNOWN_CREATOR") {
+            // Check for post-cascade cooldown
+            try {
+                const cooldownPath = path.join(__dirname, '../missions/creator_cooldowns.json');
+                if (fs.existsSync(cooldownPath)) {
+                    const cooldowns = JSON.parse(fs.readFileSync(cooldownPath, 'utf8'));
+                    if (cooldowns[creatorAddr] && cooldowns[creatorAddr] > Date.now()) {
+                        const remainingMin = Math.ceil((cooldowns[creatorAddr] - Date.now()) / 60000);
+                        console.log(chalk.yellow.bold(`[SNIPER #${id}]: 🛑 CASCADE PROTECT: Dev ${creatorAddr.substring(0, 8)}... is on cooldown for ${remainingMin}m. Skipping ${mintStr}.`));
+                        return;
+                    }
+                }
+            } catch (e) { }
+
+            const currentForCreator = trades.filter(t => t.creator === creatorAddr).length;
+            if (currentForCreator >= MAX_PER_CREATOR) {
+                console.log(chalk.yellow.bold(`[SNIPER #${id}]: 🛑 CREATOR CLUSTER CAP REACHED: Dev ${creatorAddr.substring(0, 8)}... already has ${currentForCreator}/${MAX_PER_CREATOR} active rugs/moonshots. Aborting.`));
+                GlobalMemory.addMemory('SNIPER', `Rejected ${mintStr} due to creator cap. Dev already has ${currentForCreator} open positions.`, 6);
+                return;
+            }
+        }
+
+        // ── THEME SIMILARITY GATE (Semantic Hash) ──
+        const CORRELATION_THEME_THRESHOLD = 0.7;
+        const MAX_SIMILAR_THEMES = 4;
+        let similarThemesCount = 0;
+
+        if (metadata.name || metadata.description) {
+            const currentDesc = (metadata.name + " " + metadata.description).trim();
+            for (const t of trades) {
+                const heldDesc = (t.name || "") + " " + (t.description || "");
+                if (heldDesc.trim()) {
+                    const sim = calculateSimilarity(currentDesc, heldDesc);
+                    if (sim >= CORRELATION_THEME_THRESHOLD) {
+                        similarThemesCount++;
+                    }
+                }
+            }
+            if (similarThemesCount >= MAX_SIMILAR_THEMES) {
+                console.log(chalk.yellow.bold(`[SNIPER #${id}]: 🛑 THEME SATURATION: Narrative heavily overlaps with ${similarThemesCount} active trades. Aborting to prevent thematic rug wave.`));
+                GlobalMemory.addMemory('SNIPER', `Rejected ${mintStr} due to thematic similarity threshold. Narrative already saturated.`, 6);
+                return;
+            }
+        }
+
         // Register this token as being bought (cooldown)
         recentBuys.set(mintStr, Date.now());
         console.log(chalk.green(`[SNIPER #${id}]: 🎯 KELLY ENTRY for ${mintStr}... | Bet: ${SOL_AMOUNT} SOL [Prob: ${((1 - rugProb) * 100).toFixed(1)}%]`));
@@ -537,6 +667,9 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                 const trades = loadTrades();
                 trades.push({
                     mint: mintStr,
+                    creator: creatorAddr,
+                    name: metadata.name,
+                    description: metadata.description,
                     entryPrice: realEntryPrice,  // SOL per UI token — matches DexScreener priceNative
                     entryPriceUnit: 'ui',         // flag: already per UI token, banker should NOT multiply by 10^decimals
                     amount: result.outAmount,
@@ -589,6 +722,9 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
 
                             trades.push({
                                 mint: mint.toString(),
+                                creator: creatorAddr,
+                                name: metadata.name,
+                                description: metadata.description,
                                 entryPrice: realEntryPrice,
                                 entryPriceUnit: 'ui',
                                 amount: quote.tokenAmount.toString(),
@@ -597,7 +733,8 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                                 timestamp: Date.now(),
                                 maxHoldUntil: Date.now() + (15 * 60 * 1000),
                                 moonbagSecured: false,
-                                source: 'PUMP_FUN_PYTHON'
+                                source: 'PUMP_FUN_PYTHON',
+                                prediction: { rug_probability: rugProb, threshold: neuralConfig.rug_threshold }
                             });
                             saveTrades(trades);
                             GlobalMemory.addMemory('SNIPER', `Successfully sniped ${mint.toString()} via Pump.fun Python Muscle. Amount: ${SOL_AMOUNT} SOL. Slippage was ${riskParams.slippage}.`, 8);
@@ -657,6 +794,10 @@ async function sellToken(mint, amount, reason) {
 
                 GlobalMemory.addMemory('SNIPER', `[TRADE_EXIT] Sold ${mint.toString()} via Jupiter. PnL: ${netProfit.toFixed(4)} SOL (${pnlPct.toFixed(1)}%). Reason: ${reason}.`, netProfit > 0 ? 7 : 9);
                 if (process.send) process.send({ type: 'KICK_UP', amount: netProfit, source: 'TRADE_EXIT_JUPITER' });
+
+                if (storedTrade && storedTrade.prediction && process.send) {
+                    process.send({ type: 'TRAINING_LABEL', label: { mint: mint.toString(), rugProb: storedTrade.prediction.rug_probability, timestamp: storedTrade.timestamp, pnlPct, success: netProfit > 0 ? 1 : 0 } });
+                }
             }
             return;
         }
@@ -693,6 +834,11 @@ async function sellToken(mint, amount, reason) {
 
                             GlobalMemory.addMemory('SNIPER', `[TRADE_EXIT] Sold ${mint.toString()} via Pump.fun Python. PnL: ${netProfit.toFixed(4)} SOL (${pnlPct.toFixed(1)}%). Reason: ${reason}.`, netProfit > 0 ? 8 : 10);
                             process.send({ type: 'KICK_UP', amount: netProfit, source: 'TRADE_EXIT_PYTHON' });
+
+                            if (storedTrade && storedTrade.prediction && process.send) {
+                                process.send({ type: 'TRAINING_LABEL', label: { mint: mint.toString(), rugProb: storedTrade.prediction.rug_probability, timestamp: storedTrade.timestamp, pnlPct, success: netProfit > 0 ? 1 : 0 } });
+                            }
+
                             resolve({ success: true });
                         } else {
                             console.error(chalk.red(`[SNIPER #${id}]: Python Sell Failed: ${m.error}`));
@@ -1003,9 +1149,6 @@ setInterval(async () => {
 // Sell is handled by checkPositions() which polls every 30s
 // ============================================================
 
-// How many open positions we allow simultaneously
-const MAX_OPEN_POSITIONS = 5;
-
 // Tokens scanned this session — avoid re-scanning the same tokens
 const scannedThisSession = new Set();
 
@@ -1068,8 +1211,9 @@ function scoreToken(pair) {
  */
 async function runAutonomousScan() {
     const trades = loadTrades();
-    if (trades.length >= MAX_OPEN_POSITIONS) {
-        console.log(chalk.gray(`[SNIPER #${id}]: 📊 At position limit (${trades.length}/${MAX_OPEN_POSITIONS}). Skipping scan.`));
+    const MAX_CONCURRENT = parseInt(process.env.MAX_CONCURRENT || 6);
+    if (trades.length >= MAX_CONCURRENT) {
+        console.log(chalk.gray(`[SNIPER #${id}]: 📊 At position limit (${trades.length}/${MAX_CONCURRENT}). Skipping scan.`));
         return;
     }
 

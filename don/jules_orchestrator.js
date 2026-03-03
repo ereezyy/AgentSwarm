@@ -21,6 +21,40 @@ let activeSessions = new Set();
 let eventLog = [];
 let attemptedFixes = {};
 
+// ── Jules Budget & Rate Limiting ──
+const BUDGET_FILE = path.join(__dirname, '../missions/jules_budget.json');
+const DAILY_LIMIT = 5; // Max Jules sessions per 24hrs to prevent API drain and infinite bad-PR loops
+
+function checkBudget() {
+    try {
+        if (fs.existsSync(BUDGET_FILE)) {
+            const budget = JSON.parse(fs.readFileSync(BUDGET_FILE, 'utf8'));
+            // Reset if it's a new day
+            if (new Date(budget.date).getDate() !== new Date().getDate()) {
+                fs.writeFileSync(BUDGET_FILE, JSON.stringify({ date: new Date().toISOString(), count: 0 }));
+                return true;
+            }
+            return budget.count < DAILY_LIMIT;
+        } else {
+            fs.writeFileSync(BUDGET_FILE, JSON.stringify({ date: new Date().toISOString(), count: 0 }));
+            return true;
+        }
+    } catch (e) {
+        return true; // fail open
+    }
+}
+
+function burnBudget() {
+    try {
+        let count = 0;
+        if (fs.existsSync(BUDGET_FILE)) {
+            const b = JSON.parse(fs.readFileSync(BUDGET_FILE, 'utf8'));
+            count = b.count || 0;
+        }
+        fs.writeFileSync(BUDGET_FILE, JSON.stringify({ date: new Date().toISOString(), count: count + 1 }));
+    } catch { }
+}
+
 // Listen for runtime SWARM_ERRORs forwarded from the Don
 process.on('message', (msg) => {
     if (msg.type === 'SWARM_ERROR') {
@@ -71,6 +105,13 @@ async function monitorSyndicate() {
 }
 
 function triggerFix(agent, prompt) {
+    if (!checkBudget()) {
+        console.log(chalk.red.bold(`[JULES_ORCHESTRATOR]: 🛑 JULES BUDGET EXHAUSTED! Daily limit of ${DAILY_LIMIT} sessions reached. Halting auto-repairs.`));
+        eventLog.push({ type: 'BUDGET_EXHAUSTED', agent, time: new Date().toISOString() });
+        return;
+    }
+
+    burnBudget();
     const cmd = `python muscle/jules_bridge.py --create "${prompt}" "${SOURCE_NAME}" --title "Auto-fix: ${agent}" --auto-pr`;
 
     exec(cmd, (err, stdout, stderr) => {
@@ -86,7 +127,7 @@ function triggerFix(agent, prompt) {
             const res = JSON.parse(stdout);
             if (res.name) {
                 const sessId = res.name.split('/').pop();
-                console.log(chalk.cyan(`[JULES_ORCHESTRATOR]: 🧬 Session sparked! ID: ${sessId}`));
+                console.log(chalk.cyan(`[JULES_ORCHESTRATOR]: 🧬 Session sparked! ID: ${sessId} (Budget burn active)`));
                 logEvolution(`Sparked fix for ${agent}. Prompt: ${prompt}. Session: ${sessId}`);
             }
         } catch (e) {

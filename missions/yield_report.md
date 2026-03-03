@@ -1,6 +1,6 @@
 # 🌾 DeFi Farmer — Yield Report
 
-**Generated:** 3/3/2026, 4:01:26 PM
+**Generated:** 3/3/2026, 5:43:37 PM
 
 ## 📊 Lifetime Stats
 
@@ -20,17 +20,17 @@
 | raydium-amm | WSOL-CL1 | 4680.1% | $10K | 🔴 HIGH |
 | raydium-amm | USD1-GOAT | 4064.6% | $11K | 🔴 HIGH |
 | raydium-amm | WSOL-GORKFUND | 3722.0% | $13K | 🔴 HIGH |
-| raydium-amm | WSOL-WAR | 3496.2% | $11K | 🔴 HIGH |
-| raydium-amm | WSOL-LEVEL-5-AG | 3017.9% | $13K | 🔴 HIGH |
+| raydium-amm | WSOL-WAR | 3202.4% | $12K | 🔴 HIGH |
 | raydium-amm | GOLD-USDC | 2991.1% | $20K | 🔴 HIGH |
-| raydium-amm | COINX-USDC | 2799.8% | $11K | 🔴 HIGH |
+| raydium-amm | WSOL-PAW | 2650.1% | $21K | 🔴 HIGH |
 | raydium-amm | USD1-BORO | 2539.7% | $16K | 🔴 HIGH |
 | raydium-amm | WSOL-ORC | 2494.8% | $12K | 🔴 HIGH |
-| Raydium (Top Pools) | WSOL/DEV | 535.4% | $129K | 🔴 HIGH |
-| Raydium (Top Pools) | WSOL/DIME | 365.6% | $61K | 🟡 MEDIUM |
-| Raydium (Top Pools) | TREN/WSOL | 317.8% | $82K | 🟡 MEDIUM |
-| Raydium (Top Pools) | BSB/WSOL | 295.6% | $149K | 🟡 MEDIUM |
-| Raydium (Top Pools) | SpaceX/WSOL | 279.1% | $155K | 🟡 MEDIUM |
+| raydium-amm | USD1-CRIME | 2359.6% | $10K | 🔴 HIGH |
+| Raydium (Top Pools) | WSOL/DEV | 521.0% | $133K | 🔴 HIGH |
+| Raydium (Top Pools) | WSOL/DIME | 320.5% | $63K | 🟡 MEDIUM |
+| Raydium (Top Pools) | SpaceX/WSOL | 308.1% | $153K | 🟡 MEDIUM |
+| Raydium (Top Pools) | BSB/WSOL | 289.0% | $169K | 🟡 MEDIUM |
+| Raydium (Top Pools) | OPN/WSOL | 282.0% | $159K | 🟡 MEDIUM |
 
 ---
 *DeFi Farmer — Automated Yield Intelligence*

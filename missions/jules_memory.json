@@ -2,5 +2,13 @@
   "Codebase Rule #1": {
     "value": "Always use process.send for IPC logging.",
     "timestamp": 0
+  },
+  "Codebase Rule #2": {
+    "value": "NEVER include git conflict markers (e.g., <<<<<<<, =======, >>>>>>>) in PRs or file changes. Always provide the clean, ready-to-run code.",
+    "timestamp": 1741000000000
+  },
+  "Codebase Rule #3": {
+    "value": "Do NOT wrap the final file contents in markdown blocks (e.g., ```javascript). The output should be plain raw code.",
+    "timestamp": 1741000000000
   }
 }

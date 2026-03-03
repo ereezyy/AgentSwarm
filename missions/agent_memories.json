@@ -3503,97 +3503,6 @@
   ],
   "SNIPER": [
     {
-      "id": "MEM-1772404816885-141",
-      "timestamp": "2026-03-01T22:40:16.885Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772404816885
-    },
-    {
-      "id": "MEM-1772404846890-717",
-      "timestamp": "2026-03-01T22:40:46.890Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772404846890
-    },
-    {
-      "id": "MEM-1772404876888-533",
-      "timestamp": "2026-03-01T22:41:16.888Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772404876888
-    },
-    {
-      "id": "MEM-1772404906888-655",
-      "timestamp": "2026-03-01T22:41:46.888Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772404906888
-    },
-    {
-      "id": "MEM-1772404936893-141",
-      "timestamp": "2026-03-01T22:42:16.893Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772404936893
-    },
-    {
-      "id": "MEM-1772404966907-575",
-      "timestamp": "2026-03-01T22:42:46.907Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772404966907
-    },
-    {
-      "id": "MEM-1772404996907-749",
-      "timestamp": "2026-03-01T22:43:16.907Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772404996907
-    },
-    {
-      "id": "MEM-1772405026909-488",
-      "timestamp": "2026-03-01T22:43:46.909Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772405026909
-    },
-    {
-      "id": "MEM-1772405056908-884",
-      "timestamp": "2026-03-01T22:44:16.908Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772405056908
-    },
-    {
-      "id": "MEM-1772405086910-861",
-      "timestamp": "2026-03-01T22:44:46.910Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772405086910
-    },
-    {
-      "id": "MEM-1772405116909-723",
-      "timestamp": "2026-03-01T22:45:16.909Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772405116909
-    },
-    {
-      "id": "MEM-1772405146909-944",
-      "timestamp": "2026-03-01T22:45:46.909Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772405146910
-    },
-    {
-      "id": "MEM-1772405176913-340",
-      "timestamp": "2026-03-01T22:46:16.913Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772405176913
-    },
-    {
       "id": "MEM-1772405207016-828",
       "timestamp": "2026-03-01T22:46:47.016Z",
       "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
@@ -7001,6 +6910,97 @@
       "text": "[PREDICTION_BLOCKED] Aborted trade on GqS4XiSxF3znsMgnp3y8oLdxREuSnriuZGoweSBXqhDh due to high rug risk: 96.4%. Threshold: 0.8",
       "importance": 5,
       "lastAccessed": 1772576535911
+    },
+    {
+      "id": "MEM-1772577701853-418",
+      "timestamp": "2026-03-03T22:41:41.853Z",
+      "text": "Token 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm hit hard STOP LOSS (-99.90%). Base entry failed.",
+      "importance": 10,
+      "lastAccessed": 1772577701853
+    },
+    {
+      "id": "MEM-1772577705149-709",
+      "timestamp": "2026-03-03T22:41:45.149Z",
+      "text": "[TRADE_EXIT] Sold 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm via Jupiter. PnL: -4.9982 SOL (-99.9%). Reason: STOP_LOSS.",
+      "importance": 9,
+      "lastAccessed": 1772577705149
+    },
+    {
+      "id": "MEM-1772577791585-15",
+      "timestamp": "2026-03-03T22:43:11.585Z",
+      "text": "[PREDICTION_BLOCKED] Aborted trade on ELtnHWx9aE2NTQhuXcpoHrM4QSSHdESYsDkdTXpzpump due to high rug risk: 85.8%. Threshold: 0.8",
+      "importance": 5,
+      "lastAccessed": 1772577791585
+    },
+    {
+      "id": "MEM-1772578391929-577",
+      "timestamp": "2026-03-03T22:53:11.929Z",
+      "text": "[PREDICTION_BLOCKED] Aborted trade on 84ZrYATgJAJFs8k4q2PDcHjc9FvEi4C42NCyg11Upump due to high rug risk: 85.2%. Threshold: 0.8",
+      "importance": 5,
+      "lastAccessed": 1772578391929
+    },
+    {
+      "id": "MEM-1772578497804-900",
+      "timestamp": "2026-03-03T22:54:57.804Z",
+      "text": "[PREDICTION_BLOCKED] Aborted trade on Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump due to high rug risk: 97.7%. Threshold: 0.8",
+      "importance": 5,
+      "lastAccessed": 1772578497804
+    },
+    {
+      "id": "MEM-1772578721947-803",
+      "timestamp": "2026-03-03T22:58:41.947Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772578721947
+    },
+    {
+      "id": "MEM-1772579351986-696",
+      "timestamp": "2026-03-03T23:09:11.986Z",
+      "text": "[PREDICTION_BLOCKED] Aborted trade on D8vhjBF1pdJzCEoT2EYS4v7azF7rx4ApL8Kxecqqpump due to high rug risk: 86.5%. Threshold: 0.8",
+      "importance": 5,
+      "lastAccessed": 1772579351986
+    },
+    {
+      "id": "MEM-1772579713601-24",
+      "timestamp": "2026-03-03T23:15:13.602Z",
+      "text": "[PREDICTION_BLOCKED] Aborted trade on mkvXiNBpa8uiSApe5BrhWVJaT87pJFTZxRy7zFapump due to high rug risk: 85.6%. Threshold: 0.8",
+      "importance": 5,
+      "lastAccessed": 1772579713602
+    },
+    {
+      "id": "MEM-1772579803971-243",
+      "timestamp": "2026-03-03T23:16:43.971Z",
+      "text": "[PREDICTION_BLOCKED] Aborted trade on GqS4XiSxF3znsMgnp3y8oLdxREuSnriuZGoweSBXqhDh due to high rug risk: 93.9%. Threshold: 0.8",
+      "importance": 5,
+      "lastAccessed": 1772579803971
+    },
+    {
+      "id": "MEM-1772580134085-516",
+      "timestamp": "2026-03-03T23:22:14.085Z",
+      "text": "[PREDICTION_BLOCKED] Aborted trade on GqS4XiSxF3znsMgnp3y8oLdxREuSnriuZGoweSBXqhDh due to high rug risk: 95.1%. Threshold: 0.8",
+      "importance": 5,
+      "lastAccessed": 1772580134085
+    },
+    {
+      "id": "MEM-1772580312280-894",
+      "timestamp": "2026-03-03T23:25:12.280Z",
+      "text": "[PREDICTION_BLOCKED] Aborted trade on 9MH5CMyUH6pgskkLuQrhPCVs7iQvXe7oGjDn1uLSpump due to high rug risk: 93.0%. Threshold: 0.8",
+      "importance": 5,
+      "lastAccessed": 1772580312280
+    },
+    {
+      "id": "MEM-1772580672197-250",
+      "timestamp": "2026-03-03T23:31:12.197Z",
+      "text": "[PREDICTION_BLOCKED] Aborted trade on BrJ2Dx1f5BcTr58SNxBZPT6zRzZChZTXd8VeXFScpump due to high rug risk: 82.9%. Threshold: 0.8",
+      "importance": 5,
+      "lastAccessed": 1772580672197
+    },
+    {
+      "id": "MEM-1772581637548-297",
+      "timestamp": "2026-03-03T23:47:17.548Z",
+      "text": "[PREDICTION_BLOCKED] Aborted trade on D8vhjBF1pdJzCEoT2EYS4v7azF7rx4ApL8Kxecqqpump due to high rug risk: 85.0%. Threshold: 0.8",
+      "importance": 5,
+      "lastAccessed": 1772581637548
     }
   ]
 }
