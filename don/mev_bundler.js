@@ -4,23 +4,25 @@
 let searcher = require('jito-ts/dist/sdk/block-engine/searcher');
 let bundle_sdk = require('jito-ts/dist/sdk/block-engine/types');
 
-const { PublicKey, VersionedTransaction, Transaction, SystemProgram } = require('@solana/web3.js');
+const { PublicKey, VersionedTransaction, Transaction, SystemProgram, Connection } = require('@solana/web3.js');
 const chalk = require('chalk');
 require('dotenv').config();
 
 // Jito Block Engine URLs (mainnet)
 const BLOCK_ENGINE_URL = process.env.JITO_BLOCK_ENGINE_URL || 'amsterdam.mainnet.block-engine.jito.wtf';
+const FALLBACK_RPC = process.env.SOLANA_RPC_URL_FALLBACK || 'https://api.mainnet-beta.solana.com';
 
 class MevBundler {
     constructor(walletKeypair, connection) {
         this.wallet = walletKeypair;
         this.connection = connection;
+        this.fallbackConnection = new Connection(FALLBACK_RPC, { commitment: 'confirmed' });
         this.client = null;
 
         try {
             // Initialize Jito client
             // Standard bundles on public engines often don't require an auth keypair, but it's hit or miss.
-            this.client = searcher.searcherClient(BLOCK_ENGINE_URL, undefined);
+            this.client = searcher.searcherClient(BLOCK_ENGINE_URL, this.wallet);
             console.log(chalk.blue(`[MEV BUNDLER]: Jito Client Initialized. Protected Mode Active.`));
         } catch (e) {
             console.log(chalk.yellow(`[MEV BUNDLER]: Failed to init Jito client: ${e.message}`));
@@ -34,6 +36,18 @@ class MevBundler {
         try {
             console.log(chalk.magenta(`[MEV BUNDLER]: 🛡️ Creating Jito Bundle (Tip: ${tipAmount} lamports)...`));
 
+            let balance = 0;
+            try {
+                balance = await this.connection.getBalance(this.wallet.publicKey);
+            } catch (e) {
+                console.log(chalk.yellow(`[MEV BUNDLER]: Primary RPC failed for getBalance, trying fallback...`));
+                balance = await this.fallbackConnection.getBalance(this.wallet.publicKey);
+            }
+            if (balance < tipAmount) {
+                console.log(chalk.red(`[MEV BUNDLER]: ❌ Insufficient SOL balance for Jito Tip. Have ${(balance/1e9).toFixed(6)}, need ${(tipAmount/1e9).toFixed(6)}`));
+                return null;
+            }
+
             const JITO_TIP_ACCOUNTS = [
                 "96gYZGLnJYVFmbjzopPSU6QiEV5fGqZNyN9nmNhvrZU5",
                 "HFqU5x63VTqvQss8hp11i4bD44PvwucfZ2bU7gRe",
@@ -46,7 +60,13 @@ class MevBundler {
             ];
             const tipAccount = new PublicKey(JITO_TIP_ACCOUNTS[Math.floor(Math.random() * JITO_TIP_ACCOUNTS.length)]);
 
-            const latestBlockhash = await this.connection.getLatestBlockhash('confirmed');
+            let latestBlockhash;
+            try {
+                latestBlockhash = await this.connection.getLatestBlockhash('confirmed');
+            } catch (e) {
+                console.log(chalk.yellow(`[MEV BUNDLER]: Primary RPC failed for getLatestBlockhash, trying fallback...`));
+                latestBlockhash = await this.fallbackConnection.getLatestBlockhash('confirmed');
+            }
 
             // ── Create a separate Tip Transaction ──
             // Modification of VersionedTransaction is complex; bundling a separate tip is cleaner.

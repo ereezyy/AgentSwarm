@@ -18,6 +18,7 @@ require('dotenv').config();
 
 const id = process.argv[2] || 'Sniper';
 const RPC_URL = process.env.SOLANA_RPC_URL;
+const RPC_URL_FALLBACK = process.env.SOLANA_RPC_URL_FALLBACK || 'https://api.mainnet-beta.solana.com';
 const PRIVATE_KEY_HEX = process.env.SOLANA_PRIVATE_KEY;
 const PUMP_FUN_PROGRAM_ID = new PublicKey('6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P');
 const WSOL_MINT = new PublicKey('So11111111111111111111111111111111111111112');
@@ -112,6 +113,21 @@ function canBuy(mintStr) {
 
 // ── Connection Setup (HTTP-only, no WebSocket spam) ──
 const connection = new Connection(RPC_URL, { commitment: 'confirmed' });
+const fallbackConnection = new Connection(RPC_URL_FALLBACK, { commitment: 'confirmed' });
+
+async function rpcWithFailover(method, ...args) {
+    try {
+        return await connection[method](...args);
+    } catch (e) {
+        console.log(chalk.yellow(`[SNIPER #${id}]: Primary RPC failed for ${method}, trying fallback...`));
+        try {
+            return await fallbackConnection[method](...args);
+        } catch (fallbackErr) {
+            console.log(chalk.red(`[SNIPER #${id}]: Fallback RPC also failed for ${method}: ${fallbackErr.message}`));
+            throw fallbackErr;
+        }
+    }
+}
 
 // Initialize MEV Protection (Graceful)
 let bundler = null;
@@ -130,7 +146,7 @@ try {
 // ============================================================
 async function getDynamicPriorityFee() {
     try {
-        const fees = await connection.getRecentPrioritizationFees();
+        const fees = await rpcWithFailover('getRecentPrioritizationFees');
         if (!fees || fees.length === 0) return 100000;
 
         fees.sort((a, b) => b.prioritizationFee - a.prioritizationFee);
@@ -156,7 +172,7 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         const amountLamports = parseInt(amount);
         const priorityFee = await getDynamicPriorityFee();
         if (inputMint === WSOL_MINT.toString()) {
-            const balance = await connection.getBalance(wallet.publicKey);
+            const balance = await rpcWithFailover('getBalance', wallet.publicKey);
             if (balance < amountLamports + priorityFee) {
                 throw new Error(`Insufficient SOL balance. Have ${(balance / 1e9).toFixed(6)}, need ${((amountLamports + priorityFee) / 1e9).toFixed(6)}`);
             }
@@ -187,24 +203,6 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         if (!qRes || !qRes.data || !qRes.data.outAmount) throw new Error(`Quote failed: ${lastErr}`);
 
         quoteData = qRes.data;
-
-        let qRes = null;
-        let lastErr = null;
-        const qParams = { inputMint, outputMint, amount, slippageBps: 1000 };
-
-        for (const url of JUPITER_QUOTE_APIS) {
-            try {
-                qRes = await axios.get(url, { params: qParams, timeout: 5000 });
-                if (qRes && qRes.data) break;
-            } catch (e) {
-                lastErr = e.message;
-                console.log(chalk.yellow(`[SNIPER]: Quote API ${new URL(url).hostname} failed, trying next...`));
-            }
-        }
-
-        if (!qRes || !qRes.data || !qRes.data.outAmount) throw new Error(`Quote failed: ${lastErr}`);
-
-        const quoteData = qRes.data;
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Jupiter Quote: ${quoteData.outAmount} out via ${quoteData.routePlan.map(r => r.swapInfo.label).join('->')}`));
 
         // 2. Get Serialized Transaction with Dynamic Fee
@@ -265,8 +263,8 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
 
         // Fallback to standard RPC if Jito isn't active or failed
         if (!isMevProtected) {
-            const latestBh = await connection.getLatestBlockhash('confirmed');
-            sig = await connection.sendTransaction(transaction, { skipPreflight: true, maxRetries: 2 });
+            const latestBh = await rpcWithFailover('getLatestBlockhash', 'confirmed');
+            sig = await rpcWithFailover('sendTransaction', transaction, { skipPreflight: true, maxRetries: 2 });
             console.log(chalk.green.bold(`[SNIPER #${id}]: 🪐 Jupiter Swap Sent (Public Mempool): ${sig}`));
         }
 
@@ -274,7 +272,7 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         let confirmed = false;
         for (let i = 0; i < 15; i++) {
             await new Promise(r => setTimeout(r, 2000));
-            const status = await connection.getSignatureStatuses([sig]);
+            const status = await rpcWithFailover('getSignatureStatuses', [sig]);
             const cs = status?.value?.[0]?.confirmationStatus;
             if (cs === 'confirmed' || cs === 'finalized') {
                 confirmed = true;
@@ -366,7 +364,7 @@ function getBondingCurvePDA(mint) {
 
 async function getBondingCurveAccount(bondingCurvePDA) {
     try {
-        const account = await connection.getAccountInfo(bondingCurvePDA);
+        const account = await rpcWithFailover('getAccountInfo', bondingCurvePDA);
         if (!account || !account.data) return null; // Curve might be closed/migrated
 
         const buffer = account.data;
@@ -450,7 +448,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
         return;
     }
     try {
-        const balance = await connection.getBalance(wallet.publicKey);
+        const balance = await rpcWithFailover('getBalance', wallet.publicKey);
         const mintStr = mint.toString();
 
         // ── Safety Gate 1: Per-token cooldown + daily cap ──
@@ -720,7 +718,7 @@ async function startSurveillance() {
     setInterval(async () => {
         for (const walletAddr of TARGET_WALLETS) {
             try {
-                const sigs = await connection.getSignaturesForAddress(new PublicKey(walletAddr), { limit: 1 });
+                const sigs = await rpcWithFailover('getSignaturesForAddress', new PublicKey(walletAddr), { limit: 1 });
                 if (sigs.length === 0) continue;
 
                 const latestSig = sigs[0].signature;
@@ -734,7 +732,7 @@ async function startSurveillance() {
                 lastSeenSigs[walletAddr] = latestSig;
                 console.log(chalk.yellow(`[SNIPER #${id}]: 🔔 ACTIVITY ON TARGET: ${walletAddr.substring(0, 8)}...`));
 
-                const tx = await connection.getParsedTransaction(latestSig, { maxSupportedTransactionVersion: 0 });
+                const tx = await rpcWithFailover('getParsedTransaction', latestSig, { maxSupportedTransactionVersion: 0 });
                 if (!tx || !tx.meta) continue;
 
                 const logs = tx.meta.logMessages || [];
