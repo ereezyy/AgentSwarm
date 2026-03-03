@@ -13,10 +13,13 @@ const id = process.argv[2] || 'Mirror';
 const SOLANA_RPC = process.env.SOLANA_RPC_URL;
 
 // File paths
+const { SyndicateCore } = require('./syndicate_core');
+
 const WHALE_DB_PATH = path.resolve(__dirname, '../missions/whale_scorecard.json');
 const missionsDir = path.join(__dirname, '../missions');
 if (!fs.existsSync(missionsDir)) fs.mkdirSync(missionsDir);
 
+const core = new SyndicateCore();
 const MP = (msg) => chalk.hex('#00BFFF').bold(`[MIRROR #${id}]: ${msg}`);
 const mp = (msg) => chalk.hex('#00BFFF')(`[MIRROR #${id}]: ${msg}`);
 
@@ -54,13 +57,14 @@ function saveScorecard(data) {
 // WHALE PnL ANALYSIS
 // ============================================================
 async function analyzeWalletPnL(address) {
+    const addressStr = address?.toString() || '';
     const scorecard = loadScorecard();
-    let whale = scorecard.whales[address];
+    let whale = scorecard.whales[addressStr];
 
     // Initialize if new whale
     if (!whale) {
         whale = {
-            address,
+            address: addressStr,
             alias: null,
             tier: 'C',
             trades: [],
@@ -73,31 +77,39 @@ async function analyzeWalletPnL(address) {
 
     whale.lastSeen = new Date().toISOString();
 
+    const urls = [
+        process.env.SOLANA_RPC_URL,
+        process.env.SOLANA_RPC_URL_FALLBACK,
+        'https://api.mainnet-beta.solana.com'
+    ].filter(Boolean);
+
     // Try to fetch recent transactions for PnL analysis
-    if (SOLANA_RPC) {
+    let success = false;
+    for (const url of urls) {
+        if (success) break;
         try {
-            const resp = await axios.post(SOLANA_RPC, {
+            const resp = await axios.post(url, {
                 jsonrpc: '2.0', id: 1,
                 method: 'getSignaturesForAddress',
-                params: [address, { limit: 20 }]
+                params: [addressStr, { limit: 20 }]
             }, { timeout: 15000 });
 
             const signatures = resp.data?.result || [];
 
             // Analyze recent trades (Optimized: Batch RPC Request)
             const recentSigs = signatures.slice(0, 10);
-            const neededSigs = recentSigs.filter(sig => !whale.trades.some(t => t.hash === sig.signature.substring(0, 16)));
+            const neededSigs = recentSigs.filter(sig => !whale.trades.some(t => t.hash === sig?.signature?.toString()?.substring(0, 16)));
 
             if (neededSigs.length > 0) {
                 const batch = neededSigs.map((sig, idx) => ({
                     jsonrpc: '2.0',
                     id: idx + 1,
                     method: 'getTransaction',
-                    params: [sig.signature, { encoding: 'jsonParsed', maxSupportedTransactionVersion: 0 }]
+                    params: [sig?.signature?.toString(), { encoding: 'jsonParsed', maxSupportedTransactionVersion: 0 }]
                 }));
 
                 try {
-                    const txResp = await axios.post(SOLANA_RPC, batch, { timeout: 15000 });
+                    const txResp = await axios.post(url, batch, { timeout: 15000 });
                     // Handle both batch array and single response (if only 1 item sent, some RPCs return object, but standard is array for batch)
                     // We forced it to look like a batch, so it should be an array.
                     const results = Array.isArray(txResp.data) ? txResp.data : [txResp.data];
@@ -111,17 +123,17 @@ async function analyzeWalletPnL(address) {
                         if (sigIndex < 0 || sigIndex >= neededSigs.length) continue;
                         const sig = neededSigs[sigIndex];
 
-                        const tradeHash = sig.signature.substring(0, 16);
+                        const tradeHash = sig?.signature?.toString()?.substring(0, 16);
                         const tx = res.result;
 
                         // Calculate SOL change (simple PnL proxy)
                         const preBalances = tx.meta.preBalances || [];
                         const postBalances = tx.meta.postBalances || [];
-                        const accountKeys = tx.transaction?.message?.accountKeys || [];
+                        const accountKeys = tx.transaction?.message?.staticAccountKeys || tx.transaction?.message?.accountKeys || [];
 
                         // Find the whale's account index
                         const whaleIndex = accountKeys.findIndex(k =>
-                            (typeof k === 'string' ? k : k.pubkey) === address
+                            (typeof k === 'string' ? k : k.pubkey) === addressStr
                         );
 
                         if (whaleIndex >= 0 && preBalances[whaleIndex] !== undefined) {
@@ -144,11 +156,15 @@ async function analyzeWalletPnL(address) {
                     }
                 } catch (e) {
                      /* Batch fetch failed, skip */
-                     console.log(chalk.yellow(`[MIRROR]: Batch RPC failed for ${address.substring(0, 8)}: ${e.message}`));
+                     const errMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+                     console.log(chalk.yellow(`[MIRROR]: Batch RPC failed for ${addressStr.substring(0, 8)} using ${url}: ${errMsg}\nStack: ${e?.stack || 'Not available'}`));
+                     continue; // Try next URL
                 }
             }
+            success = true; // Succeeded, break out of URL loop
         } catch (e) {
-            console.log(chalk.yellow(`[MIRROR]: RPC analysis failed for ${address.substring(0, 8)}: ${e.message}`));
+            const errMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+            console.log(chalk.yellow(`[MIRROR]: RPC analysis failed for ${addressStr.substring(0, 8)} using ${url}: ${errMsg}\nStack: ${e?.stack || 'Not available'}`));
         }
     }
 
@@ -179,7 +195,7 @@ async function analyzeWalletPnL(address) {
     // Keep only last 50 trades
     if (whale.trades.length > 50) whale.trades = whale.trades.slice(-50);
 
-    scorecard.whales[address] = whale;
+    scorecard.whales[addressStr] = whale;
     saveScorecard(scorecard);
 
     return whale;
@@ -189,8 +205,14 @@ async function analyzeWalletPnL(address) {
 // QUALIFICATION GATE — Intercept whale signals
 // ============================================================
 async function qualifyWhaleSignal(msg) {
-    const address = msg.whale || msg.address;
+    const address = msg?.whale?.toString() || msg?.address?.toString();
     if (!address) return;
+
+    const balance = await core.checkWalletBalance();
+    if (balance === null || balance < 0.01) {
+        console.log(chalk.yellow(`[MIRROR #${id}]: Insufficient or unverified SOL balance (${balance}). Halting operations.`));
+        return;
+    }
 
     console.log(mp(`🔍 Qualifying whale: ${address.substring(0, 12)}...`));
 
@@ -244,53 +266,59 @@ function scorecard_config() {
 // IPC MESSAGE HANDLER
 // ============================================================
 process.on('message', (msg) => {
-    switch (msg.type) {
-        case 'WHALE_MOVEMENT':
-        case 'QUALIFY_WHALE':
-            qualifyWhaleSignal(msg);
-            break;
+    try {
+        switch (msg?.type) {
+            case 'WHALE_MOVEMENT':
+            case 'QUALIFY_WHALE':
+                qualifyWhaleSignal(msg);
+                break;
 
-        case 'SET_WHALE_ALIAS':
-            if (msg.address && msg.alias) {
-                const sc = loadScorecard();
-                if (sc.whales[msg.address]) {
-                    sc.whales[msg.address].alias = msg.alias;
-                    saveScorecard(sc);
-                    console.log(mp(`Whale ${msg.address.substring(0, 8)}... aliased as "${msg.alias}"`));
+            case 'SET_WHALE_ALIAS':
+                const msgAddrStr = msg?.address?.toString();
+                if (msgAddrStr && msg?.alias) {
+                    const sc = loadScorecard();
+                    if (sc.whales[msgAddrStr]) {
+                        sc.whales[msgAddrStr].alias = msg.alias.toString();
+                        saveScorecard(sc);
+                        console.log(mp(`Whale ${msgAddrStr.substring(0, 8)}... aliased as "${msg.alias}"`));
+                    }
                 }
-            }
-            break;
+                break;
 
-        case 'MIRROR_STATUS':
-            const scorecard = loadScorecard();
-            const whales = Object.values(scorecard.whales);
-            const approved = whales.filter(w => w.approved);
-            const sTier = whales.filter(w => w.tier === 'S');
-            const aTier = whales.filter(w => w.tier === 'A');
+            case 'MIRROR_STATUS':
+                const scorecard = loadScorecard();
+                const whales = Object.values(scorecard.whales);
+                const approved = whales.filter(w => w.approved);
+                const sTier = whales.filter(w => w.tier === 'S');
+                const aTier = whales.filter(w => w.tier === 'A');
 
-            console.log(MP(`📊 Mirror Protocol Status:`));
-            console.log(mp(`  Tracked Whales: ${whales.length}`));
-            console.log(mp(`  Approved: ${approved.length}`));
-            console.log(mp(`  S-Tier: ${sTier.length} | A-Tier: ${aTier.length}`));
+                console.log(MP(`📊 Mirror Protocol Status:`));
+                console.log(mp(`  Tracked Whales: ${whales.length}`));
+                console.log(mp(`  Approved: ${approved.length}`));
+                console.log(mp(`  S-Tier: ${sTier.length} | A-Tier: ${aTier.length}`));
 
-            if (approved.length > 0) {
-                console.log(mp(`  Top Performers:`));
-                approved.sort((a, b) => b.stats.totalPnL - a.stats.totalPnL).slice(0, 5).forEach(w => {
-                    const label = w.alias || w.address.substring(0, 12) + '...';
-                    console.log(mp(`    ${w.tier}-Tier: ${label} | PnL: ${w.stats.totalPnL.toFixed(2)} SOL | Win: ${(w.stats.winRate * 100).toFixed(0)}%`));
+                if (approved.length > 0) {
+                    console.log(mp(`  Top Performers:`));
+                    approved.sort((a, b) => b.stats.totalPnL - a.stats.totalPnL).slice(0, 5).forEach(w => {
+                        const label = w.alias || w.address.toString().substring(0, 12) + '...';
+                        console.log(mp(`    ${w.tier}-Tier: ${label} | PnL: ${w.stats.totalPnL.toFixed(2)} SOL | Win: ${(w.stats.winRate * 100).toFixed(0)}%`));
+                    });
+                }
+                break;
+
+            case 'LEADERBOARD':
+                const sc = loadScorecard();
+                const all = Object.values(sc.whales).sort((a, b) => b.stats.totalPnL - a.stats.totalPnL);
+                console.log(MP('🏆 WHALE LEADERBOARD:'));
+                all.slice(0, 10).forEach((w, i) => {
+                    const label = w.alias || w.address.toString().substring(0, 12) + '...';
+                    console.log(mp(`  #${i + 1} [${w.tier}] ${label} — PnL: ${w.stats.totalPnL.toFixed(2)} SOL | Win: ${(w.stats.winRate * 100).toFixed(0)}%`));
                 });
-            }
-            break;
-
-        case 'LEADERBOARD':
-            const sc = loadScorecard();
-            const all = Object.values(sc.whales).sort((a, b) => b.stats.totalPnL - a.stats.totalPnL);
-            console.log(MP('🏆 WHALE LEADERBOARD:'));
-            all.slice(0, 10).forEach((w, i) => {
-                const label = w.alias || w.address.substring(0, 12) + '...';
-                console.log(mp(`  #${i + 1} [${w.tier}] ${label} — PnL: ${w.stats.totalPnL.toFixed(2)} SOL | Win: ${(w.stats.winRate * 100).toFixed(0)}%`));
-            });
-            break;
+                break;
+        }
+    } catch (e) {
+        const errMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+        console.log(chalk.red(`[MIRROR #${id}]: Error processing message: ${errMsg}\nStack: ${e?.stack || 'Not available'}`));
     }
 });
 
