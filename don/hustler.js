@@ -4,8 +4,10 @@ const axios = require('axios');
 const chalk = require('chalk');
 require('dotenv').config();
 const { ask, GlobalMemory } = require('./brain');
+const { SyndicateAPI } = require('./syndicate_core');
 
 const id = process.argv[2] || 'Trader';
+const api = new SyndicateAPI();
 
 console.log(chalk.cyan.bold(`[HUSTLER #${id}]: Crypto Intelligence Desk ONLINE. Monitoring markets...`));
 
@@ -36,6 +38,13 @@ async function watchMarkets() {
     if (watchTimeout) {
         clearTimeout(watchTimeout);
         watchTimeout = null;
+    }
+
+    const solBalance = await api.checkWalletBalance();
+    if (solBalance !== null && solBalance < 0.005) {
+        console.log(chalk.red(`[HUSTLER #${id}]: Insufficient SOL balance (${solBalance}). Halting market scan.`));
+        isWatching = false;
+        return;
     }
 
     try {
@@ -127,9 +136,10 @@ async function watchMarkets() {
         }
 
     } catch (e) {
-        if (e.response?.status === 429) {
+        const isTimeout = e.code === 'ECONNABORTED' || (e.message && e.message.includes('timeout'));
+        if (e.response?.status === 429 || isTimeout) {
             backoffMs = backoffMs ? Math.min(backoffMs * 2, BACKOFF_MAX) : BACKOFF_INITIAL;
-            console.log(chalk.yellow(`[HUSTLER #${id}]: ⏳ CoinGecko rate limited. Trying DexScreener fallback...`));
+            console.log(chalk.yellow(`[HUSTLER #${id}]: ⏳ CoinGecko ${isTimeout ? 'timeout' : 'rate limited'}. Trying DexScreener fallback...`));
 
             // DexScreener fallback for SOL price
             try {
@@ -163,7 +173,37 @@ async function watchMarkets() {
                     }
                 }
             } catch (dexErr) {
-                console.log(chalk.gray(`[HUSTLER #${id}]: DexScreener fallback also failed. Will retry in ${(backoffMs / 1000).toFixed(0)}s`));
+                console.log(chalk.yellow(`[HUSTLER #${id}]: DexScreener fallback also failed. Trying Jupiter API fallback...`));
+
+                try {
+                    const jupRes = await axios.get(
+                        'https://price.jup.ag/v4/price?ids=SOL',
+                        { timeout: 8000 }
+                    );
+                    const solPrice = jupRes.data?.data?.SOL?.price || 0;
+                    if (solPrice) {
+                        console.log(chalk.cyan(`[HUSTLER #${id}]: 🪐 [Jupiter] SOL $${solPrice}`));
+                        if (process.send) {
+                            process.send({
+                                type: 'INTEL_DATA',
+                                data: `Markets: SOL $${solPrice} [Jupiter fallback]`,
+                                source: 'HUSTLER_MARKET'
+                            });
+                            process.send({
+                                type: 'MARKET_DATA',
+                                data: {
+                                    solana: { price: solPrice, change24h: 0, trend: 0 },
+                                    bitcoin: { price: 0, change24h: 0, trend: 0 },
+                                    ethereum: { price: 0 },
+                                    timestamp: new Date().toISOString(),
+                                    source: 'jupiter'
+                                }
+                            });
+                        }
+                    }
+                } catch (jupErr) {
+                    console.log(chalk.gray(`[HUSTLER #${id}]: Jupiter fallback also failed. Will retry in ${(backoffMs / 1000).toFixed(0)}s`));
+                }
             }
 
             watchTimeout = setTimeout(watchMarkets, backoffMs);
@@ -196,12 +236,14 @@ function calculateTrend(coin) {
 
 // IPC Listener
 process.on('message', async (msg) => {
-    if (msg.type === 'MARKET_CHECK') {
+    if (!msg) return;
+
+    if (msg?.type === 'MARKET_CHECK') {
         watchMarkets();
     }
 
-    if (msg.type === 'MEETING_START') {
-        const topic = msg.topic || '';
+    if (msg?.type === 'MEETING_START') {
+        const topic = msg?.topic || '';
         console.log(chalk.cyan(`[HUSTLER #${id}]: 🚨 Joining Council Meeting: "${topic}"`));
 
         // Delay for realism
@@ -235,11 +277,11 @@ process.on('message', async (msg) => {
         }, 3000 + Math.random() * 5000);
     }
 
-    if (msg.type === 'REQUEST_REVIEW') {
+    if (msg?.type === 'REQUEST_REVIEW') {
         setTimeout(async () => {
             try {
                 const review = await ask(
-                    `You are The Hustler. User '${msg.from}' proposed: "${msg.proposal}".
+                    `You are The Hustler. User '${msg?.from || 'Unknown'}' proposed: "${msg?.proposal || ''}".
                     From a profit/market perspective, is this a good idea?
                     Return a short 1-sentence verdict starting with "[REVIEW]".`,
                     "You are a ruthless capitalist.",
