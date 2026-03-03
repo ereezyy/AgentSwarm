@@ -1,12 +1,27 @@
 // Capital Generator Agent v1.0
 // Purpose: Generate starting capital for The Syndicate through microtransactions and low-risk exploits
 
-const { SyndicateAPI } = require('./syndicate_core');
+const { SyndicateCore } = require('./SyndicateCore');
 const logger = require('./logger');
+
+async function withRetry(operation, maxRetries = 3, baseDelay = 1000) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      if (attempt === maxRetries) {
+        throw error;
+      }
+      const delay = baseDelay * Math.pow(2, attempt - 1);
+      logger.warn(`API call failed (attempt ${attempt}/${maxRetries}). Retrying in ${delay}ms... Error: ${error?.message}`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+}
 
 class CapitalGenerator {
   constructor() {
-    this.api = new SyndicateAPI();
+    this.api = new SyndicateCore();
     this.logger = logger;
     // Alias log to info for compatibility
     this.logger.log = this.logger.info;
@@ -15,10 +30,26 @@ class CapitalGenerator {
     this.currentCapital = 0;
     this.activeExploits = [];
     this.maxExploits = 3; // Limit concurrent operations for safety
+    this.isRunning = false;
+    this.timeoutId = null;
   }
 
   async initialize() {
+    if (this.isRunning) {
+      this.logger.warn('Capital Generator is already running.');
+      return;
+    }
+
     this.logger.log('Initializing Capital Generator...');
+
+    // Wallet Guard
+    const balance = await this.api.checkWalletBalance();
+    if (balance === null || balance < 0.01) {
+      this.logger.error(`Insufficient SOL balance (${balance}). Requires >= 0.01 SOL to run.`);
+      return;
+    }
+
+    this.isRunning = true;
     await this.scanForOpportunities();
     this.startCapitalGeneration();
   }
@@ -26,11 +57,16 @@ class CapitalGenerator {
   async scanForOpportunities() {
     this.logger.log('Scanning for low-risk capital opportunities...');
     // Assuming scanDarkWebMarkets is implemented or monkey-patched elsewhere
-    const opportunities = await this.api.scanDarkWebMarkets({
-      riskLevel: 'low',
-      returnRate: 'minimal',
-      type: ['microtransaction', 'data_resell', 'ad_fraud']
-    });
+    let opportunities = [];
+    try {
+      opportunities = (await withRetry(() => this.api.scanDarkWebMarkets({
+        riskLevel: 'low',
+        returnRate: 'minimal',
+        type: ['microtransaction', 'data_resell', 'ad_fraud']
+      }))) || [];
+    } catch (error) {
+      this.logger.error(`Failed to scan for opportunities: ${error?.stack || error?.message}`);
+    }
 
     this.activeExploits = opportunities.slice(0, this.maxExploits).map(op => ({
       id: op.id,
@@ -50,7 +86,7 @@ class CapitalGenerator {
         exploit.status = 'running';
         this.logger.log(`Executing ${exploit.type} exploit (ID: ${exploit.id})`);
         // Assuming executeExploit is implemented or monkey-patched elsewhere
-        const result = await this.api.executeExploit(exploit.id, { stealth: true, timeout: 60000 });
+        const result = await withRetry(() => this.api.executeExploit(exploit.id, { stealth: true, timeout: 60000 }));
         if (result.success && result.profit > 0) {
           this.currentCapital += result.profit;
           exploit.status = 'completed';
@@ -65,7 +101,8 @@ class CapitalGenerator {
         }
       } catch (error) {
         exploit.status = 'error';
-        this.logger.error(`Exploit ${exploit.id} crashed: ${error.message}`);
+        const errorMsg = error?.response?.data?.error || error?.response?.data?.msg || error?.stack || error?.message || 'Unknown error';
+        this.logger.error(`Exploit ${exploit.id} crashed: ${errorMsg}`);
       }
     });
 
@@ -73,9 +110,13 @@ class CapitalGenerator {
   }
 
   async startCapitalGeneration() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+
     if (this.activeExploits.length === 0) {
       this.logger.warn('No opportunities available. Rescanning in 5 minutes...');
-      setTimeout(() => this.scanForOpportunities().then(() => this.startCapitalGeneration()), 300000);
+      this.timeoutId = setTimeout(() => this.scanForOpportunities().then(() => this.startCapitalGeneration()), 300000);
       return;
     }
 
@@ -87,16 +128,20 @@ class CapitalGenerator {
     // Check if target profit is reached
     if (this.currentCapital >= this.targetProfit) {
       this.logger.log(`Target capital of ${this.targetProfit} reached. Transferring to Syndicate Sniper...`);
-      await this.api.transferCapital('sniper', this.currentCapital);
-      if (process.send) {
-        process.send({ type: 'KICK_UP', amount: this.currentCapital, source: 'CAPITAL_GEN' });
+      try {
+        await withRetry(() => this.api.transferCapital('sniper', this.currentCapital));
+        if (process.send) {
+          process.send({ type: 'KICK_UP', amount: this.currentCapital, source: 'CAPITAL_GEN' });
+        }
+        this.currentCapital = 0;
+        this.targetProfit *= 1.5; // Increase target for next round
+      } catch (error) {
+        this.logger.error(`Failed to transfer capital: ${error?.stack || error?.message}`);
       }
-      this.currentCapital = 0;
-      this.targetProfit *= 1.5; // Increase target for next round
     }
 
     // Continue generation if under target
-    setTimeout(() => this.scanForOpportunities().then(() => this.startCapitalGeneration()), 60000);
+    this.timeoutId = setTimeout(() => this.scanForOpportunities().then(() => this.startCapitalGeneration()), 60000);
   }
 
   getStatus() {
