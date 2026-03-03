@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const id = process.argv[2] || 'Scavenger';
 const { ask } = require('./brain');
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./syndicate_core');
 const core = new SyndicateCore();
 
 const MAX_RETRIES = 3;
@@ -29,7 +29,16 @@ async function runWithRetry(fn, label) {
 }
 
 // Derive Wallet from .env
-const secretKey = Buffer.from(process.env.SOLANA_PRIVATE_KEY, 'hex');
+if (!process.env.SOLANA_PRIVATE_KEY) {
+    console.error(chalk.red(`[SCAVENGER #${id}]: ❌ Missing SOLANA_PRIVATE_KEY in environment variables.`));
+    process.exit(1);
+}
+let secretKey;
+try {
+    secretKey = Buffer.from(JSON.parse(process.env.SOLANA_PRIVATE_KEY));
+} catch (e) {
+    secretKey = Buffer.from(process.env.SOLANA_PRIVATE_KEY, 'hex');
+}
 const keypair = Keypair.fromSecretKey(secretKey);
 const WALLET = keypair.publicKey.toString();
 
@@ -195,43 +204,70 @@ Save the result as a polished submission.`;
 
 // ── RENT RECLAMATION (Standard Sweep via VAULT) ──
 async function sweepDust() {
-    try {
-        console.log(chalk.yellow(`[SCAVENGER #${id}]: 🧹 Reclaiming rent via VAULT...`));
-        const { PublicKey, Transaction } = require('@solana/web3.js');
-        const { TOKEN_PROGRAM_ID, createCloseAccountInstruction } = require('@solana/spl-token');
+    return runWithRetry(async () => {
+        try {
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: 🧹 Reclaiming rent via VAULT...`));
+            const { PublicKey, Transaction, Connection } = require('@solana/web3.js');
+            const { TOKEN_PROGRAM_ID, createCloseAccountInstruction } = require('@solana/spl-token');
 
-        const connection = core.connection;
-        const walletKey = keypair.publicKey;
+            let connection = core.connection;
+            let accounts;
+            const walletKey = keypair.publicKey;
 
-        const accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
-        const emptyAccounts = accounts.value.filter(acc => acc.account.data.parsed.info.tokenAmount.uiAmount === 0);
+            // Wallet Guard
+            let currentBalance;
+            try {
+                currentBalance = await connection.getBalance(walletKey) / 1e9;
+            } catch (err) {
+                console.log(chalk.yellow(`[SCAVENGER #${id}]: RPC failure on balance check, failing over...`));
+                const secondaryRpc = 'https://api.mainnet-beta.solana.com';
+                connection = new Connection(secondaryRpc, 'confirmed');
+                currentBalance = await connection.getBalance(walletKey) / 1e9;
+            }
+            if (currentBalance < 0.005) {
+                console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ Balance too low (${currentBalance} SOL) for rent reclamation fees. Skipping.`));
+                return;
+            }
+            // Network Failover for connection methods
+            try {
+                accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+            } catch (err) {
+                console.log(chalk.yellow(`[SCAVENGER #${id}]: RPC failure, failing over to secondary RPC...`));
+                const secondaryRpc = 'https://api.mainnet-beta.solana.com';
+                connection = new Connection(secondaryRpc, 'confirmed');
+                accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+            }
 
-        if (emptyAccounts.length === 0) return;
+            const emptyAccounts = accounts.value.filter(acc => acc.account.data.parsed.info.tokenAmount.uiAmount === 0);
 
-        const tx = new Transaction();
-        for (const acc of emptyAccounts.slice(0, 5)) {
-            tx.add(createCloseAccountInstruction(acc.pubkey, walletKey, walletKey));
+            if (emptyAccounts.length === 0) return;
+
+            const tx = new Transaction();
+            for (const acc of emptyAccounts.slice(0, 5)) {
+                tx.add(createCloseAccountInstruction(new PublicKey(acc.pubkey), walletKey, walletKey));
+            }
+
+            const { blockhash } = await connection.getLatestBlockhash();
+            tx.recentBlockhash = blockhash;
+            tx.feePayer = walletKey;
+
+            // Request signature from VAULT via SyndicateCore
+            const serializedTx = tx.serialize({ requireAllSignatures: false }).toString('base64');
+
+            if (process.env.LIVE_MODE === 'true') {
+                core.log('Requesting VAULT signature for rent reclamation...', 'POWER');
+                const signedTxBase64 = await core.requestSign(serializedTx);
+                const signedTx = Transaction.from(Buffer.from(signedTxBase64, 'base64'));
+                const sig = await connection.sendRawTransaction(signedTx.serialize());
+                core.log(`Reclaimed rent. Sig: ${sig}`, 'MONEY');
+            } else {
+                console.log(chalk.gray(`[SCAVENGER]: SIMULATION: Would reclaimed rent from ${emptyAccounts.length} accounts via VAULT.`));
+            }
+        } catch (e) {
+            console.error(chalk.red(`[SCAVENGER]: Rent reclaim failed: ${e.message}`));
+            throw e; // throw so runWithRetry catches it
         }
-
-        const { blockhash } = await connection.getLatestBlockhash();
-        tx.recentBlockhash = blockhash;
-        tx.feePayer = walletKey;
-
-        // Request signature from VAULT via SyndicateCore
-        const serializedTx = tx.serialize({ requireAllSignatures: false }).toString('base64');
-
-        if (process.env.LIVE_MODE === 'true') {
-            core.log('Requesting VAULT signature for rent reclamation...', 'POWER');
-            const signedTxBase64 = await core.requestSign(serializedTx);
-            const signedTx = Transaction.from(Buffer.from(signedTxBase64, 'base64'));
-            const sig = await connection.sendRawTransaction(signedTx.serialize());
-            core.log(`Reclaimed rent. Sig: ${sig}`, 'MONEY');
-        } else {
-            console.log(chalk.gray(`[SCAVENGER]: SIMULATION: Would reclaimed rent from ${emptyAccounts.length} accounts via VAULT.`));
-        }
-    } catch (e) {
-        console.error(chalk.red(`[SCAVENGER]: Rent reclaim failed: ${e.message}`));
-    }
+    }, 'Sweep Dust');
 }
 
 async function runScavengeLoop() {
