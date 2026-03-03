@@ -10,28 +10,48 @@ require('dotenv').config();
 
 const id = process.argv[2] || 'Scavenger';
 const { ask } = require('./brain');
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./syndicate_core');
 const core = new SyndicateCore();
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 5000;
 
 async function runWithRetry(fn, label) {
+    let lastError = null;
     for (let i = 0; i < MAX_RETRIES; i++) {
         try {
             return await fn();
         } catch (e) {
-            console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ ${label} attempt ${i + 1} failed: ${e.message}. Retrying...`));
+            lastError = e;
+            const msg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || String(e);
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ ${label} attempt ${i + 1} failed: ${msg}. Retrying...`));
             if (i < MAX_RETRIES - 1) await new Promise(r => setTimeout(r, RETRY_DELAY));
         }
     }
-    throw new Error(`${label} failed after ${MAX_RETRIES} attempts.`);
+    const finalMsg = lastError?.response?.data?.error || lastError?.response?.data?.msg || lastError?.message || String(lastError);
+    throw new Error(`${label} failed after ${MAX_RETRIES} attempts. Last error: ${finalMsg}`);
 }
 
 // Derive Wallet from .env
-const secretKey = Buffer.from(process.env.SOLANA_PRIVATE_KEY, 'hex');
-const keypair = Keypair.fromSecretKey(secretKey);
-const WALLET = keypair.publicKey.toString();
+let keypair;
+let WALLET = 'SIMULATION_MODE';
+
+try {
+    const rawKey = process.env.SOLANA_PRIVATE_KEY;
+    if (!rawKey) {
+        throw new Error('SOLANA_PRIVATE_KEY is not defined in environment variables.');
+    }
+    let secretKey;
+    try {
+        secretKey = Buffer.from(JSON.parse(rawKey));
+    } catch (e) {
+        secretKey = Buffer.from(rawKey, 'hex');
+    }
+    keypair = Keypair.fromSecretKey(secretKey);
+    WALLET = keypair.publicKey.toString();
+} catch (e) {
+    console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ Wallet guard triggered: ${e.message}. Running in SIMULATION_MODE without real funds.`));
+}
 
 const REPORT_PATH = path.resolve(__dirname, '../missions/scavenge_leads.md');
 const BOUNTY_TRACKER = path.resolve(__dirname, '../missions/bounty_tracker.json');
@@ -81,14 +101,27 @@ function saveTracker(data) {
 loadTracker();
 
 async function checkBalance() {
+    if (!keypair) {
+        console.log(chalk.gray(`[SCAVENGER #${id}]: SIMULATION_MODE: Skipping balance check.`));
+        return 0;
+    }
     return runWithRetry(async () => {
-        const connection = core.connection;
-        const lamports = await connection.getBalance(keypair.publicKey);
+        let connection = core.connection;
+        let lamports;
+        try {
+            lamports = await connection.getBalance(keypair.publicKey);
+        } catch (e) {
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: Primary RPC failed for balance check, attempting fallback...`));
+            const { Connection } = require('@solana/web3.js');
+            const fallbackUrl = process.env.SOLANA_RPC_URL_FALLBACK || 'https://api.mainnet-beta.solana.com';
+            connection = new Connection(fallbackUrl, 'confirmed');
+            lamports = await connection.getBalance(keypair.publicKey);
+        }
         const sol = (lamports / 1e9).toFixed(4);
         console.log(chalk.green(`[SCAVENGER #${id}]: 💰 Balance: ${sol} SOL`));
         return parseFloat(sol);
     }, 'Balance Check').catch(e => {
-        console.error(chalk.red(`[SCAVENGER #${id}]: Error checking balance: ${e.message}`));
+        console.error(chalk.red(`[SCAVENGER #${id}]: Error checking balance: ${e?.stack || e?.message || e}`));
         return 0;
     });
 }
@@ -155,7 +188,7 @@ async function scrapeBounties() {
 
         saveTracker(tracker);
     }, 'Bounty Scrape').catch(e => {
-        console.error(chalk.red(`[SCAVENGER #${id}]: ❌ Critical Scrape failure: ${e.message}`));
+        console.error(chalk.red(`[SCAVENGER #${id}]: ❌ Critical Scrape failure: ${e?.stack || e?.message || e}`));
     });
 }
 
@@ -195,15 +228,28 @@ Save the result as a polished submission.`;
 
 // ── RENT RECLAMATION (Standard Sweep via VAULT) ──
 async function sweepDust() {
+    if (!keypair) {
+        console.log(chalk.gray(`[SCAVENGER #${id}]: SIMULATION_MODE: Skipping rent reclaim.`));
+        return;
+    }
     try {
         console.log(chalk.yellow(`[SCAVENGER #${id}]: 🧹 Reclaiming rent via VAULT...`));
-        const { PublicKey, Transaction } = require('@solana/web3.js');
+        const { PublicKey, Transaction, Connection } = require('@solana/web3.js');
         const { TOKEN_PROGRAM_ID, createCloseAccountInstruction } = require('@solana/spl-token');
 
-        const connection = core.connection;
+        let connection = core.connection;
         const walletKey = keypair.publicKey;
 
-        const accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+        let accounts;
+        try {
+            accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+        } catch (e) {
+            console.log(chalk.yellow(`[SCAVENGER #${id}]: Primary RPC failed for rent reclaim, attempting fallback...`));
+            const fallbackUrl = process.env.SOLANA_RPC_URL_FALLBACK || 'https://api.mainnet-beta.solana.com';
+            connection = new Connection(fallbackUrl, 'confirmed');
+            accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+        }
+
         const emptyAccounts = accounts.value.filter(acc => acc.account.data.parsed.info.tokenAmount.uiAmount === 0);
 
         if (emptyAccounts.length === 0) return;
@@ -230,7 +276,7 @@ async function sweepDust() {
             console.log(chalk.gray(`[SCAVENGER]: SIMULATION: Would reclaimed rent from ${emptyAccounts.length} accounts via VAULT.`));
         }
     } catch (e) {
-        console.error(chalk.red(`[SCAVENGER]: Rent reclaim failed: ${e.message}`));
+        console.error(chalk.red(`[SCAVENGER]: Rent reclaim failed: ${e?.stack || e?.message || e}`));
     }
 }
 
