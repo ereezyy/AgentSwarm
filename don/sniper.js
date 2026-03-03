@@ -188,23 +188,6 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
 
         quoteData = qRes.data;
 
-        let qRes = null;
-        let lastErr = null;
-        const qParams = { inputMint, outputMint, amount, slippageBps: 1000 };
-
-        for (const url of JUPITER_QUOTE_APIS) {
-            try {
-                qRes = await axios.get(url, { params: qParams, timeout: 5000 });
-                if (qRes && qRes.data) break;
-            } catch (e) {
-                lastErr = e.message;
-                console.log(chalk.yellow(`[SNIPER]: Quote API ${new URL(url).hostname} failed, trying next...`));
-            }
-        }
-
-        if (!qRes || !qRes.data || !qRes.data.outAmount) throw new Error(`Quote failed: ${lastErr}`);
-
-        const quoteData = qRes.data;
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Jupiter Quote: ${quoteData.outAmount} out via ${quoteData.routePlan.map(r => r.swapInfo.label).join('->')}`));
 
         // 2. Get Serialized Transaction with Dynamic Fee

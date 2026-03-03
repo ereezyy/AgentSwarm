@@ -1,15 +1,5 @@
 [
   {
-    "id": "ZR-MM2LVHVF",
-    "timestamp": "2026-02-25T22:28:15.291Z",
-    "mint": "ATLASXmbPQxB...",
-    "fullMint": "ATLASXmbPQxBUYbxPsV97usA3fPQYEqzQBUHgiFCUsXx",
-    "source": "Whale Alpha",
-    "gateResult": "APPROVED",
-    "reason": "CLEAN",
-    "confidence": "HIGH"
-  },
-  {
     "id": "ZR-MM2P5FGN",
     "timestamp": "2026-02-25T23:59:57.575Z",
     "mint": "EPjFWdd5Aufq...",
@@ -4994,6 +4984,16 @@
     "timestamp": "2026-03-02T04:40:34.908Z",
     "mint": "SRMuApVNdxXo...",
     "fullMint": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+    "source": "Whale Alpha",
+    "gateResult": "APPROVED",
+    "reason": "CLEAN",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ZR-MM8WLEAG",
+    "timestamp": "2026-03-02T08:14:56.920Z",
+    "mint": "BHKVuBNfsK3P...",
+    "fullMint": "BHKVuBNfsK3Pre1bmfG76NbVt8xrx3Z5DdFtrsoVpump",
     "source": "Whale Alpha",
     "gateResult": "APPROVED",
     "reason": "CLEAN",

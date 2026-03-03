@@ -60,11 +60,19 @@ async function extractAndSnipe(signature) {
     try {
         // 1. Signature Sanitization: Detect Hex and convert to Base58
         let b58Sig = signature;
-        if (/^[0-9a-fA-F]+$/.test(signature) && signature.length === 128) {
-            const bytes = Buffer.from(signature, 'hex');
-            b58Sig = bs58.encode(bytes);
-            console.log(chalk.gray(`[BLOCK-0]: Sanitized Hex sig to Base58: ${b58Sig.slice(0, 8)}...`));
-        } else if (signature.length !== 87 && signature.length !== 88) {
+        try {
+            if (/^[0-9a-fA-F]+$/.test(signature)) {
+                if (signature.length % 2 === 0) {
+                    const bytes = Buffer.from(signature, 'hex');
+                    b58Sig = bs58.encode(bytes);
+                    console.log(chalk.gray(`[BLOCK-0]: Sanitized Hex sig to Base58: ${b58Sig.slice(0, 8)}...`));
+                }
+            }
+        } catch (err) {
+            console.log(chalk.gray(`[BLOCK-0]: Hex to Base58 parsing skipped: ${err.message}`));
+        }
+
+        if (b58Sig.length < 32) {
             console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid signature format/length: ${signature}`));
             return;
         }

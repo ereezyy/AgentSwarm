@@ -669,7 +669,9 @@ class DonCore {
                     }[type];
                     const fullPath = path.join(__dirname, scriptName);
                     if (fs.existsSync(fullPath)) {
-                        julesHealer.repairFile(fullPath, msg.msg, 'Runtime error log triggered proactive repair.');
+                        if (this.processes['ORCHESTRATOR'] && this.processes['ORCHESTRATOR'].connected) {
+                            this.processes['ORCHESTRATOR'].send({ type: 'SWARM_ERROR', agent: type, file: fullPath, error: msg.msg, timestamp: new Date().toISOString() });
+                        }
                     }
                 }
             } else if (msg.type === 'SKILL_READY') {

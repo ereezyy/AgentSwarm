@@ -21,6 +21,12 @@ let activeSessions = new Set();
 let eventLog = [];
 let attemptedFixes = {};
 
+// Listen for runtime SWARM_ERRORs forwarded from the Don
+process.on('message', (msg) => {
+    if (msg.type === 'SWARM_ERROR') {
+        eventLog.push({ type: 'SWARM_ERROR', agent: msg.agent, file: msg.file, error: msg.error, time: msg.timestamp });
+    }
+});
 
 async function monitorSyndicate() {
     try {
@@ -33,10 +39,9 @@ async function monitorSyndicate() {
             // Trigger 1: Repeated Crashes
             if (data.status === 'CRASHED' && data.restarts > 5 && !activeSessions.has(agentName)) {
 
-                console.log(chalk.red.bold(`[JULES_ORCHESTRATOR]: 🚨 Agent ${agentName} is stuck in a crash loop (${data.restarts} restarts). Calling Jules...`));
+                console.log(chalk.red.bold(`[JULES_ORCHESTRATOR]: 🚨 Agent ${agentName} is stuck in a crash loop (${data.restarts} restarts). Queuing anomaly for Jules...`));
                 attemptedFixes[agentName] = (attemptedFixes[agentName] || 0) + 1;
                 eventLog.push({ type: 'CRASH_LOOP', agent: agentName, restarts: data.restarts, time: new Date().toISOString() });
-                triggerFix(agentName, `The agent ${agentName} is crashing repeatedly (restarts: ${data.restarts}). Analyze its telemetry and code in don/${agentName.toLowerCase()}.js and fix the root cause.`);
 
                 activeSessions.add(agentName);
             }
@@ -44,10 +49,9 @@ async function monitorSyndicate() {
             // Trigger 2: Opportunity (e.g. profitable but high latency)
             if (data.status === 'ACTIVE' && data.latency > 5000 && !activeSessions.has(`${agentName}_opt`)) {
 
-                console.log(chalk.yellow(`[JULES_ORCHESTRATOR]: 💡 Optimization found for ${agentName} (Latency: ${data.latency}ms). Calling Jules...`));
+                console.log(chalk.yellow(`[JULES_ORCHESTRATOR]: 💡 Optimization found for ${agentName} (Latency: ${data.latency}ms). Queuing anomaly for Jules...`));
                 attemptedFixes[agentName + "_opt"] = (attemptedFixes[agentName + "_opt"] || 0) + 1;
                 eventLog.push({ type: 'HIGH_LATENCY_ANOMALY', agent: agentName, latency: data.latency, time: new Date().toISOString() });
-                triggerFix(agentName, `Optimize the performance of ${agentName}. Current latency is too high (${data.latency}ms). Refactor for non-blocking execution.`);
 
                 activeSessions.add(`${agentName}_opt`);
             }
@@ -117,6 +121,7 @@ function approveSession(sessId) {
         if (!err) {
             console.log(chalk.green(`[JULES_ORCHESTRATOR]: 🚀 Session ${sessId} approved and merged.`));
             logEvolution(`Merged session ${sessId}. Evolution complete.`);
+            syncAndRestart(); // Instantly apply Jules updates to the running swarm
         }
     });
 }
@@ -143,7 +148,7 @@ function reportToJules() {
     // Clear the event log
     eventLog = [];
 
-    const cmd = `python muscle/jules_bridge.py --create "${summary.replace(/"/g, '\\"')}" "${SOURCE_NAME}" --title "Periodic Swarm Report"`;
+    const cmd = `python muscle/jules_bridge.py --create "${summary.replace(/"/g, '\\"')}" "${SOURCE_NAME}" --title "Periodic Swarm Report" --auto-pr`;
 
     exec(cmd, (err, stdout, stderr) => {
         if (err) {
@@ -154,8 +159,8 @@ function reportToJules() {
     });
 }
 
-// 25 minutes = 1,500,000 milliseconds
-setInterval(reportToJules, 1500000);
+// 32 minutes = 1,920,000 milliseconds
+setInterval(reportToJules, 1920000);
 
 
 

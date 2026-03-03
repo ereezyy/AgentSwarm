@@ -1,6 +1,6 @@
 # 🌾 DeFi Farmer — Yield Report
 
-**Generated:** 3/1/2026, 11:03:33 PM
+**Generated:** 3/2/2026, 2:48:18 PM
 
 ## 📊 Lifetime Stats
 
@@ -12,25 +12,25 @@
 | Protocol | Pool | APY | TVL | Risk |
 |---|---|---|---|---|
 | raydium-amm | WSOL-CLD | 32868.9% | $10K | 🔴 HIGH |
+| raydium-amm | WSOL-GRND | 29299.3% | $10K | 🔴 HIGH |
 | raydium-amm | WSOL-JELLYBEAN | 22393.8% | $16K | 🔴 HIGH |
-| raydium-amm | WSOL-PEACE | 16306.0% | $10K | 🔴 HIGH |
+| raydium-amm | WSOL-LEVEL-5-AG | 18121.6% | $19K | 🔴 HIGH |
 | orca-dex | PIGEON-USDC | 12909.6% | $12K | 🔴 HIGH |
-| raydium-amm | WSOL-LEVEL-5-AG | 12343.0% | $43K | 🔴 HIGH |
+| raydium-amm | WSOL-PEACE | 10740.3% | $10K | 🔴 HIGH |
 | raydium-amm | USD1-DJDANIEL | 4865.3% | $13K | 🔴 HIGH |
 | raydium-amm | WSOL-CL1 | 4680.1% | $10K | 🔴 HIGH |
-| orca-dex | SOL-USOR | 3841.9% | $28K | 🔴 HIGH |
 | raydium-amm | WSOL-GORKFUND | 3722.0% | $13K | 🔴 HIGH |
-| raydium-amm | WSOL-AGENC | 3172.5% | $16K | 🔴 HIGH |
+| raydium-amm | GOLD-USDC | 2991.1% | $20K | 🔴 HIGH |
+| raydium-amm | WSOL-GAY | 2774.1% | $28K | 🔴 HIGH |
+| raydium-amm | OIL-WSOL | 2626.1% | $15K | 🔴 HIGH |
+| raydium-amm | COINX-USDC | 2571.7% | $88K | 🔴 HIGH |
+| orca-dex | SOL-USOR | 2517.8% | $25K | 🔴 HIGH |
 | raydium-amm | WSOL-ORC | 2494.8% | $12K | 🔴 HIGH |
-| raydium-amm | USD1-CRIME | 2359.6% | $10K | 🔴 HIGH |
-| raydium-amm | USD1-ONE | 2081.8% | $14K | 🔴 HIGH |
-| raydium-amm | WSOL-LOBSTAR | 2062.5% | $11K | 🔴 HIGH |
-| orca-dex | GORK-USDC | 2022.0% | $10K | 🔴 HIGH |
-| Raydium (Top Pools) | CATVAX/WSOL | 476.6% | $54K | 🟡 MEDIUM |
-| Raydium (Top Pools) | WSOL/DIME | 331.3% | $52K | 🟡 MEDIUM |
-| Raydium (Top Pools) | WSOL/arc | 327.3% | $2.8M | 🟡 MEDIUM |
-| Raydium (Top Pools) | WSOL/Oil | 192.3% | $163K | 🟡 MEDIUM |
-| Raydium (Top Pools) | SpaceX/WSOL | 176.5% | $146K | 🟡 MEDIUM |
+| Raydium (Top Pools) | TREN/WSOL | 913.8% | $94K | 🔴 HIGH |
+| Raydium (Top Pools) | WSOL/DIME | 569.0% | $58K | 🔴 HIGH |
+| Raydium (Top Pools) | WSOL/420 | 378.2% | $58K | 🟡 MEDIUM |
+| Raydium (Top Pools) | WSOL/Oil | 291.0% | $168K | 🟡 MEDIUM |
+| Raydium (Top Pools) | WSOL/arc | 268.7% | $3.3M | 🟡 MEDIUM |
 
 ---
 *DeFi Farmer — Automated Yield Intelligence*

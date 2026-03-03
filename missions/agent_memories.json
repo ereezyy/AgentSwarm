@@ -3450,16 +3450,58 @@
       "text": "Standard alert triggered. Solana moved -4.6% to $82.75.",
       "importance": 6,
       "lastAccessed": 1772435478665
+    },
+    {
+      "id": "MEM-1772436003182-583",
+      "timestamp": "2026-03-02T07:20:03.182Z",
+      "text": "Standard alert triggered. Solana moved -4.7% to $82.67.",
+      "importance": 6,
+      "lastAccessed": 1772436003183
+    },
+    {
+      "id": "MEM-1772436605732-782",
+      "timestamp": "2026-03-02T07:30:05.734Z",
+      "text": "Standard alert triggered. Solana moved -4.3% to $82.83.",
+      "importance": 6,
+      "lastAccessed": 1772436605734
+    },
+    {
+      "id": "MEM-1772437208423-263",
+      "timestamp": "2026-03-02T07:40:08.425Z",
+      "text": "Standard alert triggered. Solana moved -4.2% to $83.02.",
+      "importance": 6,
+      "lastAccessed": 1772437208425
+    },
+    {
+      "id": "MEM-1772437809766-483",
+      "timestamp": "2026-03-02T07:50:09.766Z",
+      "text": "Standard alert triggered. Solana moved -4.0% to $83.14.",
+      "importance": 6,
+      "lastAccessed": 1772437809766
+    },
+    {
+      "id": "MEM-1772438411333-804",
+      "timestamp": "2026-03-02T08:00:11.335Z",
+      "text": "Standard alert triggered. Solana moved -4.2% to $82.97.",
+      "importance": 6,
+      "lastAccessed": 1772438411335
+    },
+    {
+      "id": "MEM-1772439012521-448",
+      "timestamp": "2026-03-02T08:10:12.523Z",
+      "text": "Standard alert triggered. Solana moved -4.3% to $82.78.",
+      "importance": 6,
+      "lastAccessed": 1772439012523
+    },
+    {
+      "id": "MEM-1772484443203-995",
+      "timestamp": "2026-03-02T20:47:23.203Z",
+      "text": "CRITICAL MARKET EVENT: Solana moved 7.1% to $87.71. Was it a dump? false.",
+      "importance": 9,
+      "lastAccessed": 1772484443204
     }
   ],
   "SNIPER": [
-    {
-      "id": "MEM-1772397372359-124",
-      "timestamp": "2026-03-01T20:36:12.359Z",
-      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
-      "importance": 8,
-      "lastAccessed": 1772397372359
-    },
     {
       "id": "MEM-1772397402393-86",
       "timestamp": "2026-03-01T20:36:42.394Z",
@@ -6952,6 +6994,13 @@
       "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
       "importance": 8,
       "lastAccessed": 1772427884727
+    },
+    {
+      "id": "MEM-1772484632378-903",
+      "timestamp": "2026-03-02T20:50:32.378Z",
+      "text": "Force-exited FYg4pi85YNvQQQ81ktYw9d2tr3cvV94jDr9vdAHupump after max hold time expired.",
+      "importance": 8,
+      "lastAccessed": 1772484632379
     }
   ]
 }

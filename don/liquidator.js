@@ -80,9 +80,9 @@ async function executeOnChainLiquidation(targetData) {
                 console.log(chalk.yellow(`[LIQUIDATOR]: Quote API ${new URL(apiUrl).hostname} failed, trying next...`));
             }
         }
-
         if (!qRes || !qRes.data) {
-            throw new Error(`Could not find swap route for collateral seizure. Last error: ${lastErr}`);
+            console.log(chalk.red(`[LIQUIDATOR]: Route unavailable. Aborting seizure attempt. Details: ${lastErr}`));
+            return; // Soft abort on routing issues, wait for next target.
         }
 
         // 2. Build the Atomic Transaction
@@ -143,8 +143,13 @@ async function executeOnChainLiquidation(targetData) {
         }
     } catch (e) {
         console.log(chalk.red(`[LIQUIDATOR]: REAL Execution Failed: ${e.message}`));
-        if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `Liquidator Failed: ${e.message}` });
-        process.exit(1); // Force exit to ensure hub triggers Jules
+        if (e.message.includes('Wallet not initialized') || e.message.includes('Keypair failed')) {
+            if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `Liquidator Fatal Error: ${e.message}` });
+            process.exit(1); // Force exit for fundamental config errors
+        } else {
+            // Routine failures like 401s, slippage bounds, etc. Should soft abort the current transaction attempt, but keep the listener alive.
+            if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `Liquidator Execution Aborted: ${e.message}` });
+        }
     }
 }
 
