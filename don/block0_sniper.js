@@ -16,7 +16,7 @@ const RPC_URLS = [
     'https://mainnet.helius-rpc.com/?api-key=default',
     'https://api.mainnet-beta.solana.com'
 ];
-const connections = RPC_URLS.map(url => new Connection(url, 'confirmed'));
+const connections = RPC_URLS.map(url => new Connection(url, { commitment: 'confirmed', disableRetryOnRateLimit: true }));
 
 const JUP_API_URLS = [
     'https://quote-api.jup.ag/v6',
@@ -27,7 +27,12 @@ let wallet = null;
 try {
     if (process.env.SOLANA_PRIVATE_KEY) {
         const keyStr = process.env.SOLANA_PRIVATE_KEY;
-        const keyBytes = keyStr.length > 88 ? Buffer.from(keyStr, 'hex') : bs58.decode(keyStr);
+        let keyBytes;
+        try {
+            keyBytes = Buffer.from(JSON.parse(keyStr));
+        } catch (e) {
+            keyBytes = keyStr.length > 88 ? Buffer.from(keyStr, 'hex') : bs58.decode(keyStr);
+        }
         wallet = Keypair.fromSecretKey(keyBytes);
         console.log(chalk.red(`[BLOCK-0 SNIPER #${id}]: 🔑 Wallet loaded: ${wallet.publicKey.toString().slice(0, 8)}...`));
     }
@@ -38,15 +43,34 @@ try {
 const WSOL_MINT = 'So11111111111111111111111111111111111111112';
 const SNIPE_AMOUNT_SOL = 0.1;
 
+async function withRetry(operation, retries = 3, delay = 1000) {
+    let lastError;
+    for (let i = 0; i < retries; i++) {
+        try {
+            return await operation();
+        } catch (error) {
+            lastError = error;
+            if (error?.response?.status === 429) {
+                console.log(chalk.yellow(`Server responded with 429 Too Many Requests. Retrying after ${delay}ms delay...`));
+            } else {
+                console.log(chalk.yellow(`Operation failed: ${error.message}. Retrying after ${delay}ms delay...`));
+            }
+            await new Promise(resolve => setTimeout(resolve, delay));
+            delay *= 2; // Exponential backoff
+        }
+    }
+    throw lastError;
+}
+
 // ── IPC Listener from Main Hub ──────────────────────────────────────
 process.on('message', async (msg) => {
-    if (msg.type === 'PI_TRIGGER' && msg.action === 'BLOCK0_SNIPE') {
+    if (msg?.type === 'PI_TRIGGER' && msg?.action === 'BLOCK0_SNIPE') {
         console.log(chalk.red.bold(`\n⚡🎯 [BLOCK-0 SNIPER]: PI 5 RADAR TRIGGER RECEIVED! Execution engaged...`));
-        console.log(chalk.red(`Target LP Init Sig: ${msg.signature}`));
+        console.log(chalk.red(`Target LP Init Sig: ${msg?.signature?.toString()}`));
 
         // At this specific millisecond, we know a new LP was created.
         // We need to parse that exact transaction to extract the new token mint address.
-        await extractAndSnipe(msg.signature);
+        await extractAndSnipe(msg?.signature?.toString());
     }
 });
 
@@ -58,6 +82,23 @@ async function extractAndSnipe(signature) {
     if (typeof signature !== 'string') return;
 
     try {
+        // Balance Guard
+        let balance = 0;
+        for (const conn of connections) {
+            try {
+                balance = await withRetry(() => conn.getBalance(wallet.publicKey));
+                break;
+            } catch (err) {
+                // Continue to fallback connection
+            }
+        }
+
+        const requiredBalance = (SNIPE_AMOUNT_SOL * 1e9) + 3000000; // Amount + Priority Fee
+        if (balance < requiredBalance) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Aborting — Insufficient SOL balance: ${balance / 1e9} SOL. Need >= ${requiredBalance / 1e9} SOL.`));
+            return;
+        }
+
         // 1. Signature Sanitization: Detect Hex and convert to Base58
         let b58Sig = signature;
         if (/^[0-9a-fA-F]+$/.test(signature) && signature.length === 128) {
@@ -69,12 +110,17 @@ async function extractAndSnipe(signature) {
             return;
         }
 
+        if (bs58.decode(b58Sig).length !== 64) {
+            console.log(chalk.red(`[BLOCK-0 SNIPER]: Invalid base58 signature size. Must decode to 64 bytes.`));
+            return;
+        }
+
         // 1. Fetch the transaction details to find the coin mint.
         // Needs high commitment to ensure we can read it immediately.
         let txInfo = null;
         for (const conn of connections) {
             try {
-                txInfo = await conn.getTransaction(b58Sig, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 });
+                txInfo = await withRetry(() => conn.getTransaction(b58Sig, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 }));
                 if (txInfo) break;
             } catch (err) {
                 // Continue to fallback connection
@@ -87,7 +133,7 @@ async function extractAndSnipe(signature) {
 
         // Raydium initialize2 usually has the token mints in the account keys.
         // We know WSOL is one, the other is the shitcoin.
-        const accountKeys = txInfo.transaction.message.staticAccountKeys || txInfo.transaction.message.accountKeys || [];
+        const accountKeys = txInfo.transaction?.message?.staticAccountKeys || txInfo.transaction?.message?.accountKeys || [];
         let targetMint = null;
 
         for (const key of accountKeys) {
@@ -129,10 +175,10 @@ async function extractAndSnipe(signature) {
 
         for (const url of JUPITER_QUOTE_APIS) {
             try {
-                qRes = await axios.get(url, { params: qParams, timeout: 3000 });
+                qRes = await withRetry(() => axios.get(url, { params: qParams, timeout: 3000 }));
                 if (qRes && qRes.data) break;
             } catch (e) {
-                lastErr = e.message;
+                lastErr = e?.message || e;
                 console.log(chalk.gray(`[BLOCK-0]: Quote API ${new URL(url).hostname} failed.`));
             }
         }
@@ -149,10 +195,10 @@ async function extractAndSnipe(signature) {
         let swapRes = null;
         for (const url of JUPITER_SWAP_APIS) {
             try {
-                swapRes = await axios.post(url, swapPayload, { timeout: 4000 });
+                swapRes = await withRetry(() => axios.post(url, swapPayload, { timeout: 4000 }));
                 if (swapRes && swapRes.data) break;
             } catch (e) {
-                lastErr = e.message;
+                lastErr = e?.message || e;
                 console.log(chalk.gray(`[BLOCK-0]: Swap API ${new URL(url).hostname} failed.`));
             }
         }
@@ -166,7 +212,7 @@ async function extractAndSnipe(signature) {
         let sig = null;
         for (const conn of connections) {
             try {
-                sig = await conn.sendRawTransaction(tx.serialize(), { skipPreflight: true });
+                sig = await withRetry(() => conn.sendRawTransaction(tx.serialize(), { skipPreflight: true }));
                 if (sig) break;
             } catch (err) {
                 // Try next RPC connection
@@ -189,8 +235,9 @@ async function extractAndSnipe(signature) {
         }
 
     } catch (e) {
-        console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution failed: ${e.response?.data?.msg || e.message}\n${e.stack}`));
-        if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `Block-0 Execution Failed: ${e.message}` });
+        const errorMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || e;
+        console.log(chalk.red(`[BLOCK-0 SNIPER]: Execution failed: ${errorMsg}\n${e?.stack || 'Not available'}`));
+        if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `Block-0 Execution Failed: ${errorMsg}` });
         process.exit(1); // Force exit to trigger Jules
     }
 }
