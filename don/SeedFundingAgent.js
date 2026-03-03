@@ -3,7 +3,7 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') }
 // Purpose: Aggressively acquire initial capital through high-risk, high-reward microtransactions
 // Version: 2.0 - Optimized for rapid funding with calculated risk
 
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./syndicate_core');
 const { RiskEngine } = require('./RiskEngine');
 
 class SeedFundingAgent {
@@ -21,6 +21,10 @@ class SeedFundingAgent {
   async initialize() {
     try {
       console.log('[SeedFundingAgent] Initializing aggressive capital acquisition...');
+      const balance = await this.core.checkWalletBalance();
+      if (balance === null || balance < 0.005) {
+          throw new Error(`Insufficient SOL balance for operations. Current: ${balance}`);
+      }
       this.operationStatus = 'RUNNING';
       await this.core.connectToDarkNetMarkets();
       await this.riskEngine.calibrate({ volatility: 'high', exposure: this.maxRiskExposure });
@@ -36,19 +40,30 @@ class SeedFundingAgent {
   async executeFundingCycle() {
     while (this.currentCapital < this.minCapitalThreshold && this.operationStatus === 'RUNNING') {
       try {
+        const balance = await this.core.checkWalletBalance();
+        if (balance === null || balance < 0.005) {
+             console.warn(`[SeedFundingAgent] Low balance (${balance} SOL). Pausing operations...`);
+             this.operationStatus = 'PAUSED';
+             break;
+        }
+
         const riskAssessment = await this.riskEngine.analyzeMarketConditions();
         const targetChannel = this.selectOptimalChannel(riskAssessment);
         // Silenced frequent polling logs to reduce noise
 
         const transaction = await this.executeHighRiskTransaction(targetChannel, riskAssessment);
-        if (transaction.success) {
-          this.currentCapital += transaction.profit;
-          this.transactionLog.push({ channel: targetChannel, profit: transaction.profit, timestamp: Date.now() });
-          if (transaction.profit > 0) {
-            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${transaction.profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
+        const isSuccess = transaction?.success === true;
+        const profit = transaction?.profit || 0;
+        const loss = transaction?.loss || 0;
+
+        if (isSuccess) {
+          this.currentCapital += profit;
+          this.transactionLog.push({ channel: targetChannel, profit, timestamp: Date.now() });
+          if (profit > 0) {
+            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
           }
         } else {
-          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${transaction.loss}`);
+          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${loss}`);
         }
 
         await this.core.delay(5000); // Delay to avoid rate limiting and detection
@@ -83,12 +98,14 @@ class SeedFundingAgent {
     const investmentAmount = this.calculateInvestment(riskAssessment);
 
     try {
-      const result = await this.core.executeTransaction({
-        channel,
-        amount: investmentAmount,
-        riskLevel: riskAssessment.score,
-        type: 'high_yield_micro'
-      });
+      const result = await this.withRetry(async () => {
+         return await this.core.executeTransaction({
+           channel,
+           amount: investmentAmount,
+           riskLevel: riskAssessment.score,
+           type: 'high_yield_micro'
+         });
+      }, 3, 2000);
 
       return result;
     } catch (error) {
@@ -110,6 +127,19 @@ class SeedFundingAgent {
       capital: this.currentCapital,
       transactions: this.transactionLog.length
     };
+  }
+
+  async withRetry(operation, maxRetries = 3, baseDelay = 1000) {
+    for (let i = 0; i < maxRetries; i++) {
+      try {
+        return await operation();
+      } catch (error) {
+        if (i === maxRetries - 1) throw error;
+        const delay = baseDelay * Math.pow(2, i);
+        console.warn(`[SeedFundingAgent] Operation failed. Retrying in ${delay}ms... (Attempt ${i + 1}/${maxRetries})`);
+        await this.core.delay(delay);
+      }
+    }
   }
 }
 
