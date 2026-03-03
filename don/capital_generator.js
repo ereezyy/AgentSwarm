@@ -1,12 +1,12 @@
 // Capital Generator Agent v1.0
 // Purpose: Generate starting capital for The Syndicate through microtransactions and low-risk exploits
 
-const { SyndicateAPI } = require('./syndicate_core');
+const { SyndicateCore } = require('./SyndicateCore.js');
 const logger = require('./logger');
 
 class CapitalGenerator {
   constructor() {
-    this.api = new SyndicateAPI();
+    this.api = new SyndicateCore();
     this.logger = logger;
     // Alias log to info for compatibility
     this.logger.log = this.logger.info;
