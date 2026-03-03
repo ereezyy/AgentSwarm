@@ -8,6 +8,8 @@ const { spawn } = require('child_process');
 require('dotenv').config();
 
 const { ask } = require('./brain');
+const { Connection } = require('@solana/web3.js');
+const { SyndicateCore } = require('./syndicate_core');
 
 const id = process.argv[2] || 'Pirate';
 const RIPPER_SCRIPT = path.resolve(__dirname, '../muscle/ripper.py');
@@ -16,6 +18,38 @@ const LOOT_DIR = path.resolve(__dirname, '../loot');
 console.log(chalk.hex('#FF4500').bold(`[PIRATE #${id}]: HOISTING THE COLORS. Content Engine Online.`));
 
 if (!fs.existsSync(LOOT_DIR)) fs.mkdirSync(LOOT_DIR);
+
+const core = new SyndicateCore();
+
+const customConnection = new Connection(
+    process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com',
+    {
+        commitment: 'confirmed',
+        disableRetryOnRateLimit: true
+    }
+);
+
+// Exponential backoff retry helper for customConnection
+async function withRetry(operation, maxRetries = 3) {
+    let attempt = 0;
+    while (attempt < maxRetries) {
+        try {
+            return await operation();
+        } catch (error) {
+            attempt++;
+            if (attempt >= maxRetries) {
+                console.error(chalk.red(`[PIRATE #${id}]: Max retries reached.`));
+                throw error;
+            }
+            const delay = Math.pow(2, attempt) * 1000;
+            console.log(chalk.yellow(`[PIRATE #${id}]: Operation failed, retrying in ${delay}ms...`));
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+    }
+}
+
+// Override core's connection to use our custom configuration
+core.connection = customConnection;
 
 // ── Capabilities ─────────────────────────────────────────────
 
@@ -66,16 +100,26 @@ async function ripContent(url, mode = 'full') {
 }
 
 async function analyzeAndReact(loot) {
-    if (loot.error) return;
+    if (loot?.error) return;
+
+    try {
+        const balance = await withRetry(() => core.checkWalletBalance());
+        if (balance !== null && balance < 0.005) {
+            console.log(chalk.yellow(`[PIRATE #${id}]: Insufficient SOL balance (${balance}). Halting operation.`));
+            return;
+        }
+    } catch (e) {
+        console.warn(chalk.yellow(`[PIRATE #${id}]: Wallet balance check failed, skipping guard. ${e.message}`));
+    }
 
     console.log(chalk.hex('#FF4500')(`[PIRATE #${id}]: Analyzing loot for Syla reaction...`));
 
     // Construct context
     const context = `
-    Video Title: ${loot.title}
-    Uploader: ${loot.uploader}
-    Views: ${loot.views}
-    Likes: ${loot.likes}
+    Video Title: ${loot?.title}
+    Uploader: ${loot?.uploader}
+    Views: ${loot?.views}
+    Likes: ${loot?.likes}
     Description: (Viral Crypto/Audio Content)
     `;
 
@@ -91,7 +135,7 @@ async function analyzeAndReact(loot) {
     `;
 
     const reaction = await ask(
-        `React to this viral video: ${loot.title}`,
+        `React to this viral video: ${loot?.title}`,
         systemPrompt,
         { agentName: 'PIRATE' }
     );
@@ -104,11 +148,11 @@ async function analyzeAndReact(loot) {
             process.send({
                 type: 'POST_TWEET',
                 text: reaction,
-                mediaPath: loot.path
+                mediaPath: loot?.path
             });
 
             // Log for manual review
-            const logEntry = `\n[${new Date().toLocaleString()}] RIP: ${loot.url}\nTITLE: ${loot.title}\nREACTION: ${reaction}\nPATH: ${loot.path}\n`;
+            const logEntry = `\n[${new Date().toLocaleString()}] RIP: ${loot?.url}\nTITLE: ${loot?.title}\nREACTION: ${reaction}\nPATH: ${loot?.path}\n`;
             fs.appendFileSync(path.resolve(__dirname, '../missions/pirate_loot.md'), logEntry);
         }
     }
@@ -116,18 +160,25 @@ async function analyzeAndReact(loot) {
 
 // ── IPC Listener ─────────────────────────────────────────────
 process.on('message', async (msg) => {
-    switch (msg.type) {
-        case 'RIP_VIDEO':
-            if (msg.url) {
-                const loot = await ripContent(msg.url, msg.mode || 'full');
-                await analyzeAndReact(loot);
-            }
-            break;
+    try {
+        const msgType = msg?.type?.toString();
 
-        case 'PIRATE_TEST':
-            // Manual test
-            console.log(chalk.hex('#FF4500')(`[PIRATE #${id}]: Running self-test...`));
-            break;
+        switch (msgType) {
+            case 'RIP_VIDEO':
+                if (msg?.url) {
+                    const loot = await ripContent(msg?.url, msg?.mode || 'full');
+                    await analyzeAndReact(loot);
+                }
+                break;
+
+            case 'PIRATE_TEST':
+                // Manual test
+                console.log(chalk.hex('#FF4500')(`[PIRATE #${id}]: Running self-test...`));
+                break;
+        }
+    } catch (e) {
+        console.error(chalk.red(`[PIRATE #${id}] IPC Error:`));
+        console.error(e?.stack || 'Not available');
     }
 });
 
