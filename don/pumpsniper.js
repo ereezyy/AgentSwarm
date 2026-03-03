@@ -18,7 +18,7 @@ const id = process.argv[2] || require('crypto').randomBytes(4).toString('hex');
 console.log(chalk.magenta.bold(`[PUMPSNIPER #${id}]: 🎯 Pump.fun Launch Sniper V2 — VISCERAL MODE`));
 
 const RPC_URL = process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com';
-const connection = new Connection(RPC_URL, 'confirmed');
+const connection = new Connection(RPC_URL, { commitment: 'confirmed', disableRetryOnRateLimit: true });
 const TRADES_FILE = path.resolve(__dirname, '../missions/active_trades.json');
 let wallet = null;
 
@@ -93,7 +93,15 @@ try {
 
 async function getDynamicPriorityFee() {
     try {
-        const fees = await connection.getRecentPrioritizationFees();
+        let fees;
+        try {
+            fees = await connection.getRecentPrioritizationFees();
+        } catch (e) {
+            console.log(chalk.gray(`[PUMPSNIPER]: Primary RPC priority fee check failed, trying fallback...`));
+            const fallbackConn = new Connection(process.env.SOLANA_RPC_URL_FALLBACK || 'https://api.mainnet-beta.solana.com', 'confirmed');
+            fees = await fallbackConn.getRecentPrioritizationFees();
+        }
+
         if (!fees || fees.length === 0) return 100000;
         fees.sort((a, b) => b.prioritizationFee - a.prioritizationFee);
         const topFees = fees.slice(0, 20);
@@ -181,11 +189,13 @@ async function executeJupiterSwap(inputMint, outputMint, lamports) {
             console.log(chalk.magenta.bold(`[PUMPSNIPER #${id}]: ⚡ SWAP FIRED (Public Mempool): ${sig}`));
         }
 
-        return { success: true, outAmount: quote.outAmount, sig, mevProtected: isMevProtected };
+        return { success: true, outAmount: qRes.data.outAmount, sig, mevProtected: isMevProtected };
     } catch (e) {
-        console.log(chalk.red(`[PUMPSNIPER #${id}]: Jupiter error: ${e.message}`));
-        if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `PumpSniper Execution Failed: ${e.message}` });
-        process.exit(1); // Trigger Jules
+        const errMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+        const stack = e?.stack || 'Not available';
+        console.log(chalk.red(`[PUMPSNIPER #${id}]: Jupiter error: ${errMsg}\nStack: ${stack}`));
+        if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `PumpSniper Execution Failed: ${errMsg}` });
+        return { success: false, error: errMsg };
     }
 }
 
@@ -226,7 +236,20 @@ async function executeBuy(tokenMint, name, momentum) {
         return;
     }
 
-    const walletBalance = await connection.getBalance(wallet.publicKey).catch(() => 0);
+    let walletBalance = 0;
+    try {
+        walletBalance = await connection.getBalance(wallet.publicKey);
+    } catch (e) {
+        console.log(chalk.gray(`[PUMPSNIPER #${id}]: Primary RPC balance check failed, trying fallback...`));
+        try {
+            const fallbackConn = new Connection(process.env.SOLANA_RPC_URL_FALLBACK || 'https://api.mainnet-beta.solana.com', 'confirmed');
+            walletBalance = await fallbackConn.getBalance(wallet.publicKey);
+        } catch (err) {
+            console.log(chalk.red(`[PUMPSNIPER #${id}]: ❌ Both primary and fallback RPC failed for getBalance.`));
+            return;
+        }
+    }
+
     if (walletBalance < 0.005 * 1e9) {
         console.log(chalk.yellow(`[PUMPSNIPER #${id}]: ⚠️ Low balance (Need >0.005 SOL). Holding fire.`));
         return;
@@ -292,6 +315,11 @@ async function executeBuy(tokenMint, name, momentum) {
         return;
     }
 
+    if (balanceSol < dynamicBetSol + MIN_RESERVE_SOL) {
+        console.log(chalk.red.bold(`[PUMPSNIPER #${id}]: 💀 RIGOROUS CAPITAL GUARD: Balance (${balanceSol.toFixed(3)} SOL) insufficient for bet + reserve (${(dynamicBetSol + MIN_RESERVE_SOL).toFixed(3)} SOL). HALTING.`));
+        return;
+    }
+
     console.log(chalk.magenta.bold(
         `[PUMPSNIPER #${id}]: 🚀🚀🚀 SNIPING: ${name} (${tokenMint.slice(0, 8)}...) ` +
         `| KELLY BET: ${dynamicBetSol} SOL [Conf: ${((1 - rugProb) * 100).toFixed(1)}%] | ${momentum.buys} buys | ${momentum.solVolume.toFixed(2)} SOL vol`
@@ -301,8 +329,8 @@ async function executeBuy(tokenMint, name, momentum) {
     const result = await executeJupiterSwap(WSOL_MINT, tokenMint, lamports);
 
     if (result?.success) {
-        const outAmt = Number(result.outAmount);
-        const uiAmt = outAmt / 1e6;
+        const outAmt = String(result.outAmount);
+        const uiAmt = Number(outAmt) / 1e6;
         const entry = uiAmt > 0 ? dynamicBetSol / uiAmt : 0;
         const trades = loadTrades();
         trades.push({
@@ -463,14 +491,14 @@ setInterval(() => {
 
 // ── IPC ──────────────────────────────────────────────────────────
 process.on('message', (msg) => {
-    if (msg.type === 'PUMPSNIPER_STATUS' && process.send) {
+    if (msg?.type === 'PUMPSNIPER_STATUS' && process.send) {
         const watching = liveTokens.size;
         const positions = loadTrades().filter(t => t.source === 'PUMPSNIPER').length;
         process.send({
             type: 'LOG', level: 'INFO',
             msg: `PUMPSNIPER V2: Watching ${watching} live launches | ${positions} active positions | ${cooldowns.size} cooldowns | Mode: VISCERAL`
         });
-    } else if (msg.type === 'ML_RESPONSE') {
+    } else if (msg?.type === 'ML_RESPONSE' && msg?.data?.req_id) {
         const callback = pendingPredictions.get(msg.data.req_id);
         if (callback) {
             callback(msg.data);
