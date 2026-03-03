@@ -109,28 +109,30 @@ async function executeJupiterSwap(inputMint, outputMint, lamports) {
     if (!wallet || !wallet.publicKey) return null;
     try {
         const JUPITER_QUOTE_APIS = [
-            'https://lite-api.jup.ag/swap/v1/quote',
-            'https://quote-api.jup.ag/v6/quote',
-            'https://api.jup.ag/swap/v1/quote'
+            'https://lite-api.jup.ag/swap/v1/quote'
         ];
 
         const JUPITER_SWAP_APIS = [
-            'https://lite-api.jup.ag/swap/v1/swap',
-            'https://quote-api.jup.ag/v6/swap',
-            'https://api.jup.ag/swap/v1/swap'
+            'https://lite-api.jup.ag/swap/v1/swap'
         ];
 
         const qParams = { inputMint, outputMint, amount: lamports, slippageBps: 500 };
         let qRes = null;
         let lastErr = null;
 
-        for (const url of JUPITER_QUOTE_APIS) {
+        for (let attempt = 1; attempt <= 3; attempt++) {
             try {
-                qRes = await axios.get(url, { params: qParams, timeout: 5000 });
+                qRes = await axios.get('https://lite-api.jup.ag/swap/v1/quote', { params: qParams, timeout: 5000 });
                 if (qRes && qRes.data) break;
             } catch (e) {
-                lastErr = e.message;
-                console.log(chalk.gray(`[PUMPSNIPER]: Quote API ${new URL(url).hostname} failed.`));
+                lastErr = e.response?.status === 429 ? '429 Rate Limit' : e.message;
+                if (e.response?.status === 429 && attempt < 3) {
+                    console.log(chalk.gray(`[PUMPSNIPER]: ⏳ Quote 429 Rate Limit... retrying (${attempt}/3)`));
+                    await new Promise(r => setTimeout(r, 800 * attempt + Math.random() * 200));
+                    continue;
+                }
+                console.log(chalk.gray(`[PUMPSNIPER]: Quote API failed: ${lastErr}`));
+                break;
             }
         }
 
@@ -145,13 +147,19 @@ async function executeJupiterSwap(inputMint, outputMint, lamports) {
         };
 
         let swapRes = null;
-        for (const url of JUPITER_SWAP_APIS) {
+        for (let attempt = 1; attempt <= 3; attempt++) {
             try {
-                swapRes = await axios.post(url, swapPayload, { timeout: 8000 });
+                swapRes = await axios.post('https://lite-api.jup.ag/swap/v1/swap', swapPayload, { timeout: 8000 });
                 if (swapRes && swapRes.data) break;
             } catch (e) {
-                lastErr = e.message;
-                console.log(chalk.gray(`[PUMPSNIPER]: Swap API ${new URL(url).hostname} failed.`));
+                lastErr = e.response?.status === 429 ? '429 Rate Limit' : (e.response?.data?.error || e.message);
+                if (e.response?.status === 429 && attempt < 3) {
+                    console.log(chalk.gray(`[PUMPSNIPER]: ⏳ Swap 429 Rate Limit... retrying (${attempt}/3)`));
+                    await new Promise(r => setTimeout(r, 800 * attempt + Math.random() * 200));
+                    continue;
+                }
+                console.log(chalk.gray(`[PUMPSNIPER]: Swap API failed: ${lastErr}`));
+                break;
             }
         }
 

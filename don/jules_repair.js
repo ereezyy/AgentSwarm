@@ -5,7 +5,7 @@ const path = require('path');
 
 const API_KEY = 'AQ.Ab8RN6IXr9kwsabtAwXnWklcnqamKQ7eqGL3r13j8JsrAMS7LQ';
 const BASE_URL = 'https://jules.googleapis.com/v1alpha';
-const SOURCE = 'sources/github/ereezyy/AgentSwarm';
+const SOURCE = 'github/ereezyy/AgentSwarm';
 
 /**
  * Jules Repair Agent

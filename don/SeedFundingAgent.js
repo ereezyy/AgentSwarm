@@ -3,34 +3,21 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') }
 // Purpose: Aggressively acquire initial capital through high-risk, high-reward microtransactions
 // Version: 2.0 - Optimized for rapid funding with calculated risk
 
-const { SyndicateCore } = require('./SyndicateCore');
-const { RiskEngine } = require('./RiskEngine');
+// NOTE: SyndicateCore and RiskEngine modules do not exist yet.
+// This agent is DISABLED until real backend infrastructure is built.
+// Do NOT use fake/random data to simulate profits.
 
 class SeedFundingAgent {
   constructor() {
-    this.core = new SyndicateCore();
-    this.riskEngine = new RiskEngine();
-    this.minCapitalThreshold = 1000; // Minimum target for initial capital (USD equivalent)
-    this.maxRiskExposure = 0.85; // Maximum risk percentage per transaction cycle
-    this.activeChannels = ['crypto_microtrade', 'dark_pool_liquidity', 'shadow_crowdfund'];
-    this.operationStatus = 'INIT';
+    this.operationStatus = 'DISABLED';
     this.currentCapital = 0;
     this.transactionLog = [];
   }
 
   async initialize() {
-    try {
-      console.log('[SeedFundingAgent] Initializing aggressive capital acquisition...');
-      this.operationStatus = 'RUNNING';
-      await this.core.connectToDarkNetMarkets();
-      await this.riskEngine.calibrate({ volatility: 'high', exposure: this.maxRiskExposure });
-      console.log('[SeedFundingAgent] Calibration complete. Targeting seed capital.');
-      this.executeFundingCycle();
-    } catch (error) {
-      console.error('[SeedFundingAgent] Initialization failed:', error);
-      this.operationStatus = 'ERROR';
-      await this.core.reportError('SeedFundingAgent_Init_Failure', error);
-    }
+    console.log('[SeedFundingAgent] ⚠️ DISABLED — SyndicateCore and RiskEngine modules are not implemented.');
+    console.log('[SeedFundingAgent] This agent will remain idle until real backend infrastructure is built.');
+    this.operationStatus = 'DISABLED';
   }
 
   async executeFundingCycle() {

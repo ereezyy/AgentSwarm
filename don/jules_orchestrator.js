@@ -11,7 +11,7 @@ require('dotenv').config();
 const id = process.argv[2] || 'Orchestrator';
 const TELEMETRY_FILE = path.join(__dirname, '../missions/telemetry.json');
 const LOG_FILE = path.join(__dirname, '../missions/evolution_log.md');
-const SOURCE_NAME = process.env.JULES_SOURCE_NAME || 'syndicate-repo'; // User needs to set this
+const SOURCE_NAME = process.env.JULES_SOURCE_NAME || 'github/ereezyy/AgentSwarm'; // Set to actual source
 
 console.log(chalk.green.bold(`[JULES_ORCHESTRATOR #${id}]: 🧬 Autonomous Evolution online.`));
 

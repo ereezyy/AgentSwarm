@@ -1,35 +1,28 @@
-// don/mev_bundler.js - MAXIMUM EXTRACTABLE VALUE PROTECTION
-// Wraps transactions in Jito Bundles for priority inclusion and anti-sandwich protection.
-
-let searcher = require('jito-ts/dist/sdk/block-engine/searcher');
-let bundle_sdk = require('jito-ts/dist/sdk/block-engine/types');
-
+const axios = require('axios');
 const { PublicKey, VersionedTransaction, Transaction, SystemProgram } = require('@solana/web3.js');
 const chalk = require('chalk');
 require('dotenv').config();
 
-// Jito Block Engine URLs (mainnet)
-const BLOCK_ENGINE_URL = process.env.JITO_BLOCK_ENGINE_URL || 'amsterdam.mainnet.block-engine.jito.wtf';
+// Jito Block Engine URLs (mainnet REST endpoints)
+const JITO_BASE_URL = 'https://mainnet.block-engine.jito.wtf/api/v1';
 
 class MevBundler {
     constructor(walletKeypair, connection) {
         this.wallet = walletKeypair;
         this.connection = connection;
-        this.client = null;
-
-        try {
-            // Initialize Jito client
-            // Standard bundles on public engines often don't require an auth keypair, but it's hit or miss.
-            this.client = searcher.searcherClient(BLOCK_ENGINE_URL, undefined);
-            console.log(chalk.blue(`[MEV BUNDLER]: Jito Client Initialized. Protected Mode Active.`));
-        } catch (e) {
-            console.log(chalk.yellow(`[MEV BUNDLER]: Failed to init Jito client: ${e.message}`));
-            this.client = null;
-        }
+        console.log(chalk.blue(`[MEV BUNDLER]: Jito REST Client Initialized. Protected Mode Active.`));
     }
 
-    async sendBundle(transaction, tipAmount = 1000000) {
-        if (!this.client) return null;
+    /**
+     * Send a bundle of transactions via Jito's JSON-RPC API
+     * @param {VersionedTransaction|Transaction} transaction - Main transaction to send
+     * @param {number} tipAmount - Lamports to tip Jito (min 1000)
+     */
+    async sendBundle(transaction, tipAmount = 50000) {
+        if (!this.wallet || !this.wallet.publicKey) {
+            console.log(chalk.yellow(`[MEV BUNDLER]: ⚠️ Wallet not available. Skipping bundle.`));
+            return null;
+        }
 
         try {
             console.log(chalk.magenta(`[MEV BUNDLER]: 🛡️ Creating Jito Bundle (Tip: ${tipAmount} lamports)...`));
@@ -46,34 +39,81 @@ class MevBundler {
             ];
             const tipAccount = new PublicKey(JITO_TIP_ACCOUNTS[Math.floor(Math.random() * JITO_TIP_ACCOUNTS.length)]);
 
-            const latestBlockhash = await this.connection.getLatestBlockhash('confirmed');
+            const { blockhash } = await this.connection.getLatestBlockhash('confirmed');
 
-            // ── Create a separate Tip Transaction ──
-            // Modification of VersionedTransaction is complex; bundling a separate tip is cleaner.
+            // ── Create Tip Transaction ──
             const tipTx = new Transaction().add(
                 SystemProgram.transfer({
                     fromPubkey: this.wallet.publicKey,
                     toPubkey: tipAccount,
-                    lamports: tipAmount
+                    lamports: Math.max(tipAmount, 1000)
                 })
             );
-            tipTx.recentBlockhash = latestBlockhash.blockhash;
+            tipTx.recentBlockhash = blockhash;
             tipTx.feePayer = this.wallet.publicKey;
             tipTx.sign(this.wallet);
 
-            // Jito SDK expects VersionedTransaction objects in the Bundle constructor usually, 
-            // but can handle legacy Transaction if it's serialized or wrapped.
-            // Converting tip to Versioned for consistency.
             const vTipTx = new VersionedTransaction(tipTx.compileMessage());
             vTipTx.sign([this.wallet]);
 
-            const bundle = new bundle_sdk.Bundle([transaction, vTipTx], 5);
+            // Ensure the main transaction is also signed and serialized
+            // Base64 is the recommended encoding for Jito's REST API
+            const serializedMainTx = Buffer.from(transaction.serialize()).toString('base64');
+            const serializedTipTx = Buffer.from(vTipTx.serialize()).toString('base64');
 
-            const bundleId = await this.client.sendBundle(bundle);
-            console.log(chalk.green.bold(`[MEV BUNDLER]: 🚀 BUNDLE SENT! ID: ${bundleId}`));
-            return bundleId;
+            // ── Submit via JSON-RPC ──
+            const response = await axios.post(`${JITO_BASE_URL}/bundles`, {
+                jsonrpc: "2.0",
+                id: 1,
+                method: "sendBundle",
+                params: [
+                    [serializedMainTx, serializedTipTx],
+                    { encoding: "base64" }
+                ]
+            }, {
+                headers: { 'Content-Type': 'application/json' },
+                timeout: 5000
+            });
+
+            if (response.data && response.data.result) {
+                const bundleId = response.data.result;
+                console.log(chalk.green.bold(`[MEV BUNDLER]: 🚀 BUNDLE SENT! ID: ${bundleId}`));
+                return bundleId;
+            } else {
+                const error = response.data.error ? response.data.error.message : "Malformed Response";
+                console.error(chalk.red(`[MEV BUNDLER]: ❌ Bundle failed: ${error}`));
+                return null;
+            }
         } catch (e) {
-            console.error(chalk.red(`[MEV BUNDLER]: Bundle Execution Failed: ${e.message}`));
+            console.error(chalk.red(`[MEV BUNDLER]: ❌ REST Request failed: ${e.message}`));
+            return null;
+        }
+    }
+
+    /**
+     * Send a single transaction via Jito's Low Latency Send API
+     * Provides revert protection by sending as a single-transaction bundle.
+     */
+    async sendTransaction(transaction, bundleOnly = true) {
+        try {
+            const serializedTx = Buffer.from(transaction.serialize()).toString('base64');
+            const response = await axios.post(`${JITO_BASE_URL}/transactions?bundleOnly=${bundleOnly}`, {
+                jsonrpc: "2.0",
+                id: 1,
+                method: "sendTransaction",
+                params: [
+                    serializedTx,
+                    { encoding: "base64" }
+                ]
+            });
+
+            if (response.data && response.data.result) {
+                console.log(chalk.green(`[MEV BUNDLER]: 🚀 Low Latency Send Complete: ${response.data.result}`));
+                return response.data.result;
+            }
+            return null;
+        } catch (e) {
+            console.error(chalk.red(`[MEV BUNDLER]: ❌ Send failed: ${e.message}`));
             return null;
         }
     }

@@ -1,26 +1,23 @@
 // Capital Generator Agent v1.0
 // Purpose: Generate starting capital for The Syndicate through microtransactions and low-risk exploits
 
-const { SyndicateAPI } = require('./syndicate_core');
+// NOTE: syndicate_core.js does not exist — this agent is DISABLED.
+// Do NOT stub fake APIs or generate synthetic data.
 const logger = require('./logger');
 
 class CapitalGenerator {
   constructor() {
-    this.api = new SyndicateAPI();
     this.logger = logger;
-    // Alias log to info for compatibility
-    this.logger.log = this.logger.info;
-
-    this.targetProfit = 1000; // Initial target in USD equivalent
+    this.logger.log = this.logger.info || console.log;
+    this.operationStatus = 'DISABLED';
     this.currentCapital = 0;
     this.activeExploits = [];
-    this.maxExploits = 3; // Limit concurrent operations for safety
   }
 
   async initialize() {
-    this.logger.log('Initializing Capital Generator...');
-    await this.scanForOpportunities();
-    this.startCapitalGeneration();
+    this.logger.log('[CapitalGenerator] ⚠️ DISABLED — syndicate_core.js module is not implemented.');
+    this.logger.log('[CapitalGenerator] This agent will remain idle until real backend infrastructure is built.');
+    this.operationStatus = 'DISABLED';
   }
 
   async scanForOpportunities() {

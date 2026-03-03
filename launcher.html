@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE SYNDICATE | One-Click Activation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #ff00ff;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 242, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.05) 0%, transparent 40%);
+        }
+
+        .grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            padding: 60px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+        }
+
+        .launch-btn {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .launch-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .launch-btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-inner {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: black;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.3);
+            z-index: 2;
+        }
+
+        .pulse {
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            opacity: 0;
+        }
+
+        .pulse:nth-child(2) { animation-delay: 0.5s; }
+        .pulse:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .status-tray {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            gap: 20px;
+        }
+
+        .status-card {
+            flex: 1;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            text-align: left;
+        }
+
+        .status-card .label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .status-card .value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        #log-overlay {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            height: 100px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            font-family: monospace;
+            padding: 15px;
+            font-size: 0.9rem;
+            color: var(--primary);
+            overflow-y: auto;
+            display: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.1);
+            border-left-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid"></div>
+    <div class="container">
+        <h1>THE SYNDICATE</h1>
+        <p>Autonomous Recursive Gangster Swarm Interface</p>
+        
+        <button class="launch-btn" id="launch-trigger">
+            <div class="pulse"></div>
+            <div class="pulse"></div>
+            <div class="pulse"></div>
+            <div class="btn-inner" id="btn-text">Activate Swarm</div>
+            <div class="loading-spinner" id="spinner"></div>
+        </button>
+
+        <div class="status-tray">
+            <div class="status-card">
+                <div class="label">AI Brain</div>
+                <div class="value">Ready</div>
+            </div>
+            <div class="status-card">
+                <div class="label">System</div>
+                <div class="value">Localhost: 8080</div>
+            </div>
+            <div class="status-card">
+                <div class="label">Environment</div>
+                <div class="value">Windows</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="log-overlay"></div>
+
+    <script>
+        const btn = document.getElementById('launch-trigger');
+        const btnText = document.getElementById('btn-text');
+        const spinner = document.getElementById('spinner');
+        const logs = document.getElementById('log-overlay');
+
+        btn.addEventListener('click', async () => {
+            btnText.style.display = 'none';
+            spinner.style.display = 'block';
+            logs.style.display = 'block';
+            
+            addLog("Initiating boot sequence...");
+            
+            try {
+                const response = await fetch('/launch', { method: 'POST' });
+                const result = await response.json();
+                
+                if (result.success) {
+                    addLog("Swarm processes spawned successfully.");
+                    addLog("Opening Dashboard...");
+                    setTimeout(() => {
+                        window.location.href = "http://localhost:3000";
+                    }, 2000);
+                } else {
+                    addLog("Error: " + result.error);
+                }
+            } catch (e) {
+                addLog("System Error: Server unreachable.");
+                // For demo purposes, simulate success if we are just viewing the file
+                setTimeout(() => {
+                    addLog("Proceeding to dashboard...");
+                }, 1000);
+            }
+        });
+
+        function addLog(msg) {
+            const line = document.createElement('div');
+            line.textContent = `> ${msg}`;
+            logs.appendChild(line);
+            logs.scrollTop = logs.scrollHeight;
+        }
+    </script>
+</body>
+</html>

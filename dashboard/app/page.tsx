@@ -319,6 +319,22 @@ export default function SyndicateDashboard() {
     return `${h}:${m}:${sec}`;
   };
 
+  const safeFormatTime = (dateStr: string | undefined | null, showSeconds: boolean = true) => {
+    if (!dateStr) return '00:00:00';
+    try {
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return '00:00:00';
+      return d.toLocaleTimeString([], {
+        hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
+        ...(showSeconds && { second: "2-digit" })
+      });
+    } catch {
+      return '00:00:00';
+    }
+  };
+
   const getLogColor = (level: string) => {
     switch (level) {
       case "ERROR": return "text-red-400";
@@ -523,7 +539,7 @@ export default function SyndicateDashboard() {
                 {logs.map((log, i) => (
                   <div key={i} className="flex gap-3 group hover:bg-white/[0.02] py-0.5 px-2 rounded transition-colors">
                     <span className="text-[10px] text-gray-700 shrink-0 tabular-nums font-bold">
-                      {new Date(log.timestamp).toLocaleTimeString([], { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+                      {safeFormatTime(log.timestamp)}
                     </span>
                     <span className={`text-[10px] shrink-0 font-black w-12 ${getLogColor(log.level)}`}>
                       {log.level}
@@ -583,7 +599,7 @@ export default function SyndicateDashboard() {
                   <Wallet className="w-3 h-3" /> Live Wallet Holdings
                 </h2>
                 <span className="text-[9px] text-gray-600 tabular-nums">
-                  {walletData ? `Updated ${new Date(walletData.timestamp).toLocaleTimeString([], { hour12: false, hour: "2-digit", minute: "2-digit" })}` : "Awaiting banker scan..."}
+                  {walletData ? `Updated ${safeFormatTime(walletData.timestamp, false)}` : "Awaiting banker scan..."}
                 </span>
               </div>
               <div className="p-4 max-h-[calc(100vh-280px)] overflow-y-auto">
@@ -723,7 +739,7 @@ export default function SyndicateDashboard() {
                             {entry.from || 'UNKNOWN'}
                           </span>
                           <span className="text-[8px] text-gray-700 tabular-nums">
-                            {new Date(entry.timestamp).toLocaleTimeString([], { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+                            {safeFormatTime(entry.timestamp)}
                           </span>
                         </div>
                         <div className={`p-3 rounded-lg text-[11px] leading-relaxed break-words ${isUser
@@ -783,7 +799,7 @@ export default function SyndicateDashboard() {
                 </h2>
                 {headhunterData && (
                   <span className="text-[9px] text-gray-600">
-                    Last scan: {new Date(headhunterData.timestamp).toLocaleString()} • Source: {headhunterData.source}
+                    Last scan: {safeFormatTime(headhunterData.timestamp)} • Source: {headhunterData.source}
                   </span>
                 )}
               </div>
@@ -918,7 +934,7 @@ export default function SyndicateDashboard() {
                         <tr key={i} className="group hover:bg-white/5 border-b border-gray-800/20 last:border-0 transition-colors">
                           <td className="py-2 pl-2 font-bold text-gray-300">
                             {t.mint.substring(0, 6)}...
-                            <span className="text-[8px] text-gray-600 block">{new Date(t.entryTime).toLocaleTimeString()}</span>
+                            <span className="text-[8px] text-gray-600 block">{safeFormatTime(t.entryTime)}</span>
                           </td>
                           <td className="py-2 text-gray-400">${parseFloat(t.entryPrice).toFixed(6)}</td>
                           <td className="py-2 text-gray-400">
@@ -1004,7 +1020,7 @@ export default function SyndicateDashboard() {
                             agentComms.filter(c => c.from === 'SYLA' || c.from === 'SHADOW' || c.msg.toUpperCase().includes('X') || c.msg.toUpperCase().includes('POST')).map((c, i) => (
                               <span key={i} className="mx-8 text-[10px] text-emerald-500/80 font-mono">
                                 <span className="text-white font-bold opacity-50">[{c.from}]</span> {c.msg}
-                                <span className="ml-2 text-green-900 text-[8px]">{new Date(c.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                <span className="ml-2 text-green-900 text-[8px]">{safeFormatTime(c.timestamp, false)}</span>
                               </span>
                             ))
                           ) : (

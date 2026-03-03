@@ -87,24 +87,50 @@ async function executeSnipe(targetMint, symbol, currentPriceInSol) {
     try {
         const amountLamports = Math.floor(SNIPE_AMOUNT_SOL * 1e9);
 
-        const qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
-            params: {
-                inputMint: WSOL_MINT,
-                outputMint: targetMint,
-                amount: amountLamports,
-                slippageBps: 200 // 2% slippage because flash crashes move fast
-            },
-            timeout: 5000
-        });
+        let qRes = null;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+                qRes = await axios.get(`https://lite-api.jup.ag/swap/v1/quote`, {
+                    params: {
+                        inputMint: WSOL_MINT,
+                        outputMint: targetMint,
+                        amount: amountLamports,
+                        slippageBps: 200 // 2% slippage because flash crashes move fast
+                    },
+                    timeout: 5000
+                });
+                break;
+            } catch (e) {
+                if (e.response?.status === 429 && attempt < 3) {
+                    console.log(chalk.blue(`[PEG SNIPER]: ⏳ Quote 429 Rate Limit... retrying (${attempt}/3)`));
+                    await new Promise(r => setTimeout(r, 800 * attempt + Math.random() * 200));
+                    continue;
+                }
+                throw e;
+            }
+        }
 
         if (!qRes.data) return false;
 
-        const swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
-            quoteResponse: qRes.data,
-            userPublicKey: wallet.publicKey.toString(),
-            wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: 1500000 // Very high priority fee to catch the knife
-        });
+        let swapRes = null;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+                swapRes = await axios.post('https://lite-api.jup.ag/swap/v1/swap', {
+                    quoteResponse: qRes.data,
+                    userPublicKey: wallet.publicKey.toString(),
+                    wrapAndUnwrapSol: true,
+                    prioritizationFeeLamports: 1500000 // Very high priority fee to catch the knife
+                });
+                break;
+            } catch (e) {
+                if (e.response?.status === 429 && attempt < 3) {
+                    console.log(chalk.blue(`[PEG SNIPER]: ⏳ Swap 429 Rate Limit... retrying (${attempt}/3)`));
+                    await new Promise(r => setTimeout(r, 800 * attempt + Math.random() * 200));
+                    continue;
+                }
+                throw e;
+            }
+        }
 
         const txBuf = Buffer.from(swapRes.data.swapTransaction, 'base64');
         const tx = VersionedTransaction.deserialize(txBuf);

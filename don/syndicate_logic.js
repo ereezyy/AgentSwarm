@@ -119,16 +119,30 @@ class DonCore {
                 this.log(`[DON] 🔄 Swarm Restart Initiated by Orchestrator...`, 'POWER');
                 this.saveTelemetry();
 
-                // Start a detached process of the same script
-                const child_process = require('child_process');
-                const child = child_process.spawn(process.argv[0], process.argv.slice(1), {
+                // Graceful exit: Kill all active children to prevent process orphans/frozen PCs
+                Object.values(this.processes).forEach(proc => {
+                    if (proc && !proc.killed) {
+                        try { proc.kill('SIGTERM'); } catch (e) { }
+                    }
+                });
+                if (this.mlProcess && !this.mlProcess.killed) {
+                    try { this.mlProcess.kill('SIGTERM'); } catch (e) { }
+                }
+
+                this.log(`[DON] Context saved. Terminating current process. New instance starting in new window...`, 'POWER');
+
+                // Spawn a detached cmd.exe process that spins up a completely new visible window
+                // and runs the actual start command for the application.
+
+                // Since fire_it_up.ps1 assumes we are in the root directory, we need to go up one level
+                const { spawn } = require('child_process');
+                const startScript = spawn('cmd', ['/c', 'start', 'cmd', '/k', 'cd .. && npm start'], {
                     detached: true,
                     stdio: 'ignore'
                 });
-                child.unref();
+                startScript.unref();
 
-                // Graceful exit
-                this.log(`[DON] Context saved. Terminating current process. New instance starting...`, 'POWER');
+                // Kill the current window/process
                 process.exit(0);
                 break;
 
@@ -248,12 +262,16 @@ class DonCore {
                 this.spawnSoldier('LIQUIDATOR');
             }
         } else if (payload.action === 'EXECUTE_SANDWICH') {
-            if (this.processes['JITO_SANDWICH'] && this.processes['JITO_SANDWICH'].connected) {
-                this.processes['JITO_SANDWICH'].send(payload);
-            } else {
-                this.log('⚠️ JITO_SANDWICH is offline. Radar trigger missed.', 'ERROR');
-                this.spawnSoldier('JITO_SANDWICH');
-            }
+            // NOTE: A rogue script across the network is spamming EXECUTE_SANDWICH mock triggers.
+            // Rather than crashing out the MEV Predator with 429s, we swallow them here.
+            this.log('⚠️ Suppressing rogue EXECUTE_SANDWICH trigger from remote radar node.', 'INFO');
+
+            // if (this.processes['JITO_SANDWICH'] && this.processes['JITO_SANDWICH'].connected) {
+            //     this.processes['JITO_SANDWICH'].send(payload);
+            // } else {
+            //     this.log('⚠️ JITO_SANDWICH is offline. Radar trigger missed.', 'ERROR');
+            //     this.spawnSoldier('JITO_SANDWICH');
+            // }
         }
     }
 
@@ -1051,19 +1069,44 @@ class DonCore {
                 rs.totalCrashes++;
 
                 // Extract crash reason from stderr
-                const lines = stderrBuffer.split('\n').filter(l => l.trim());
+                const lines = stderrBuffer.split('\n').map(l => l.trim()).filter(l => l);
                 if (lines.length > 0 && lines[lines.length - 1].startsWith('Node.js v')) {
                     lines.pop(); // Remove the "Node.js vXX.XX.XX" line
                 }
-                const lastError = lines.length > 0 ? lines[lines.length - 1] : 'Unknown error';
+
+                // Find the first meaningful error line, skipping common closing symbols
+                let lastError = 'Unknown error';
+                for (let i = lines.length - 1; i >= 0; i--) {
+                    const l = lines[i];
+                    if (l !== '}' && l !== ']' && l !== ')' && !l.includes('at ')) {
+                        lastError = l;
+                        break;
+                    }
+                }
+
                 // Try to find the actual Error: line if possible
                 const errorLine = lines.find(l => l.includes('Error:')) || lastError;
                 rs.lastCrashReason = errorLine.substring(0, 200);
 
-                // ── JULES AUTONOMOUS REPAIR ──
+                // ── JULES AUTONOMOUS REPAIR (HOURLY BATCH) ──
                 const fullPath = path.join(__dirname, scriptName);
                 if (fs.existsSync(fullPath)) {
-                    julesHealer.repairFile(fullPath, errorLine, stderrBuffer);
+                    // Queue errors instead of firing immediately
+                    if (!this.julesErrorQueue) this.julesErrorQueue = [];
+                    this.julesErrorQueue.push({
+                        file: fullPath,
+                        agent: type,
+                        error: errorLine,
+                        stack: stderrBuffer.substring(0, 500),
+                        time: new Date().toISOString()
+                    });
+
+                    // Start the hourly flush timer if not already running
+                    if (!this.julesFlushTimer) {
+                        this.julesFlushTimer = setInterval(() => this.flushJulesRepairs(), 60 * 60 * 1000); // 1 hour
+                        // Also set the first flush 60s after the first error so it's not totally silent
+                        setTimeout(() => this.flushJulesRepairs(), 60 * 1000);
+                    }
                 }
 
                 this.telemetry.errors[type] = (this.telemetry.errors[type] || 0) + 1;
@@ -1167,6 +1210,41 @@ class DonCore {
                 }
             }
         }
+    }
+
+    // ── JULES HOURLY BATCH REPAIR ──────────────────────────────
+    flushJulesRepairs() {
+        if (!this.julesErrorQueue || this.julesErrorQueue.length === 0) return;
+
+        const errors = [...this.julesErrorQueue];
+        this.julesErrorQueue = []; // Clear the queue
+
+        // Deduplicate by file — group errors per file
+        const byFile = {};
+        for (const err of errors) {
+            const key = err.file;
+            if (!byFile[key]) byFile[key] = [];
+            byFile[key].push(err);
+        }
+
+        const uniqueFiles = Object.keys(byFile);
+        const errorSummary = uniqueFiles.map(file => {
+            const fileErrors = byFile[file];
+            const basename = path.basename(file);
+            return `## ${basename} (${fileErrors.length} crash${fileErrors.length > 1 ? 'es' : ''})\n` +
+                fileErrors.map(e => `- [${e.time}] ${e.agent}: ${e.error}`).join('\n');
+        }).join('\n\n');
+
+        console.log(chalk.cyan.bold(`[JULES]: 📋 HOURLY REPAIR REPORT — ${errors.length} errors across ${uniqueFiles.length} file(s):`));
+        console.log(chalk.cyan(errorSummary));
+
+        // Send one consolidated repair request for the most-crashed file
+        const topFile = uniqueFiles.sort((a, b) => byFile[b].length - byFile[a].length)[0];
+        const topErrors = byFile[topFile];
+        const consolidatedError = `HOURLY ERROR BATCH (${topErrors.length} crashes):\n` +
+            topErrors.map(e => `- ${e.error}`).join('\n');
+
+        julesHealer.repairFile(topFile, consolidatedError, topErrors.map(e => e.stack).join('\n---\n'));
     }
 }
 

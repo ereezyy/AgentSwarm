@@ -118,21 +118,47 @@ async function stakeIdleSol(solBalance) {
     console.log(chalk.magenta.bold(`[BANKER #${id}]: 🥩 IDLE CAPITAL DETECTED — Auto-staking ${solToStake.toFixed(4)} SOL into mSOL`));
 
     try {
-        const qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
-            params: {
-                inputMint: 'So11111111111111111111111111111111111111112', // WSOL
-                outputMint: MSOL_MINT,
-                amount: lamports,
-                slippageBps: 50
+        let qRes = null;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+                qRes = await axios.get(`https://lite-api.jup.ag/swap/v1/quote`, {
+                    params: {
+                        inputMint: 'So11111111111111111111111111111111111111112', // WSOL
+                        outputMint: MSOL_MINT,
+                        amount: lamports,
+                        slippageBps: 50
+                    }
+                });
+                break;
+            } catch (e) {
+                if (e.response?.status === 429 && attempt < 3) {
+                    console.log(chalk.magenta(`[BANKER]: ⏳ Quote 429 Rate Limit on Stake... retrying (${attempt}/3)`));
+                    await new Promise(r => setTimeout(r, 800 * attempt + Math.random() * 200));
+                    continue;
+                }
+                throw e;
             }
-        });
+        }
 
-        const swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
-            quoteResponse: qRes.data,
-            userPublicKey: hotKeypair.publicKey.toString(),
-            wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: 'auto'
-        });
+        let swapRes = null;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+                swapRes = await axios.post('https://lite-api.jup.ag/swap/v1/swap', {
+                    quoteResponse: qRes.data,
+                    userPublicKey: hotKeypair.publicKey.toString(),
+                    wrapAndUnwrapSol: true,
+                    prioritizationFeeLamports: 'auto'
+                });
+                break;
+            } catch (e) {
+                if (e.response?.status === 429 && attempt < 3) {
+                    console.log(chalk.magenta(`[BANKER]: ⏳ Swap 429 Rate Limit on Stake... retrying (${attempt}/3)`));
+                    await new Promise(r => setTimeout(r, 800 * attempt + Math.random() * 200));
+                    continue;
+                }
+                throw e;
+            }
+        }
 
         const { swapTransaction } = swapRes.data;
         const txBuf = Buffer.from(swapTransaction, 'base64');
@@ -168,21 +194,47 @@ async function secureYieldUsdc(solBalance) {
     console.log(chalk.green.bold(`[BANKER #${id}]: 🏛️ TREASURY ACTIVE — Securing ${solToSecure.toFixed(4)} SOL backing into USDC (Capital Preservation)`));
 
     try {
-        const qRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
-            params: {
-                inputMint: 'So11111111111111111111111111111111111111112', // WSOL
-                outputMint: USDC_MINT,
-                amount: lamports,
-                slippageBps: 50
+        let qRes = null;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+                qRes = await axios.get(`https://lite-api.jup.ag/swap/v1/quote`, {
+                    params: {
+                        inputMint: 'So11111111111111111111111111111111111111112', // WSOL
+                        outputMint: USDC_MINT,
+                        amount: lamports,
+                        slippageBps: 50
+                    }
+                });
+                break;
+            } catch (e) {
+                if (e.response?.status === 429 && attempt < 3) {
+                    console.log(chalk.green(`[BANKER]: ⏳ Quote 429 Rate Limit on USDC... retrying (${attempt}/3)`));
+                    await new Promise(r => setTimeout(r, 800 * attempt + Math.random() * 200));
+                    continue;
+                }
+                throw e;
             }
-        });
+        }
 
-        const swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
-            quoteResponse: qRes.data,
-            userPublicKey: hotKeypair.publicKey.toString(),
-            wrapAndUnwrapSol: true,
-            prioritizationFeeLamports: 'auto'
-        });
+        let swapRes = null;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+                swapRes = await axios.post('https://lite-api.jup.ag/swap/v1/swap', {
+                    quoteResponse: qRes.data,
+                    userPublicKey: hotKeypair.publicKey.toString(),
+                    wrapAndUnwrapSol: true,
+                    prioritizationFeeLamports: 'auto'
+                });
+                break;
+            } catch (e) {
+                if (e.response?.status === 429 && attempt < 3) {
+                    console.log(chalk.green(`[BANKER]: ⏳ Swap 429 Rate Limit on USDC... retrying (${attempt}/3)`));
+                    await new Promise(r => setTimeout(r, 800 * attempt + Math.random() * 200));
+                    continue;
+                }
+                throw e;
+            }
+        }
 
         const txBuf = Buffer.from(swapRes.data.swapTransaction, 'base64');
         const { VersionedTransaction } = require('@solana/web3.js');

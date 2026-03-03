@@ -165,26 +165,35 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         console.log(chalk.blue(`[SNIPER #${id}]: 🪐 Requesting Jupiter Quote...`));
         // 1. Get Quote with multi-TLD failover
         const JUPITER_QUOTE_APIS = [
-            'https://lite-api.jup.ag/swap/v1/quote',
-            'https://quote-api.jup.ag/v6/quote',
-            'https://api.jup.ag/swap/v1/quote'
+            'https://lite-api.jup.ag/swap/v1/quote'
         ];
 
         let qRes = null;
         let lastErr = null;
         const qParams = { inputMint: inputMint, outputMint: outputMint, amount: amountLamports, slippageBps: slippageBps };
 
-        for (const url of JUPITER_QUOTE_APIS) {
-            try {
-                qRes = await axios.get(url, { params: qParams, timeout: 5000 });
-                if (qRes && qRes.data) break;
-            } catch (e) {
-                lastErr = e.message;
-                console.log(chalk.yellow(`[SNIPER]: Quote API ${new URL(url).hostname} failed, trying next...`));
+        for (const apiUrl of JUPITER_QUOTE_APIS) {
+            if (qRes && qRes.data) break;
+
+            for (let attempt = 1; attempt <= 4; attempt++) {
+                try {
+                    qRes = await axios.get(apiUrl, { params: qParams, timeout: 5000 });
+                    if (qRes && qRes.data) break;
+                } catch (e) {
+                    lastErr = e.response?.status === 429 ? '429 Rate Limit' : e.message;
+                    if (e.response?.status === 429 && attempt < 4) {
+                        const backoff = (attempt ** 2) * 1000 + Math.random() * 500; // Exponential backoff: 1s, 4s, 9s
+                        console.log(chalk.yellow(`[SNIPER]: ⏳ Quote 429 Rate Limit on ${apiUrl}... retrying in ${(backoff / 1000).toFixed(1)}s (${attempt}/4)`));
+                        await new Promise(r => setTimeout(r, backoff));
+                        continue;
+                    }
+                    console.log(chalk.yellow(`[SNIPER]: Quote API failed on ${apiUrl}: ${lastErr}`));
+                    break; // Move to next API URL
+                }
             }
         }
 
-        if (!qRes || !qRes.data || !qRes.data.outAmount) throw new Error(`Quote failed: ${lastErr}`);
+        if (!qRes || !qRes.data || !qRes.data.outAmount) throw new Error(`Quote failed on all endpoints: ${lastErr}`);
 
         quoteData = qRes.data;
 
@@ -194,11 +203,9 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
         const priorityFeeSol = (priorityFee / 1e9).toFixed(6);
         console.log(chalk.hex('#FF6600')(`[SNIPER #${id}]: 🏎️ Priority Fee Set: ${priorityFeeSol} SOL`));
 
-        // 2. Get Swap Transaction with failover
+        // Get Swap Transaction with failover
         const JUPITER_SWAP_APIS = [
-            'https://lite-api.jup.ag/swap/v1/swap',
-            'https://quote-api.jup.ag/v6/swap',
-            'https://api.jup.ag/swap/v1/swap'
+            'https://lite-api.jup.ag/swap/v1/swap'
         ];
 
         let swapRes = null;
@@ -209,13 +216,24 @@ async function executeJupiterSwap(inputMint, outputMint, amount, slippageBps = 1
             prioritizationFeeLamports: priorityFee
         };
 
-        for (const url of JUPITER_SWAP_APIS) {
-            try {
-                swapRes = await axios.post(url, swapPayload, { timeout: 8000 });
-                if (swapRes && swapRes.data) break;
-            } catch (e) {
-                lastErr = e.message;
-                console.log(chalk.yellow(`[SNIPER]: Swap API ${new URL(url).hostname} failed, trying next...`));
+        for (const apiUrl of JUPITER_SWAP_APIS) {
+            if (swapRes && swapRes.data) break;
+
+            for (let attempt = 1; attempt <= 4; attempt++) {
+                try {
+                    swapRes = await axios.post(apiUrl, swapPayload, { timeout: 8000 });
+                    if (swapRes && swapRes.data) break;
+                } catch (e) {
+                    lastErr = e.response?.status === 429 ? '429 Rate Limit' : (e.response?.data?.error || e.message);
+                    if (e.response?.status === 429 && attempt < 4) {
+                        const backoff = (attempt ** 2) * 1000 + Math.random() * 500;
+                        console.log(chalk.yellow(`[SNIPER]: ⏳ Swap 429 Rate Limit on ${apiUrl}... retrying in ${(backoff / 1000).toFixed(1)}s (${attempt}/4)`));
+                        await new Promise(r => setTimeout(r, backoff));
+                        continue;
+                    }
+                    console.log(chalk.yellow(`[SNIPER]: Swap API failed on ${apiUrl}: ${lastErr}`));
+                    break;
+                }
             }
         }
 
@@ -412,17 +430,24 @@ function calculateKellyBet(balanceSol, rugProb) {
     // Kelly Formula: f = (b*p - q) / b
     let f = (b * p - q) / b;
 
+    // If Kelly says don't bet (negative edge), respect it — return 0
+    if (f <= 0) return 0;
+
     // Apply Fractional Kelly to handle volatility/errors
     const fraction = neuralConfig.kelly_fraction;
     let kellyBet = balanceSol * f * fraction;
 
-    // Safety Rails
+    // Safety Rails — but never RAISE a bet above what Kelly recommends
     const ceiling = neuralConfig.max_bet;
     const floor = neuralConfig.min_bet;
     const exposureLimit = balanceSol * 0.05; // 5% max exposure
 
     let finalBet = Math.min(kellyBet, ceiling, exposureLimit);
-    finalBet = Math.max(finalBet, floor);
+
+    // Only apply the minimum if Kelly was positive — don't force a bet
+    if (finalBet < floor) finalBet = floor;
+    // But NEVER exceed the exposure limit
+    finalBet = Math.min(finalBet, exposureLimit);
 
     return parseFloat(finalBet.toFixed(3));
 }
@@ -444,7 +469,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
             const reqId = require('crypto').randomUUID();
             const timeout = setTimeout(() => {
                 pendingPredictions.delete(reqId);
-                resolve(0.5); // proceed on timeout fallback
+                resolve(0.85); // timeout = assume HIGH risk, do NOT buy blindly
             }, 5000);
 
             pendingPredictions.set(reqId, (res) => {
@@ -465,6 +490,13 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
         if (rugProb > neuralConfig.rug_threshold) {
             console.log(chalk.red.bold(`[SNIPER #${id}]: 💀 NEURAL BLOCK: Rug Risk ${(rugProb * 100).toFixed(1)}% | Threshold: ${neuralConfig.rug_threshold} | ABORTING.`));
             GlobalMemory.addMemory('SNIPER', `[PREDICTION_BLOCKED] Aborted trade on ${mintStr} due to high rug risk: ${(rugProb * 100).toFixed(1)}%. Threshold: ${neuralConfig.rug_threshold}`, 5);
+            return;
+        }
+
+        // ── MINIMUM WIN PROBABILITY GATE ──
+        const winProb = 1.0 - rugProb;
+        if (winProb < 0.50) {
+            console.log(chalk.yellow(`[SNIPER #${id}]: ⚠️ LOW CONFIDENCE: Win probability ${(winProb * 100).toFixed(1)}% < 50% minimum. Skipping ${mintStr.substring(0, 8)}...`));
             return;
         }
 

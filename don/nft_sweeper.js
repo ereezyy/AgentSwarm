@@ -33,12 +33,44 @@ const TARGET_COLLECTIONS = [
     'mad_lads',
     'tensorians',
     'retardio_cousins',
-    'famous_fox_federation'
+    'famous_fox_federation',
+    'smb_gen2',
+    'smb_gen3',
+    'claynosaurz',
+    'okay_bears',
+    'degenerate_ape_academy',
+    'lily',
+    'sharx_by_sharkyfi',
+    'fools',
+    'transdimensional_fox_federation',
+    'clonex',
+    'reliquary',
+    'the_digits',
+    'portal_v2',
+    'parcl_origins',
+    'liliy_by_tally_labs',
+    'deus_ex_machina',
+    'ghost_kid_dao',
+    'solana_monkey_business',
+    'the_heist',
+    'y00ts',
+    'degods',
+    'clearway',
+    'primates',
+    'communi3',
+    'blocksmith_labs',
+    'trippin_ape_tribe',
+    'solpunks',
+    'galactic_geckos',
+    'cets_on_creek',
+    'okay_bears',
+    'portals',
+    'aurory'
 ];
 
 const FAT_FINGER_DISCOUNT = 0.15; // 15% below floor
 const LAMPORTS_PER_SOL = 1e9;
-const SCAN_INTERVAL_MS = 8000; // ME API is rate limited, don't spam too hard
+const SCAN_INTERVAL_MS = 6000; // ME API is rate limited, but we can scan more frequently now
 let activeSnipes = {}; // Prevent double spending on the same mint
 
 // ── Execution Core ──────────────────────────────────────────────────
@@ -80,7 +112,7 @@ async function scanFloors() {
             }
 
             // Minimal delay between collections to respect API rate limits
-            await new Promise(r => setTimeout(r, 1000));
+            await new Promise(r => setTimeout(r, 800));
         } catch (e) {
             // Rate limit or API error
             await new Promise(r => setTimeout(r, 2000));
@@ -118,7 +150,6 @@ async function executeSnipe(listing, priceSol) {
         const tx = Transaction.from(txBuf);
 
         // Add extreme priority fee to frontrun manual buyers
-        // Note: In real scenarios you'd insert a ComputeBudgetInstruction here if ME didn't include one.
 
         tx.partialSign(wallet);
         const sig = await connection.sendRawTransaction(tx.serialize(), { skipPreflight: true });

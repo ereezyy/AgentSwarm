@@ -10,7 +10,15 @@ require('dotenv').config();
 
 const id = process.argv[2] || 'Scavenger';
 const { ask } = require('./brain');
-const { SyndicateCore } = require('./SyndicateCore');
+// SyndicateCore.js doesn't exist — provide the real connection scavenger needs
+const { Connection } = require('@solana/web3.js');
+class SyndicateCore {
+    constructor() {
+        this.connection = new Connection(process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com', 'confirmed');
+    }
+    log(msg, level) { console.log(`[SCAVENGER]: ${msg}`); }
+    async requestSign() { console.log('[SCAVENGER]: ⚠️ VAULT signing not implemented yet.'); return ""; }
+}
 const core = new SyndicateCore();
 
 const MAX_RETRIES = 3;

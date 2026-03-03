@@ -62,7 +62,7 @@ async function runFarmCycle() {
             const ata = await getAssociatedTokenAddress(new Keypair().publicKey, wallet.publicKey); // fake just to get balance logic if we had it, but we can just use Jupiter to sell exact amount if we track it.
             // For simplicity in farming, we quote the exact amount we bought.
 
-            const sellQuoteRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
+            const sellQuoteRes = await axios.get(`https://lite-api.jup.ag/swap/v1/quote`, {
                 params: {
                     inputMint: currentFarmPosition.mint,
                     outputMint: WSOL_MINT,
@@ -92,7 +92,7 @@ async function runFarmCycle() {
 
         console.log(chalk.magenta(`[SYBIL #${id}]: 🚜 Starting farm cycle: Swapping ${FARM_AMOUNT_SOL} SOL into ${target.name}...`));
 
-        const buyQuoteRes = await axios.get(`https://quote-api.jup.ag/v6/quote`, {
+        const buyQuoteRes = await axios.get(`https://lite-api.jup.ag/swap/v1/quote`, {
             params: {
                 inputMint: WSOL_MINT,
                 outputMint: target.mint,
@@ -122,7 +122,7 @@ async function runFarmCycle() {
 
 async function executeJupiterSwap(quoteData) {
     try {
-        const swapRes = await axios.post('https://quote-api.jup.ag/v6/swap', {
+        const swapRes = await axios.post('https://lite-api.jup.ag/swap/v1/swap', {
             quoteResponse: quoteData,
             userPublicKey: wallet.publicKey.toString(),
             wrapAndUnwrapSol: true,
