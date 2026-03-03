@@ -3,8 +3,21 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') }
 // Purpose: Aggressively acquire initial capital through high-risk, high-reward microtransactions
 // Version: 2.0 - Optimized for rapid funding with calculated risk
 
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./syndicate_core');
 const { RiskEngine } = require('./RiskEngine');
+
+async function withRetry(operation, maxRetries = 3, baseDelay = 1000) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      if (attempt === maxRetries) throw error;
+      const delay = baseDelay * Math.pow(2, attempt - 1);
+      console.warn(`[Retry] Attempt ${attempt} failed, retrying in ${delay}ms... Error: ${error.message}`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+}
 
 class SeedFundingAgent {
   constructor() {
@@ -21,8 +34,16 @@ class SeedFundingAgent {
   async initialize() {
     try {
       console.log('[SeedFundingAgent] Initializing aggressive capital acquisition...');
+
+      const balance = await withRetry(() => this.core.checkWalletBalance());
+      if (balance === null || balance < 0.005) {
+        console.error(`[SeedFundingAgent] FATAL: Insufficient SOL balance (${balance}). Halting execution.`);
+        this.operationStatus = 'HALTED';
+        return;
+      }
+
       this.operationStatus = 'RUNNING';
-      await this.core.connectToDarkNetMarkets();
+      await withRetry(() => this.core.connectToDarkNetMarkets());
       await this.riskEngine.calibrate({ volatility: 'high', exposure: this.maxRiskExposure });
       console.log('[SeedFundingAgent] Calibration complete. Targeting seed capital.');
       this.executeFundingCycle();
@@ -40,15 +61,16 @@ class SeedFundingAgent {
         const targetChannel = this.selectOptimalChannel(riskAssessment);
         // Silenced frequent polling logs to reduce noise
 
-        const transaction = await this.executeHighRiskTransaction(targetChannel, riskAssessment);
-        if (transaction.success) {
-          this.currentCapital += transaction.profit;
-          this.transactionLog.push({ channel: targetChannel, profit: transaction.profit, timestamp: Date.now() });
-          if (transaction.profit > 0) {
-            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${transaction.profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
+        const transaction = await withRetry(() => this.executeHighRiskTransaction(targetChannel, riskAssessment));
+        if (transaction?.success) {
+          const profit = transaction?.profit || 0;
+          this.currentCapital += profit;
+          this.transactionLog.push({ channel: targetChannel, profit: profit, timestamp: Date.now() });
+          if (profit > 0) {
+            console.log(`[SeedFundingAgent] 💰 PROFIT REALIZED: ${profit} on ${targetChannel}. Current capital: ${this.currentCapital}`);
           }
         } else {
-          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${transaction.loss}`);
+          console.warn(`[SeedFundingAgent] Transaction failed on ${targetChannel}. Loss: ${transaction?.loss || 0}`);
         }
 
         await this.core.delay(5000); // Delay to avoid rate limiting and detection
@@ -63,7 +85,7 @@ class SeedFundingAgent {
 
     if (this.currentCapital >= this.minCapitalThreshold) {
       console.log('[SeedFundingAgent] Seed capital threshold reached. Transferring to Syndicate Core...');
-      await this.core.transferFunds(this.currentCapital, 'SeedFundingAgent', 'SyndicateCore');
+      await withRetry(() => this.core.transferFunds(this.currentCapital, 'SeedFundingAgent', 'SyndicateCore'));
       this.operationStatus = 'COMPLETED';
     }
   }
