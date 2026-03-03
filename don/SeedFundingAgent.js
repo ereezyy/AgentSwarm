@@ -3,7 +3,7 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') }
 // Purpose: Aggressively acquire initial capital through high-risk, high-reward microtransactions
 // Version: 2.0 - Optimized for rapid funding with calculated risk
 
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./syndicate_core_impl');
 const { RiskEngine } = require('./RiskEngine');
 
 class SeedFundingAgent {
@@ -36,6 +36,13 @@ class SeedFundingAgent {
   async executeFundingCycle() {
     while (this.currentCapital < this.minCapitalThreshold && this.operationStatus === 'RUNNING') {
       try {
+        const walletBalance = await this.core.checkWalletBalance();
+        if (walletBalance === null || walletBalance < 0.01) {
+          console.warn('[SeedFundingAgent] Wallet balance too low or check failed. Pausing.');
+          await this.core.delay(10000);
+          continue;
+        }
+
         const riskAssessment = await this.riskEngine.analyzeMarketConditions();
         const targetChannel = this.selectOptimalChannel(riskAssessment);
         // Silenced frequent polling logs to reduce noise
@@ -81,9 +88,10 @@ class SeedFundingAgent {
 
   async executeHighRiskTransaction(channel, riskAssessment) {
     const investmentAmount = this.calculateInvestment(riskAssessment);
+    let result = null;
 
     try {
-      const result = await this.core.executeTransaction({
+      result = await this.core.executeTransaction({
         channel,
         amount: investmentAmount,
         riskLevel: riskAssessment.score,

@@ -135,15 +135,27 @@ class SyndicateCore {
             return null;
         }
 
+        let balance = null;
         try {
-            const balance = await this.connection.getBalance(new PublicKey(pubkey));
+            balance = await this.connection.getBalance(new PublicKey(pubkey));
+        } catch (e) {
+            this.log('Primary RPC failed, falling back to secondary RPC...', 'WARN');
+            const fallbackRpcUrl = process.env.SOLANA_RPC_FALLBACK_URL || 'https://api.mainnet-beta.solana.com';
+            const fallbackConnection = new Connection(fallbackRpcUrl, 'confirmed');
+            try {
+                balance = await fallbackConnection.getBalance(new PublicKey(pubkey));
+            } catch (fallbackError) {
+                this.reportError('BALANCE_CHECK_FAILOVER', fallbackError);
+                return null;
+            }
+        }
+
+        if (balance !== null) {
             const sol = balance / 1e9;
             this.log(`Wallet Balance: ${sol} SOL (${pubkey})`, sol > 0.015 ? 'MONEY' : 'INFO');
             return sol;
-        } catch (e) {
-            this.reportError('BALANCE_CHECK', e);
-            return null;
         }
+        return null;
     }
 
     async delay(ms) {
