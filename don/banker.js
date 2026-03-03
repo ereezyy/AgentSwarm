@@ -212,12 +212,18 @@ const EXIT_RULES = {
 function loadTrades() {
     try {
         if (fs.existsSync(TRADES_PATH)) return JSON.parse(fs.readFileSync(TRADES_PATH, 'utf8'));
-    } catch (e) { }
+    } catch (e) {
+        console.error(chalk.red(`[BANKER #${id}]: Failed to load trades: ${e.message}`));
+    }
     return [];
 }
 
 function saveTrades(trades) {
-    try { fs.writeFileSync(TRADES_PATH, JSON.stringify(trades, null, 2)); } catch (e) { }
+    try {
+        fs.writeFileSync(TRADES_PATH, JSON.stringify(trades, null, 2));
+    } catch (e) {
+        console.error(chalk.red(`[BANKER #${id}]: Failed to save trades: ${e.message}`));
+    }
 }
 
 // ── SPL Token Holdings Scanner ──────────────────────────────────
@@ -419,7 +425,9 @@ async function checkBalance() {
         try {
             const pr = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd', { timeout: 8000 });
             solPrice = pr.data?.solana?.usd || solPrice;
-        } catch (e) { }
+        } catch (e) {
+            console.error(chalk.red(`[BANKER #${id}]: Failed to fetch SOL price: ${e.message}`));
+        }
         const solValue = solBalance * solPrice;
         console.log(chalk.yellow(`[BANKER #${id}]: 🏛️ TREASURY: ${solBalance.toFixed(4)} SOL ($${solValue.toFixed(2)})`));
 
