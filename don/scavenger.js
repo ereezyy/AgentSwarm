@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const id = process.argv[2] || 'Scavenger';
 const { ask } = require('./brain');
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./syndicate_core_impl');
 const core = new SyndicateCore();
 
 const MAX_RETRIES = 3;
