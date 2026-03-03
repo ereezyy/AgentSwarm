@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const id = process.argv[2] || 'Scavenger';
 const { ask } = require('./brain');
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./SyndicateCore.js');
 const core = new SyndicateCore();
 
 const MAX_RETRIES = 3;
@@ -29,9 +29,16 @@ async function runWithRetry(fn, label) {
 }
 
 // Derive Wallet from .env
-const secretKey = Buffer.from(process.env.SOLANA_PRIVATE_KEY, 'hex');
-const keypair = Keypair.fromSecretKey(secretKey);
-const WALLET = keypair.publicKey.toString();
+let keypair = null;
+let WALLET = 'SIMULATION_MODE';
+try {
+    const secretKey = Buffer.from(process.env.SOLANA_PRIVATE_KEY, 'hex');
+    keypair = Keypair.fromSecretKey(secretKey);
+    WALLET = keypair.publicKey.toString();
+} catch (e) {
+    console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ SOLANA_PRIVATE_KEY missing or invalid. Defaulting to SIMULATION_MODE.`));
+    process.env.SIMULATION_MODE = 'true';
+}
 
 const REPORT_PATH = path.resolve(__dirname, '../missions/scavenge_leads.md');
 const BOUNTY_TRACKER = path.resolve(__dirname, '../missions/bounty_tracker.json');
@@ -81,9 +88,25 @@ function saveTracker(data) {
 loadTracker();
 
 async function checkBalance() {
+    if (process.env.SIMULATION_MODE === 'true' || !keypair) {
+        console.log(chalk.gray(`[SCAVENGER #${id}]: SIMULATION: Skipping balance check.`));
+        return 0;
+    }
     return runWithRetry(async () => {
-        const connection = core.connection;
-        const lamports = await connection.getBalance(keypair.publicKey);
+        let connection = core.connection;
+        let lamports;
+        try {
+            lamports = await connection.getBalance(keypair.publicKey);
+        } catch (e) {
+            if (process.env.SOLANA_RPC_URL_FALLBACK) {
+                console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ Primary RPC failed, trying fallback...`));
+                const { Connection } = require('@solana/web3.js');
+                connection = new Connection(process.env.SOLANA_RPC_URL_FALLBACK, 'confirmed');
+                lamports = await connection.getBalance(keypair.publicKey);
+            } else {
+                throw e;
+            }
+        }
         const sol = (lamports / 1e9).toFixed(4);
         console.log(chalk.green(`[SCAVENGER #${id}]: 💰 Balance: ${sol} SOL`));
         return parseFloat(sol);
@@ -195,15 +218,30 @@ Save the result as a polished submission.`;
 
 // ── RENT RECLAMATION (Standard Sweep via VAULT) ──
 async function sweepDust() {
+    if (process.env.SIMULATION_MODE === 'true' || !keypair) {
+        console.log(chalk.gray(`[SCAVENGER #${id}]: SIMULATION: Skipping rent reclamation.`));
+        return;
+    }
     try {
         console.log(chalk.yellow(`[SCAVENGER #${id}]: 🧹 Reclaiming rent via VAULT...`));
-        const { PublicKey, Transaction } = require('@solana/web3.js');
+        const { PublicKey, Transaction, Connection } = require('@solana/web3.js');
         const { TOKEN_PROGRAM_ID, createCloseAccountInstruction } = require('@solana/spl-token');
 
-        const connection = core.connection;
+        let connection = core.connection;
         const walletKey = keypair.publicKey;
 
-        const accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+        let accounts;
+        try {
+            accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+        } catch (e) {
+            if (process.env.SOLANA_RPC_URL_FALLBACK) {
+                console.log(chalk.yellow(`[SCAVENGER #${id}]: ⚠️ Primary RPC failed for rent reclamation, trying fallback...`));
+                connection = new Connection(process.env.SOLANA_RPC_URL_FALLBACK, 'confirmed');
+                accounts = await connection.getParsedTokenAccountsByOwner(walletKey, { programId: TOKEN_PROGRAM_ID });
+            } else {
+                throw e;
+            }
+        }
         const emptyAccounts = accounts.value.filter(acc => acc.account.data.parsed.info.tokenAmount.uiAmount === 0);
 
         if (emptyAccounts.length === 0) return;

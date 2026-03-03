@@ -3,7 +3,7 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') }
 // Purpose: Aggressively acquire initial capital through high-risk, high-reward microtransactions
 // Version: 2.0 - Optimized for rapid funding with calculated risk
 
-const { SyndicateCore } = require('./SyndicateCore');
+const { SyndicateCore } = require('./SyndicateCore.js');
 const { RiskEngine } = require('./RiskEngine');
 
 class SeedFundingAgent {
