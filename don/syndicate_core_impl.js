@@ -57,6 +57,14 @@ class SyndicateCore {
 
     async sendJitoBundle(serializedTransactions, tipAmountLamports) {
         try {
+            const currentBalance = await this.checkWalletBalance();
+            const requiredBalance = (tipAmountLamports / 1e9) + 0.005; // tip + fees buffer
+
+            if (currentBalance === null || currentBalance < requiredBalance) {
+                this.log(`[JITO]: Insufficient balance for bundle. Need ${requiredBalance} SOL.`, 'ERROR');
+                return { success: false, error: 'Insufficient funds for Jito bundle and fees' };
+            }
+
             this.log(`[JITO]: Sparking bundle with ${serializedTransactions.length} txs and ${tipAmountLamports} tip`, 'CRYPTO');
 
             const searcher = searcherClient(this.jitoBlockEngineUrl, this.jitoAuthKey ? Keypair.fromSecretKey(Buffer.from(this.jitoAuthKey, 'hex')) : undefined);
@@ -141,8 +149,23 @@ class SyndicateCore {
             this.log(`Wallet Balance: ${sol} SOL (${pubkey})`, sol > 0.015 ? 'MONEY' : 'INFO');
             return sol;
         } catch (e) {
-            this.reportError('BALANCE_CHECK', e);
-            return null;
+            this.log(`[CORE]: Primary RPC failed for BALANCE_CHECK: ${e.message}. Retrying with fallback...`, 'WARN');
+            const fallbackUrl = process.env.SOLANA_RPC_FALLBACK_URL;
+            if (fallbackUrl) {
+                try {
+                    const fallbackConnection = new Connection(fallbackUrl, 'confirmed');
+                    const balance = await fallbackConnection.getBalance(new PublicKey(pubkey));
+                    const sol = balance / 1e9;
+                    this.log(`Wallet Balance (Fallback RPC): ${sol} SOL (${pubkey})`, sol > 0.015 ? 'MONEY' : 'INFO');
+                    return sol;
+                } catch (fallbackError) {
+                    this.reportError('BALANCE_CHECK_FALLBACK', fallbackError);
+                    return null;
+                }
+            } else {
+                this.reportError('BALANCE_CHECK', e);
+                return null;
+            }
         }
     }
 
