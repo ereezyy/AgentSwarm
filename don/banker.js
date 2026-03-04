@@ -64,23 +64,15 @@ async function sweepProfits(solBalance, currentSolPrice) {
                 lamports: lamportsToSend,
             })
         );
-        const { blockhash } = await connection.getLatestBlockhash();
+        const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
         tx.recentBlockhash = blockhash;
         tx.feePayer = hotKeypair.publicKey;
         tx.sign(hotKeypair);
 
         const sig = await connection.sendRawTransaction(tx.serialize());
-        // Poll for confirmation (HTTP-only, no WebSocket needed)
-        let confirmed = false;
-        for (let i = 0; i < 15; i++) {
-            await new Promise(r => setTimeout(r, 2000));
-            const status = await connection.getSignatureStatuses([sig]);
-            if (status?.value?.[0]?.confirmationStatus === 'confirmed' || status?.value?.[0]?.confirmationStatus === 'finalized') {
-                confirmed = true;
-                break;
-            }
-        }
-        if (!confirmed) throw new Error('Confirmation timeout (30s)');
+        // Wait for confirmation using native confirmTransaction
+        const confirmation = await connection.confirmTransaction({ signature: sig, blockhash, lastValidBlockHeight }, 'confirmed');
+        if (confirmation.value.err) throw new Error(`Confirmation failed: ${JSON.stringify(confirmation.value.err)}`);
 
         console.log(chalk.green.bold(`[BANKER #${id}]: ✅ SWEEP CONFIRMED: ${sig}`));
         if (process.send) {
