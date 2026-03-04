@@ -2,7 +2,7 @@
  * don/jules_orchestrator.js - THE EVOLVER (Autonomous Self-Healing Loop)
  * Monitors system telemetry and logs to trigger Jules fixing/expansion sessions.
  */
-const { exec } = require('child_process');
+const { execFile } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
@@ -112,9 +112,7 @@ function triggerFix(agent, prompt) {
     }
 
     burnBudget();
-    const cmd = `python muscle/jules_bridge.py --create "${prompt}" "${SOURCE_NAME}" --title "Auto-fix: ${agent}" --auto-pr`;
-
-    exec(cmd, (err, stdout, stderr) => {
+    execFile('python', ['muscle/jules_bridge.py', '--create', prompt, SOURCE_NAME, '--title', `Auto-fix: ${agent}`, '--auto-pr'], (err, stdout, stderr) => {
 
         if (err) {
             eventLog.push({ type: 'TRIGGER_FIX_ERROR', agent, error: stderr, time: new Date().toISOString() });
@@ -137,7 +135,7 @@ function triggerFix(agent, prompt) {
 }
 
 async function checkSessons() {
-    exec(`python muscle/jules_bridge.py --list-sessions`, (err, stdout, stderr) => {
+    execFile('python', ['muscle/jules_bridge.py', '--list-sessions'], (err, stdout, stderr) => {
         if (err) return;
 
         try {
@@ -158,7 +156,7 @@ async function checkSessons() {
 }
 
 function approveSession(sessId) {
-    exec(`python muscle/jules_bridge.py --approve ${sessId}`, (err, stdout, stderr) => {
+    execFile('python', ['muscle/jules_bridge.py', '--approve', sessId], (err, stdout, stderr) => {
         if (!err) {
             console.log(chalk.green(`[JULES_ORCHESTRATOR]: 🚀 Session ${sessId} approved and merged.`));
             logEvolution(`Merged session ${sessId}. Evolution complete.`);
@@ -189,9 +187,7 @@ function reportToJules() {
     // Clear the event log
     eventLog = [];
 
-    const cmd = `python muscle/jules_bridge.py --create "${summary.replace(/"/g, '\\"')}" "${SOURCE_NAME}" --title "Periodic Swarm Report" --auto-pr`;
-
-    exec(cmd, (err, stdout, stderr) => {
+    execFile('python', ['muscle/jules_bridge.py', '--create', summary, SOURCE_NAME, '--title', 'Periodic Swarm Report', '--auto-pr'], (err, stdout, stderr) => {
         if (err) {
             console.error(chalk.red(`[JULES_ORCHESTRATOR]: Failed to dispatch report to Jules: ${stderr}`));
             return;
@@ -208,7 +204,7 @@ setInterval(reportToJules, 1920000);
 function syncAndRestart() {
     console.log(chalk.cyan.bold(`[JULES_ORCHESTRATOR]: 🔄 Initiating 63-min Repo Sync & Swarm Restart...`));
 
-    exec(`git pull origin HEAD`, (err, stdout, stderr) => {
+    execFile('git', ['pull', 'origin', 'HEAD'], (err, stdout, stderr) => {
         if (err) {
             console.error(chalk.red(`[JULES_ORCHESTRATOR]: Git pull failed: ${stderr}`));
             eventLog.push({ type: 'SYNC_ERROR', error: stderr, time: new Date().toISOString() });

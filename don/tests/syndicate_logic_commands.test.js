@@ -1,3 +1,18 @@
+
+const mockChalkFn = (str) => str;
+mockChalkFn.bold = mockChalkFn;
+jest.mock('chalk', () => ({
+    red: mockChalkFn,
+    green: mockChalkFn,
+    yellow: mockChalkFn,
+    cyan: mockChalkFn,
+    blue: mockChalkFn,
+    bold: mockChalkFn,
+    gray: mockChalkFn,
+    magenta: mockChalkFn
+}), { virtual: true });
+jest.mock('axios', () => ({ post: jest.fn() }), { virtual: true });
+jest.mock('dotenv', () => ({ config: jest.fn() }), { virtual: true });
 // don/tests/syndicate_logic_commands.test.js
 
 // 1. Set NODE_ENV to test to avoid starting the real WebSocket server
@@ -30,7 +45,10 @@ jest.mock('ws', () => {
     return {
         Server: mockWebSocketServer
     };
-});
+    return {
+        Server: mockWebSocketServer
+    };
+}, { virtual: true });
 
 // 3. Import the module under test
 const don = require('../syndicate_logic');
