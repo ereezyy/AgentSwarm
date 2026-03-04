@@ -264,12 +264,16 @@ const EXIT_RULES = {
 function loadTrades() {
     try {
         if (fs.existsSync(TRADES_PATH)) return JSON.parse(fs.readFileSync(TRADES_PATH, 'utf8'));
-    } catch (e) { }
+    } catch (e) {
+        console.error(chalk.red(`[BANKER #${id}]: Failed to load trades: ${e.message}`));
+    }
     return [];
 }
 
 function saveTrades(trades) {
-    try { fs.writeFileSync(TRADES_PATH, JSON.stringify(trades, null, 2)); } catch (e) { }
+    try { fs.writeFileSync(TRADES_PATH, JSON.stringify(trades, null, 2)); } catch (e) {
+        console.error(chalk.red(`[BANKER #${id}]: Failed to save trades: ${e.message}`));
+    }
 }
 
 // ── SPL Token Holdings Scanner ──────────────────────────────────
