@@ -231,7 +231,7 @@ for epoch in range(80):
         model.W2 -= lr * dW2; model.b2 -= lr * db2
         model.W1 -= lr * dW1; model.b1 -= lr * db1
         epoch_loss += model.loss(pred, y_b); n_batches += 1
-    if (epoch + 1) % 10 == 0:
+    if not (epoch + 1) % 10:
         test_pred = model.forward(X_test)
         test_acc = ((test_pred.flatten() > 0.5) == y_test).mean()
         print(f"  Epoch {epoch+1}/80 | Loss: {epoch_loss/n_batches:.4f} | Test Acc: {test_acc*100:.2f}%")

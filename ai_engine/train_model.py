@@ -212,7 +212,7 @@ for epoch in range(50):
         epoch_loss += model.loss(pred, y_batch)
         n_batches += 1
     
-    if (epoch + 1) % 5 == 0:
+    if not (epoch + 1) % 5:
         # Test accuracy
         test_pred = model.forward(X_test)
         test_acc = ((test_pred.flatten() > 0.5) == y_test).mean()
