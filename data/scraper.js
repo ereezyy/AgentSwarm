@@ -133,4 +133,11 @@ async function scrapeHistoricalPools() {
     console.log('✅ Dataset collection complete. Ready for Phase 2: Model Training.');
 }
 
-scrapeHistoricalPools();
+if (require.main === module) {
+    scrapeHistoricalPools();
+}
+
+module.exports = {
+    fetchWalletAgeDays,
+    scrapeHistoricalPools,
+};
