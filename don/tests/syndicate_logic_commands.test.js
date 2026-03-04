@@ -1,3 +1,9 @@
+jest.mock('@solana/spl-token', () => ({}), { virtual: true });
+jest.mock('@solana/web3.js', () => ({ Connection: jest.fn(), PublicKey: jest.fn(), Keypair: jest.fn(), Transaction: jest.fn() }), { virtual: true });
+jest.mock('bs58', () => ({ decode: jest.fn(), encode: jest.fn() }), { virtual: true });
+jest.mock('axios', () => ({}), { virtual: true });
+jest.mock('chalk', () => ({ green: jest.fn(x=>x), yellow: jest.fn(x=>x), red: jest.fn(x=>x), blue: jest.fn(x=>x), magenta: jest.fn(x=>x), cyan: jest.fn(x=>x) }), { virtual: true });
+jest.mock('dotenv', () => ({ config: jest.fn() }), { virtual: true });
 // don/tests/syndicate_logic_commands.test.js
 
 // 1. Set NODE_ENV to test to avoid starting the real WebSocket server
@@ -30,7 +36,7 @@ jest.mock('ws', () => {
     return {
         Server: mockWebSocketServer
     };
-});
+}, { virtual: true });
 
 // 3. Import the module under test
 const don = require('../syndicate_logic');
