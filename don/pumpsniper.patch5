@@ -1,0 +1,25 @@
+--- don/pumpsniper.js
++++ don/pumpsniper.js
+@@ -460,11 +460,13 @@
+
+ // ── Stale tracker cleanup (runs every 60s) ───────────────────────
+-setInterval(() => {
+-    const now = Date.now();
+-    const cutoff = DECISION_WINDOW_MS + 10000;
+-    for (const [mint, tracker] of liveTokens.entries()) {
+-        if (now - tracker.firstSeen > cutoff) {
+-            liveTokens.delete(mint);
+-        }
+-    }
+-}, 60000);
++if (process.env.NODE_ENV !== 'test') {
++    setInterval(() => {
++        const now = Date.now();
++        const cutoff = DECISION_WINDOW_MS + 10000;
++        for (const [mint, tracker] of liveTokens.entries()) {
++            if (now - tracker.firstSeen > cutoff) {
++                liveTokens.delete(mint);
++            }
++        }
++    }, 60000);
++}

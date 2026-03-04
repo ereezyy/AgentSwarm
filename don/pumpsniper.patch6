@@ -1,0 +1,7 @@
+--- don/pumpsniper.js
++++ don/pumpsniper.js
+@@ -190,3 +190,3 @@
+
+-        return { success: true, outAmount: quote.outAmount, sig, mevProtected: isMevProtected };
++        return { success: true, outAmount: qRes.data.outAmount, sig, mevProtected: isMevProtected };
+     } catch (e) {

@@ -189,7 +189,7 @@ async function executeJupiterSwap(inputMint, outputMint, lamports) {
             console.log(chalk.magenta.bold(`[PUMPSNIPER #${id}]: ⚡ SWAP FIRED (Public Mempool): ${sig}`));
         }
 
-        return { success: true, outAmount: qRes.data.outAmount, sig, mevProtected: isMevProtected };
+        return { success: true, outAmount: quote.outAmount, sig, mevProtected: isMevProtected };
     } catch (e) {
         console.log(chalk.red(`[PUMPSNIPER #${id}]: Jupiter error: ${e.message}`));
         if (process.send) process.send({ type: 'LOG', level: 'ERROR', msg: `PumpSniper Execution Failed: ${e.message}` });

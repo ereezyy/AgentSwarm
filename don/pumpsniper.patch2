@@ -1,0 +1,50 @@
+--- don/pumpsniper.js
++++ don/pumpsniper.js
+@@ -487,24 +487,26 @@
+ });
+
+-// Stats heartbeat — log activity every 5 minutes
+-setInterval(() => {
+-    const positions = loadTrades().filter(t => t.source === 'PUMPSNIPER').length;
+-    console.log(chalk.magenta(
+-        `[PUMPSNIPER #${id}]: 📊 HEARTBEAT | Tracking: ${liveTokens.size} | Positions: ${positions}/${MAX_POSITIONS} | Cooldowns: ${cooldowns.size} | Buy: Dynamic`
+-    ));
+-}, 300000);
+-
+-connectPumpFun();
+-
+-// ── Adaptive Reflection: Westworld-style self-optimization ─────
+-// Every hour, the agent reviews its own memories and tunes its neural levels.
+-setInterval(async () => {
+-    console.log(chalk.magenta(`[PUMPSNIPER #${id}]: 🧠 INITIATING DEEP REFLECTION...`));
+-    const reflection = await GlobalMemory.reflect('PUMPSNIPER');
+-    if (reflection) {
+-        console.log(chalk.cyan.bold(`[PUMPSNIPER #${id}]: 💡 EPIPHANY: ${reflection.key_insight}`));
+-        console.log(chalk.cyan(`   → Rule: ${reflection.actionable_heuristic}`));
+-    }
+-}, 1 * 60 * 60 * 1000); // 1 hour reflection loop
++if (process.env.NODE_ENV !== 'test') {
++    // Stats heartbeat — log activity every 5 minutes
++    setInterval(() => {
++        const positions = loadTrades().filter(t => t.source === 'PUMPSNIPER').length;
++        console.log(chalk.magenta(
++            `[PUMPSNIPER #${id}]: 📊 HEARTBEAT | Tracking: ${liveTokens.size} | Positions: ${positions}/${MAX_POSITIONS} | Cooldowns: ${cooldowns.size} | Buy: Dynamic`
++        ));
++    }, 300000);
++
++    connectPumpFun();
++
++    // ── Adaptive Reflection: Westworld-style self-optimization ─────
++    // Every hour, the agent reviews its own memories and tunes its neural levels.
++    setInterval(async () => {
++        console.log(chalk.magenta(`[PUMPSNIPER #${id}]: 🧠 INITIATING DEEP REFLECTION...`));
++        const reflection = await GlobalMemory.reflect('PUMPSNIPER');
++        if (reflection) {
++            console.log(chalk.cyan.bold(`[PUMPSNIPER #${id}]: 💡 EPIPHANY: ${reflection.key_insight}`));
++            console.log(chalk.cyan(`   → Rule: ${reflection.actionable_heuristic}`));
++        }
++    }, 1 * 60 * 60 * 1000); // 1 hour reflection loop
++}
+
+ if (process.env.NODE_ENV === 'test') {
+     module.exports = { executeJupiterSwap };
