@@ -156,11 +156,9 @@ async function main() {
 
     // Step 3: Evaluate each job individually
     console.log(chalk.cyan(`🧠 [STEP 3] Evaluating ${jobs.length} jobs via Pi5 (${selectedModel})...\n`));
-    const results = [];
-    for (let i = 0; i < jobs.length; i++) {
-        const r = await evaluateJob(jobs[i], i + 1, selectedModel);
-        results.push(r);
-    }
+    const results = await Promise.all(
+        jobs.map((job, i) => evaluateJob(job, i + 1, selectedModel))
+    );
 
     // Step 4: Generate report
     console.log(chalk.cyan('\n📝 [STEP 4] Generating report...\n'));
