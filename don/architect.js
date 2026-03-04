@@ -280,7 +280,7 @@ async function bootTest(code, agentName) {
 
         } catch (forkError) {
             // Fork itself failed (file not found, permission denied, etc.)
-            try { fs.unlinkSync(tempFile); } catch (e) { }
+            try { fs.unlinkSync(tempFile); } catch (e) { console.error(chalk.red(`[ARCHITECT]: Failed to clean up temp file ${tempFile} for ${agentName}: ${e.message}`)); }
             resolve({ survived: false, error: `Cannot fork: ${forkError.message}`, aliveMs: 0 });
         }
     });
