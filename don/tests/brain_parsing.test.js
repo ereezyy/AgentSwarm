@@ -1,3 +1,13 @@
+
+jest.mock('chalk', () => ({
+    cyan: Object.assign(jest.fn((text) => text), { bold: jest.fn((text) => text) }),
+    magenta: jest.fn((text) => text),
+    green: jest.fn((text) => text),
+    yellow: jest.fn((text) => text),
+    red: jest.fn((text) => text)
+}), { virtual: true });
+jest.mock('dotenv', () => ({ config: jest.fn() }), { virtual: true });
+jest.mock('axios', () => ({ get: jest.fn(), post: jest.fn() }), { virtual: true });
 const assert = require('node:assert');
 const { parseJSONFromText } = require('../brain.js');
 
