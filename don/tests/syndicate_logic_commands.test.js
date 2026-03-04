@@ -2,6 +2,9 @@
 
 // 1. Set NODE_ENV to test to avoid starting the real WebSocket server
 process.env.NODE_ENV = 'test';
+jest.mock('dotenv', () => ({ config: jest.fn() }), { virtual: true });
+jest.mock('axios', () => ({}), { virtual: true });
+jest.mock('chalk', () => ({ red: jest.fn(x => x), yellow: jest.fn(x => x), green: jest.fn(x => x), blue: jest.fn(x => x), cyan: jest.fn(x => x) }), { virtual: true });
 
 // 2. Mock external dependencies
 const mockFork = jest.fn();
@@ -26,11 +29,12 @@ const mockWebSocketServer = jest.fn().mockImplementation(() => ({
     on: jest.fn(),
     clients: []
 }));
+
 jest.mock('ws', () => {
     return {
         Server: mockWebSocketServer
     };
-});
+}, { virtual: true });
 
 // 3. Import the module under test
 const don = require('../syndicate_logic');

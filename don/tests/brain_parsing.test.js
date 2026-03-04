@@ -1,4 +1,7 @@
 const assert = require('node:assert');
+jest.mock('chalk', () => ({ red: jest.fn(x => x), yellow: jest.fn(x => x), green: jest.fn(x => x), blue: jest.fn(x => x), cyan: jest.fn(x => x) }), { virtual: true });
+jest.mock('dotenv', () => ({ config: jest.fn() }), { virtual: true });
+jest.mock('axios', () => ({}), { virtual: true });
 const { parseJSONFromText } = require('../brain.js');
 
 test('parseJSONFromText parses clean JSON', () => {

@@ -280,7 +280,7 @@ async function bootTest(code, agentName) {
 
         } catch (forkError) {
             // Fork itself failed (file not found, permission denied, etc.)
-            try { fs.unlinkSync(tempFile); } catch (e) { }
+            try { fs.unlinkSync(tempFile); } catch (e) { console.warn(`[Architect] Failed to clean up temp file ${tempFile}:`, e.message); }
             resolve({ survived: false, error: `Cannot fork: ${forkError.message}`, aliveMs: 0 });
         }
     });
@@ -290,7 +290,7 @@ async function bootTest(code, agentName) {
 function analyzeTelemetry() {
     let telemetry = {};
     if (fs.existsSync(TELEMETRY_FILE)) {
-        try { telemetry = JSON.parse(fs.readFileSync(TELEMETRY_FILE, 'utf8')); } catch (e) { }
+        try { telemetry = JSON.parse(fs.readFileSync(TELEMETRY_FILE, 'utf8')); } catch (e) { console.error(`[Architect] Failed to read or parse telemetry file at ${TELEMETRY_FILE}:`, e.message); }
     }
 
     const errors = telemetry.errors || {};
