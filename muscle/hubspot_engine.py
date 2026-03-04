@@ -5,6 +5,7 @@ import asyncio
 import aiohttp
 import logging
 from datetime import datetime
+from typing import Dict, Any
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
