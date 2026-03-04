@@ -34,7 +34,7 @@ class MockClient {
             assert.strictEqual(config.password, process.env.PI_PASSWORD, 'Connect config password mismatch');
             console.log('PASS: Connect config uses env password.');
         } catch (e) {
-            console.error(e.message);
+            console.error(e);
             process.exit(1);
         }
 
@@ -47,7 +47,7 @@ class MockClient {
                         assert.strictEqual(responses[0], process.env.PI_PASSWORD, 'Keyboard-interactive password mismatch');
                         console.log('PASS: Keyboard-interactive uses env password.');
                     } catch (e) {
-                        console.error(e.message);
+                        console.error(e);
                         process.exit(1);
                     }
                 }
