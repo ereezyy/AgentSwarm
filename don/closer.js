@@ -174,7 +174,7 @@ async function evaluatePipeline() {
     if (needsProposal.length > 0) {
         console.log(cl(`✍️ Drafting proposals for ${Math.min(needsProposal.length, 3)} deals...`));
 
-        for (const deal of needsProposal.slice(0, 3)) {
+        await Promise.all(needsProposal.slice(0, 3).map(async (deal) => {
             try {
                 const proposal = await draftProposal(deal);
                 if (proposal) {
@@ -187,7 +187,7 @@ async function evaluatePipeline() {
             } catch (e) {
                 console.log(chalk.red(`[CLOSER]: Proposal draft failed: ${e.message}`));
             }
-        }
+        }));
         savePipeline(pipeline);
     }
 }
