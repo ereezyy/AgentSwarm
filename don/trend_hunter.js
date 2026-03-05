@@ -257,15 +257,8 @@ function simpleCallAnalysis(tweet, caller) {
 // ============================================================
 // MAIN SCAN LOOP
 // ============================================================
-async function runScanLoop() {
-    const callerData = loadCallers();
-    const settings = callerData.settings;
-    const callLog = loadCalls();
-
-    console.log(th(`🔍 Scanning ${callerData.callers.length} trusted callers...`));
-
+async function processTwitterCallers(callerData, settings, callLog) {
     let newCalls = 0;
-
     for (const caller of callerData.callers) {
         // Skip low-tier callers
         if (settings.minTier === 'S' && caller.tier !== 'S') continue;
@@ -360,7 +353,11 @@ async function runScanLoop() {
         // Rate limit: wait between callers
         await new Promise(r => setTimeout(r, 2000));
     }
+    return newCalls;
+}
 
+async function processDexTrends(settings, callLog) {
+    let newCalls = 0;
     // --- DEXSCREENER INTEGRATION ---
     console.log(th(`🔍 Scanning DexScreener for fresh trends...`));
     const dexTrends = await scanDexScreener();
@@ -405,6 +402,20 @@ async function runScanLoop() {
             callLog.stats.sniped++;
         }
     }
+    return newCalls;
+}
+
+async function runScanLoop() {
+    const callerData = loadCallers();
+    const settings = callerData.settings;
+    const callLog = loadCalls();
+
+    console.log(th(`🔍 Scanning ${callerData.callers.length} trusted callers...`));
+
+    let newCalls = 0;
+
+    newCalls += await processTwitterCallers(callerData, settings, callLog);
+    newCalls += await processDexTrends(settings, callLog);
 
     saveCalls(callLog);
 
