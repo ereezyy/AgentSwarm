@@ -1,6 +1,7 @@
 const { Connection, PublicKey } = require('@solana/web3.js');
 const fs = require('fs');
 const path = require('path');
+const { setTimeout } = require('timers/promises');
 require('dotenv').config();
 
 const RPC_URL = process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com';
@@ -127,7 +128,7 @@ async function scrapeHistoricalPools() {
             }
         } catch (e) {
             console.log(`RPC Error, sleeping 5s... ${e.message}`);
-            await new Promise(r => setTimeout(r, 5000));
+            await setTimeout(5000);
         }
     }
     console.log('✅ Dataset collection complete. Ready for Phase 2: Model Training.');
