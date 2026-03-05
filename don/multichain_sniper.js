@@ -76,25 +76,27 @@ async function snipeToken(chain, tokenAddress, amount) {
 
 // ── Aggregator API Execution Stubs ──────────────────────────────
 
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 async function executePancakeSwapAptos(tokenAddress, amount) {
     console.log(chalk.magenta(`📡 Requesting PancakeSwap V3 (Aptos) Aggregator Route...`));
     // In production, this would call the 1inch or PancakeSwap routing API
     // e.g., axios.get(`https://api.pancakeswap.info/api/v2/tokens/${tokenAddress}`)
-    await new Promise(r => setTimeout(r, 800)); // Simulate API latency
+    await sleep(800); // Simulate API latency
     console.log(chalk.green(`[MULTICHAIN SNIPER #${id}]: ✅ PancakeSwap Aptos Trade Executed.`));
 }
 
 async function executeCetusSui(tokenAddress, amount) {
     console.log(chalk.magenta(`📡 Requesting Cetus / aggregator route on Sui...`));
     // SUI has ultra-fast finality, rely on aggregator limits.
-    await new Promise(r => setTimeout(r, 600));
+    await sleep(600);
     console.log(chalk.green(`[MULTICHAIN SNIPER #${id}]: ✅ Cetus Sui Trade Executed.`));
 }
 
 async function executeStonFiTON(tokenAddress, amount) {
     console.log(chalk.magenta(`📡 Hooking into Telegram / Ston.fi routing for TON...`));
     // Telegram embedded execution APIs
-    await new Promise(r => setTimeout(r, 1200));
+    await sleep(1200);
     console.log(chalk.green(`[MULTICHAIN SNIPER #${id}]: ✅ Ston.fi TON Trade Executed.`));
 }
 
