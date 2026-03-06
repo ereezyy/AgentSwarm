@@ -802,10 +802,6 @@ class DonCore {
                 this.broadcast({ type: 'UPGRADE', agent: msg.agent, protocol: msg.protocol });
             } else if (msg.type === 'SIREN_SPEAK') {
                 this.log(`Intelligence Alert: ${msg.text.substring(0, 50)}...`, 'INFO');
-                // Silenced to prevent overlap with THE GENERAL (Caller)
-                // if (this.processes['CALLER'] && this.processes['CALLER'].connected) {
-                //     this.processes['CALLER'].send({ type: 'SPEAK_ALERT', text: msg.text });
-                // }
             } else if (msg.type === 'GENERATE_IMAGE') {
                 if (this.processes['FORGER'] && this.processes['FORGER'].connected) {
                     this.processes['FORGER'].send(msg);
