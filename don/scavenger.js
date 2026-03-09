@@ -5,7 +5,7 @@ const axios = require('axios');
 const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
-const { exec, execSync } = require('child_process');
+const { exec, execSync, execFile } = require('child_process');
 require('dotenv').config();
 
 const id = process.argv[2] || 'Scavenger';
@@ -213,9 +213,9 @@ If the bounty requires a script, write the script. If it requires a guide, write
 Save the result as a polished submission.`;
 
         const bridgePath = path.join(__dirname, '../muscle/jules_bridge.py');
-        const cmd = `python "${bridgePath}" --create "${prompt}" "syndicate-repo" --title "Bounty: ${bounty.id}" --auto-pr`;
+        const args = [bridgePath, "--create", prompt, "syndicate-repo", "--title", `Bounty: ${bounty.id}`, "--auto-pr"];
 
-        exec(cmd, (err, stdout) => {
+        execFile("python", args, (err, stdout) => {
             if (err) return;
             console.log(chalk.green(`[SCAVENGER #${id}]: ✅ Jules session created for bounty ${bounty.id}.`));
 
