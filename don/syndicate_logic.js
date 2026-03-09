@@ -2,7 +2,7 @@
 // Integration of advanced logic from Moltbook ecosystem.
 // don/syndicate_logic.js - THE DON (NO SIMULATIONS)
 require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
-const { exec, fork } = require('child_process');
+const { exec, fork, execFile } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
@@ -415,8 +415,9 @@ class DonCore {
 
     orderMuscle(action, target = '') {
         this.log(`Muscle Order: ${action} ${target}`);
-        const command = `python "${MUSCLE_SCRIPT}" ${action} ${target}`;
-        exec(command, (error, stdout) => {
+        const args = [MUSCLE_SCRIPT, action];
+        if (target) args.push(target);
+        execFile('python', args, (error, stdout) => {
             if (stdout) console.log(chalk.yellow(stdout.trim()));
         });
     }
