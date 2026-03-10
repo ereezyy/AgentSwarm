@@ -124,13 +124,15 @@ function probeHost(host) {
     console.log(chalk.gray(`[GHOST #${id}]: Directed probe on target ${host}...`));
 
     const fs = require('fs');
-    const tempFile = path.resolve(__dirname, `../temp_target_${id}.txt`);
+    const os = require('os');
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ghost-target-'));
+    const tempFile = path.join(tempDir, 'target.txt');
     fs.writeFileSync(tempFile, host);
 
     const cmd = `${pythonCmd} "${SCANNER_SCRIPT}" --targets "${tempFile}" --json`;
 
     exec(cmd, (error, stdout, stderr) => {
-        try { fs.unlinkSync(tempFile); } catch (e) { }
+        try { fs.rmSync(tempDir, { recursive: true, force: true }); } catch (e) { }
 
         if (error) {
             console.error(chalk.red(`[GHOST #${id}]: Probe error: ${error.message}`));
