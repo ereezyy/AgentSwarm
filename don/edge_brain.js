@@ -3,42 +3,47 @@ const axios = require('axios');
 const chalk = require('chalk');
 const { Client } = require('ssh2');
 
-const PI_IP = process.env.PI_IP || '192.168.1.78'; // Corrected PI IP
+const PI_IP = process.env.PI_HOST || process.env.PI_IP || '192.168.1.78';
 const PI_USER = process.env.PI_USER || 'ed';
-const PI_PASS = process.env.PI_PASS || '1234qwer';
+const PI_PASS = process.env.PI_PASSWORD || process.env.PI_PASS;
 const PI_PORT = 11434; // Default Ollama port
 
-console.log(chalk.magenta.bold(`[EDGE BRAIN]: Connecting to Sovereign Intelligence (Pi 5 + Hailo)...`));
+if (!PI_PASS) {
+    console.error(chalk.red('[EDGE BRAIN]: Error: PI_PASSWORD environment variable is not set.'));
+    // We don't exit here as it's a module, but we prevent connection
+} else {
+    console.log(chalk.magenta.bold(`[EDGE BRAIN]: Connecting to Sovereign Intelligence (Pi 5 + Hailo)...`));
 
-// SSH Client for Hardware Control
-const conn = new Client();
-let sshReady = false;
+    // SSH Client for Hardware Control
+    const conn = new Client();
+    let sshReady = false;
 
-conn.on('ready', () => {
-    console.log(chalk.green(`[EDGE BRAIN]: SSH Uplink Established via ${PI_USER}@${PI_IP}`));
-    sshReady = true;
-    checkHailoStats();
-}).on('error', (err) => {
-    console.log(chalk.red(`[EDGE BRAIN]: SSH Connection Failed: ${err.message}`));
-}).connect({
-    host: PI_IP,
-    port: 22,
-    username: PI_USER,
-    password: PI_PASS
-});
-
-function checkHailoStats() {
-    if (!sshReady) return;
-    conn.exec('hailo-smi', (err, stream) => {
-        if (err) return;
-        stream.on('data', (data) => {
-            const output = data.toString();
-            // Simple check for NPU activity
-            if (output.includes('Hailo-8')) {
-                console.log(chalk.cyan(`[EDGE BRAIN]: Hailo-8 NPU Detected & Active.`));
-            }
-        });
+    conn.on('ready', () => {
+        console.log(chalk.green(`[EDGE BRAIN]: SSH Uplink Established via ${PI_USER}@${PI_IP}`));
+        sshReady = true;
+        checkHailoStats();
+    }).on('error', (err) => {
+        console.log(chalk.red(`[EDGE BRAIN]: SSH Connection Failed: ${err.message}`));
+    }).connect({
+        host: PI_IP,
+        port: 22,
+        username: PI_USER,
+        password: PI_PASS
     });
+
+    function checkHailoStats() {
+        if (!sshReady) return;
+        conn.exec('hailo-smi', (err, stream) => {
+            if (err) return;
+            stream.on('data', (data) => {
+                const output = data.toString();
+                // Simple check for NPU activity
+                if (output.includes('Hailo-8')) {
+                    console.log(chalk.cyan(`[EDGE BRAIN]: Hailo-8 NPU Detected & Active.`));
+                }
+            });
+        });
+    }
 }
 
 async function queryLocalBrain(prompt, systemMsg = "You are a helpful AI.") {
