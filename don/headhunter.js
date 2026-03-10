@@ -498,15 +498,19 @@ async function runHuntLoop() {
         const evaluatedJobs = await evaluateJobs(jobs);
         const snipes = evaluatedJobs.filter(j => j.verdict === 'SNIPE');
         const proposals = [];
+        const targetSnipes = snipes.slice(0, 3);
 
-        for (const snipe of snipes.slice(0, 3)) {
-            // RESEARCH ENRICHMENT
+        // Parallel RESEARCH ENRICHMENT
+        console.log(hh(`🚀 Parallelizing deep research for ${targetSnipes.length} targets...`));
+        await Promise.all(targetSnipes.map(async (snipe) => {
             const research = await deepResearch(snipe);
             if (research) {
                 snipe.research = research;
                 console.log(hh(`💎 Enriched "${snipe.title}" with AgentSystem context.`));
             }
+        }));
 
+        for (const snipe of targetSnipes) {
             const proposal = await generateProposal(snipe);
             if (proposal) proposals.push({ jobTitle: snipe.title, text: proposal, research: snipe.research });
             await sleep(2000);
