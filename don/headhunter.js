@@ -9,6 +9,7 @@ require('dotenv').config();
 
 const id = process.argv[2] || 'Headhunter';
 const { ask } = require('./brain');
+const { deepResearch } = require('./research_scraper');
 const UPWORK_TOKEN = process.env.UPWORK_ACCESS_TOKEN;
 const UPWORK_API = 'https://www.upwork.com/api';
 
@@ -283,69 +284,6 @@ function extractSkills(d) {
 function extractCat(d) {
     const m = d.match(/Category:\s*([^\n<]+)/i);
     return m ? m[1].trim() : 'Unknown';
-}
-
-// ============================================================
-// AGENTSYSTEM RESEARCH MUSCLE (New Bridge)
-// ============================================================
-async function deepResearch(job) {
-    console.log(hh(`🔍 Performing Deep Background Research for: "${job.title}"...`));
-
-    const leadData = {
-        id: job.id,
-        company: job.clientInfo?.source === 'Reddit' ? job.clientInfo.author : (job.title.split('at')[1] || job.title).trim(),
-        title: job.title,
-        description: job.description,
-        industry: job.category
-    };
-
-    return new Promise((resolve) => {
-        const researchPath = path.join(__dirname, '../muscle/research_agent.py');
-        execFile('python', [researchPath, JSON.stringify(leadData)], {
-            timeout: 30000
-        }, async (error, stdout, stderr) => {
-            if (error) {
-                console.log(chalk.red(`  ❌ Research Muscle failed: ${error.message}`));
-                resolve(null);
-                return;
-            }
-            try {
-                // NEW: Use Summarizer Bridge if data is too large for industrial-grade processing
-                if (stdout.length > 3000) {
-                    console.log(hh(`🧠 Input data too large (${stdout.length} chars). Summarizing...`));
-                    const summary = await summarizeResearch(stdout);
-                    resolve(summary);
-                } else {
-                    const research = JSON.parse(stdout);
-                    console.log(hh(`🧬 Deep Research Complete. Tech: ${research.technology_stack?.join(', ') || 'N/A'}`));
-                    resolve(research);
-                }
-            } catch (e) {
-                console.log(chalk.red(`  ❌ Research Muscle parse error: ${e.message}`));
-                resolve(null);
-            }
-        });
-    });
-}
-
-async function summarizeResearch(content) {
-    return new Promise((resolve) => {
-        const summarizerPath = path.join(__dirname, '../muscle/summarizer_bridge.py');
-        const child = exec(`python ${summarizerPath}`, (err, stdout) => {
-            if (err) {
-                console.log(chalk.red(`  ❌ Summarization failed: ${err.message}`));
-                resolve({ summary: "Summarization failed", key_signals: ["ERROR"] });
-                return;
-            }
-            try {
-                resolve(JSON.parse(stdout));
-            } catch (e) {
-                resolve({ summary: "Parse failed during summarization", key_signals: ["ERROR"] });
-            }
-        });
-        child.stdin.write(JSON.stringify({ content }));
-        child.stdin.end();
-    });
 }
 
 
