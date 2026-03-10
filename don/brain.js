@@ -109,19 +109,24 @@ async function executeRequest(url, body, options = {}) {
 }
 
 async function callOpenAICompat(provider, messages, options = {}) {
-    const body = {
-        model: options.model || provider.model,
-        messages,
-        temperature: options.temperature ?? 0.7,
-        max_tokens: options.max_tokens ?? 2048,
-    };
-    if (options.response_format) body.response_format = options.response_format;
+    try {
+        const body = {
+            model: options.model || provider.model,
+            messages,
+            temperature: options.temperature ?? 0.7,
+            max_tokens: options.max_tokens ?? 2048,
+        };
+        if (options.response_format) body.response_format = options.response_format;
 
-    const data = await executeRequest(`${provider.baseUrl}/chat/completions`, body, {
-        headers: { 'Authorization': `Bearer ${provider.apiKey}` },
-        timeout: provider.timeout
-    });
-    return data.choices[0].message.content;
+        const data = await executeRequest(`${provider.baseUrl}/chat/completions`, body, {
+            headers: { 'Authorization': `Bearer ${provider.apiKey}` },
+            timeout: provider.timeout
+        });
+        return data.choices[0].message.content;
+    } catch (error) {
+        console.error(`[Brain] Error in callOpenAICompat for provider ${provider.name}:`, error.message);
+        throw error;
+    }
 }
 
 async function callGemini(provider, messages, options = {}) {
