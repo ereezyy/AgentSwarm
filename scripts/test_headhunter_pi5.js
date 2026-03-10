@@ -16,7 +16,7 @@ if (!PI_PASSWORD) {
     process.exit(1);
 }
 
-const OLLAMA_URL = `http://${PI_IP}:11434`;
+const OLLAMA_URL = `http://127.0.0.1:11434`;
 const MONITOR_URL = `http://${PI_IP}:8888`;
 const REPORT_PATH = path.resolve(__dirname, '../missions/upwork_leads_pi5_test.md');
 

@@ -14,7 +14,7 @@ if (!PI_PASSWORD) {
     process.exit(1);
 }
 
-const OLLAMA_URL = `http://${PI_IP}:11434`;
+const OLLAMA_URL = `http://127.0.0.1:11434`;
 
 async function main() {
     console.log(chalk.hex('#FF6600').bold('\n=== PI5 OLLAMA QUICK TEST ===\n'));

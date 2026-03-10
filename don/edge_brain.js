@@ -21,6 +21,28 @@ if (!PI_PASS) {
     conn.on('ready', () => {
         console.log(chalk.green(`[EDGE BRAIN]: SSH Uplink Established via ${PI_USER}@${PI_IP}`));
         sshReady = true;
+
+        // Establish secure tunnel for local querying
+        const net = require('net');
+        const tunnel = net.createServer(socket => {
+            conn.forwardOut(socket.remoteAddress, socket.remotePort, '127.0.0.1', 11434, (err, stream) => {
+                if (err) return socket.end();
+                socket.pipe(stream).pipe(socket);
+            });
+        });
+
+        tunnel.on('error', (e) => {
+            if (e.code === 'EADDRINUSE') {
+                console.log(chalk.gray(`[EDGE BRAIN]: Tunnel port 11434 already in use (likely by another process or local Ollama).`));
+            } else {
+                console.error(chalk.red(`[EDGE BRAIN]: Tunnel error: ${e.message}`));
+            }
+        });
+
+        tunnel.listen(11434, '127.0.0.1', () => {
+            console.log(chalk.green(`[EDGE BRAIN]: Secure SSH Tunnel established on 127.0.0.1:11434 to remote Ollama.`));
+        });
+
         checkHailoStats();
     }).on('error', (err) => {
         console.log(chalk.red(`[EDGE BRAIN]: SSH Connection Failed: ${err.message}`));
@@ -50,7 +72,7 @@ async function queryLocalBrain(prompt, systemMsg = "You are a helpful AI.") {
     try {
         console.log(chalk.magenta(`[EDGE BRAIN]: Synapse firing to ${PI_IP}...`));
         // ... (Keep existing axios logic for now, as it's faster for text gen than SSH exec)
-        const response = await axios.post(`http://${PI_IP}:${PI_PORT}/api/generate`, {
+        const response = await axios.post(`http://127.0.0.1:${PI_PORT}/api/generate`, {
             model: "llama3", // Or whatever model is loaded on the Pi
             prompt: `${systemMsg}\n\n${prompt}`,
             stream: false

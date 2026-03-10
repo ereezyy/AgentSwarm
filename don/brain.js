@@ -62,7 +62,7 @@ if (process.env.XAI_API_KEY) {
 PROVIDERS.push({
     name: 'Local (Pi5)',
     type: 'ollama',
-    baseUrl: process.env.OLLAMA_BASE_URL || 'http://192.168.1.78:11434',
+    baseUrl: process.env.OLLAMA_BASE_URL || 'http://127.0.0.1:11434',
     model: 'llama3.2',
     maxRetries: 1,
     timeout: 15000,

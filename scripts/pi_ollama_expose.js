@@ -13,12 +13,12 @@ if (!password) {
 }
 
 conn.on('ready', () => {
-    console.log('SSH CONNECTED - Configuring Ollama for remote access...\n');
+    console.log('SSH CONNECTED - Configuring Ollama for secure local-only access...\n');
 
-    // Create systemd override to set OLLAMA_HOST=0.0.0.0
+    // Create systemd override to set OLLAMA_HOST=127.0.0.1
     const cmds = [
         'sudo mkdir -p /etc/systemd/system/ollama.service.d',
-        'echo -e "[Service]\\nEnvironment=OLLAMA_HOST=0.0.0.0" | sudo tee /etc/systemd/system/ollama.service.d/override.conf',
+        'echo -e "[Service]\\nEnvironment=OLLAMA_HOST=127.0.0.1" | sudo tee /etc/systemd/system/ollama.service.d/override.conf',
         'sudo systemctl daemon-reload',
         'sudo systemctl restart ollama',
         'sleep 3',
@@ -34,12 +34,36 @@ conn.on('ready', () => {
         stream.stderr.on('data', (d) => { output += d.toString(); });
         stream.on('close', () => {
             console.log(output);
-            if (output.includes('0.0.0.0:11434')) {
-                console.log('\n✅ Ollama now listening on 0.0.0.0:11434 — accessible remotely!');
-            } else {
-                console.log('\n⚠️ May still be localhost only — check output above');
-            }
-            conn.end();
+
+            console.log('\n🔒 Securing Ollama... Establishing encrypted SSH tunnel...');
+            const net = require('net');
+            const server = net.createServer((socket) => {
+                conn.forwardOut(socket.remoteAddress, socket.remotePort, '127.0.0.1', 11434, (err, fwdStream) => {
+                    if (err) {
+                        console.error('Forward error:', err);
+                        socket.end();
+                        return;
+                    }
+                    socket.pipe(fwdStream).pipe(socket);
+                });
+            });
+
+            server.on('error', (e) => {
+                if (e.code === 'EADDRINUSE') {
+                    console.log('\n⚠️  Local port 11434 is already in use. Is a tunnel already running or local Ollama active?');
+                } else {
+                    console.error('\n❌ Tunnel error:', e.message);
+                }
+                conn.end();
+            });
+
+            server.listen(11434, '127.0.0.1', () => {
+                console.log('\n✅ Secure SSH tunnel established!');
+                console.log('   Ollama is now securely accessible locally at http://127.0.0.1:11434');
+                console.log('   Keep this script running to maintain the connection. Press Ctrl+C to exit.');
+            });
+
+            // Do not call conn.end() so the tunnel stays open
         });
     });
 }).on('keyboard-interactive', (n, i, l, p, f) => {
