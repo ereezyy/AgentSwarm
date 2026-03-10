@@ -50,6 +50,36 @@ let executedBundles = 0;
 
 let isScanning = false;
 
+
+async function getJupiterQuote(inputMint, outputMint, amount) {
+    const JUPITER_QUOTE_APIS = [
+        'https://lite-api.jup.ag/swap/v1/quote'
+    ];
+    let quoteRes = null;
+    let lastErr = null;
+    for (const apiUrl of JUPITER_QUOTE_APIS) {
+        if (quoteRes?.data) break;
+        for (let attempt = 1; attempt <= 4; attempt++) {
+            try {
+                quoteRes = await axios.get(apiUrl, {
+                    params: { inputMint, outputMint, amount, slippageBps: 10 },
+                    timeout: 5000
+                });
+                if (quoteRes?.data) break;
+            } catch (e) {
+                lastErr = e.response?.status === 429 ? '429 Rate Limit' : e.message;
+                if (e.response?.status === 429 && attempt < 4) {
+                    const backoff = (attempt ** 2) * 1000 + Math.random() * 500;
+                    await new Promise(r => setTimeout(r, backoff));
+                    continue;
+                }
+                break;
+            }
+        }
+    }
+    return quoteRes;
+}
+
 // ── Cyclical Arbitrage Scanner ─────────────────────────────────
 async function scanCyclicalArbitrage() {
     if (!wallet || isScanning) return;
@@ -59,59 +89,14 @@ async function scanCyclicalArbitrage() {
     const tradeLamports = Math.floor(TRADE_AMOUNT_SOL * 1e9);
     scansThisSession++;
 
-    const JUPITER_QUOTE_APIS = [
-        'https://lite-api.jup.ag/swap/v1/quote'
-    ];
-
     try {
-        let buyQuoteRes = null;
-        let lastErr = null;
-        for (const apiUrl of JUPITER_QUOTE_APIS) {
-            if (buyQuoteRes?.data) break;
-            for (let attempt = 1; attempt <= 4; attempt++) {
-                try {
-                    buyQuoteRes = await axios.get(apiUrl, {
-                        params: { inputMint: WSOL_MINT, outputMint: preyToken, amount: tradeLamports, slippageBps: 10 },
-                        timeout: 5000
-                    });
-                    if (buyQuoteRes?.data) break;
-                } catch (e) {
-                    lastErr = e.response?.status === 429 ? '429 Rate Limit' : e.message;
-                    if (e.response?.status === 429 && attempt < 4) {
-                        const backoff = (attempt ** 2) * 1000 + Math.random() * 500;
-                        await new Promise(r => setTimeout(r, backoff));
-                        continue;
-                    }
-                    break;
-                }
-            }
-        }
+        let buyQuoteRes = await getJupiterQuote(WSOL_MINT, preyToken, tradeLamports);
 
         const outToken = buyQuoteRes?.data?.outAmount;
         if (!outToken) return;
 
         // Leg 2: Token -> SOL
-        let sellQuoteRes = null;
-        for (const apiUrl of JUPITER_QUOTE_APIS) {
-            if (sellQuoteRes?.data) break;
-            for (let attempt = 1; attempt <= 4; attempt++) {
-                try {
-                    sellQuoteRes = await axios.get(apiUrl, {
-                        params: { inputMint: preyToken, outputMint: WSOL_MINT, amount: outToken, slippageBps: 10 },
-                        timeout: 5000
-                    });
-                    if (sellQuoteRes?.data) break;
-                } catch (e) {
-                    lastErr = e.response?.status === 429 ? '429 Rate Limit' : e.message;
-                    if (e.response?.status === 429 && attempt < 4) {
-                        const backoff = (attempt ** 2) * 1000 + Math.random() * 500;
-                        await new Promise(r => setTimeout(r, backoff));
-                        continue;
-                    }
-                    break;
-                }
-            }
-        }
+        let sellQuoteRes = await getJupiterQuote(preyToken, WSOL_MINT, outToken);
 
         const outSolLamports = sellQuoteRes?.data?.outAmount;
         if (!outSolLamports) return;
