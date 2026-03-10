@@ -60,31 +60,37 @@ async function scanCyclicalArbitrage() {
     scansThisSession++;
 
     const JUPITER_QUOTE_APIS = [
-        'https://lite-api.jup.ag/swap/v1/quote'
+        'https://lite-api.jup.ag/swap/v1/quote',
+        'https://quote-api.jup.ag/v6/quote'
     ];
 
     try {
         let buyQuoteRes = null;
         let lastErr = null;
-        for (const apiUrl of JUPITER_QUOTE_APIS) {
-            if (buyQuoteRes?.data) break;
-            for (let attempt = 1; attempt <= 4; attempt++) {
-                try {
-                    buyQuoteRes = await axios.get(apiUrl, {
-                        params: { inputMint: WSOL_MINT, outputMint: preyToken, amount: tradeLamports, slippageBps: 10 },
-                        timeout: 5000
-                    });
-                    if (buyQuoteRes?.data) break;
-                } catch (e) {
-                    lastErr = e.response?.status === 429 ? '429 Rate Limit' : e.message;
-                    if (e.response?.status === 429 && attempt < 4) {
-                        const backoff = (attempt ** 2) * 1000 + Math.random() * 500;
-                        await new Promise(r => setTimeout(r, backoff));
-                        continue;
+        try {
+            buyQuoteRes = await Promise.any(
+                JUPITER_QUOTE_APIS.map(async (apiUrl) => {
+                    for (let attempt = 1; attempt <= 4; attempt++) {
+                        try {
+                            const res = await axios.get(apiUrl, {
+                                params: { inputMint: WSOL_MINT, outputMint: preyToken, amount: tradeLamports, slippageBps: 10 },
+                                timeout: 5000
+                            });
+                            if (res?.data) return res;
+                        } catch (e) {
+                            if (e.response?.status === 429 && attempt < 4) {
+                                const backoff = (attempt ** 2) * 1000 + Math.random() * 500;
+                                await new Promise(r => setTimeout(r, backoff));
+                                continue;
+                            }
+                            throw e;
+                        }
                     }
-                    break;
-                }
-            }
+                    throw new Error("Max attempts reached");
+                })
+            );
+        } catch (e) {
+            lastErr = e.errors ? e.errors[0]?.message : e.message;
         }
 
         const outToken = buyQuoteRes?.data?.outAmount;
@@ -92,25 +98,30 @@ async function scanCyclicalArbitrage() {
 
         // Leg 2: Token -> SOL
         let sellQuoteRes = null;
-        for (const apiUrl of JUPITER_QUOTE_APIS) {
-            if (sellQuoteRes?.data) break;
-            for (let attempt = 1; attempt <= 4; attempt++) {
-                try {
-                    sellQuoteRes = await axios.get(apiUrl, {
-                        params: { inputMint: preyToken, outputMint: WSOL_MINT, amount: outToken, slippageBps: 10 },
-                        timeout: 5000
-                    });
-                    if (sellQuoteRes?.data) break;
-                } catch (e) {
-                    lastErr = e.response?.status === 429 ? '429 Rate Limit' : e.message;
-                    if (e.response?.status === 429 && attempt < 4) {
-                        const backoff = (attempt ** 2) * 1000 + Math.random() * 500;
-                        await new Promise(r => setTimeout(r, backoff));
-                        continue;
+        try {
+            sellQuoteRes = await Promise.any(
+                JUPITER_QUOTE_APIS.map(async (apiUrl) => {
+                    for (let attempt = 1; attempt <= 4; attempt++) {
+                        try {
+                            const res = await axios.get(apiUrl, {
+                                params: { inputMint: preyToken, outputMint: WSOL_MINT, amount: outToken, slippageBps: 10 },
+                                timeout: 5000
+                            });
+                            if (res?.data) return res;
+                        } catch (e) {
+                            if (e.response?.status === 429 && attempt < 4) {
+                                const backoff = (attempt ** 2) * 1000 + Math.random() * 500;
+                                await new Promise(r => setTimeout(r, backoff));
+                                continue;
+                            }
+                            throw e;
+                        }
                     }
-                    break;
-                }
-            }
+                    throw new Error("Max attempts reached");
+                })
+            );
+        } catch (e) {
+            lastErr = e.errors ? e.errors[0]?.message : e.message;
         }
 
         const outSolLamports = sellQuoteRes?.data?.outAmount;
