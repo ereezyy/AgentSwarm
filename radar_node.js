@@ -302,53 +302,58 @@ const MARGINFI_EVENTS = {
     repay: ['LendingAccountRepay', 'lending_account_repay'],
 };
 
+
+async function handleMarginFiLog(logInfo, context) {
+    if (logInfo.err !== null) return; // Skip failed txs
+
+    const logStr = logInfo.logs.join(' ');
+    const sig = logInfo.signature;
+
+    // Check for liquidation events — someone is getting liquidated RIGHT NOW
+    const isLiquidation = MARGINFI_EVENTS.liquidate.some(e => logStr.includes(e));
+    if (isLiquidation) {
+        stats.marginfiUnderwaterFound++;
+        console.log(`\n🩸🩸 [MARGINFI SCANNER]: LIQUIDATION EVENT DETECTED!`);
+        console.log(`   Signature: ${sig.slice(0, 20)}...`);
+
+        if (wsToMainPC && wsToMainPC.readyState === WebSocket.OPEN) {
+            wsToMainPC.send(JSON.stringify({
+                type: 'PI_TRIGGER',
+                action: 'MARGINFI_LIQUIDATION_DETECTED',
+                signature: sig,
+                timestamp: Date.now()
+            }));
+            console.log(`⚡ [MARGINFI SCANNER]: Liquidation trigger beamed to Syndicate Hub.`);
+        }
+        return;
+    }
+
+    // Track borrows and withdrawals (these move accounts closer to liquidation)
+    const isBorrow = MARGINFI_EVENTS.borrow.some(e => logStr.includes(e));
+    const isWithdraw = MARGINFI_EVENTS.withdraw.some(e => logStr.includes(e));
+
+    if (isBorrow || isWithdraw) {
+        stats.marginfiScans++;
+        const eventType = isBorrow ? 'BORROW' : 'WITHDRAW';
+
+        // Log every 10th event to avoid console spam
+        if (stats.marginfiScans % 10 === 1) {
+            console.log(`📊 [MARGINFI SCANNER]: ${eventType} event #${stats.marginfiScans} | Sig: ${sig.slice(0, 16)}...`);
+        }
+    }
+}
+
 function startMarginFiScanner() {
+
     if (marginfiStreamId) connection.removeOnLogsListener(marginfiStreamId);
 
     console.log(`📡 [MARGINFI SCANNER]: Subscribing to MarginFi v2 program logs (REAL events only)...`);
     console.log(`📡 [MARGINFI SCANNER]: Program: ${MARGINFI_PROGRAM_ID.toString()}`);
 
-    marginfiStreamId = connection.onLogs(
+
+marginfiStreamId = connection.onLogs(
         MARGINFI_PROGRAM_ID,
-        async (logInfo, context) => {
-            if (logInfo.err !== null) return; // Skip failed txs
-
-            const logStr = logInfo.logs.join(' ');
-            const sig = logInfo.signature;
-
-            // Check for liquidation events — someone is getting liquidated RIGHT NOW
-            const isLiquidation = MARGINFI_EVENTS.liquidate.some(e => logStr.includes(e));
-            if (isLiquidation) {
-                stats.marginfiUnderwaterFound++;
-                console.log(`\n🩸🩸 [MARGINFI SCANNER]: LIQUIDATION EVENT DETECTED!`);
-                console.log(`   Signature: ${sig.slice(0, 20)}...`);
-
-                if (wsToMainPC && wsToMainPC.readyState === WebSocket.OPEN) {
-                    wsToMainPC.send(JSON.stringify({
-                        type: 'PI_TRIGGER',
-                        action: 'MARGINFI_LIQUIDATION_DETECTED',
-                        signature: sig,
-                        timestamp: Date.now()
-                    }));
-                    console.log(`⚡ [MARGINFI SCANNER]: Liquidation trigger beamed to Syndicate Hub.`);
-                }
-                return;
-            }
-
-            // Track borrows and withdrawals (these move accounts closer to liquidation)
-            const isBorrow = MARGINFI_EVENTS.borrow.some(e => logStr.includes(e));
-            const isWithdraw = MARGINFI_EVENTS.withdraw.some(e => logStr.includes(e));
-
-            if (isBorrow || isWithdraw) {
-                stats.marginfiScans++;
-                const eventType = isBorrow ? 'BORROW' : 'WITHDRAW';
-
-                // Log every 10th event to avoid console spam
-                if (stats.marginfiScans % 10 === 1) {
-                    console.log(`📊 [MARGINFI SCANNER]: ${eventType} event #${stats.marginfiScans} | Sig: ${sig.slice(0, 16)}...`);
-                }
-            }
-        },
+        handleMarginFiLog,
         'confirmed'
     );
 
