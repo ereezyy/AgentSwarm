@@ -142,7 +142,6 @@ async function scanMarketSentiment() {
                         timestamp: new Date().toISOString()
                     });
 
-                    // [FIX] Hand off the position to the SNIPER's PnL loop so we don't hold dead bags forever.
                     process.send({
                         type: 'TRADE_EXECUTED',
                         mint: mint,

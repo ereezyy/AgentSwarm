@@ -1036,6 +1036,13 @@ class DonCore {
                         this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...msg });
                     }
                 }
+            } else if (msg.type === 'TRADE_EXECUTED') {
+                if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                    this.processes['SNIPER'].send(msg);
+                }
+                if (this.processes['ECHO_CHAMBER'] && this.processes['ECHO_CHAMBER'].connected) {
+                    this.processes['ECHO_CHAMBER'].send(msg);
+                }
             } else if (msg.type === 'EMERGENCY_SELL') {
                 // Zero-Rug detected a post-buy rug — dump immediately
                 this.log(`EMERGENCY SELL: ${msg.mint} — ${msg.reason}`, 'DANGER');
