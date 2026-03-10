@@ -31,13 +31,13 @@ function sftpUpload(conn, localPath, remotePath) {
 async function run() {
     const conn = new Client();
 
-    const host = process.env.PI_HOST || '192.168.1.78';
-    const port = parseInt(process.env.PI_PORT || '22', 10);
-    const username = process.env.PI_USER || 'ed';
+    const host = process.env.PI_HOST;
+    const port = process.env.PI_PORT ? parseInt(process.env.PI_PORT, 10) : undefined;
+    const username = process.env.PI_USER;
     const password = process.env.PI_PASSWORD;
 
-    if (!password) {
-        console.error('❌ Error: PI_PASSWORD environment variable is not set.');
+    if (!host || !port || !username || !password) {
+        console.error('❌ Error: PI_HOST, PI_PORT, PI_USER, and PI_PASSWORD environment variables must be set.');
         process.exit(1);
     }
 
