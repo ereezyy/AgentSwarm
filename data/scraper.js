@@ -37,6 +37,73 @@ async function fetchWalletAgeDays(walletPubkey) {
     }
 }
 
+async function processTransaction(tx) {
+    // Extract Creator Wallet (usually the fee payer)
+    const creatorWalletStr = tx.transaction.message.staticAccountKeys[0].toString();
+    const creatorWallet = new PublicKey(creatorWalletStr);
+
+    // 1. Creator Wallet Age
+    const creatorWalletAgeDays = await fetchWalletAgeDays(creatorWallet);
+
+    // 2. Creator SOL Balance (at current time, for speed, ideally at block time but getBalance is specific to current state unless using archive node)
+    const balLamports = await connection.getBalance(creatorWallet);
+    const creatorSOLBalance = balLamports / 1e9;
+
+    // Find Token Mint & initial Liquidity
+    let targetMint = null;
+    let initialLiquiditySOL = 0;
+
+    const accountKeys = tx.transaction.message.staticAccountKeys;
+    for (const key of accountKeys) {
+        const pubkeyStr = key.toString();
+        if (
+            pubkeyStr !== WSOL_MINT &&
+            pubkeyStr !== '11111111111111111111111111111111' &&
+            pubkeyStr !== 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' &&
+            pubkeyStr !== '675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8'
+        ) {
+            targetMint = pubkeyStr;
+        }
+    }
+
+    if (!targetMint) return null;
+
+    // Proxy for initial liquidity: find pre/post WSOL balances for the pool (simplified to random normal range if archive RPC block fails)
+    // (In a true production scraper tied to an archive node, we parse preBalances/postBalances)
+    // For now, grabbing the token info directly
+
+    let tokenSupply = 1000000000;
+    let freezeRevoked = 1;
+    let mintRevoked = 1;
+
+    try {
+        const mintInfo = await connection.getTokenSupply(new PublicKey(targetMint));
+        tokenSupply = mintInfo.value.uiAmount;
+        // Detailed mint info requires `getAccountInfo` and Layout parsing, simulating output for speed
+        // as basic RPCs will rate limit heavily on this many distinct calls per loop.
+        // For building the true pipeline, Helius/QuickNode is required.
+        const accountInfo = await connection.getParsedAccountInfo(new PublicKey(targetMint));
+        if (accountInfo.value && accountInfo.value.data && accountInfo.value.data.parsed) {
+            freezeRevoked = accountInfo.value.data.parsed.info.freezeAuthority === null ? 1 : 0;
+            mintRevoked = accountInfo.value.data.parsed.info.mintAuthority === null ? 1 : 0;
+        }
+    } catch (e) { /* Ignore partial RPC failures */ }
+
+    // Determine Label:
+    // Query pool info right now (which is >1 hour later since we are scanning historical signatures)
+    // Simple heuristic for dataset: if the coin's liquidity is empty or it has zero trading volume, it rug pulled.
+    // (Using a random proxy for label in this architectural scaffold to demonstrate pipeline execution)
+    const isRug = Math.random() > 0.15 ? 1 : 0; // Historically 85%+ are rugs
+
+    // Optional: Get actual liquidity depth here via Jupiter Price API to confirm if pool is dead
+
+    // Write to CSV
+    const csvLine = `${creatorWalletAgeDays.toFixed(2)},${creatorSOLBalance.toFixed(2)},15.0,${tokenSupply},${freezeRevoked},${mintRevoked},${isRug}\n`;
+    fs.appendFileSync(DATA_FILE, csvLine);
+
+    return { targetMint, isRug };
+}
+
 async function scrapeHistoricalPools() {
     let lastSignature = null;
     let poolsCollected = 0;
@@ -59,71 +126,11 @@ async function scrapeHistoricalPools() {
                 // Check for Initialize2 instruction (simplistic check in log messages)
                 if (tx.meta.logMessages && tx.meta.logMessages.some(log => log.includes('initialize2') || log.includes('Instruction: Initialize2'))) {
 
-                    // Extract Creator Wallet (usually the fee payer)
-                    const creatorWalletStr = tx.transaction.message.staticAccountKeys[0].toString();
-                    const creatorWallet = new PublicKey(creatorWalletStr);
-
-                    // 1. Creator Wallet Age
-                    const creatorWalletAgeDays = await fetchWalletAgeDays(creatorWallet);
-
-                    // 2. Creator SOL Balance (at current time, for speed, ideally at block time but getBalance is specific to current state unless using archive node)
-                    const balLamports = await connection.getBalance(creatorWallet);
-                    const creatorSOLBalance = balLamports / 1e9;
-
-                    // Find Token Mint & initial Liquidity
-                    let targetMint = null;
-                    let initialLiquiditySOL = 0;
-
-                    const accountKeys = tx.transaction.message.staticAccountKeys;
-                    for (const key of accountKeys) {
-                        const pubkeyStr = key.toString();
-                        if (
-                            pubkeyStr !== WSOL_MINT &&
-                            pubkeyStr !== '11111111111111111111111111111111' &&
-                            pubkeyStr !== 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' &&
-                            pubkeyStr !== '675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8'
-                        ) {
-                            targetMint = pubkeyStr;
-                        }
+                    const result = await processTransaction(tx);
+                    if (result) {
+                        poolsCollected++;
+                        console.log(`[${poolsCollected}/25000] Mined pool data: ${result.targetMint} | Rug: ${result.isRug}`);
                     }
-
-                    if (!targetMint) continue;
-
-                    // Proxy for initial liquidity: find pre/post WSOL balances for the pool (simplified to random normal range if archive RPC block fails)
-                    // (In a true production scraper tied to an archive node, we parse preBalances/postBalances)
-                    // For now, grabbing the token info directly
-
-                    let tokenSupply = 1000000000;
-                    let freezeRevoked = 1;
-                    let mintRevoked = 1;
-
-                    try {
-                        const mintInfo = await connection.getTokenSupply(new PublicKey(targetMint));
-                        tokenSupply = mintInfo.value.uiAmount;
-                        // Detailed mint info requires `getAccountInfo` and Layout parsing, simulating output for speed 
-                        // as basic RPCs will rate limit heavily on this many distinct calls per loop.
-                        // For building the true pipeline, Helius/QuickNode is required.
-                        const accountInfo = await connection.getParsedAccountInfo(new PublicKey(targetMint));
-                        if (accountInfo.value && accountInfo.value.data && accountInfo.value.data.parsed) {
-                            freezeRevoked = accountInfo.value.data.parsed.info.freezeAuthority === null ? 1 : 0;
-                            mintRevoked = accountInfo.value.data.parsed.info.mintAuthority === null ? 1 : 0;
-                        }
-                    } catch (e) { /* Ignore partial RPC failures */ }
-
-                    // Determine Label: 
-                    // Query pool info right now (which is >1 hour later since we are scanning historical signatures)
-                    // Simple heuristic for dataset: if the coin's liquidity is empty or it has zero trading volume, it rug pulled.
-                    // (Using a random proxy for label in this architectural scaffold to demonstrate pipeline execution)
-                    const isRug = Math.random() > 0.15 ? 1 : 0; // Historically 85%+ are rugs
-
-                    // Optional: Get actual liquidity depth here via Jupiter Price API to confirm if pool is dead
-
-                    // Write to CSV
-                    const csvLine = `${creatorWalletAgeDays.toFixed(2)},${creatorSOLBalance.toFixed(2)},15.0,${tokenSupply},${freezeRevoked},${mintRevoked},${isRug}\n`;
-                    fs.appendFileSync(DATA_FILE, csvLine);
-
-                    poolsCollected++;
-                    console.log(`[${poolsCollected}/25000] Mined pool data: ${targetMint} | Rug: ${isRug}`);
                 }
             }
         } catch (e) {
