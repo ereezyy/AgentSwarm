@@ -142,10 +142,18 @@ async function checkWhale(whale) {
                     let boughtToken = null;
                     let boughtAmount = 0;
 
+                    let preTokenMap = null;
+
                     // Identify token account that INCREASED
                     for (const post of postToken) {
                         if (post.owner === whale.address) {
-                            const pre = preToken.find(p => p.accountIndex === post.accountIndex);
+                            if (preTokenMap === null) {
+                                preTokenMap = new Map();
+                                for (const p of preToken) {
+                                    preTokenMap.set(p.accountIndex, p);
+                                }
+                            }
+                            const pre = preTokenMap.get(post.accountIndex);
                             const preAmount = pre ? parseFloat(pre.uiTokenAmount.uiAmount || 0) : 0;
                             const postAmount = parseFloat(post.uiTokenAmount.uiAmount || 0);
 
