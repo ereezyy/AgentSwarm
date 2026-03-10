@@ -3,9 +3,14 @@ const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
-const PI_IP = '192.168.1.78';
-const PI_USER = 'ed';
-const PI_PASSWORD = '1234qwer';
+const PI_IP = process.env.PI_HOST || '192.168.1.78';
+const PI_USER = process.env.PI_USER || 'ed';
+const PI_PASSWORD = process.env.PI_PASSWORD;
+
+if (!PI_PASSWORD) {
+    console.error('❌ Error: PI_PASSWORD environment variable is not set.');
+    process.exit(1);
+}
 
 async function deploy() {
     console.log('🚀 Deploying updated monitor to Pi5 via SCP...');

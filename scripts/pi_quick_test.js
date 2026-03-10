@@ -1,9 +1,19 @@
+require('dotenv').config();
 // Quick Ollama sanity test + Pi5 activity visualization
 const { Client } = require('ssh2');
 const axios = require('axios');
 const chalk = require('chalk');
 
-const PI_IP = '192.168.1.78';
+const PI_IP = process.env.PI_HOST || '192.168.1.78';
+const PI_PORT = parseInt(process.env.PI_PORT || '22', 10);
+const PI_USER = process.env.PI_USER || 'ed';
+const PI_PASSWORD = process.env.PI_PASSWORD;
+
+if (!PI_PASSWORD) {
+    console.error(chalk.red('❌ Error: PI_PASSWORD environment variable is not set.'));
+    process.exit(1);
+}
+
 const OLLAMA_URL = `http://${PI_IP}:11434`;
 
 async function main() {
@@ -33,13 +43,13 @@ async function main() {
                 }
             );
         }).on('keyboard-interactive', (n, i, l, p, f) => {
-            f(['1234qwer']);
+            f([PI_PASSWORD]);
         }).on('error', e => {
             console.log(chalk.red('SSH error:', e.message));
             resolve(); // Continue anyway
         }).connect({
-            host: PI_IP, port: 22,
-            username: 'ed', password: '1234qwer',
+            host: PI_IP, port: PI_PORT,
+            username: PI_USER, password: PI_PASSWORD,
             tryKeyboard: true, readyTimeout: 15000
         });
     });

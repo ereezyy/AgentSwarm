@@ -1,5 +1,16 @@
+require('dotenv').config();
 const { Client } = require('ssh2');
 const conn = new Client();
+
+const host = process.env.PI_HOST || '192.168.1.78';
+const port = parseInt(process.env.PI_PORT || '22', 10);
+const username = process.env.PI_USER || 'ed';
+const password = process.env.PI_PASSWORD;
+
+if (!password) {
+    console.error('❌ Error: PI_PASSWORD environment variable is not set.');
+    process.exit(1);
+}
 
 conn.on('ready', () => {
     console.log('SSH CONNECTED - Configuring Ollama for remote access...\n');
@@ -32,12 +43,12 @@ conn.on('ready', () => {
         });
     });
 }).on('keyboard-interactive', (n, i, l, p, f) => {
-    f(['1234qwer']);
+    f([password]);
 }).on('error', (e) => {
     console.log('SSH ERROR:', e.message);
     process.exit(1);
 }).connect({
-    host: '192.168.1.78', port: 22,
-    username: 'ed', password: '1234qwer',
+    host, port,
+    username, password,
     tryKeyboard: true, readyTimeout: 30000
 });

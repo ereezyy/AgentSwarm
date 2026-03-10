@@ -1,5 +1,15 @@
-const { Client } = require('ssh2');
 require('dotenv').config();
+const { Client } = require('ssh2');
+
+const host = process.env.PI_HOST || '192.168.1.78';
+const port = parseInt(process.env.PI_PORT || '22', 10);
+const username = process.env.PI_USER || 'ed';
+const password = process.env.PI_PASSWORD;
+
+if (!password) {
+    console.error('❌ Error: PI_PASSWORD environment variable is not set.');
+    process.exit(1);
+}
 
 const conn = new Client();
 conn.on('ready', () => {
@@ -18,8 +28,8 @@ conn.on('ready', () => {
         });
     });
 }).connect({
-    host: '192.168.1.78',
-    port: 22,
-    username: 'ed',
-    password: '1234qwer'
+    host,
+    port,
+    username,
+    password
 });
