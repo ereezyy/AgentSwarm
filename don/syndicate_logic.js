@@ -452,7 +452,7 @@ class DonCore {
                         throw new Error(`Failed to parse executor output: ${stdout}`);
                     }
                     const result = JSON.parse(jsonMatch[0]);
-                    // FIX #2: Python only BUILDS the TX — we must BROADCAST it here
+
                     if (result.success && result.tx) {
                         try {
                             if (!SolanaWeb3) { resolve({ success: false, error: 'Solana not loaded' }); return; }
