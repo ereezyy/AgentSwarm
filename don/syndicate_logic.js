@@ -676,7 +676,7 @@ class DonCore {
 
         // Fallback for Architect-generated agents
         if (!scriptName) {
-            // SECURITY FIX: Prevent path traversal
+            // Prevent path traversal
             if (type.includes('..') || type.includes('/') || type.includes('\\')) {
                 this.log(`Security Alert: Invalid agent type '${type}' rejected.`, 'ERROR');
                 return;
