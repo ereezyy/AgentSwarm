@@ -143,12 +143,13 @@ async function main() {
 
     // Step 1: Check Ollama
     console.log(chalk.cyan('🔌 [STEP 1] Checking Ollama...'));
+    let selectedModel;
     try {
         const resp = await axios.get(`${OLLAMA_URL}/api/tags`, { timeout: 10000 });
         const models = resp.data.models || [];
         const model = models.find(m => m.name.includes('gemma')) || models[0];
         console.log(chalk.green(`   ✅ Using: ${model.name}\n`));
-        var selectedModel = model.name;
+        selectedModel = model.name;
     } catch (e) {
         console.log(chalk.red(`   ❌ Ollama down: ${e.message}`));
         return;
