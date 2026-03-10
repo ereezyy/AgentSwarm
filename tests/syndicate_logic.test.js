@@ -96,7 +96,8 @@ describe('DonCore.loadTradeHistory', () => {
 
         expect(result).toEqual([]);
         expect(mockExistsSync).toHaveBeenCalled();
-        expect(mockReadFileSync).not.toHaveBeenCalled();
+        expect(mockReadFileSync).toHaveBeenCalledWith(expect.stringContaining('.env'), expect.anything()); // The module level require('dotenv').config() triggers readFileSync
+        expect(mockReadFileSync).toHaveBeenCalledTimes(1); // Ensure it's not called for active_trades.json
     });
 
     test('should return empty array when file content is invalid JSON', () => {
