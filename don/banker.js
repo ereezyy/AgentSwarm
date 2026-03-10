@@ -246,10 +246,10 @@ async function secureYieldUsdc(solBalance) {
 
 // ── Exit Signal Thresholds ──────────────────────────────────────
 const EXIT_RULES = {
-    TAKE_PROFIT: 20,   // % gain → take profit signal
-    STOP_LOSS: -5,   // % loss → cut losses signal
-    STRONG_SELL: 60,   // % gain → hard sell immediately
-    DUMP_ALERT: -10,   // % loss → emergency dump
+    TAKE_PROFIT: 25,   // % gain → take profit signal
+    STOP_LOSS: -15,   // % loss → cut losses signal
+    STRONG_SELL: 75,   // % gain → hard sell immediately
+    DUMP_ALERT: -20,   // % loss → emergency dump
 };
 
 // ── Trade Ledger Helpers ────────────────────────────────────────

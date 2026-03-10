@@ -48,10 +48,10 @@ try {
 
 // ── Dynamic Risk Engine (Tuned for Profitability) ──
 let riskParams = {
-    slippage: 0.10,      // [TIGHTENED] Max 10% slippage. Reject bad entries. Walk away if it's too volatile.
-    stopLoss: -25,       // [WIDENED] Let the trade breathe. meme coins have 15% wicks. Cut at -25%.
-    moonbagTarget: 35,   // Take initial profit at 35%
-    maxProfitDump: 100   // Dump everything at 100% — lock in 2x gains
+    slippage: 0.05,      // [TIGHTENED] Max 10% slippage. Reject bad entries. Walk away if it's too volatile.
+    stopLoss: -15,       // [WIDENED] Let the trade breathe. meme coins have 15% wicks. Cut at -25%.
+    moonbagTarget: 25,   // Take initial profit at 35%
+    maxProfitDump: 75   // Dump everything at 100% — lock in 2x gains
 };
 
 // ── Spend Controls (Safety Gate) ─────────────────────────────
@@ -61,8 +61,8 @@ const pendingPredictions = new Map();
 
 // ── Neural Configuration ──
 let neuralConfig = {
-    rug_threshold: 0.80,
-    kelly_fraction: 0.20,
+    rug_threshold: 0.60,
+    kelly_fraction: 0.10,
     min_bet: 0.01,
     max_bet: 0.1
 };
