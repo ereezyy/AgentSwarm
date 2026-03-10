@@ -546,73 +546,79 @@ class DonCore {
 
         this.log('🧠 Booting DeepSentinel Neural Engine...', 'POWER');
 
-        let stdoutBuffer = '';
-        this.mlProcess.stdout.on('data', (data) => {
-            stdoutBuffer += data.toString();
-            let newlineIndex;
-            while ((newlineIndex = stdoutBuffer.indexOf('\n')) !== -1) {
-                const line = stdoutBuffer.slice(0, newlineIndex).trim();
-                stdoutBuffer = stdoutBuffer.slice(newlineIndex + 1);
+        this.mlStdoutBuffer = '';
+        this.mlProcess.stdout.on('data', (data) => this.handleNeuralEngineStdout(data));
 
-                if (!line) continue;
-                try {
-                    const res = JSON.parse(line);
-                    if (res.status === 'ready') {
-                        this.log(`🧠 Neural Engine Online (Chip: ${res.chip})`, 'POWER');
-                        this.broadcast({ type: 'NEURAL_STATUS', status: res });
-                    } else if (res.req_id) {
-                        // Route response back to requesting agent
-                        if (this.mlRequests.has(res.req_id)) {
-                            const { agentType } = this.mlRequests.get(res.req_id);
-                            if (this.processes[agentType] && this.processes[agentType].connected) {
-                                this.processes[agentType].send({ type: 'ML_RESPONSE', data: res });
-                            }
-                            this.mlRequests.delete(res.req_id);
-                        }
-                    }
-                } catch (e) {
-                    // Ignore non-JSON stdout chunks
-                }
-            }
-        });
+        this.mlProcess.stderr.on('data', (data) => this.handleNeuralEngineStderr(data));
 
-        this.mlProcess.stderr.on('data', (data) => {
-            this.log(`DeepSentinel STDERR: ${data.toString().trim()}`, 'ERROR');
-        });
-
-        this.mlProcess.on('close', (code) => {
-            this.log(`DeepSentinel crashed (Code: ${code}). Restarting in 5s...`, 'ERROR');
-            setTimeout(() => this.startNeuralEngine(), 5000);
-        });
+        this.mlProcess.on('close', (code) => this.handleNeuralEngineClose(code));
     }
 
+
+    handleNeuralEngineStdout(data) {
+        this.mlStdoutBuffer += data.toString();
+        let newlineIndex;
+        while ((newlineIndex = this.mlStdoutBuffer.indexOf('\n')) !== -1) {
+            const line = this.mlStdoutBuffer.slice(0, newlineIndex).trim();
+            this.mlStdoutBuffer = this.mlStdoutBuffer.slice(newlineIndex + 1);
+
+            if (!line) continue;
+            try {
+                const res = JSON.parse(line);
+                if (res.status === 'ready') {
+                    this.log(`🧠 Neural Engine Online (Chip: ${res.chip})`, 'POWER');
+                    this.broadcast({ type: 'NEURAL_STATUS', status: res });
+                } else if (res.req_id) {
+                    // Route response back to requesting agent
+                    if (this.mlRequests.has(res.req_id)) {
+                        const { agentType } = this.mlRequests.get(res.req_id);
+                        if (this.processes[agentType] && this.processes[agentType].connected) {
+                            this.processes[agentType].send({ type: 'ML_RESPONSE', data: res });
+                        }
+                        this.mlRequests.delete(res.req_id);
+                    }
+                }
+            } catch (e) {
+                // Ignore non-JSON stdout chunks
+            }
+        }
+        }
+
+    handleNeuralEngineStderr(data) {
+        this.log(`DeepSentinel STDERR: ${data.toString().trim()}`, 'ERROR');
+        }
+
+    handleNeuralEngineClose(code) {
+        this.log(`DeepSentinel crashed (Code: ${code}). Restarting in 5s...`, 'ERROR');
+        setTimeout(() => this.startNeuralEngine(), 5000);
+        }
     handleBundleLanded(msg) {
         try {
-            const histFile = path.join(__dirname, '../missions/bundle_history.json');
-            let history = [];
-            if (fs.existsSync(histFile)) {
-                history = JSON.parse(fs.readFileSync(histFile, 'utf8'));
-            }
-            history.push({
-                timestamp: new Date().toISOString(),
-                success: msg.success,
-                tip: msg.tip,
-                reason: msg.reason || null
-            });
-            // Keep history trimmed to last 200 entries to prevent bloat
-            if (history.length > 200) history = history.slice(-200);
-            fs.writeFileSync(histFile, JSON.stringify(history, null, 2));
+        const histFile = path.join(__dirname, '../missions/bundle_history.json');
+        let history = [];
+        if (fs.existsSync(histFile)) {
+            history = JSON.parse(fs.readFileSync(histFile, 'utf8'));
+        }
+        history.push({
+            timestamp: new Date().toISOString(),
+            success: msg.success,
+            tip: msg.tip,
+            reason: msg.reason || null
+        });
+        // Keep history trimmed to last 200 entries to prevent bloat
+        if (history.length > 200) history = history.slice(-200);
+        fs.writeFileSync(histFile, JSON.stringify(history, null, 2));
 
-            // Optional: Increment success/fail count directly in telemetry metrics
-            if (!this.telemetry.metrics) this.telemetry.metrics = {};
-            if (msg.success) {
-                this.telemetry.metrics['jito_bundles_landed'] = (this.telemetry.metrics['jito_bundles_landed'] || 0) + 1;
-            } else {
-                this.telemetry.metrics['jito_bundles_failed'] = (this.telemetry.metrics['jito_bundles_failed'] || 0) + 1;
-            }
-            this.saveTelemetry();
+        // Optional: Increment success/fail count directly in telemetry metrics
+        if (!this.telemetry.metrics) this.telemetry.metrics = {};
+        if (msg.success) {
+            this.telemetry.metrics['jito_bundles_landed'] = (this.telemetry.metrics['jito_bundles_landed'] || 0) + 1;
+        } else {
+            this.telemetry.metrics['jito_bundles_failed'] = (this.telemetry.metrics['jito_bundles_failed'] || 0) + 1;
+        }
+        this.saveTelemetry();
         } catch (e) {
-            this.log(`Failed to save bundle history: ${e.message}`, 'ERROR');
+        this.log(`Failed to save bundle history: ${e.message}`, 'ERROR');
         }
     }
 
@@ -722,527 +728,8 @@ class DonCore {
         fork(path.join(__dirname, 'engage.js'), [id, type]);
 
 
-        child.on('message', (msg) => {
-            if (msg.type === 'RESTART_SWARM') {
-                this.handleCommand({ type: 'RESTART_SWARM' });
-            } else if (msg.type === 'TELEMETRY_UPDATE') {
-                if (!this.telemetry.metrics) this.telemetry.metrics = {};
-                this.telemetry.metrics[msg.metric] = (this.telemetry.metrics[msg.metric] || 0) + msg.inc;
-                if (msg.val) {
-                    this.telemetry.metrics[`${msg.metric}_total_lamports`] = (this.telemetry.metrics[`${msg.metric}_total_lamports`] || 0) + msg.val;
-                }
-                this.saveTelemetry();
-            } else if (msg.type === 'TRAINING_LABEL') {
-                try {
-                    const labelsFile = path.join(__dirname, '../missions/trade_labels.json');
-                    let labels = [];
-                    if (fs.existsSync(labelsFile)) labels = JSON.parse(fs.readFileSync(labelsFile, 'utf8'));
-                    labels.push(msg.label);
-                    fs.writeFileSync(labelsFile, JSON.stringify(labels, null, 2));
-                    this.log(`🧠 Acquired new DeepSentinel training label for ${msg.label.mint}`, 'POWER');
-
-                    // Periodic Retrain Check
-                    if (labels.length > 0 && labels.length % 50 === 0) {
-                        this.log(`🧠 Label threshold triggered (${labels.length}). Delegating DeepSentinel Offline Retrain...`, 'POWER');
-                        this.orderMuscle('retrain_model');
-                    }
-                } catch (e) {
-                    this.log(`Failed to save training label: ${e.message}`, 'ERROR');
-                }
-            } else if (msg.type === 'BUNDLE_LANDED') {
-                this.handleBundleLanded(msg);
-            } else if (msg.type === 'KICK_UP') {
-
-                this.processKickUp(msg.amount, id, msg.source);
-                this.telemetry.profits[type] = (this.telemetry.profits[type] || 0) + msg.amount;
-                this.saveTelemetry();
-            } else if (msg.type === 'MARKET_DATA') {
-                // Broadcast market data to dashboard
-                this.broadcast({ type: 'MARKET_DATA', data: msg.data });
-            } else if (msg.type === 'INTEL_DATA') {
-                // Just broadcast to log, do NOT create a persistent mission
-                this.broadcast({ type: 'LOG', msg: `[INTEL] ${msg.data}`, level: 'CRYPTO', timestamp: new Date().toISOString() });
-                // Forward Watcher surveillance to Signal Bot for Telegram
-                if (msg.source === 'WATCHER_SURVEILLANCE' && this.processes['SIGNAL_BOT'] && this.processes['SIGNAL_BOT'].connected) {
-                    this.processes['SIGNAL_BOT'].send(msg);
-                }
-            } else if (msg.type === 'LOG') {
-                this.broadcast(msg);
-                if (msg.level === 'ERROR' && !msg.msg.includes('duplicate spawn')) {
-                    const scriptName = {
-                        'CRYPTO': 'hustler.js', 'GHOST': 'ghost.js', 'SIREN': 'siren.js', 'LIBRARIAN': 'moltbook.js',
-                        'SNIPER': 'sniper.js', 'MULTICHAIN': 'multichain_sniper.js', 'CALLER': 'caller.js',
-                        'INFLUENCER': 'influencer.js', 'SCAVENGER': 'scavenger.js', 'FORGER': 'forge.js',
-                        'SHADOW': 'shadow.js', 'WATCHER': 'watcher.js', 'BANKER': 'banker.js',
-                        'ORACLE': 'oracle.js', 'TWILIO': 'twilio_bridge.js', 'INCUBATOR': 'incubator.js',
-                        'DEEPFAKER': 'deepfaker.js', 'ARCHITECT': 'architect.js', 'HEADHUNTER': 'headhunter.js',
-                        'ORCHESTRATOR': 'jules_orchestrator.js', 'VAULT': 'vault.js', 'CLOSER': 'closer.js',
-                        'SIGNAL_BOT': 'signal_bot.js', 'SERVICE_FORGE': 'service_forge.js', 'TREND_HUNTER': 'trend_hunter.js',
-                        'OMEGA': 'omega.js', 'ZERO_RUG': 'zero_rug.js', 'MIRROR': 'mirror_protocol.js',
-                        'ECHO_CHAMBER': 'echo_chamber.js', 'DEFI_FARMER': 'defi_farmer.js', 'HYDRA': 'hydra.js',
-                        'PIRATE': 'pirate.js', 'SEED_FUND_AGENT': 'SeedFundingAgent.js', 'CAPITAL_GEN': 'capital_generator.js',
-                        'FARM_AGENT': 'farm_agent.js', 'MARKET_MAKER': 'market_maker.js', 'PEG_SNIPER': 'peg_sniper.js',
-                        'NFT_SWEEPER': 'nft_sweeper.js', 'MEV_PREDATOR': 'mev_predator.js', 'AIRDROP_FARMER': 'airdrop_farmer.js',
-                        'BLOCK0_SNIPER': 'block0_sniper.js', 'LIQUIDATOR': 'liquidator.js', 'JITO_SANDWICH': 'jito_sandwich.js',
-                        'CONTRARIAN': 'contrarian.js', 'DUMMY_BROKEN': 'dummy_broken_agent.js'
-                    }[type];
-                    const fullPath = path.join(__dirname, scriptName);
-                    if (fs.existsSync(fullPath)) {
-                        if (this.processes['ORCHESTRATOR'] && this.processes['ORCHESTRATOR'].connected) {
-                            this.processes['ORCHESTRATOR'].send({ type: 'SWARM_ERROR', agent: type, file: fullPath, error: msg.msg, timestamp: new Date().toISOString() });
-                        }
-                    }
-                }
-            } else if (msg.type === 'SKILL_READY') {
-                this.log(`SKILL INTEGRATED: ${msg.skill}`, 'POWER');
-            } else if (msg.type === 'SKILL_UPGRADE') {
-                this.log(`AGENT UPGRADED: ${msg.agent} now running ${msg.protocol}`, 'CRYPTO');
-                if (this.processes['CALLER'] && this.processes['CALLER'].connected) {
-                    this.processes['CALLER'].send({ type: 'SPEAK_ALERT', text: `Fleet upgrade complete. ${msg.agent} is now running ${msg.protocol}.` });
-                }
-                this.broadcast({ type: 'UPGRADE', agent: msg.agent, protocol: msg.protocol });
-            } else if (msg.type === 'SIREN_SPEAK') {
-                this.log(`Intelligence Alert: ${msg.text.substring(0, 50)}...`, 'INFO');
-            } else if (msg.type === 'GENERATE_IMAGE') {
-                if (this.processes['FORGER'] && this.processes['FORGER'].connected) {
-                    this.processes['FORGER'].send(msg);
-                }
-            } else if (msg.type === 'SNIPE_SUCCESS') {
-                this.log(`SNIPE CONFIRMED: ${msg.mint}`, 'CRYPTO');
-                // Trigger Audio Cue
-                if (this.processes['CALLER'] && this.processes['CALLER'].connected) {
-                    this.processes['CALLER'].send({ type: 'PLAY_CUE', cue: 'GOOD' });
-                }
-                // Operation Echo Chamber
-                if (this.processes['ECHO_CHAMBER'] && this.processes['ECHO_CHAMBER'].connected) {
-                    this.processes['ECHO_CHAMBER'].send(msg);
-                } else {
-                    // Fallback: direct meme + tweet
-                    if (this.processes['FORGER']) this.processes['FORGER'].send({ type: 'GENERATE_MEME', text: msg.mint });
-                    if (this.processes['SHADOW']) this.processes['SHADOW'].send({ type: 'POST_TWEET', content: `Just secured a bag of ${msg.mint}. The Syndicate moves first. \uD83D\uDC41\ufe0f #Solana #Alpha` });
-                }
-                // Forward to Signal Bot for Telegram broadcast
-                if (this.processes['SIGNAL_BOT'] && this.processes['SIGNAL_BOT'].connected) {
-                    this.processes['SIGNAL_BOT'].send(msg);
-                }
-            } else if (msg.type === 'ML_REQUEST') {
-                if (this.mlProcess && !this.mlProcess.killed) {
-                    const reqId = msg.req_id || require('crypto').randomUUID();
-                    this.mlRequests.set(reqId, { agentType: type, timestamp: Date.now() });
-                    const payload = JSON.stringify({ model: msg.model, features: msg.features, req_id: reqId });
-                    this.mlProcess.stdin.write(payload + '\n');
-                    this.log(`🧠 Neural inference requested by ${type} [${msg.model}]`, 'CRYPTO');
-                } else {
-                    // Fail gracefully
-                    child.send({ type: 'ML_RESPONSE', data: { req_id: msg.req_id, error: 'Neural Engine Offline', rug_probability: 0.5 } });
-                }
-            } else if (msg.type === 'MEME_READY') {
-                this.log(`MEME GENERATED: ${msg.path}`, 'POWER');
-                // Trigger visual tweet (Text for now, image upload requires selector update)
-                if (this.processes['SHADOW']) this.processes['SHADOW'].send({ type: 'POST_TWEET', content: `Meme deployed for $${msg.token}. Visual dominance established.` });
-            } else if (msg.type === 'EXECUTE_SHADOW') {
-                if (this.processes['SHADOW'] && this.processes['SHADOW'].connected) {
-                    this.processes['SHADOW'].send(msg);
-                }
-            } else if (msg.type === 'TWEET_SENT') {
-                // Forward Tweet ID from Shadow to Hydra (for replies)
-                if (this.processes['HYDRA']) {
-                    this.processes['HYDRA'].send(msg);
-                }
-
-            } else if (msg.type === 'POST_REPLY') {
-                // Forward Reply from Hydra to Shadow
-                if (this.processes['SHADOW']) {
-                    this.processes['SHADOW'].send(msg);
-                }
-
-            } else if (msg.type === 'POST_TWEET') {
-                if (this.processes['SHADOW'] && this.processes['SHADOW'].connected) {
-                    this.processes['SHADOW'].send(msg);
-                }
-            } else if (msg.type === 'PHONE_ALERT') {
-                if (this.processes['TWILIO'] && this.processes['TWILIO'].connected) {
-                    this.processes['TWILIO'].send(msg);
-                }
-            } else if (msg.type === 'PERFORMANCE_REPORT') {
-                if (this.processes['ARCHITECT'] && this.processes['ARCHITECT'].connected) {
-                    this.processes['ARCHITECT'].send(msg);
-                }
-            } else if (msg.type === 'SPAWN_REQUEST') {
-                this.log(`ARCHITECT REQUEST: Spawning ${msg.agentType}...`, 'POWER');
-                this.spawnSoldier(msg.agentType);
-            } else if (msg.type === 'REQUEST_AUDIT') {
-                if (this.processes['ORACLE'] && this.processes['ORACLE'].connected) {
-                    this.processes['ORACLE'].send(msg);
-                }
-            } else if (msg.type === 'BLACKLIST_REQUEST') {
-                if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
-                    this.processes['SNIPER'].send(msg);
-                }
-            } else if (msg.type === 'FARM_BOOST') {
-                if (this.processes['FARM_AGENT'] && this.processes['FARM_AGENT'].connected) {
-                    this.processes['FARM_AGENT'].send(msg);
-                }
-            } else if (msg.type === 'GENERATE_VIDEO') {
-                if (this.processes['DEEPFAKER'] && this.processes['DEEPFAKER'].connected) {
-                    this.processes['DEEPFAKER'].send(msg);
-                }
-            } else if (msg.type === 'HUNT_NOW' || msg.type === 'HUNT_QUERY' || msg.type === 'GET_LEADS' || msg.type === 'DRAFT_PROPOSAL') {
-                if (this.processes['HEADHUNTER'] && this.processes['HEADHUNTER'].connected) {
-                    this.processes['HEADHUNTER'].send(msg);
-                }
-            } else if (msg.type === 'HEADHUNTER_REPORT' || msg.type === 'HEADHUNTER_LEADS' || msg.type === 'HEADHUNTER_PROPOSAL') {
-                this.broadcast(msg); // Forward to dashboard
-                this.log(`HEADHUNTER: ${msg.type} received`, 'MONEY');
-                // Forward to The Closer for pipeline ingestion
-                if (this.processes['CLOSER'] && this.processes['CLOSER'].connected) {
-                    this.processes['CLOSER'].send(msg);
-                }
-            } else if (msg.type === 'ADVANCE_DEAL' || msg.type === 'SET_PAYMENT' || msg.type === 'PIPELINE_STATUS' || msg.type === 'INGEST_NOW') {
-                if (this.processes['CLOSER'] && this.processes['CLOSER'].connected) {
-                    this.processes['CLOSER'].send(msg);
-                }
-            } else if (msg.type === 'MARKET_DATA') {
-                this.broadcast(msg); // Forward market data to dashboard
-            } else if (msg.type === 'MINING_UPDATE') {
-                this.broadcast(msg); // Forward mining update
-            } else if (msg.type === 'WALLET_HOLDINGS') {
-                // Forward wallet holdings scan to dashboard
-                this.broadcast(msg);
-            } else if (msg.type === 'BANKER_EXIT_SIGNAL') {
-                // Banker detected a profit/loss exit opportunity — route to Sniper
-                const { mint, signal, pnl, reason, tradeAmount } = msg;
-                this.log(`📊 BANKER EXIT SIGNAL: ${signal} on ${mint?.slice(0, 8)}... PnL: ${pnl?.toFixed(1)}% — ${reason}`, 'MONEY');
-
-                if (signal === 'STRONG_SELL' || signal === 'DUMP' || signal === 'STOP_LOSS' || signal === 'TAKE_PROFIT' || signal === 'CASCADE_DUMP') {
-                    if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
-                        this.processes['SNIPER'].send({
-                            type: 'EMERGENCY_SELL',
-                            mint,
-                            reason: signal,
-                            amount: tradeAmount,
-                        });
-                        this.log(`🔫⚠️ EXIT! EXIT! ⚠️🔫⚠️ EXIT! EXIT! ⚠️🔫 ${mint?.slice(0, 8)}... [${signal}]`, 'MONEY');
-                    } else {
-                        this.log(`⚠️ Sniper offline — cannot execute exit for ${mint?.slice(0, 8)}`, 'ERROR');
-                    }
-                }
-                // Broadcast signal to dashboard for display
-                this.broadcast({ type: 'LOG', level: 'MONEY', timestamp: new Date().toISOString(), msg: `💰 EXIT SIGNAL [${signal}]: ${mint?.slice(0, 8)}... ${reason}` });
-            } else if (msg.type === 'LOG') {
-                this.log(msg.msg, msg.level || 'INFO'); // Forward agent logs
-            } else if (msg.type === 'COPY_TRADE_SIGNAL') {
-                this.log(`COPY TRADE: ${msg.whale} -> ${msg.mint}`, 'MONEY');
-
-                // REROUTING: Send to Zero-Rug (if active) for safety check first
-                if (this.processes['ZERO_RUG'] && this.processes['ZERO_RUG'].connected) {
-                    this.log(`Rerouting signal to Zero-Rug for audit...`, 'INFO');
-                    this.processes['ZERO_RUG'].send(msg);
-                } else if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
-                    this.log(`Zero-Rug offline. Sending directly to Sniper (Risk!)`, 'DANGER');
-                    this.processes['SNIPER'].send(msg);
-                } else {
-                    this.log('Sniper not active. Signal lost.', 'ERROR');
-                }
-
-                // Forward to Signal Bot for Telegram broadcast
-                if (this.processes['SIGNAL_BOT'] && this.processes['SIGNAL_BOT'].connected) {
-                    this.processes['SIGNAL_BOT'].send(msg);
-                }
-            } else if (msg.type === 'SIGNAL_STATUS' || msg.type === 'SEND_DIGEST' || msg.type === 'BROADCAST') {
-                if (this.processes['SIGNAL_BOT'] && this.processes['SIGNAL_BOT'].connected) {
-                    this.processes['SIGNAL_BOT'].send(msg);
-                }
-            } else if (msg.type === 'GENERATE_QUOTE' || msg.type === 'CREATE_ORDER' || msg.type === 'ADVANCE_ORDER' || msg.type === 'GENERATE_PORTFOLIO' || msg.type === 'SERVICE_STATUS') {
-                if (this.processes['SERVICE_FORGE'] && this.processes['SERVICE_FORGE'].connected) {
-                    this.processes['SERVICE_FORGE'].send(msg);
-                }
-            } else if (msg.type === 'SCAN_NOW' || msg.type === 'ADD_CALLER' || msg.type === 'REMOVE_CALLER' || msg.type === 'TREND_STATUS') {
-                if (this.processes['TREND_HUNTER'] && this.processes['TREND_HUNTER'].connected) {
-                    this.processes['TREND_HUNTER'].send(msg);
-                }
-            } else if (msg.type === 'AUDIT_RESULT') {
-                if (msg.source === 'TREND_HUNTER') {
-                    // Route back to Trend Hunter
-                    if (this.processes['TREND_HUNTER'] && this.processes['TREND_HUNTER'].connected) {
-                        this.processes['TREND_HUNTER'].send(msg);
-                    }
-                } else if (msg.source === 'SNIPER_GATE' && this.pendingSignals && this.pendingSignals[msg.mint]) {
-                    // Oracle result for a pending sniper signal
-                    const pendingMsg = this.pendingSignals[msg.mint];
-                    delete this.pendingSignals[msg.mint];
-
-                    const isDanger = (msg.score && msg.score > 200) || msg.status === 'DANGER';
-                    if (isDanger) {
-                        this.log(`⚠️🛡️🛡️🛡️⚠️ TRADE BLOCKED ⚠️🛡️🛡️🛡️⚠️: ${msg.mint} (Score: ${msg.score}) — DANGER signal suppressed.`, 'DANGER');
-                        if (this.processes['ZERO_RUG'] && this.processes['ZERO_RUG'].connected) {
-                            this.processes['ZERO_RUG'].send({ type: 'BLACKLIST_DEPLOYER', mint: msg.mint, reason: `Oracle danger: ${msg.score}` });
-                        }
-                    } else {
-                        this.log(`⚠️✅✅✅⚠️ TRADE CLEARED ⚠️✅✅✅⚠️ ${msg.mint} (Score: ${msg.score}) — forwarding to Sniper`, 'CRYPTO');
-                        if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
-                            this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...pendingMsg });
-                        }
-                    }
-                }
-            } else if (msg.type === 'KICK_UP' || msg.type === 'TRADE_PROFIT') {
-                // Route ALL revenue to Protocol Omega for treasury allocation
-                this.log(`REVENUE: ${msg.amount} from ${msg.source || 'unknown'}`, 'MONEY');
-
-                // Trigger Audio Cue
-                if (this.processes['CALLER'] && this.processes['CALLER'].connected) {
-                    this.processes['CALLER'].send({ type: 'PLAY_CUE', cue: 'GOOD' });
-                }
-
-                if (this.processes['OMEGA'] && this.processes['OMEGA'].connected) {
-                    this.processes['OMEGA'].send(msg);
-                }
-            } else if (msg.type === 'REQUEST_CAPITAL' || msg.type === 'TREASURY_STATUS' || msg.type === 'TREASURY_REPORT' || msg.type === 'RND_SPEND') {
-                if (this.processes['OMEGA'] && this.processes['OMEGA'].connected) {
-                    this.processes['OMEGA'].send(msg);
-                }
-            } else if (msg.type === 'CAPITAL_APPROVED') {
-                // Route Omega capital approvals back to requesting agent
-                if (msg.requestId && this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
-                    this.processes['SNIPER'].send(msg);
-                }
-            } else if (msg.type === 'ZERO_RUG_STATUS' || msg.type === 'BLACKLIST_REQUEST' || msg.type === 'BLACKLIST_DEPLOYER') {
-                if (this.processes['ZERO_RUG'] && this.processes['ZERO_RUG'].connected) {
-                    this.processes['ZERO_RUG'].send(msg);
-                }
-            } else if (msg.type === '⚠️⚠️ APPROVED_SIGNAL ⚠️⚠️') {
-                // Zero-Rug approved a signal — hold for Oracle audit before forwarding to Sniper
-                this.log(`ZERO-RUG APPROVED: ${msg.mint} → Pending Oracle audit...`, 'CRYPTO');
-                if (!this.pendingSignals) this.pendingSignals = {};
-
-                // If Oracle is online, wait up to 8s for its verdict
-                if (this.processes['ORACLE'] && this.processes['ORACLE'].connected) {
-                    this.pendingSignals[msg.mint] = msg;
-                    this.processes['ORACLE'].send({ type: 'REQUEST_AUDIT', target: msg.mint, source: 'SNIPER_GATE' });
-
-                    // 8-second fallback: fire anyway if Oracle takes too long
-                    setTimeout(() => {
-                        if (this.pendingSignals && this.pendingSignals[msg.mint]) {
-                            this.log(`Oracle timeout for ${msg.mint} — firing anyway`, 'WARN');
-                            delete this.pendingSignals[msg.mint];
-                            if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
-                                this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...msg });
-                            }
-                        }
-                    }, 8000);
-                } else {
-                    // Oracle offline — fire directly
-                    if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
-                        this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...msg });
-                    }
-                }
-            } else if (msg.type === 'EMERGENCY_SELL') {
-                // Zero-Rug detected a post-buy rug — dump immediately
-                this.log(`EMERGENCY SELL: ${msg.mint} — ${msg.reason}`, 'DANGER');
-                if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
-                    this.processes['SNIPER'].send(msg);
-                }
-            } else if (msg.type === 'QUALIFY_WHALE' || msg.type === 'MIRROR_STATUS' || msg.type === 'LEADERBOARD') {
-                if (this.processes['MIRROR'] && this.processes['MIRROR'].connected) {
-                    this.processes['MIRROR'].send(msg);
-                }
-            } else if (msg.type === 'APPROVED_ALPHA') {
-                // Mirror Protocol approved a whale — route through Zero-Rug gate
-                if (this.processes['ZERO_RUG'] && this.processes['ZERO_RUG'].connected) {
-                    this.processes['ZERO_RUG'].send(msg);
-                } else if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
-                    this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...msg });
-                }
-            } else if (msg.type === 'MOLTBOOK_POST') {
-                if (this.processes['LIBRARIAN'] && this.processes['LIBRARIAN'].connected) {
-                    this.processes['LIBRARIAN'].send(msg);
-                }
-            } else if (msg.type === 'ECHO_STATUS' || msg.type === 'MANUAL_CAMPAIGN') {
-                if (this.processes['ECHO_CHAMBER'] && this.processes['ECHO_CHAMBER'].connected) {
-                    this.processes['ECHO_CHAMBER'].send(msg);
-                }
-            } else if (msg.type === 'FARM_SCAN' || msg.type === 'SCAN_YIELDS' || msg.type === 'FARM_STATUS' || msg.type === 'OPEN_POSITION' || msg.type === 'HARVEST') {
-                if (this.processes['DEFI_FARMER'] && this.processes['DEFI_FARMER'].connected) {
-                    this.processes['DEFI_FARMER'].send(msg);
-                }
-            } else if (msg.type === 'RECON_NOW' || msg.type === 'PROBE_HOST') {
-                if (this.processes['GHOST'] && this.processes['GHOST'].connected) {
-                    this.processes['GHOST'].send(msg);
-                }
-            } else if (msg.type === 'GHOST_PROBE') {
-                this.broadcast(msg); // Forward probe results to dashboard
-            } else if (msg.type === 'AGENT_COMMS') {
-                // Agent Communication Board
-                const commsEntry = { from: msg.from || type, msg: msg.msg, timestamp: msg.timestamp || new Date().toISOString() };
-                this.agentComms.push(commsEntry);
-                if (this.agentComms.length > 200) this.agentComms = this.agentComms.slice(-200);
-                this.broadcast({ type: 'AGENT_COMMS', ...commsEntry });
-
-                // ── COLLABORATION ENGINE ──
-                // If this is a PROPOSAL, trigger a review from another agent
-                if (msg.msg.includes('[PROPOSAL]')) {
-                    const reviewers = ['ARCHITECT', 'HUSTLER', 'SNIPER', 'ORACLE'];
-                    const reviewer = reviewers[Math.floor(Math.random() * reviewers.length)];
-
-                    // Don't review self
-                    if (reviewer !== (msg.from || type)) {
-                        setTimeout(() => {
-                            if (this.processes[reviewer]) {
-                                this.processes[reviewer].send({
-                                    type: 'REQUEST_REVIEW',
-                                    proposal: msg.msg,
-                                    from: msg.from
-                                });
-                            }
-                        }, 2000 + Math.random() * 3000);
-                    }
-                }
-            } else if (msg.type === 'EXECUTE_TRADE') {
-                this.log(`Executing Real Trade for ${type} #${id}: ${msg.params.command} ${msg.params.mint}`, 'POWER');
-                const hexKey = process.env.SOLANA_PRIVATE_KEY || '';
-                // Ensure hex is valid before conversion
-                let base64Key = '';
-                try {
-                    base64Key = Buffer.from(hexKey, 'hex').toString('base64');
-                } catch (e) {
-                    this.log(`Critical: Failed to convert private key for trade executor: ${e.message}`, 'ERROR');
-                }
-
-                this.commandTrade(id, { ...msg.params, privateKey: base64Key }).then(result => {
-                    child.send({ type: 'TRADE_RESULT', requestId: msg.requestId, ...result });
-                });
-            } else if (msg.type === 'SIGN_REQUEST' || msg.type === 'SIGN_RESULT') {
-                if (this.processes['VAULT'] && msg.type === 'SIGN_REQUEST') {
-                    this.processes['VAULT'].send(msg);
-                } else {
-                    // Forward result back to requester
-                    const target = msg.requester;
-                    if (this.processes[target]) this.processes[target].send(msg);
-                }
-            } else if (msg.type === 'EVOLUTION_STATUS' || msg.type === 'ROLLBACK') {
-                if (this.processes['ARCHITECT'] && this.processes['ARCHITECT'].connected) {
-                    this.processes['ARCHITECT'].send(msg);
-                }
-            } else if (msg.type === 'SESSION_LIST') {
-                child.send({ type: 'SESSION_LIST_RESULT', requestId: msg.requestId, data: this.sessions.list() });
-            } else if (msg.type === 'SESSION_HISTORY') {
-                child.send({ type: 'SESSION_HISTORY_RESULT', requestId: msg.requestId, data: this.sessions.history(msg.agentType, msg.limit) });
-            } else if (msg.type === 'SESSION_SEND') {
-                const success = this.sessions.send(type, msg.to, msg.msg, msg.options);
-                child.send({ type: 'SESSION_SEND_RESULT', requestId: msg.requestId, success });
-            } else if (msg.type === 'RECAP_REQUEST') {
-                // Caller is asking for the last 30 minutes of activity
-                const recap = this.activityBuffer.splice(0); // drain it
-                const activeAgents = Object.keys(this.processes).filter(k => this.processes[k]?.connected).length;
-                const trades = this.loadTradeHistory();
-                child.send({
-                    type: 'RECAP_DATA',
-                    events: recap,
-                    stats: {
-                        activeAgents,
-                        warChest: this.profit,
-                        openPositions: trades.length,
-                        uptime: Math.round((Date.now() - new Date(this.telemetry.start_time).getTime()) / 60000),
-                    }
-                });
-            } else if (msg.type === 'STATUS_REPORT' || msg.type === 'FARM_STATUS') {
-                this.broadcast(msg);
-            }
-        });
-
-        child.on('exit', (code) => {
-            clearTimeout(healthTimer);
-            this.crew = this.crew.filter(c => c.id !== id);
-            delete this.processes[type];
-            this.broadcast({ type: 'CREW_UPDATE', crew: this.crew });
-
-            if (code !== 0) {
-                // Initialize restart state for this agent
-                if (!this.restartState[type]) {
-                    this.restartState[type] = { attempts: 0, backoff: 10000, totalCrashes: 0 };
-                }
-                const rs = this.restartState[type];
-                rs.attempts++;
-                rs.totalCrashes++;
-
-                // Extract crash reason from stderr
-                const lines = stderrBuffer.split('\n').map(l => l.trim()).filter(l => l);
-                if (lines.length > 0 && lines[lines.length - 1].startsWith('Node.js v')) {
-                    lines.pop(); // Remove the "Node.js vXX.XX.XX" line
-                }
-
-                // Find the first meaningful error line, skipping common closing symbols
-                let lastError = 'Unknown error';
-                for (let i = lines.length - 1; i >= 0; i--) {
-                    const l = lines[i];
-                    if (l !== '}' && l !== ']' && l !== ')' && !l.includes('at ')) {
-                        lastError = l;
-                        break;
-                    }
-                }
-
-                // Try to find the actual Error: line if possible
-                const errorLine = lines.find(l => l.includes('Error:')) || lastError;
-                rs.lastCrashReason = errorLine.substring(0, 200);
-
-                // ── JULES AUTONOMOUS REPAIR (HOURLY BATCH) ──
-                const fullPath = path.join(__dirname, scriptName);
-                if (fs.existsSync(fullPath)) {
-                    // Queue errors instead of firing immediately
-                    if (!this.julesErrorQueue) this.julesErrorQueue = [];
-                    this.julesErrorQueue.push({
-                        file: fullPath,
-                        agent: type,
-                        error: errorLine,
-                        stack: stderrBuffer.substring(0, 500),
-                        time: new Date().toISOString()
-                    });
-
-                    // Start the hourly flush timer if not already running
-                    if (!this.julesFlushTimer) {
-                        this.julesFlushTimer = setInterval(() => this.flushJulesRepairs(), 60 * 60 * 1000); // 1 hour
-                        // Also set the first flush 60s after the first error so it's not totally silent
-                        setTimeout(() => this.flushJulesRepairs(), 60 * 1000);
-                    }
-                }
-
-                this.telemetry.errors[type] = (this.telemetry.errors[type] || 0) + 1;
-                this.saveTelemetry();
-
-                // Update health status
-                this.agentHealth[type] = {
-                    status: rs.attempts >= 5 ? 'DEAD' : 'RESTARTING',
-                    attempts: rs.attempts,
-                    nextRetryIn: rs.backoff,
-                    lastError: rs.lastCrashReason,
-                    crashes: rs.totalCrashes
-                };
-                this.broadcast({ type: 'AGENT_HEALTH', health: this.agentHealth });
-
-                // Notify Architect for potential rollback
-                if (this.processes['ARCHITECT'] && this.processes['ARCHITECT'].connected) {
-                    this.processes['ARCHITECT'].send({ type: 'AGENT_CRASHED', agentType: type });
-                }
-
-                // Stop retrying after 5 consecutive failures
-                if (rs.attempts >= 5) {
-                    this.log(`DEAD: ${type} — ${rs.attempts} consecutive crashes. Giving up. Last error: ${rs.lastCrashReason}`, 'ERROR');
-                    return;
-                }
-
-                this.log(`Crashed: ${type} #${id} (attempt ${rs.attempts}/5). Retrying in ${rs.backoff / 1000}s... Error: ${rs.lastCrashReason}`, 'ERROR');
-
-                // Exponential backoff: 10s → 20s → 40s → 80s → 160s (cap 5 min)
-                const delay = rs.backoff;
-                rs.backoff = Math.min(rs.backoff * 2, 300000);
-
-                setTimeout(() => this.spawnSoldier(type), delay);
-            } else {
-                this.log(`Terminated: ${type} #${id} (Clean Exit).`, 'INFO');
-                this.agentHealth[type] = { status: 'STOPPED', since: Date.now(), crashes: this.restartState[type]?.totalCrashes || 0 };
-                this.broadcast({ type: 'AGENT_HEALTH', health: this.agentHealth });
-            }
-        });
+        child.on('message', (msg) => this.handleSoldierMessage(msg, type, id, child, scriptName));
+        child.on('exit', (code) => this.handleSoldierExit(code, type, id, scriptName, stderrBuffer, healthTimer));
 
         this.crew.push({ id, type, status: 'Active' });
         this.broadcast({ type: 'CREW_UPDATE', crew: this.crew });
@@ -1255,11 +742,533 @@ class DonCore {
         this.broadcast({ type: 'AGENT_COMMS', ...commsEntry });
     }
 
+    handleSoldierMessage(msg, type, id, child, scriptName) {
+        if (msg.type === 'RESTART_SWARM') {
+            this.handleCommand({ type: 'RESTART_SWARM' });
+        } else if (msg.type === 'TELEMETRY_UPDATE') {
+            if (!this.telemetry.metrics) this.telemetry.metrics = {};
+            this.telemetry.metrics[msg.metric] = (this.telemetry.metrics[msg.metric] || 0) + msg.inc;
+            if (msg.val) {
+                this.telemetry.metrics[`${msg.metric}_total_lamports`] = (this.telemetry.metrics[`${msg.metric}_total_lamports`] || 0) + msg.val;
+            }
+            this.saveTelemetry();
+        } else if (msg.type === 'TRAINING_LABEL') {
+            try {
+                const labelsFile = path.join(__dirname, '../missions/trade_labels.json');
+                let labels = [];
+                if (fs.existsSync(labelsFile)) labels = JSON.parse(fs.readFileSync(labelsFile, 'utf8'));
+                labels.push(msg.label);
+                fs.writeFileSync(labelsFile, JSON.stringify(labels, null, 2));
+                this.log(`🧠 Acquired new DeepSentinel training label for ${msg.label.mint}`, 'POWER');
+
+                // Periodic Retrain Check
+                if (labels.length > 0 && labels.length % 50 === 0) {
+                    this.log(`🧠 Label threshold triggered (${labels.length}). Delegating DeepSentinel Offline Retrain...`, 'POWER');
+                    this.orderMuscle('retrain_model');
+                }
+            } catch (e) {
+                this.log(`Failed to save training label: ${e.message}`, 'ERROR');
+            }
+        } else if (msg.type === 'BUNDLE_LANDED') {
+            this.handleBundleLanded(msg);
+        } else if (msg.type === 'KICK_UP') {
+
+            this.processKickUp(msg.amount, id, msg.source);
+            this.telemetry.profits[type] = (this.telemetry.profits[type] || 0) + msg.amount;
+            this.saveTelemetry();
+        } else if (msg.type === 'MARKET_DATA') {
+            // Broadcast market data to dashboard
+            this.broadcast({ type: 'MARKET_DATA', data: msg.data });
+        } else if (msg.type === 'INTEL_DATA') {
+            // Just broadcast to log, do NOT create a persistent mission
+            this.broadcast({ type: 'LOG', msg: `[INTEL] ${msg.data}`, level: 'CRYPTO', timestamp: new Date().toISOString() });
+            // Forward Watcher surveillance to Signal Bot for Telegram
+            if (msg.source === 'WATCHER_SURVEILLANCE' && this.processes['SIGNAL_BOT'] && this.processes['SIGNAL_BOT'].connected) {
+                this.processes['SIGNAL_BOT'].send(msg);
+            }
+        } else if (msg.type === 'LOG') {
+            this.broadcast(msg);
+            if (msg.level === 'ERROR' && !msg.msg.includes('duplicate spawn')) {
+                const scriptName = {
+                    'CRYPTO': 'hustler.js', 'GHOST': 'ghost.js', 'SIREN': 'siren.js', 'LIBRARIAN': 'moltbook.js',
+                    'SNIPER': 'sniper.js', 'MULTICHAIN': 'multichain_sniper.js', 'CALLER': 'caller.js',
+                    'INFLUENCER': 'influencer.js', 'SCAVENGER': 'scavenger.js', 'FORGER': 'forge.js',
+                    'SHADOW': 'shadow.js', 'WATCHER': 'watcher.js', 'BANKER': 'banker.js',
+                    'ORACLE': 'oracle.js', 'TWILIO': 'twilio_bridge.js', 'INCUBATOR': 'incubator.js',
+                    'DEEPFAKER': 'deepfaker.js', 'ARCHITECT': 'architect.js', 'HEADHUNTER': 'headhunter.js',
+                    'ORCHESTRATOR': 'jules_orchestrator.js', 'VAULT': 'vault.js', 'CLOSER': 'closer.js',
+                    'SIGNAL_BOT': 'signal_bot.js', 'SERVICE_FORGE': 'service_forge.js', 'TREND_HUNTER': 'trend_hunter.js',
+                    'OMEGA': 'omega.js', 'ZERO_RUG': 'zero_rug.js', 'MIRROR': 'mirror_protocol.js',
+                    'ECHO_CHAMBER': 'echo_chamber.js', 'DEFI_FARMER': 'defi_farmer.js', 'HYDRA': 'hydra.js',
+                    'PIRATE': 'pirate.js', 'SEED_FUND_AGENT': 'SeedFundingAgent.js', 'CAPITAL_GEN': 'capital_generator.js',
+                    'FARM_AGENT': 'farm_agent.js', 'MARKET_MAKER': 'market_maker.js', 'PEG_SNIPER': 'peg_sniper.js',
+                    'NFT_SWEEPER': 'nft_sweeper.js', 'MEV_PREDATOR': 'mev_predator.js', 'AIRDROP_FARMER': 'airdrop_farmer.js',
+                    'BLOCK0_SNIPER': 'block0_sniper.js', 'LIQUIDATOR': 'liquidator.js', 'JITO_SANDWICH': 'jito_sandwich.js',
+                    'CONTRARIAN': 'contrarian.js', 'DUMMY_BROKEN': 'dummy_broken_agent.js'
+                }[type];
+                const fullPath = path.join(__dirname, scriptName);
+                if (fs.existsSync(fullPath)) {
+                    if (this.processes['ORCHESTRATOR'] && this.processes['ORCHESTRATOR'].connected) {
+                        this.processes['ORCHESTRATOR'].send({ type: 'SWARM_ERROR', agent: type, file: fullPath, error: msg.msg, timestamp: new Date().toISOString() });
+                    }
+                }
+            }
+        } else if (msg.type === 'SKILL_READY') {
+            this.log(`SKILL INTEGRATED: ${msg.skill}`, 'POWER');
+        } else if (msg.type === 'SKILL_UPGRADE') {
+            this.log(`AGENT UPGRADED: ${msg.agent} now running ${msg.protocol}`, 'CRYPTO');
+            if (this.processes['CALLER'] && this.processes['CALLER'].connected) {
+                this.processes['CALLER'].send({ type: 'SPEAK_ALERT', text: `Fleet upgrade complete. ${msg.agent} is now running ${msg.protocol}.` });
+            }
+            this.broadcast({ type: 'UPGRADE', agent: msg.agent, protocol: msg.protocol });
+        } else if (msg.type === 'SIREN_SPEAK') {
+            this.log(`Intelligence Alert: ${msg.text.substring(0, 50)}...`, 'INFO');
+        } else if (msg.type === 'GENERATE_IMAGE') {
+            if (this.processes['FORGER'] && this.processes['FORGER'].connected) {
+                this.processes['FORGER'].send(msg);
+            }
+        } else if (msg.type === 'SNIPE_SUCCESS') {
+            this.log(`SNIPE CONFIRMED: ${msg.mint}`, 'CRYPTO');
+            // Trigger Audio Cue
+            if (this.processes['CALLER'] && this.processes['CALLER'].connected) {
+                this.processes['CALLER'].send({ type: 'PLAY_CUE', cue: 'GOOD' });
+            }
+            // Operation Echo Chamber
+            if (this.processes['ECHO_CHAMBER'] && this.processes['ECHO_CHAMBER'].connected) {
+                this.processes['ECHO_CHAMBER'].send(msg);
+            } else {
+                // Fallback: direct meme + tweet
+                if (this.processes['FORGER']) this.processes['FORGER'].send({ type: 'GENERATE_MEME', text: msg.mint });
+                if (this.processes['SHADOW']) this.processes['SHADOW'].send({ type: 'POST_TWEET', content: `Just secured a bag of ${msg.mint}. The Syndicate moves first. \uD83D\uDC41\ufe0f #Solana #Alpha` });
+            }
+            // Forward to Signal Bot for Telegram broadcast
+            if (this.processes['SIGNAL_BOT'] && this.processes['SIGNAL_BOT'].connected) {
+                this.processes['SIGNAL_BOT'].send(msg);
+            }
+        } else if (msg.type === 'ML_REQUEST') {
+            if (this.mlProcess && !this.mlProcess.killed) {
+                const reqId = msg.req_id || require('crypto').randomUUID();
+                this.mlRequests.set(reqId, { agentType: type, timestamp: Date.now() });
+                const payload = JSON.stringify({ model: msg.model, features: msg.features, req_id: reqId });
+                this.mlProcess.stdin.write(payload + '\n');
+                this.log(`🧠 Neural inference requested by ${type} [${msg.model}]`, 'CRYPTO');
+            } else {
+                // Fail gracefully
+                child.send({ type: 'ML_RESPONSE', data: { req_id: msg.req_id, error: 'Neural Engine Offline', rug_probability: 0.5 } });
+            }
+        } else if (msg.type === 'MEME_READY') {
+            this.log(`MEME GENERATED: ${msg.path}`, 'POWER');
+            // Trigger visual tweet (Text for now, image upload requires selector update)
+            if (this.processes['SHADOW']) this.processes['SHADOW'].send({ type: 'POST_TWEET', content: `Meme deployed for $${msg.token}. Visual dominance established.` });
+        } else if (msg.type === 'EXECUTE_SHADOW') {
+            if (this.processes['SHADOW'] && this.processes['SHADOW'].connected) {
+                this.processes['SHADOW'].send(msg);
+            }
+        } else if (msg.type === 'TWEET_SENT') {
+            // Forward Tweet ID from Shadow to Hydra (for replies)
+            if (this.processes['HYDRA']) {
+                this.processes['HYDRA'].send(msg);
+            }
+
+        } else if (msg.type === 'POST_REPLY') {
+            // Forward Reply from Hydra to Shadow
+            if (this.processes['SHADOW']) {
+                this.processes['SHADOW'].send(msg);
+            }
+
+        } else if (msg.type === 'POST_TWEET') {
+            if (this.processes['SHADOW'] && this.processes['SHADOW'].connected) {
+                this.processes['SHADOW'].send(msg);
+            }
+        } else if (msg.type === 'PHONE_ALERT') {
+            if (this.processes['TWILIO'] && this.processes['TWILIO'].connected) {
+                this.processes['TWILIO'].send(msg);
+            }
+        } else if (msg.type === 'PERFORMANCE_REPORT') {
+            if (this.processes['ARCHITECT'] && this.processes['ARCHITECT'].connected) {
+                this.processes['ARCHITECT'].send(msg);
+            }
+        } else if (msg.type === 'SPAWN_REQUEST') {
+            this.log(`ARCHITECT REQUEST: Spawning ${msg.agentType}...`, 'POWER');
+            this.spawnSoldier(msg.agentType);
+        } else if (msg.type === 'REQUEST_AUDIT') {
+            if (this.processes['ORACLE'] && this.processes['ORACLE'].connected) {
+                this.processes['ORACLE'].send(msg);
+            }
+        } else if (msg.type === 'BLACKLIST_REQUEST') {
+            if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                this.processes['SNIPER'].send(msg);
+            }
+        } else if (msg.type === 'FARM_BOOST') {
+            if (this.processes['FARM_AGENT'] && this.processes['FARM_AGENT'].connected) {
+                this.processes['FARM_AGENT'].send(msg);
+            }
+        } else if (msg.type === 'GENERATE_VIDEO') {
+            if (this.processes['DEEPFAKER'] && this.processes['DEEPFAKER'].connected) {
+                this.processes['DEEPFAKER'].send(msg);
+            }
+        } else if (msg.type === 'HUNT_NOW' || msg.type === 'HUNT_QUERY' || msg.type === 'GET_LEADS' || msg.type === 'DRAFT_PROPOSAL') {
+            if (this.processes['HEADHUNTER'] && this.processes['HEADHUNTER'].connected) {
+                this.processes['HEADHUNTER'].send(msg);
+            }
+        } else if (msg.type === 'HEADHUNTER_REPORT' || msg.type === 'HEADHUNTER_LEADS' || msg.type === 'HEADHUNTER_PROPOSAL') {
+            this.broadcast(msg); // Forward to dashboard
+            this.log(`HEADHUNTER: ${msg.type} received`, 'MONEY');
+            // Forward to The Closer for pipeline ingestion
+            if (this.processes['CLOSER'] && this.processes['CLOSER'].connected) {
+                this.processes['CLOSER'].send(msg);
+            }
+        } else if (msg.type === 'ADVANCE_DEAL' || msg.type === 'SET_PAYMENT' || msg.type === 'PIPELINE_STATUS' || msg.type === 'INGEST_NOW') {
+            if (this.processes['CLOSER'] && this.processes['CLOSER'].connected) {
+                this.processes['CLOSER'].send(msg);
+            }
+        } else if (msg.type === 'MARKET_DATA') {
+            this.broadcast(msg); // Forward market data to dashboard
+        } else if (msg.type === 'MINING_UPDATE') {
+            this.broadcast(msg); // Forward mining update
+        } else if (msg.type === 'WALLET_HOLDINGS') {
+            // Forward wallet holdings scan to dashboard
+            this.broadcast(msg);
+        } else if (msg.type === 'BANKER_EXIT_SIGNAL') {
+            // Banker detected a profit/loss exit opportunity — route to Sniper
+            const { mint, signal, pnl, reason, tradeAmount } = msg;
+            this.log(`📊 BANKER EXIT SIGNAL: ${signal} on ${mint?.slice(0, 8)}... PnL: ${pnl?.toFixed(1)}% — ${reason}`, 'MONEY');
+
+            if (signal === 'STRONG_SELL' || signal === 'DUMP' || signal === 'STOP_LOSS' || signal === 'TAKE_PROFIT' || signal === 'CASCADE_DUMP') {
+                if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                    this.processes['SNIPER'].send({
+                        type: 'EMERGENCY_SELL',
+                        mint,
+                        reason: signal,
+                        amount: tradeAmount,
+                    });
+                    this.log(`🔫⚠️ EXIT! EXIT! ⚠️🔫⚠️ EXIT! EXIT! ⚠️🔫 ${mint?.slice(0, 8)}... [${signal}]`, 'MONEY');
+                } else {
+                    this.log(`⚠️ Sniper offline — cannot execute exit for ${mint?.slice(0, 8)}`, 'ERROR');
+                }
+            }
+            // Broadcast signal to dashboard for display
+            this.broadcast({ type: 'LOG', level: 'MONEY', timestamp: new Date().toISOString(), msg: `💰 EXIT SIGNAL [${signal}]: ${mint?.slice(0, 8)}... ${reason}` });
+        } else if (msg.type === 'LOG') {
+            this.log(msg.msg, msg.level || 'INFO'); // Forward agent logs
+        } else if (msg.type === 'COPY_TRADE_SIGNAL') {
+            this.log(`COPY TRADE: ${msg.whale} -> ${msg.mint}`, 'MONEY');
+
+            // REROUTING: Send to Zero-Rug (if active) for safety check first
+            if (this.processes['ZERO_RUG'] && this.processes['ZERO_RUG'].connected) {
+                this.log(`Rerouting signal to Zero-Rug for audit...`, 'INFO');
+                this.processes['ZERO_RUG'].send(msg);
+            } else if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                this.log(`Zero-Rug offline. Sending directly to Sniper (Risk!)`, 'DANGER');
+                this.processes['SNIPER'].send(msg);
+            } else {
+                this.log('Sniper not active. Signal lost.', 'ERROR');
+            }
+
+            // Forward to Signal Bot for Telegram broadcast
+            if (this.processes['SIGNAL_BOT'] && this.processes['SIGNAL_BOT'].connected) {
+                this.processes['SIGNAL_BOT'].send(msg);
+            }
+        } else if (msg.type === 'SIGNAL_STATUS' || msg.type === 'SEND_DIGEST' || msg.type === 'BROADCAST') {
+            if (this.processes['SIGNAL_BOT'] && this.processes['SIGNAL_BOT'].connected) {
+                this.processes['SIGNAL_BOT'].send(msg);
+            }
+        } else if (msg.type === 'GENERATE_QUOTE' || msg.type === 'CREATE_ORDER' || msg.type === 'ADVANCE_ORDER' || msg.type === 'GENERATE_PORTFOLIO' || msg.type === 'SERVICE_STATUS') {
+            if (this.processes['SERVICE_FORGE'] && this.processes['SERVICE_FORGE'].connected) {
+                this.processes['SERVICE_FORGE'].send(msg);
+            }
+        } else if (msg.type === 'SCAN_NOW' || msg.type === 'ADD_CALLER' || msg.type === 'REMOVE_CALLER' || msg.type === 'TREND_STATUS') {
+            if (this.processes['TREND_HUNTER'] && this.processes['TREND_HUNTER'].connected) {
+                this.processes['TREND_HUNTER'].send(msg);
+            }
+        } else if (msg.type === 'AUDIT_RESULT') {
+            if (msg.source === 'TREND_HUNTER') {
+                // Route back to Trend Hunter
+                if (this.processes['TREND_HUNTER'] && this.processes['TREND_HUNTER'].connected) {
+                    this.processes['TREND_HUNTER'].send(msg);
+                }
+            } else if (msg.source === 'SNIPER_GATE' && this.pendingSignals && this.pendingSignals[msg.mint]) {
+                // Oracle result for a pending sniper signal
+                const pendingMsg = this.pendingSignals[msg.mint];
+                delete this.pendingSignals[msg.mint];
+
+                const isDanger = (msg.score && msg.score > 200) || msg.status === 'DANGER';
+                if (isDanger) {
+                    this.log(`⚠️🛡️🛡️🛡️⚠️ TRADE BLOCKED ⚠️🛡️🛡️🛡️⚠️: ${msg.mint} (Score: ${msg.score}) — DANGER signal suppressed.`, 'DANGER');
+                    if (this.processes['ZERO_RUG'] && this.processes['ZERO_RUG'].connected) {
+                        this.processes['ZERO_RUG'].send({ type: 'BLACKLIST_DEPLOYER', mint: msg.mint, reason: `Oracle danger: ${msg.score}` });
+                    }
+                } else {
+                    this.log(`⚠️✅✅✅⚠️ TRADE CLEARED ⚠️✅✅✅⚠️ ${msg.mint} (Score: ${msg.score}) — forwarding to Sniper`, 'CRYPTO');
+                    if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                        this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...pendingMsg });
+                    }
+                }
+            }
+        } else if (msg.type === 'KICK_UP' || msg.type === 'TRADE_PROFIT') {
+            // Route ALL revenue to Protocol Omega for treasury allocation
+            this.log(`REVENUE: ${msg.amount} from ${msg.source || 'unknown'}`, 'MONEY');
+
+            // Trigger Audio Cue
+            if (this.processes['CALLER'] && this.processes['CALLER'].connected) {
+                this.processes['CALLER'].send({ type: 'PLAY_CUE', cue: 'GOOD' });
+            }
+
+            if (this.processes['OMEGA'] && this.processes['OMEGA'].connected) {
+                this.processes['OMEGA'].send(msg);
+            }
+        } else if (msg.type === 'REQUEST_CAPITAL' || msg.type === 'TREASURY_STATUS' || msg.type === 'TREASURY_REPORT' || msg.type === 'RND_SPEND') {
+            if (this.processes['OMEGA'] && this.processes['OMEGA'].connected) {
+                this.processes['OMEGA'].send(msg);
+            }
+        } else if (msg.type === 'CAPITAL_APPROVED') {
+            // Route Omega capital approvals back to requesting agent
+            if (msg.requestId && this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                this.processes['SNIPER'].send(msg);
+            }
+        } else if (msg.type === 'ZERO_RUG_STATUS' || msg.type === 'BLACKLIST_REQUEST' || msg.type === 'BLACKLIST_DEPLOYER') {
+            if (this.processes['ZERO_RUG'] && this.processes['ZERO_RUG'].connected) {
+                this.processes['ZERO_RUG'].send(msg);
+            }
+        } else if (msg.type === '⚠️⚠️ APPROVED_SIGNAL ⚠️⚠️') {
+            // Zero-Rug approved a signal — hold for Oracle audit before forwarding to Sniper
+            this.log(`ZERO-RUG APPROVED: ${msg.mint} → Pending Oracle audit...`, 'CRYPTO');
+            if (!this.pendingSignals) this.pendingSignals = {};
+
+            // If Oracle is online, wait up to 8s for its verdict
+            if (this.processes['ORACLE'] && this.processes['ORACLE'].connected) {
+                this.pendingSignals[msg.mint] = msg;
+                this.processes['ORACLE'].send({ type: 'REQUEST_AUDIT', target: msg.mint, source: 'SNIPER_GATE' });
+
+                // 8-second fallback: fire anyway if Oracle takes too long
+                setTimeout(() => {
+                    if (this.pendingSignals && this.pendingSignals[msg.mint]) {
+                        this.log(`Oracle timeout for ${msg.mint} — firing anyway`, 'WARN');
+                        delete this.pendingSignals[msg.mint];
+                        if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                            this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...msg });
+                        }
+                    }
+                }, 8000);
+            } else {
+                // Oracle offline — fire directly
+                if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                    this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...msg });
+                }
+            }
+        } else if (msg.type === 'EMERGENCY_SELL') {
+            // Zero-Rug detected a post-buy rug — dump immediately
+            this.log(`EMERGENCY SELL: ${msg.mint} — ${msg.reason}`, 'DANGER');
+            if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                this.processes['SNIPER'].send(msg);
+            }
+        } else if (msg.type === 'QUALIFY_WHALE' || msg.type === 'MIRROR_STATUS' || msg.type === 'LEADERBOARD') {
+            if (this.processes['MIRROR'] && this.processes['MIRROR'].connected) {
+                this.processes['MIRROR'].send(msg);
+            }
+        } else if (msg.type === 'APPROVED_ALPHA') {
+            // Mirror Protocol approved a whale — route through Zero-Rug gate
+            if (this.processes['ZERO_RUG'] && this.processes['ZERO_RUG'].connected) {
+                this.processes['ZERO_RUG'].send(msg);
+            } else if (this.processes['SNIPER'] && this.processes['SNIPER'].connected) {
+                this.processes['SNIPER'].send({ type: 'COPY_TRADE_SIGNAL', ...msg });
+            }
+        } else if (msg.type === 'MOLTBOOK_POST') {
+            if (this.processes['LIBRARIAN'] && this.processes['LIBRARIAN'].connected) {
+                this.processes['LIBRARIAN'].send(msg);
+            }
+        } else if (msg.type === 'ECHO_STATUS' || msg.type === 'MANUAL_CAMPAIGN') {
+            if (this.processes['ECHO_CHAMBER'] && this.processes['ECHO_CHAMBER'].connected) {
+                this.processes['ECHO_CHAMBER'].send(msg);
+            }
+        } else if (msg.type === 'FARM_SCAN' || msg.type === 'SCAN_YIELDS' || msg.type === 'FARM_STATUS' || msg.type === 'OPEN_POSITION' || msg.type === 'HARVEST') {
+            if (this.processes['DEFI_FARMER'] && this.processes['DEFI_FARMER'].connected) {
+                this.processes['DEFI_FARMER'].send(msg);
+            }
+        } else if (msg.type === 'RECON_NOW' || msg.type === 'PROBE_HOST') {
+            if (this.processes['GHOST'] && this.processes['GHOST'].connected) {
+                this.processes['GHOST'].send(msg);
+            }
+        } else if (msg.type === 'GHOST_PROBE') {
+            this.broadcast(msg); // Forward probe results to dashboard
+        } else if (msg.type === 'AGENT_COMMS') {
+            // Agent Communication Board
+            const commsEntry = { from: msg.from || type, msg: msg.msg, timestamp: msg.timestamp || new Date().toISOString() };
+            this.agentComms.push(commsEntry);
+            if (this.agentComms.length > 200) this.agentComms = this.agentComms.slice(-200);
+            this.broadcast({ type: 'AGENT_COMMS', ...commsEntry });
+
+            // ── COLLABORATION ENGINE ──
+            // If this is a PROPOSAL, trigger a review from another agent
+            if (msg.msg.includes('[PROPOSAL]')) {
+                const reviewers = ['ARCHITECT', 'HUSTLER', 'SNIPER', 'ORACLE'];
+                const reviewer = reviewers[Math.floor(Math.random() * reviewers.length)];
+
+                // Don't review self
+                if (reviewer !== (msg.from || type)) {
+                    setTimeout(() => {
+                        if (this.processes[reviewer]) {
+                            this.processes[reviewer].send({
+                                type: 'REQUEST_REVIEW',
+                                proposal: msg.msg,
+                                from: msg.from
+                            });
+                        }
+                    }, 2000 + Math.random() * 3000);
+                }
+            }
+        } else if (msg.type === 'EXECUTE_TRADE') {
+            this.log(`Executing Real Trade for ${type} #${id}: ${msg.params.command} ${msg.params.mint}`, 'POWER');
+            const hexKey = process.env.SOLANA_PRIVATE_KEY || '';
+            // Ensure hex is valid before conversion
+            let base64Key = '';
+            try {
+                base64Key = Buffer.from(hexKey, 'hex').toString('base64');
+            } catch (e) {
+                this.log(`Critical: Failed to convert private key for trade executor: ${e.message}`, 'ERROR');
+            }
+
+            this.commandTrade(id, { ...msg.params, privateKey: base64Key }).then(result => {
+                child.send({ type: 'TRADE_RESULT', requestId: msg.requestId, ...result });
+            });
+        } else if (msg.type === 'SIGN_REQUEST' || msg.type === 'SIGN_RESULT') {
+            if (this.processes['VAULT'] && msg.type === 'SIGN_REQUEST') {
+                this.processes['VAULT'].send(msg);
+            } else {
+                // Forward result back to requester
+                const target = msg.requester;
+                if (this.processes[target]) this.processes[target].send(msg);
+            }
+        } else if (msg.type === 'EVOLUTION_STATUS' || msg.type === 'ROLLBACK') {
+            if (this.processes['ARCHITECT'] && this.processes['ARCHITECT'].connected) {
+                this.processes['ARCHITECT'].send(msg);
+            }
+        } else if (msg.type === 'SESSION_LIST') {
+            child.send({ type: 'SESSION_LIST_RESULT', requestId: msg.requestId, data: this.sessions.list() });
+        } else if (msg.type === 'SESSION_HISTORY') {
+            child.send({ type: 'SESSION_HISTORY_RESULT', requestId: msg.requestId, data: this.sessions.history(msg.agentType, msg.limit) });
+        } else if (msg.type === 'SESSION_SEND') {
+            const success = this.sessions.send(type, msg.to, msg.msg, msg.options);
+            child.send({ type: 'SESSION_SEND_RESULT', requestId: msg.requestId, success });
+        } else if (msg.type === 'RECAP_REQUEST') {
+            // Caller is asking for the last 30 minutes of activity
+            const recap = this.activityBuffer.splice(0); // drain it
+            const activeAgents = Object.keys(this.processes).filter(k => this.processes[k]?.connected).length;
+            const trades = this.loadTradeHistory();
+            child.send({
+                type: 'RECAP_DATA',
+                events: recap,
+                stats: {
+                    activeAgents,
+                    warChest: this.profit,
+                    openPositions: trades.length,
+                    uptime: Math.round((Date.now() - new Date(this.telemetry.start_time).getTime()) / 60000),
+                }
+            });
+        } else if (msg.type === 'STATUS_REPORT' || msg.type === 'FARM_STATUS') {
+            this.broadcast(msg);
+        }
+        }
+
+    handleSoldierExit(code, type, id, scriptName, stderrBuffer, healthTimer) {
+        clearTimeout(healthTimer);
+        this.crew = this.crew.filter(c => c.id !== id);
+        delete this.processes[type];
+        this.broadcast({ type: 'CREW_UPDATE', crew: this.crew });
+
+        if (code !== 0) {
+            // Initialize restart state for this agent
+            if (!this.restartState[type]) {
+                this.restartState[type] = { attempts: 0, backoff: 10000, totalCrashes: 0 };
+            }
+            const rs = this.restartState[type];
+            rs.attempts++;
+            rs.totalCrashes++;
+
+            // Extract crash reason from stderr
+            const lines = stderrBuffer.split('\n').map(l => l.trim()).filter(l => l);
+            if (lines.length > 0 && lines[lines.length - 1].startsWith('Node.js v')) {
+                lines.pop(); // Remove the "Node.js vXX.XX.XX" line
+            }
+
+            // Find the first meaningful error line, skipping common closing symbols
+            let lastError = 'Unknown error';
+            for (let i = lines.length - 1; i >= 0; i--) {
+                const l = lines[i];
+                if (l !== '}' && l !== ']' && l !== ')' && !l.includes('at ')) {
+                    lastError = l;
+                    break;
+                }
+            }
+
+            // Try to find the actual Error: line if possible
+            const errorLine = lines.find(l => l.includes('Error:')) || lastError;
+            rs.lastCrashReason = errorLine.substring(0, 200);
+
+            // ── JULES AUTONOMOUS REPAIR (HOURLY BATCH) ──
+            const fullPath = path.join(__dirname, scriptName);
+            if (fs.existsSync(fullPath)) {
+                // Queue errors instead of firing immediately
+                if (!this.julesErrorQueue) this.julesErrorQueue = [];
+                this.julesErrorQueue.push({
+                    file: fullPath,
+                    agent: type,
+                    error: errorLine,
+                    stack: stderrBuffer.substring(0, 500),
+                    time: new Date().toISOString()
+                });
+
+                // Start the hourly flush timer if not already running
+                if (!this.julesFlushTimer) {
+                    this.julesFlushTimer = setInterval(() => this.flushJulesRepairs(), 60 * 60 * 1000); // 1 hour
+                    // Also set the first flush 60s after the first error so it's not totally silent
+                    setTimeout(() => this.flushJulesRepairs(), 60 * 1000);
+                }
+            }
+
+            this.telemetry.errors[type] = (this.telemetry.errors[type] || 0) + 1;
+            this.saveTelemetry();
+
+            // Update health status
+            this.agentHealth[type] = {
+                status: rs.attempts >= 5 ? 'DEAD' : 'RESTARTING',
+                attempts: rs.attempts,
+                nextRetryIn: rs.backoff,
+                lastError: rs.lastCrashReason,
+                crashes: rs.totalCrashes
+            };
+            this.broadcast({ type: 'AGENT_HEALTH', health: this.agentHealth });
+
+            // Notify Architect for potential rollback
+            if (this.processes['ARCHITECT'] && this.processes['ARCHITECT'].connected) {
+                this.processes['ARCHITECT'].send({ type: 'AGENT_CRASHED', agentType: type });
+            }
+
+            // Stop retrying after 5 consecutive failures
+            if (rs.attempts >= 5) {
+                this.log(`DEAD: ${type} — ${rs.attempts} consecutive crashes. Giving up. Last error: ${rs.lastCrashReason}`, 'ERROR');
+                return;
+            }
+
+            this.log(`Crashed: ${type} #${id} (attempt ${rs.attempts}/5). Retrying in ${rs.backoff / 1000}s... Error: ${rs.lastCrashReason}`, 'ERROR');
+
+            // Exponential backoff: 10s → 20s → 40s → 80s → 160s (cap 5 min)
+            const delay = rs.backoff;
+            rs.backoff = Math.min(rs.backoff * 2, 300000);
+
+            setTimeout(() => this.spawnSoldier(type), delay);
+        } else {
+            this.log(`Terminated: ${type} #${id} (Clean Exit).`, 'INFO');
+            this.agentHealth[type] = { status: 'STOPPED', since: Date.now(), crashes: this.restartState[type]?.totalCrashes || 0 };
+            this.broadcast({ type: 'AGENT_HEALTH', health: this.agentHealth });
+        }
+        }
+
     // ── Wallet Watchdog ──────────────────────────────────────
     startWalletWatchdog() {
         if (!SolanaWeb3 || !process.env.SOLANA_PRIVATE_KEY) {
-            this.log('Wallet Watchdog: No Solana config. Skipping.', 'INFO');
-            return;
+        this.log('Wallet Watchdog: No Solana config. Skipping.', 'INFO');
+        return;
         }
         this.lastKnownBalance = null;
         this.checkWalletBalance();
