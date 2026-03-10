@@ -4,7 +4,7 @@ const chalk = require('chalk');
 require('dotenv').config();
 
 // Jito Block Engine URLs (mainnet REST endpoints)
-const JITO_BASE_URL = 'https://mainnet.block-engine.jito.wtf/api/v1';
+const JITO_BASE_URL = process.env.JITO_BLOCK_ENGINE_URL || 'https://mainnet.block-engine.jito.wtf/api/v1';
 
 class MevBundler {
     constructor(walletKeypair, connection) {
