@@ -3,7 +3,7 @@ const { Connection, Transaction, Keypair, SystemProgram, PublicKey } = require('
 // Define mock functions first
 const mockSendBundle = jest.fn();
 // The searcher client function returns an object with sendBundle
-const mockSearcherClientFn = jest.fn(() => ({
+const mockSearcherClientFn = jest.fn((url = process.env.JITO_BLOCK_ENGINE_URL || 'mainnet.block-engine.jito.wtf') => ({
     sendBundle: mockSendBundle
 }));
 const mockBundleFn = jest.fn();
