@@ -265,13 +265,6 @@ class DonCore {
             // NOTE: A rogue script across the network is spamming EXECUTE_SANDWICH mock triggers.
             // Rather than crashing out the MEV Predator with 429s, we swallow them here.
             this.log('⚠️ Suppressing rogue EXECUTE_SANDWICH trigger from remote radar node.', 'INFO');
-
-            // if (this.processes['JITO_SANDWICH'] && this.processes['JITO_SANDWICH'].connected) {
-            //     this.processes['JITO_SANDWICH'].send(payload);
-            // } else {
-            //     this.log('⚠️ JITO_SANDWICH is offline. Radar trigger missed.', 'ERROR');
-            //     this.spawnSoldier('JITO_SANDWICH');
-            // }
         }
     }
 

@@ -64,6 +64,7 @@ describe('DonCore.loadTradeHistory', () => {
         mockExistsSync.mockReturnValue(false);
         mockReadFileSync.mockReturnValue('[]');
 
+        jest.mock('dotenv', () => ({ config: jest.fn() }), { virtual: true });
         don = require('../don/syndicate_logic');
     });
 
