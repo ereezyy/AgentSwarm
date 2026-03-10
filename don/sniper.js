@@ -387,7 +387,7 @@ async function fetchCurrentPrice(mint, amount, curve = null) {
             const pair = res.data.pairs.find(p => p.quoteToken.address === WSOL_MINT.toString()) || res.data.pairs[0];
             const priceInSol = parseFloat(pair.priceNative); // Price in SOL per UI token
 
-            // Fix: Standardize to UI units (6 decimals for Pump.fun)
+            // Standardize to UI units (6 decimals for Pump.fun)
             const decimals = 6;
             const uiAmount = Number(amount) / Math.pow(10, decimals);
             const solValue = priceInSol * uiAmount;
