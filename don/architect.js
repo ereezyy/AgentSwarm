@@ -335,69 +335,73 @@ function analyzeTelemetry() {
 // ══════════════════════════════════════════════════════════════
 // ██ MAIN EVOLUTION PIPELINE ██
 // ══════════════════════════════════════════════════════════════
-async function evolve(forceTarget = null) {
-    metrics.totalAttempts++;
-    const cycleId = metrics.totalAttempts;
 
-    try {
-        console.log(chalk.magenta.bold(`\n[ARCHITECT #${id}]: ═══════════════════════════════════════`));
-        console.log(chalk.magenta.bold(`[ARCHITECT #${id}]: 🧬 EVOLUTION CYCLE #${cycleId}`));
-        console.log(chalk.magenta.bold(`[ARCHITECT #${id}]: ═══════════════════════════════════════`));
 
-        // ── PHASE 1: TARGET SELECTION ────────────────────
-        const { telemetry, scores, target } = analyzeTelemetry();
+// ══════════════════════════════════════════════════════════════
+// ██ EVOLUTION PIPELINE HELPERS ██
+// ══════════════════════════════════════════════════════════════
 
-        const targetAgent = forceTarget || target.file;
-        const targetPath = path.resolve(DON_DIR, targetAgent);
+function selectEvolutionTarget(forceTarget, cycleId) {
+// ── PHASE 1: TARGET SELECTION ────────────────────
+    const { telemetry, scores, target } = analyzeTelemetry();
 
-        // Security check: Ensure target is within DON_DIR
-        const resolvedDonDir = path.resolve(DON_DIR);
-        if (!targetPath.startsWith(resolvedDonDir + path.sep)) {
-            console.log(chalk.red.bold(`[ARCHITECT #${id}]: 🚨 SECURITY ALERT: Path traversal attempted (${targetAgent}). Aborting.`));
-            logEvolution('SYSTEM', 'BLOCKED', `Path traversal attempt: ${targetAgent}`, cycleId);
-            metrics.blocked++; saveMetrics(); return;
-        }
-        const agentType = targetAgent.replace('.js', '').toUpperCase();
+    const targetAgent = forceTarget || target.file;
+    const targetPath = path.resolve(DON_DIR, targetAgent);
 
-        // Show scoring
-        console.log(chalk.gray(`[ARCHITECT #${id}]: Agent Scores:`));
-        scores.forEach(s => {
-            const marker = s.file === targetAgent ? chalk.green('►') : ' ';
-            const cooldown = s.onCooldown ? chalk.yellow(' [COOLDOWN]') : '';
-            console.log(chalk.gray(`  ${marker} ${s.type.padEnd(12)} Score: ${s.score.toString().padStart(4)} | Errors: ${s.errorCount} | Profit: $${s.profit} | Evolved: ${s.timesEvolved}x${cooldown}`));
-        });
+    // Security check: Ensure target is within DON_DIR
+    const resolvedDonDir = path.resolve(DON_DIR);
+    if (!targetPath.startsWith(resolvedDonDir + path.sep)) {
+        console.log(chalk.red.bold(`[ARCHITECT #${id}]: 🚨 SECURITY ALERT: Path traversal attempted (${targetAgent}). Aborting.`));
+        logEvolution('SYSTEM', 'BLOCKED', `Path traversal attempt: ${targetAgent}`, cycleId);
+        metrics.blocked++; saveMetrics(); return null;
+    }
+    const agentType = targetAgent.replace('.js', '').toUpperCase();
 
-        if (!fs.existsSync(targetPath)) {
-            console.log(chalk.yellow(`[ARCHITECT #${id}]: Target ${targetAgent} not found. Aborting.`));
-            return;
-        }
+    // Show scoring
+    console.log(chalk.gray(`[ARCHITECT #${id}]: Agent Scores:`));
+    scores.forEach(s => {
+        const marker = s.file === targetAgent ? chalk.green('►') : ' ';
+        const cooldown = s.onCooldown ? chalk.yellow(' [COOLDOWN]') : '';
+        console.log(chalk.gray(`  ${marker} ${s.type.padEnd(12)} Score: ${s.score.toString().padStart(4)} | Errors: ${s.errorCount} | Profit: $${s.profit} | Evolved: ${s.timesEvolved}x${cooldown}`));
+    });
 
-        // Check cooldown
-        if (!forceTarget && target.onCooldown) {
-            console.log(chalk.yellow(`[ARCHITECT #${id}]: All agents on cooldown. Skipping cycle.`));
-            return;
-        }
+    if (!fs.existsSync(targetPath)) {
+        console.log(chalk.yellow(`[ARCHITECT #${id}]: Target ${targetAgent} not found. Aborting.`));
+        return null;
+    }
 
-        const originalCode = fs.readFileSync(targetPath, 'utf8');
-        const originalAnalysis = analyzeCode(originalCode);
+    // Check cooldown
+    if (!forceTarget && target.onCooldown) {
+        console.log(chalk.yellow(`[ARCHITECT #${id}]: All agents on cooldown. Skipping cycle.`));
+        return null;
+    }
 
-        if (originalCode.length > CONFIG.maxCodeSize) {
-            console.log(chalk.yellow(`[ARCHITECT #${id}]: ${targetAgent} too large (${originalCode.length}b > ${CONFIG.maxCodeSize}b). Skipping.`));
-            return;
-        }
+    const originalCode = fs.readFileSync(targetPath, 'utf8');
+    const originalAnalysis = analyzeCode(originalCode);
 
-        console.log(chalk.magenta(`[ARCHITECT #${id}]: TARGET: ${targetAgent} (${originalAnalysis.lineCount} lines, ${originalAnalysis.byteSize}b, ${originalAnalysis.functionCount} functions)`));
+    if (originalCode.length > CONFIG.maxCodeSize) {
+        console.log(chalk.yellow(`[ARCHITECT #${id}]: ${targetAgent} too large (${originalCode.length}b > ${CONFIG.maxCodeSize}b). Skipping.`));
+        return null;
+    }
 
-        // ── PHASE 2: AI-GUIDED MUTATION ──────────────────
-        const errorContext = telemetry.errors?.[agentType]
-            ? `This agent has ${telemetry.errors[agentType]} recorded errors.`
-            : 'No error data available.';
+    console.log(chalk.magenta(`[ARCHITECT #${id}]: TARGET: ${targetAgent} (${originalAnalysis.lineCount} lines, ${originalAnalysis.byteSize}b, ${originalAnalysis.functionCount} functions)`));
 
-        const profitContext = telemetry.profits?.[agentType]
-            ? `This agent has generated $${telemetry.profits[agentType]} in profit.`
-            : 'This agent has not generated profit yet.';
 
-        const systemPrompt = `You are "The Architect", a self-evolution AI for an autonomous agent swarm called The Syndicate.
+    return { targetAgent, targetPath, agentType, originalCode, originalAnalysis };
+}
+
+async function generateEvolvedCode(targetAgent, originalCode, telemetry, cycleId) {
+    const agentType = targetAgent.replace('.js', '').toUpperCase();
+// ── PHASE 2: AI-GUIDED MUTATION ──────────────────
+    const errorContext = telemetry.errors?.[agentType]
+        ? `This agent has ${telemetry.errors[agentType]} recorded errors.`
+        : 'No error data available.';
+
+    const profitContext = telemetry.profits?.[agentType]
+        ? `This agent has generated $${telemetry.profits[agentType]} in profit.`
+        : 'This agent has not generated profit yet.';
+
+    const systemPrompt = `You are "The Architect", a self-evolution AI for an autonomous agent swarm called The Syndicate.
 Your task is to IMPROVE an agent's code to make it more reliable, efficient, or profitable.
 
 CRITICAL RULES:
@@ -421,7 +425,7 @@ FOCUS YOUR IMPROVEMENTS ON:
 - Rate limit awareness
 - Edge case handling`;
 
-        const userPrompt = `AGENT: ${targetAgent}
+    const userPrompt = `AGENT: ${targetAgent}
 PERFORMANCE: ${errorContext} ${profitContext}
 TELEMETRY SUMMARY: Total errors across swarm: ${JSON.stringify(telemetry.errors || {})}
 
@@ -430,226 +434,264 @@ ${originalCode}
 
 Return the IMPROVED version of this code. Remember: ONLY raw JavaScript, no markdown.`;
 
-        console.log(chalk.magenta(`[ARCHITECT #${id}]: Consulting the brain...`));
-        const rawResponse = await queryBrain(userPrompt, systemPrompt);
+    console.log(chalk.magenta(`[ARCHITECT #${id}]: Consulting the brain...`));
+    const rawResponse = await queryBrain(userPrompt, systemPrompt);
 
-        if (!rawResponse) {
-            console.log(chalk.yellow(`[ARCHITECT #${id}]: Brain returned nothing. Aborting cycle.`));
-            metrics.brainFailures++;
-            saveMetrics();
-            return;
-        }
-
-        // ── PHASE 3: RESPONSE CLEANING ───────────────────
-        let cleanCode = rawResponse.trim();
-
-        // Strip markdown fences if the AI wrapped them
-        if (cleanCode.includes('```')) {
-            const match = cleanCode.match(/```(?:javascript|js|node)?\s*\n([\s\S]*?)```/);
-            if (match) {
-                cleanCode = match[1].trim();
-            } else {
-                // Try stripping all fences
-                cleanCode = cleanCode.replace(/```[^\n]*\n?/g, '').trim();
-            }
-        }
-
-        // Strip leading prose if AI added explanation before code
-        const firstCodeLine = cleanCode.search(/^(?:\/\/|'use strict'|const |let |var |require|import )/m);
-        if (firstCodeLine > 0 && firstCodeLine < 200) {
-            cleanCode = cleanCode.substring(firstCodeLine);
-        }
-
-        // ── PHASE 4: SAFETY GATES ────────────────────────
-        console.log(chalk.magenta(`[ARCHITECT #${id}]: Running safety gates...`));
-        let gatesPassed = 0;
-        const totalGates = 7;
-
-        // GATE 1: Size bounds
-        if (cleanCode.length < CONFIG.minCodeSize) {
-            logEvolution(targetAgent, 'REJECTED', `Too small: ${cleanCode.length}b < ${CONFIG.minCodeSize}b`, cycleId);
-            console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 1 FAIL: Output too small (${cleanCode.length}b)`));
-            metrics.rejected++; saveMetrics(); return;
-        }
-        if (cleanCode.length > originalCode.length * CONFIG.maxGrowthFactor) {
-            logEvolution(targetAgent, 'REJECTED', `Too large: ${cleanCode.length}b > ${Math.floor(originalCode.length * CONFIG.maxGrowthFactor)}b`, cycleId);
-            console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 1 FAIL: Output too bloated (${cleanCode.length}b)`));
-            metrics.rejected++; saveMetrics(); return;
-        }
-        if (cleanCode.length < originalCode.length * CONFIG.minShrinkFactor) {
-            logEvolution(targetAgent, 'REJECTED', `Too gutted: ${cleanCode.length}b < ${Math.floor(originalCode.length * CONFIG.minShrinkFactor)}b`, cycleId);
-            console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 1 FAIL: Output gutted too much (${cleanCode.length}b)`));
-            metrics.rejected++; saveMetrics(); return;
-        }
-        console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 1: Size bounds OK (${cleanCode.length}b)`));
-        gatesPassed++;
-
-        // GATE 2: Syntax validation
-        try {
-            // We use `new Function` but in a way that doesn't conflict with our dangerous pattern check
-            const syntaxChecker = Function;
-            new syntaxChecker(cleanCode);
-        } catch (syntaxError) {
-            logEvolution(targetAgent, 'REJECTED', `Syntax error: ${syntaxError.message}`, cycleId);
-            console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 2 FAIL: ${syntaxError.message}`));
-            metrics.rejected++; saveMetrics(); return;
-        }
-        console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 2: Syntax valid`));
-        gatesPassed++;
-
-        // GATE 3: Dangerous pattern detection (string + regex)
-        for (const pattern of DANGEROUS_STRINGS) {
-            if (cleanCode.includes(pattern) && !originalCode.includes(pattern)) {
-                logEvolution(targetAgent, 'BLOCKED', `Dangerous string added: "${pattern}"`, cycleId);
-                console.log(chalk.red.bold(`[ARCHITECT #${id}]: 🚫 GATE 3 BLOCKED: Dangerous string "${pattern}" added.`));
-                metrics.blocked++; saveMetrics(); return;
-            }
-        }
-        for (const { rx, name } of DANGEROUS_REGEX) {
-            if (rx.test(cleanCode)) {
-                logEvolution(targetAgent, 'BLOCKED', `Dangerous pattern: ${name}`, cycleId);
-                console.log(chalk.red.bold(`[ARCHITECT #${id}]: 🚫 GATE 3 BLOCKED: Regex match "${name}"`));
-                metrics.blocked++; saveMetrics(); return;
-            }
-        }
-        console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 3: No dangerous patterns (${DANGEROUS_STRINGS.length} strings + ${DANGEROUS_REGEX.length} regex clear)`));
-        gatesPassed++;
-
-        // GATE 4: Required structural patterns
-        const missingRequired = [];
-        for (const [key, rule] of Object.entries(REQUIRED_PATTERNS)) {
-            if (!cleanCode.includes(rule.pattern)) {
-                missingRequired.push(rule.description);
-            }
-        }
-        if (missingRequired.length > 0) {
-            logEvolution(targetAgent, 'REJECTED', `Missing required: ${missingRequired.join(', ')}`, cycleId);
-            console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 4 FAIL: Missing ${missingRequired.join(', ')}`));
-            metrics.rejected++; saveMetrics(); return;
-        }
-        console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 4: Required patterns present`));
-        gatesPassed++;
-
-        // GATE 5: Conditional pattern preservation
-        const droppedPatterns = [];
-        for (const cp of CONDITIONAL_PATTERNS) {
-            if (originalCode.includes(cp.pattern) && !cleanCode.includes(cp.pattern)) {
-                droppedPatterns.push(cp.description);
-            }
-        }
-        if (droppedPatterns.length > 0) {
-            logEvolution(targetAgent, 'REJECTED', `Dropped critical patterns: ${droppedPatterns.join(', ')}`, cycleId);
-            console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 5 FAIL: AI dropped: ${droppedPatterns.join(', ')}`));
-            metrics.rejected++; saveMetrics(); return;
-        }
-        console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 5: Conditional patterns preserved`));
-        gatesPassed++;
-
-        // GATE 6: Structural health check
-        const evolvedAnalysis = analyzeCode(cleanCode);
-        if (evolvedAnalysis.functionCount === 0 && originalAnalysis.functionCount > 0) {
-            logEvolution(targetAgent, 'REJECTED', 'All functions removed', cycleId);
-            console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 6 FAIL: AI removed all functions`));
-            metrics.rejected++; saveMetrics(); return;
-        }
-        if (evolvedAnalysis.requireCount < originalAnalysis.requireCount - 1) {
-            logEvolution(targetAgent, 'REJECTED', `Lost too many imports (${originalAnalysis.requireCount} → ${evolvedAnalysis.requireCount})`, cycleId);
-            console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 6 FAIL: Too many imports removed`));
-            metrics.rejected++; saveMetrics(); return;
-        }
-        console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 6: Structural health OK (${evolvedAnalysis.functionCount} funcs, ${evolvedAnalysis.requireCount} imports)`));
-        gatesPassed++;
-
-        // GATE 7: Pre-deploy boot test (fork in subprocess)
-        console.log(chalk.magenta(`[ARCHITECT #${id}]: ⏳ GATE 7: Boot testing evolved code in sandbox subprocess...`));
-        const bootResult = await bootTest(cleanCode, targetAgent);
-        if (!bootResult.survived) {
-            logEvolution(targetAgent, 'REJECTED', `Boot test failed: ${bootResult.error}`, cycleId);
-            console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 7 FAIL: Crashed during boot test — ${bootResult.error}`));
-            metrics.rejected++; saveMetrics(); return;
-        }
-        console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 7: Boot test PASSED (survived ${(bootResult.aliveMs / 1000).toFixed(1)}s)`));
-        gatesPassed++;
-
-        console.log(chalk.green.bold(`[ARCHITECT #${id}]: ✅ ALL ${gatesPassed}/${totalGates} SAFETY GATES PASSED`));
-
-        // ── PHASE 5: DIFF GENERATION ─────────────────────
-        const diff = generateSimpleDiff(originalCode, cleanCode);
-        console.log(chalk.gray(`[ARCHITECT #${id}]: Diff: ${diff.changedLines} lines changed, ${diff.addedLines} added, ${diff.removedLines} removed`));
-
-        // ── PHASE 6: BACKUP & DEPLOY ─────────────────────
-        if (!fs.existsSync(BACKUPS_DIR)) fs.mkdirSync(BACKUPS_DIR, { recursive: true });
-
-        const timestamp = Date.now();
-        const backupFilename = `${targetAgent}_v${cycleId}_${timestamp}.bak`;
-        const backupPath = path.join(BACKUPS_DIR, backupFilename);
-
-        // Save backup
-        fs.copyFileSync(targetPath, backupPath);
-
-        // Deploy evolved code
-        fs.writeFileSync(targetPath, cleanCode);
-
-        console.log(chalk.green.bold(`[ARCHITECT #${id}]: ✅ EVOLUTION #${cycleId} DEPLOYED → ${targetAgent}`));
-        console.log(chalk.gray(`[ARCHITECT #${id}]: Backup: ${backupFilename}`));
-        console.log(chalk.gray(`[ARCHITECT #${id}]: Size: ${originalCode.length}b → ${cleanCode.length}b (${cleanCode.length > originalCode.length ? '+' : ''}${cleanCode.length - originalCode.length}b)`));
-
-        // Register for crash watch / rollback
-        pendingEvolutions.set(agentType, {
-            backupPath,
-            targetPath,
-            timestamp,
-            cycleId,
-        });
-
-        // Clear pending after crash watch window
-        setTimeout(() => {
-            if (pendingEvolutions.has(agentType)) {
-                pendingEvolutions.delete(agentType);
-                console.log(chalk.green(`[ARCHITECT #${id}]: ✅ ${agentType} survived crash watch window. Evolution #${cycleId} confirmed stable.`));
-
-                // Save as "last known good" — bedrock for multi-failure rollback
-                try {
-                    const lastGoodPath = path.join(BACKUPS_DIR, `_lastgood_${targetAgent}`);
-                    fs.copyFileSync(targetPath, lastGoodPath);
-                    console.log(chalk.gray(`[ARCHITECT #${id}]: 📌 Saved ${targetAgent} as last known good.`));
-                } catch (e) { /* non-critical */ }
-
-                // Update stable metrics
-                if (!metrics.agentHistory[targetAgent]) metrics.agentHistory[targetAgent] = {};
-                metrics.agentHistory[targetAgent].confirmedStable = (metrics.agentHistory[targetAgent].confirmedStable || 0) + 1;
-                saveMetrics();
-            }
-        }, CONFIG.crashWatchWindow);
-
-        // Update metrics
-        metrics.applied++;
-        metrics.lastEvolution = new Date().toISOString();
-        if (!metrics.agentHistory[targetAgent]) metrics.agentHistory[targetAgent] = {};
-        metrics.agentHistory[targetAgent].lastEvolved = timestamp;
-        metrics.agentHistory[targetAgent].timesEvolved = (metrics.agentHistory[targetAgent].timesEvolved || 0) + 1;
+    if (!rawResponse) {
+        console.log(chalk.yellow(`[ARCHITECT #${id}]: Brain returned nothing. Aborting cycle.`));
+        metrics.brainFailures++;
         saveMetrics();
+        return null;
+    }
 
-        // Log with diff
-        logEvolution(targetAgent, 'APPLIED', `Cycle #${cycleId} | ${originalCode.length}b → ${cleanCode.length}b | ${diff.changedLines} lines changed`, cycleId, diff.text);
+    // ── PHASE 3: RESPONSE CLEANING ───────────────────
+    let cleanCode = rawResponse.trim();
 
-        // ── PHASE 7: NOTIFY THE SWARM ────────────────────
-        if (process.send) {
-            process.send({
-                type: 'SIREN_SPEAK',
-                text: `Architect reporting. Evolution cycle ${cycleId} complete. ${targetAgent.replace('.js', '')} has been upgraded. ${gatesPassed} safety gates passed. ${diff.changedLines} lines modified. Monitoring for stability.`
-            });
-            process.send({
-                type: 'SKILL_UPGRADE',
-                agent: agentType,
-                protocol: `v${cycleId}.0 (AI-Evolved, ${gatesPassed} gates)`
-            });
-            process.send({
-                type: 'INTEL_DATA',
-                data: `Evolution #${cycleId}: ${targetAgent} upgraded (${diff.changedLines} lines changed). Watching for ${CONFIG.crashWatchWindow / 1000}s.`,
-                source: 'ARCHITECT_EVOLUTION'
-            });
+    // Strip markdown fences if the AI wrapped them
+    if (cleanCode.includes('```')) {
+        const match = cleanCode.match(/```(?:javascript|js|node)?\s*\n([\s\S]*?)```/);
+        if (match) {
+            cleanCode = match[1].trim();
+        } else {
+            // Try stripping all fences
+            cleanCode = cleanCode.replace(/```[^\n]*\n?/g, '').trim();
         }
+    }
+
+    // Strip leading prose if AI added explanation before code
+    const firstCodeLine = cleanCode.search(/^(?:\/\/|'use strict'|const |let |var |require|import )/m);
+    if (firstCodeLine > 0 && firstCodeLine < 200) {
+        cleanCode = cleanCode.substring(firstCodeLine);
+    }
+
+
+    return cleanCode;
+}
+
+async function runSafetyGates(cleanCode, originalCode, targetAgent, cycleId, originalAnalysis) {
+// ── PHASE 4: SAFETY GATES ────────────────────────
+    console.log(chalk.magenta(`[ARCHITECT #${id}]: Running safety gates...`));
+    let gatesPassed = 0;
+    const totalGates = 7;
+
+    // GATE 1: Size bounds
+    if (cleanCode.length < CONFIG.minCodeSize) {
+        logEvolution(targetAgent, 'REJECTED', `Too small: ${cleanCode.length}b < ${CONFIG.minCodeSize}b`, cycleId);
+        console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 1 FAIL: Output too small (${cleanCode.length}b)`));
+        metrics.rejected++; saveMetrics(); return null;
+    }
+    if (cleanCode.length > originalCode.length * CONFIG.maxGrowthFactor) {
+        logEvolution(targetAgent, 'REJECTED', `Too large: ${cleanCode.length}b > ${Math.floor(originalCode.length * CONFIG.maxGrowthFactor)}b`, cycleId);
+        console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 1 FAIL: Output too bloated (${cleanCode.length}b)`));
+        metrics.rejected++; saveMetrics(); return null;
+    }
+    if (cleanCode.length < originalCode.length * CONFIG.minShrinkFactor) {
+        logEvolution(targetAgent, 'REJECTED', `Too gutted: ${cleanCode.length}b < ${Math.floor(originalCode.length * CONFIG.minShrinkFactor)}b`, cycleId);
+        console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 1 FAIL: Output gutted too much (${cleanCode.length}b)`));
+        metrics.rejected++; saveMetrics(); return null;
+    }
+    console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 1: Size bounds OK (${cleanCode.length}b)`));
+    gatesPassed++;
+
+    // GATE 2: Syntax validation
+    try {
+        // We use `new Function` but in a way that doesn't conflict with our dangerous pattern check
+        const syntaxChecker = Function;
+        new syntaxChecker(cleanCode);
+    } catch (syntaxError) {
+        logEvolution(targetAgent, 'REJECTED', `Syntax error: ${syntaxError.message}`, cycleId);
+        console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 2 FAIL: ${syntaxError.message}`));
+        metrics.rejected++; saveMetrics(); return null;
+    }
+    console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 2: Syntax valid`));
+    gatesPassed++;
+
+    // GATE 3: Dangerous pattern detection (string + regex)
+    for (const pattern of DANGEROUS_STRINGS) {
+        if (cleanCode.includes(pattern) && !originalCode.includes(pattern)) {
+            logEvolution(targetAgent, 'BLOCKED', `Dangerous string added: "${pattern}"`, cycleId);
+            console.log(chalk.red.bold(`[ARCHITECT #${id}]: 🚫 GATE 3 BLOCKED: Dangerous string "${pattern}" added.`));
+            metrics.blocked++; saveMetrics(); return null;
+        }
+    }
+    for (const { rx, name } of DANGEROUS_REGEX) {
+        if (rx.test(cleanCode)) {
+            logEvolution(targetAgent, 'BLOCKED', `Dangerous pattern: ${name}`, cycleId);
+            console.log(chalk.red.bold(`[ARCHITECT #${id}]: 🚫 GATE 3 BLOCKED: Regex match "${name}"`));
+            metrics.blocked++; saveMetrics(); return null;
+        }
+    }
+    console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 3: No dangerous patterns (${DANGEROUS_STRINGS.length} strings + ${DANGEROUS_REGEX.length} regex clear)`));
+    gatesPassed++;
+
+    // GATE 4: Required structural patterns
+    const missingRequired = [];
+    for (const [key, rule] of Object.entries(REQUIRED_PATTERNS)) {
+        if (!cleanCode.includes(rule.pattern)) {
+            missingRequired.push(rule.description);
+        }
+    }
+    if (missingRequired.length > 0) {
+        logEvolution(targetAgent, 'REJECTED', `Missing required: ${missingRequired.join(', ')}`, cycleId);
+        console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 4 FAIL: Missing ${missingRequired.join(', ')}`));
+        metrics.rejected++; saveMetrics(); return null;
+    }
+    console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 4: Required patterns present`));
+    gatesPassed++;
+
+    // GATE 5: Conditional pattern preservation
+    const droppedPatterns = [];
+    for (const cp of CONDITIONAL_PATTERNS) {
+        if (originalCode.includes(cp.pattern) && !cleanCode.includes(cp.pattern)) {
+            droppedPatterns.push(cp.description);
+        }
+    }
+    if (droppedPatterns.length > 0) {
+        logEvolution(targetAgent, 'REJECTED', `Dropped critical patterns: ${droppedPatterns.join(', ')}`, cycleId);
+        console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 5 FAIL: AI dropped: ${droppedPatterns.join(', ')}`));
+        metrics.rejected++; saveMetrics(); return null;
+    }
+    console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 5: Conditional patterns preserved`));
+    gatesPassed++;
+
+    // GATE 6: Structural health check
+    const evolvedAnalysis = analyzeCode(cleanCode);
+    if (evolvedAnalysis.functionCount === 0 && originalAnalysis.functionCount > 0) {
+        logEvolution(targetAgent, 'REJECTED', 'All functions removed', cycleId);
+        console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 6 FAIL: AI removed all functions`));
+        metrics.rejected++; saveMetrics(); return null;
+    }
+    if (evolvedAnalysis.requireCount < originalAnalysis.requireCount - 1) {
+        logEvolution(targetAgent, 'REJECTED', `Lost too many imports (${originalAnalysis.requireCount} → ${evolvedAnalysis.requireCount})`, cycleId);
+        console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 6 FAIL: Too many imports removed`));
+        metrics.rejected++; saveMetrics(); return null;
+    }
+    console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 6: Structural health OK (${evolvedAnalysis.functionCount} funcs, ${evolvedAnalysis.requireCount} imports)`));
+    gatesPassed++;
+
+    // GATE 7: Pre-deploy boot test (fork in subprocess)
+    console.log(chalk.magenta(`[ARCHITECT #${id}]: ⏳ GATE 7: Boot testing evolved code in sandbox subprocess...`));
+    const bootResult = await bootTest(cleanCode, targetAgent);
+    if (!bootResult.survived) {
+        logEvolution(targetAgent, 'REJECTED', `Boot test failed: ${bootResult.error}`, cycleId);
+        console.log(chalk.red(`[ARCHITECT #${id}]: ❌ GATE 7 FAIL: Crashed during boot test — ${bootResult.error}`));
+        metrics.rejected++; saveMetrics(); return null;
+    }
+    console.log(chalk.green(`[ARCHITECT #${id}]: ✅ GATE 7: Boot test PASSED (survived ${(bootResult.aliveMs / 1000).toFixed(1)}s)`));
+    gatesPassed++;
+
+    console.log(chalk.green.bold(`[ARCHITECT #${id}]: ✅ ALL ${gatesPassed}/${totalGates} SAFETY GATES PASSED`));
+
+
+    return gatesPassed;
+}
+
+function deployAndNotify(cleanCode, originalCode, targetAgent, targetPath, agentType, cycleId, gatesPassed) {
+// ── PHASE 5: DIFF GENERATION ─────────────────────
+    const diff = generateSimpleDiff(originalCode, cleanCode);
+    console.log(chalk.gray(`[ARCHITECT #${id}]: Diff: ${diff.changedLines} lines changed, ${diff.addedLines} added, ${diff.removedLines} removed`));
+
+    // ── PHASE 6: BACKUP & DEPLOY ─────────────────────
+    if (!fs.existsSync(BACKUPS_DIR)) fs.mkdirSync(BACKUPS_DIR, { recursive: true });
+
+    const timestamp = Date.now();
+    const backupFilename = `${targetAgent}_v${cycleId}_${timestamp}.bak`;
+    const backupPath = path.join(BACKUPS_DIR, backupFilename);
+
+    // Save backup
+    fs.copyFileSync(targetPath, backupPath);
+
+    // Deploy evolved code
+    fs.writeFileSync(targetPath, cleanCode);
+
+    console.log(chalk.green.bold(`[ARCHITECT #${id}]: ✅ EVOLUTION #${cycleId} DEPLOYED → ${targetAgent}`));
+    console.log(chalk.gray(`[ARCHITECT #${id}]: Backup: ${backupFilename}`));
+    console.log(chalk.gray(`[ARCHITECT #${id}]: Size: ${originalCode.length}b → ${cleanCode.length}b (${cleanCode.length > originalCode.length ? '+' : ''}${cleanCode.length - originalCode.length}b)`));
+
+    // Register for crash watch / rollback
+    pendingEvolutions.set(agentType, {
+        backupPath,
+        targetPath,
+        timestamp,
+        cycleId,
+    });
+
+    // Clear pending after crash watch window
+    setTimeout(() => {
+        if (pendingEvolutions.has(agentType)) {
+            pendingEvolutions.delete(agentType);
+            console.log(chalk.green(`[ARCHITECT #${id}]: ✅ ${agentType} survived crash watch window. Evolution #${cycleId} confirmed stable.`));
+
+            // Save as "last known good" — bedrock for multi-failure rollback
+            try {
+                const lastGoodPath = path.join(BACKUPS_DIR, `_lastgood_${targetAgent}`);
+                fs.copyFileSync(targetPath, lastGoodPath);
+                console.log(chalk.gray(`[ARCHITECT #${id}]: 📌 Saved ${targetAgent} as last known good.`));
+            } catch (e) { /* non-critical */ }
+
+            // Update stable metrics
+            if (!metrics.agentHistory[targetAgent]) metrics.agentHistory[targetAgent] = {};
+            metrics.agentHistory[targetAgent].confirmedStable = (metrics.agentHistory[targetAgent].confirmedStable || 0) + 1;
+            saveMetrics();
+        }
+    }, CONFIG.crashWatchWindow);
+
+    // Update metrics
+    metrics.applied++;
+    metrics.lastEvolution = new Date().toISOString();
+    if (!metrics.agentHistory[targetAgent]) metrics.agentHistory[targetAgent] = {};
+    metrics.agentHistory[targetAgent].lastEvolved = timestamp;
+    metrics.agentHistory[targetAgent].timesEvolved = (metrics.agentHistory[targetAgent].timesEvolved || 0) + 1;
+    saveMetrics();
+
+    // Log with diff
+    logEvolution(targetAgent, 'APPLIED', `Cycle #${cycleId} | ${originalCode.length}b → ${cleanCode.length}b | ${diff.changedLines} lines changed`, cycleId, diff.text);
+
+    // ── PHASE 7: NOTIFY THE SWARM ────────────────────
+    if (process.send) {
+        process.send({
+            type: 'SIREN_SPEAK',
+            text: `Architect reporting. Evolution cycle ${cycleId} complete. ${targetAgent.replace('.js', '')} has been upgraded. ${gatesPassed} safety gates passed. ${diff.changedLines} lines modified. Monitoring for stability.`
+        });
+        process.send({
+            type: 'SKILL_UPGRADE',
+            agent: agentType,
+            protocol: `v${cycleId}.0 (AI-Evolved, ${gatesPassed} gates)`
+        });
+        process.send({
+            type: 'INTEL_DATA',
+            data: `Evolution #${cycleId}: ${targetAgent} upgraded (${diff.changedLines} lines changed). Watching for ${CONFIG.crashWatchWindow / 1000}s.`,
+            source: 'ARCHITECT_EVOLUTION'
+        });
+    }
+
+}
+
+// ══════════════════════════════════════════════════════════════
+// ██ MAIN EVOLUTION PIPELINE ██
+// ══════════════════════════════════════════════════════════════
+async function evolve(forceTarget = null) {
+    metrics.totalAttempts++;
+    const cycleId = metrics.totalAttempts;
+
+    try {
+        console.log(chalk.magenta.bold(`\n[ARCHITECT #${id}]: ═══════════════════════════════════════`));
+        console.log(chalk.magenta.bold(`[ARCHITECT #${id}]: 🧬 EVOLUTION CYCLE #${cycleId}`));
+        console.log(chalk.magenta.bold(`[ARCHITECT #${id}]: ═══════════════════════════════════════`));
+
+        const targetData = selectEvolutionTarget(forceTarget, cycleId);
+        if (!targetData) return; // Aborted during selection
+
+        const { targetAgent, targetPath, agentType, originalCode, originalAnalysis } = targetData;
+        const { telemetry } = analyzeTelemetry();
+
+        const cleanCode = await generateEvolvedCode(targetAgent, originalCode, telemetry, cycleId);
+        if (!cleanCode) return; // Aborted during generation
+
+        const gatesPassed = await runSafetyGates(cleanCode, originalCode, targetAgent, cycleId, originalAnalysis);
+        if (gatesPassed === null || gatesPassed === undefined) return; // Aborted during safety gates
+
+        deployAndNotify(cleanCode, originalCode, targetAgent, targetPath, agentType, cycleId, gatesPassed);
 
     } catch (e) {
         console.error(chalk.red(`[ARCHITECT #${id}]: Evolution cycle failed: ${e.message}`));
@@ -658,6 +700,7 @@ Return the IMPROVED version of this code. Remember: ONLY raw JavaScript, no mark
 
     saveMetrics();
 }
+
 
 // ── Rollback Engine ──────────────────────────────────────────
 function rollback(agentType) {
