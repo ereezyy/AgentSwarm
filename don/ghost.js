@@ -1,7 +1,7 @@
 // don/ghost.js - THE GHOST (IoT & Network Reconnaissance)
 // Wraps Python network scanners for automated infrastructure probing
 
-const { exec } = require('child_process');
+const { exec, execFile } = require('child_process');
 const chalk = require('chalk');
 const path = require('path');
 require('dotenv').config();
@@ -24,9 +24,7 @@ function runNetworkScan() {
     const cidr = DEFAULT_TARGETS[0];
 
     // Execute the Python scanner
-    const cmd = `${pythonCmd} "${SCANNER_SCRIPT}" --cidr ${cidr} --json --deep`;
-
-    exec(cmd, (error, stdout, stderr) => {
+    execFile(pythonCmd, [SCANNER_SCRIPT, '--cidr', cidr, '--json', '--deep'], (error, stdout, stderr) => {
         if (error) {
             console.error(chalk.red(`[GHOST #${id}]: Recon error: ${error.message}`));
             return;
@@ -88,7 +86,7 @@ let nmapAvailable = false;
 
 function checkNmap() {
     return new Promise((resolve) => {
-        exec('nmap --version', { timeout: 5000 }, (err) => {
+        execFile('nmap', ['--version'], { timeout: 5000 }, (err) => {
             resolve(!err);
         });
     });
@@ -96,7 +94,7 @@ function checkNmap() {
 
 async function nmapScan(target) {
     return new Promise((resolve) => {
-        exec(`nmap -sn -T4 ${target}`, { timeout: 30000 }, (err, stdout) => {
+        execFile('nmap', ['-sn', '-T4', target], { timeout: 30000 }, (err, stdout) => {
             if (err) { resolve(null); return; }
             resolve(stdout);
         });
@@ -127,9 +125,7 @@ function probeHost(host) {
     const tempFile = path.resolve(__dirname, `../temp_target_${id}.txt`);
     fs.writeFileSync(tempFile, host);
 
-    const cmd = `${pythonCmd} "${SCANNER_SCRIPT}" --targets "${tempFile}" --json`;
-
-    exec(cmd, (error, stdout, stderr) => {
+    execFile(pythonCmd, [SCANNER_SCRIPT, '--targets', tempFile, '--json'], (error, stdout, stderr) => {
         try { fs.unlinkSync(tempFile); } catch (e) { }
 
         if (error) {
