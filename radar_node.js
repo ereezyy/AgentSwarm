@@ -149,6 +149,42 @@ async function connectToSyndicate() {
 // Feature vector: [pool_lifespan_days, total_added_liq, initial_liq, num_adds, add_remove_ratio, total_removed]
 // Since this is Block-0 (the pool JUST launched), several features are at their initial values.
 
+
+function calculateFeatures(tx, creatorPubkey) {
+    // Feature 1: Pool lifespan = 0 days (Block-0, just created)
+    const poolLifespanDays = 0.0;
+
+    // Feature 2: Total added liquidity (from preBalances/postBalances delta in lamports → SOL)
+    // The creator's SOL balance drops by the amount of liquidity added
+    const preBalance = tx.meta.preBalances[0] || 0;
+    const postBalance = tx.meta.postBalances[0] || 0;
+    const solSpent = (preBalance - postBalance) / 1e9; // lamports to SOL
+    const totalAddedLiquidity = Math.max(solSpent, 0);
+
+    // Feature 3: Initial liquidity = same as total added (first add)
+    const initialLiquidity = totalAddedLiquidity;
+
+    // Feature 4: Number of liquidity adds = 1 (this IS the first add)
+    const numAdds = 1;
+
+    // Feature 5: Add-to-remove ratio = infinity at Block-0 (nothing removed yet)
+    // We cap at a high value since the model expects finite floats
+    const addRemoveRatio = 100.0;
+
+    // Feature 6: Total removed = 0 (nothing removed at creation)
+    const totalRemoved = 0.0;
+
+    const features = [poolLifespanDays, totalAddedLiquidity, initialLiquidity, numAdds, addRemoveRatio, totalRemoved];
+
+    console.log(`📊 [FEATURE EXTRACT]: Creator=${creatorPubkey.toString().slice(0, 8)}... | SOL Spent=${totalAddedLiquidity.toFixed(4)} | Features=${JSON.stringify(features.map(f => +f.toFixed(4)))}`);
+
+    return {
+        features,
+        creator: creatorPubkey.toString(),
+        solSpent: totalAddedLiquidity
+    };
+}
+
 async function extractRaydiumFeatures(signature) {
     try {
         const tx = await connection.getTransaction(signature, {
@@ -166,38 +202,7 @@ async function extractRaydiumFeatures(signature) {
         if (!accountKeys || accountKeys.length === 0) return null;
         const creatorPubkey = accountKeys[0];
 
-        // Feature 1: Pool lifespan = 0 days (Block-0, just created)
-        const poolLifespanDays = 0.0;
-
-        // Feature 2: Total added liquidity (from preBalances/postBalances delta in lamports → SOL)
-        // The creator's SOL balance drops by the amount of liquidity added
-        const preBalance = tx.meta.preBalances[0] || 0;
-        const postBalance = tx.meta.postBalances[0] || 0;
-        const solSpent = (preBalance - postBalance) / 1e9; // lamports to SOL
-        const totalAddedLiquidity = Math.max(solSpent, 0);
-
-        // Feature 3: Initial liquidity = same as total added (first add)
-        const initialLiquidity = totalAddedLiquidity;
-
-        // Feature 4: Number of liquidity adds = 1 (this IS the first add)
-        const numAdds = 1;
-
-        // Feature 5: Add-to-remove ratio = infinity at Block-0 (nothing removed yet)
-        // We cap at a high value since the model expects finite floats
-        const addRemoveRatio = 100.0;
-
-        // Feature 6: Total removed = 0 (nothing removed at creation)
-        const totalRemoved = 0.0;
-
-        const features = [poolLifespanDays, totalAddedLiquidity, initialLiquidity, numAdds, addRemoveRatio, totalRemoved];
-
-        console.log(`📊 [FEATURE EXTRACT]: Creator=${creatorPubkey.toString().slice(0, 8)}... | SOL Spent=${totalAddedLiquidity.toFixed(4)} | Features=${JSON.stringify(features.map(f => +f.toFixed(4)))}`);
-
-        return {
-            features,
-            creator: creatorPubkey.toString(),
-            solSpent: totalAddedLiquidity
-        };
+        return calculateFeatures(tx, creatorPubkey);
 
     } catch (err) {
         stats.featureExtractionErrors++;
