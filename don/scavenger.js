@@ -179,12 +179,14 @@ async function scrapeBounties() {
         console.log(chalk.green(`[SCAVENGER #${id}]: 🎯 ${leads.length} potential bounties discovered.`));
 
         const tracker = loadTracker();
+        const foundSet = new Set(tracker.found);
 
         for (const lead of leads) {
-            if (tracker.found.includes(lead.id)) continue;
+            if (foundSet.has(lead.id)) continue;
 
             console.log(chalk.yellow(`[SCAVENGER #${id}]: 💎 New Bounty: ${lead?.title || 'Unknown'} (${lead?.budget?.range || lead?.budget?.amount || 'Unknown'})`));
             tracker.found.push(lead.id);
+            foundSet.add(lead.id);
 
             // Draft Proposal via Jules if it's technical
             const isTechnical = lead.skills?.some(s => ['python', 'node', 'solana', 'javascript', 'ts', 'web3'].includes(s.toLowerCase()));
