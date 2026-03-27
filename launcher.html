@@ -234,6 +234,7 @@
     <div id="log-overlay"></div>
 
     <script>
+        const AUTH_TOKEN = '{{AUTH_TOKEN}}';
         const btn = document.getElementById('launch-trigger');
         const btnText = document.getElementById('btn-text');
         const spinner = document.getElementById('spinner');
@@ -247,7 +248,12 @@
             addLog("Initiating boot sequence...");
             
             try {
-                const response = await fetch('/launch', { method: 'POST' });
+                const response = await fetch('/launch', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': AUTH_TOKEN
+                    }
+                });
                 const result = await response.json();
                 
                 if (result.success) {
