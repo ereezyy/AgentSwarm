@@ -690,7 +690,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                     prediction: { rug_probability: rugProb, threshold: neuralConfig.rug_threshold }
                 });
                 saveTrades(trades);
-                console.log(chalk.green(`[SNIPER #${id}]: 📌 Position recorded | Entry: ${realEntryPrice.toFixed(10)} SOL/uiToken | Amount: ${uiAmount.toLocaleString()} tokens`));
+                console.log(chalk.green(`[SNIPER #${id}]: 📌 Position recorded | Entry: ${realEntryPrice.toFixed(10)} SOL/uiToken | Amount: *** tokens`));
                 GlobalMemory.addMemory('SNIPER', `[TRADE_ENTRY] Entered ${mintStr} via Jupiter. ${SOL_AMOUNT} SOL @ ${realEntryPrice.toExponential(3)}. Risk: ${(rugProb * 100).toFixed(1)}%. Threshold: ${neuralConfig.rug_threshold}`, 7);
                 if (process.send) process.send({ type: 'TRADE_EXECUTED', mint: mintStr, amount: SOL_AMOUNT, source: 'JUPITER' });
             }
