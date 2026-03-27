@@ -1,5 +1,12 @@
 const path = require('path');
 
+jest.mock('dotenv', () => ({ config: jest.fn() }), { virtual: true });
+jest.mock('axios', () => ({
+    get: jest.fn(),
+    post: jest.fn(),
+    create: jest.fn().mockReturnThis(),
+}), { virtual: true });
+
 // Create specific mocks
 const mockExistsSync = jest.fn();
 const mockReadFileSync = jest.fn();
