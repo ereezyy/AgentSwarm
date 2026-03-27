@@ -59,7 +59,17 @@ function handleCommand(cmd) {
         ws.send(JSON.stringify({ type: 'PONG', id: id }));
     }
     if (cmd.type === 'REBOOT') {
-        require('child_process').exec('sudo reboot');
+        const secret = process.env.OUTPOST_SECRET;
+        if (!secret) {
+            console.error('[OUTPOST]: REBOOT command received but OUTPOST_SECRET is not configured. Ignoring.');
+            return;
+        }
+        if (cmd.secret === secret) {
+            console.log('[OUTPOST]: Executing authorized REBOOT command.');
+            require('child_process').execFile('sudo', ['reboot']);
+        } else {
+            console.error('[OUTPOST]: REBOOT command rejected due to invalid secret.');
+        }
     }
 }
 
