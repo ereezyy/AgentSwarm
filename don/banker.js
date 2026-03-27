@@ -333,38 +333,6 @@ async function fetchPrices(holdings) {
     return holdings;
 }
 
-// ── Orphan Recovery ─────────────────────────────────────────────
-// Tokens in wallet but NOT in active_trades.json get recovered with current price as entry.
-function recoverOrphanedPositions(holdings, trades) {
-    let changed = false;
-    for (const holding of holdings) {
-        const inTrades = trades.some(t => t.mint === holding.mint);
-        if (!inTrades && holding.priceNative !== undefined) {
-            // Use current price as entry baseline (0% PnL at recovery point)
-            // This means: from here forward, gains/losses are tracked correctly.
-            // We don't know actual entry price, so we start fresh from now.
-            const entryPrice = holding.priceNative; // SOL per UI token (same unit as fetchCurrentPrice returns)
-            const rawAmount = parseInt(holding.rawAmount, 10);
-            console.log(chalk.yellow(`[BANKER #${id}]: 🔍 ORPHAN DETECTED: ${holding.symbol} — adding to active trades for exit management`));
-            trades.push({
-                mint: holding.mint,
-                entryPrice: entryPrice,  // current price = 0% baseline, no fake gains
-                amount: rawAmount,
-                entrySol: 0.01,
-                timestamp: Date.now(),
-                maxHoldUntil: Date.now() + (2 * 60 * 60 * 1000), // exit within 2h
-                moonbagSecured: false,
-                source: 'RECOVERED',
-            });
-            changed = true;
-        }
-    }
-    if (changed) {
-        saveTrades(trades);
-        console.log(chalk.green(`[BANKER #${id}]: ✅ Orphan recovery complete. Sniper will manage exits.`));
-    }
-    return trades;
-}
 
 // ── Exit Signal Engine ──────────────────────────────────────────
 // For each holding, compute PnL vs recorded entry price, assign exit signal.
@@ -584,9 +552,7 @@ async function checkBalance() {
         });
     }
 
-    // 3. Orphan recovery — adds untracked tokens back into active_trades.json
     let trades = loadTrades();
-    trades = recoverOrphanedPositions(holdings, trades);
 
     // 4. Compute exit signals for all holdings
     const exitSignals = computeExitSignals(holdings, trades);
