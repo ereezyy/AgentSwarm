@@ -40,7 +40,7 @@ const server = http.createServer((req, res) => {
 
         // Execute the main startup script
         // We use powershell to run fire_it_up.ps1
-        const child = spawn('powershell', ['-ExecutionPolicy', 'Bypass', '-File', 'fire_it_up.ps1'], {
+        const child = spawn('powershell', ['-ExecutionPolicy', 'RemoteSigned', '-File', 'fire_it_up.ps1'], {
             detached: true,
             stdio: 'ignore'
         });
