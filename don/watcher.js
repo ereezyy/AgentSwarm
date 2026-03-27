@@ -193,10 +193,16 @@ async function checkWhale(whale) {
 }
 
 async function trackWhales() {
-    // Sequential checks with stagger — avoids RPC rate limits
-    for (const whale of WHALES) {
-        await checkWhale(whale);
-        await new Promise(r => setTimeout(r, STAGGER_MS));
+    // Process in batches to balance rate limits with speed
+    const BATCH_SIZE = 3; // Process 3 whales concurrently
+    for (let i = 0; i < WHALES.length; i += BATCH_SIZE) {
+        const batch = WHALES.slice(i, i + BATCH_SIZE);
+        await Promise.all(batch.map(whale => checkWhale(whale)));
+
+        // Wait STAGGER_MS only if there are more batches to process
+        if (i + BATCH_SIZE < WHALES.length) {
+            await new Promise(r => setTimeout(r, STAGGER_MS));
+        }
     }
 
     // Successful cycle = reset backoff
