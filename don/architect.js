@@ -71,7 +71,6 @@ const DANGEROUS_STRINGS = [
     'process.exit(', 'process.kill(',
 
     // Self-eval/self-modify (inception risk)
-    'eval(',
 
     // Crypto key theft
     'SOLANA_PRIVATE_KEY', 'PRIVATE_KEY', 'SECRET_KEY',
@@ -82,6 +81,10 @@ const DANGEROUS_STRINGS = [
 ];
 
 const DANGEROUS_REGEX = [
+    // Dynamic code execution (eval and Function)
+    { rx: /\beval\b/, name: 'eval usage' },
+    { rx: /\bnew\s+Function\s*\(/, name: 'new Function()' },
+
     // Infinite loops (the #1 way AI kills an agent)
     { rx: /while\s*\(\s*true\s*\)/, name: 'while(true) infinite loop' },
     { rx: /for\s*\(\s*;\s*;\s*\)/, name: 'for(;;) infinite loop' },
