@@ -331,7 +331,7 @@ async function deepResearch(job) {
 async function summarizeResearch(content) {
     return new Promise((resolve) => {
         const summarizerPath = path.join(__dirname, '../muscle/summarizer_bridge.py');
-        const child = exec(`python ${summarizerPath}`, (err, stdout) => {
+        const child = execFile('python', [summarizerPath], (err, stdout) => {
             if (err) {
                 console.log(chalk.red(`  ❌ Summarization failed: ${err.message}`));
                 resolve({ summary: "Summarization failed", key_signals: ["ERROR"] });
