@@ -138,7 +138,7 @@ async function scrapeBounties() {
         console.log(chalk.cyan(`[SCAVENGER #${id}]: 🔍 Triggering Shadow Scraper (Bounty Mode)...`));
         const scraperPath = path.join(__dirname, 'shadow_scraper.js');
         // maxBuffer: 5MB cap so we never OOM on binary output
-        const rawOutput = execFileSync('node', [scraperPath, 'Solana Web3 Bounty', '10', '--bounty'], {
+        const rawOutput = execFileSync(process.execPath, [scraperPath, 'Solana Web3 Bounty', '10', '--bounty'], {
             encoding: 'utf8',
             maxBuffer: 5 * 1024 * 1024,
             timeout: 60000
