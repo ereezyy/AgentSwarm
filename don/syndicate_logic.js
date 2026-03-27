@@ -460,7 +460,7 @@ class DonCore {
         const inputData = JSON.stringify({ ...params, rpcUrl });
 
         return new Promise((resolve) => {
-            const child = exec(`python "${EXECUTOR_PATH}"`, async (error, stdout, stderr) => {
+            const child = execFile('python', [EXECUTOR_PATH], async (error, stdout, stderr) => {
                 if (error) {
                     this.log(`Trade Executor Error: ${error.message}`, 'ERROR');
                     resolve({ success: false, error: error.message });
