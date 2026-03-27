@@ -335,7 +335,6 @@ async function fetchPrices(holdings) {
 
 // ── Orphan Recovery ─────────────────────────────────────────────
 // Tokens in wallet but NOT in active_trades.json get recovered with current price as entry.
-// This handles the 3 stuck tokens bought before the entryPrice bug was fixed.
 function recoverOrphanedPositions(holdings, trades) {
     let changed = false;
     for (const holding of holdings) {
