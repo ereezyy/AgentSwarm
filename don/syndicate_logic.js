@@ -1127,6 +1127,17 @@ class DonCore {
                         }, 2000 + Math.random() * 3000);
                     }
                 }
+            } else if (msg.type === 'TRADE_EXECUTED') {
+                // Route TRADE_EXECUTED to SNIPER for PnL tracking and ECHO_CHAMBER for marketing
+                this.log(`TRADE EXECUTED: ${msg.amount} SOL on ${msg.mint} by ${msg.source}`, 'CRYPTO');
+
+                if (this.processes['SNIPER'] && this.processes['SNIPER'].connected && type !== 'SNIPER') {
+                    this.processes['SNIPER'].send(msg);
+                }
+
+                if (this.processes['ECHO_CHAMBER'] && this.processes['ECHO_CHAMBER'].connected) {
+                    this.processes['ECHO_CHAMBER'].send(msg);
+                }
             } else if (msg.type === 'EXECUTE_TRADE') {
                 this.log(`Executing Real Trade for ${type} #${id}: ${msg.params.command} ${msg.params.mint}`, 'POWER');
                 const hexKey = process.env.SOLANA_PRIVATE_KEY || '';
