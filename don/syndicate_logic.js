@@ -1078,6 +1078,13 @@ class DonCore {
                 if (this.agentComms.length > 200) this.agentComms = this.agentComms.slice(-200);
                 this.broadcast({ type: 'AGENT_COMMS', ...commsEntry });
 
+                // Forward to other agents for autonomous chatter
+                Object.values(this.processes).forEach(proc => {
+                    if (proc && proc.connected && proc !== child) {
+                        proc.send({ type: 'AGENT_COMMS', ...commsEntry });
+                    }
+                });
+
                 // ── COLLABORATION ENGINE ──
                 // If this is a PROPOSAL, trigger a review from another agent
                 if (msg.msg.includes('[PROPOSAL]')) {
