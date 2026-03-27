@@ -14,6 +14,11 @@ jest.mock('fs', () => ({
     writeFileSync: mockWriteFileSync,
 }));
 
+// Mock dotenv
+jest.mock('dotenv', () => ({
+    config: jest.fn()
+}), { virtual: true });
+
 // Mock chalk
 jest.mock('chalk', () => {
     const boldFn = jest.fn(s => s);

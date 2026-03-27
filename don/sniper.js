@@ -955,15 +955,58 @@ async function startSurveillance() {
 // ============================================================
 const TRADES_FILE = path.join(__dirname, '../missions/active_trades.json');
 
+let tradesCache = [];
+let cacheTimestamp = 0;
+let lastMtimeMs = 0;
+let cacheInitialized = false;
+const CACHE_TTL_MS = 1000;
+
 function loadTrades() {
     try {
-        if (fs.existsSync(TRADES_FILE)) return JSON.parse(fs.readFileSync(TRADES_FILE, 'utf8'));
-    } catch { }
-    return [];
+        const now = Date.now();
+        // If within TTL, skip any fs calls and return clone.
+        if (cacheInitialized && (now - cacheTimestamp < CACHE_TTL_MS)) {
+            return JSON.parse(JSON.stringify(tradesCache));
+        }
+
+        // TTL expired, check if file was actually modified
+        if (!fs.existsSync(TRADES_FILE)) {
+            tradesCache = [];
+            cacheInitialized = true;
+            cacheTimestamp = now;
+            return [];
+        }
+
+        const stat = fs.statSync(TRADES_FILE);
+        cacheTimestamp = now; // Reset TTL timer even if file didn't change
+
+        if (stat.mtimeMs === lastMtimeMs && cacheInitialized) {
+            return JSON.parse(JSON.stringify(tradesCache));
+        }
+
+        // File modified, parse it
+        lastMtimeMs = stat.mtimeMs;
+        const data = fs.readFileSync(TRADES_FILE, 'utf8');
+        tradesCache = JSON.parse(data);
+        cacheInitialized = true;
+
+        return JSON.parse(JSON.stringify(tradesCache));
+    } catch {
+        return [];
+    }
 }
 
 function saveTrades(trades) {
-    fs.writeFileSync(TRADES_FILE, JSON.stringify(trades, null, 2));
+    const data = JSON.stringify(trades, null, 2);
+    fs.writeFileSync(TRADES_FILE, data);
+
+    // Proactively update cache and reset TTL so next read is instantly from memory
+    tradesCache = JSON.parse(data);
+    cacheInitialized = true;
+    cacheTimestamp = Date.now();
+    try {
+        lastMtimeMs = fs.statSync(TRADES_FILE).mtimeMs;
+    } catch { }
 }
 
 // Guard: prevent concurrent checkPositions calls firing duplicate sells
