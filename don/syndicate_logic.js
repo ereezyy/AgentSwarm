@@ -64,7 +64,17 @@ class DonCore {
             this.log("WebSocket Server running on port 8080", "INFO");
 
             // Start Dedicated Radar Node Server (for Distributed Pi 5 Compute)
-            this.radarWss = new WebSocket.Server({ port: 8081 });
+            const https = require('https');
+            if (!process.env.RADAR_TLS_CERT || !process.env.RADAR_TLS_KEY) {
+                console.error("🔒 [SECURITY EXCEPTION]: RADAR_TLS_CERT and RADAR_TLS_KEY environment variables are required for secure Distributed Radar communication.");
+                process.exit(1);
+            }
+            const radarHttpsServer = https.createServer({
+                cert: fs.readFileSync(process.env.RADAR_TLS_CERT),
+                key: fs.readFileSync(process.env.RADAR_TLS_KEY)
+            });
+            radarHttpsServer.listen(8081);
+            this.radarWss = new WebSocket.Server({ server: radarHttpsServer });
             this.radarWss.on("connection", ws => {
                 this.log("📡 DISTRIBUTED RADAR NODE CONNECTED to port 8081", "POWER");
 

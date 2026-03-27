@@ -118,7 +118,9 @@ let wsToMainPC = null;
 async function connectToSyndicate() {
     await aiCoprocessor.loadModel();
 
-    wsToMainPC = new WebSocket(`ws://${MAIN_PC_IP}:${MAIN_PC_WS_PORT}`);
+    wsToMainPC = new WebSocket(`wss://${MAIN_PC_IP}:${MAIN_PC_WS_PORT}`, {
+        rejectUnauthorized: process.env.RADAR_TLS_REJECT_UNAUTHORIZED !== 'false'
+    });
 
     wsToMainPC.on('open', () => {
         console.log(`✅ [RADAR NODE]: Uplink established with Main Syndicate Hub.`);
