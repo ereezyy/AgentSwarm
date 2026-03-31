@@ -3,7 +3,7 @@ const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
 
-const API_KEY = 'AQ.Ab8RN6IXr9kwsabtAwXnWklcnqamKQ7eqGL3r13j8JsrAMS7LQ';
+const API_KEY = process.env.JULES_API_KEY;
 const BASE_URL = 'https://jules.googleapis.com/v1alpha';
 const SOURCE = 'github/ereezyy/AgentSwarm';
 
