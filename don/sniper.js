@@ -914,8 +914,9 @@ async function startSurveillance() {
                     const postToken = tx.meta.postTokenBalances || [];
                     const preToken = tx.meta.preTokenBalances || [];
 
+                    const preTokenMap = new Map(preToken.map(p => [p.accountIndex, p]));
                     const bought = postToken.find(post => {
-                        const pre = preToken.find(p => p.accountIndex === post.accountIndex);
+                        const pre = preTokenMap.get(post.accountIndex);
                         const preAmt = pre ? parseFloat(pre.uiTokenAmount.uiAmount || 0) : 0;
                         return post.owner === walletAddr && parseFloat(post.uiTokenAmount.uiAmount) > preAmt;
                     });
