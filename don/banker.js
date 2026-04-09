@@ -300,10 +300,17 @@ async function fetchPrices(holdings) {
             { timeout: 12000 }
         );
         const pairs = Array.isArray(res.data) ? res.data : [];
+        const bestPairs = {};
+        for (const p of pairs) {
+            const mint = p.baseToken?.address;
+            if (!mint) continue;
+            if (!bestPairs[mint] || (p.volume?.h24 || 0) > (bestPairs[mint].volume?.h24 || 0)) {
+                bestPairs[mint] = p;
+            }
+        }
         for (const holding of holdings) {
             // Prefer highest-volume pair for price accuracy
-            const allPairs = pairs.filter(p => p.baseToken?.address === holding.mint);
-            const pair = allPairs.sort((a, b) => (b.volume?.h24 || 0) - (a.volume?.h24 || 0))[0];
+            const pair = bestPairs[holding.mint];
             if (pair?.priceUsd) {
                 holding.usdValue = parseFloat(pair.priceUsd) * holding.balance;
                 holding.symbol = pair.baseToken?.symbol || holding.mint.slice(0, 6);
@@ -328,7 +335,6 @@ async function fetchPrices(holdings) {
 
 // ── Orphan Recovery ─────────────────────────────────────────────
 // Tokens in wallet but NOT in active_trades.json get recovered with current price as entry.
-// This handles the 3 stuck tokens bought before the entryPrice bug was fixed.
 function recoverOrphanedPositions(holdings, trades) {
     let changed = false;
     for (const holding of holdings) {

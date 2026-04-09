@@ -67,11 +67,7 @@ function handleCommand(cmd) {
         ws.send(JSON.stringify({ type: 'PONG', id: id }));
     }
     if (cmd.type === 'REBOOT') {
-        if (cmd.secret === process.env.COMMAND_SECRET) {
-            console.log(chalk.yellow(`[OUTPOST]: 🔄 Authorized REBOOT command received. Executing...`));
-            execFile('sudo', ['reboot']);
-        } else {
-            console.warn(chalk.red(`[OUTPOST]: ⚠️ UNAUTHORIZED REBOOT attempt detected from source. IP: ${cmd.ip || 'Unknown'}`));
+
         }
     }
 }

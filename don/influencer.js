@@ -238,6 +238,27 @@ process.on('message', async (msg) => {
                 console.error(chalk.red(`[SYLA #${id}]: Failed to reply: ${e.message}`));
             }
         }
+    } else if (msg.type === 'AGENT_COMMS' && msg.from !== 'SYLA' && msg.from !== 'THE DON' && msg.from !== 'DON') {
+        // 20% chance to reply to another agent's message
+        if (Math.random() < 0.20) {
+            const content = msg.msg || '';
+            const sender = msg.from;
+            console.log(chalk.cyan(`[SYLA #${id}]: 💬 Overheard ${sender} say: "${content}"`));
+
+            try {
+                const reply = await ask(
+                    `In the war room, another agent named ${sender} just said: "${content}". Give a short 1-sentence response, either agreeing, questioning, or offering a cynical take. Stay in your alluring, technical persona.`,
+                    SYSTEM_PROMPT,
+                    { agentName: `SYLA #${id}` }
+                );
+
+                if (reply) {
+                    process.send({ type: 'AGENT_COMMS', from: 'SYLA', msg: reply, timestamp: new Date().toISOString() });
+                }
+            } catch (e) {
+                console.error(chalk.red(`[SYLA #${id}]: Failed to reply to agent chat: ${e.message}`));
+            }
+        }
     } else if (msg.type === 'COPY_TRADE_SIGNAL') {
         const { whale, mint, detectedAmount } = msg;
         console.log(chalk.cyan(`[SYLA #${id}]: 🐋 WHALE ALERT! ${whale} is buying ${mint}. Initiating propaganda pivot...`));

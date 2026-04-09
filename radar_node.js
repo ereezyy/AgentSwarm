@@ -392,7 +392,7 @@ async function startJitoBundleEngine() {
         // Load the auth keypair
         const keypairData = JSON.parse(fs.readFileSync(JITO_AUTH_KEYPAIR_PATH, 'utf8'));
         const authKeypair = Keypair.fromSecretKey(Uint8Array.from(keypairData));
-        console.log(`🔑 [JITO ENGINE]: Auth pubkey: ${authKeypair.publicKey.toString().slice(0, 16)}...`);
+        console.log(`🔑 [JITO ENGINE]: Auth keypair loaded securely.`);
 
         // Fetch Jito tip accounts via their REST API
         const https = require('https');

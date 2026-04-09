@@ -6,7 +6,7 @@ async function check() {
     const KEY = process.env.SOLANA_PRIVATE_KEY;
 
     if (!KEY) {
-        console.log("No private key found in .env");
+        console.error("Configuration error: Missing required credentials.");
         return;
     }
 

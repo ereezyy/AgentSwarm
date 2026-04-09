@@ -7,6 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
 const WebSocket = require('ws');
+const https = require('https');
 let SolanaWeb3 = null;
 try { SolanaWeb3 = require('@solana/web3.js'); } catch (e) { /* optional */ }
 
@@ -39,7 +40,18 @@ class DonCore {
 
         // Start WebSocket Server
         if (process.env.NODE_ENV !== "test") {
-            this.wss = new WebSocket.Server({ port: 8080 });
+            if (process.env.SSL_KEY && process.env.SSL_CERT && fs.existsSync(process.env.SSL_KEY) && fs.existsSync(process.env.SSL_CERT)) {
+                const server = https.createServer({
+                    key: fs.readFileSync(process.env.SSL_KEY),
+                    cert: fs.readFileSync(process.env.SSL_CERT)
+                });
+                server.listen(8080);
+                this.wss = new WebSocket.Server({ server });
+                this.log("Started WSS (Secure) Server on port 8080", "INFO");
+            } else {
+                this.wss = new WebSocket.Server({ port: 8080 });
+                this.log("WARNING: SSL_KEY or SSL_CERT not found. Falling back to plain WS on port 8080.", "ERROR");
+            }
             this.wss.on("connection", ws => {
                 this.log("New client connected to The Front", "INFO");
                 const trades = this.loadTradeHistory();
@@ -64,7 +76,18 @@ class DonCore {
             this.log("WebSocket Server running on port 8080", "INFO");
 
             // Start Dedicated Radar Node Server (for Distributed Pi 5 Compute)
-            this.radarWss = new WebSocket.Server({ port: 8081 });
+            if (process.env.SSL_KEY && process.env.SSL_CERT && fs.existsSync(process.env.SSL_KEY) && fs.existsSync(process.env.SSL_CERT)) {
+                const radarServer = https.createServer({
+                    key: fs.readFileSync(process.env.SSL_KEY),
+                    cert: fs.readFileSync(process.env.SSL_CERT)
+                });
+                radarServer.listen(8081);
+                this.radarWss = new WebSocket.Server({ server: radarServer });
+                this.log("Started Dedicated Radar WSS (Secure) Server on port 8081", "INFO");
+            } else {
+                this.radarWss = new WebSocket.Server({ port: 8081 });
+                this.log("WARNING: SSL_KEY or SSL_CERT not found. Falling back to plain WS on port 8081.", "ERROR");
+            }
             this.radarWss.on("connection", ws => {
                 this.log("📡 DISTRIBUTED RADAR NODE CONNECTED to port 8081", "POWER");
 
@@ -437,7 +460,7 @@ class DonCore {
         const inputData = JSON.stringify({ ...params, rpcUrl });
 
         return new Promise((resolve) => {
-            const child = exec(`python "${EXECUTOR_PATH}"`, async (error, stdout, stderr) => {
+            const child = execFile('python', [EXECUTOR_PATH], async (error, stdout, stderr) => {
                 if (error) {
                     this.log(`Trade Executor Error: ${error.message}`, 'ERROR');
                     resolve({ success: false, error: error.message });
@@ -676,8 +699,8 @@ class DonCore {
 
         // Fallback for Architect-generated agents
         if (!scriptName) {
-            // SECURITY FIX: Prevent path traversal
-            if (type.includes('..') || type.includes('/') || type.includes('\\')) {
+            // Prevent path traversal
+            if (!/^[a-zA-Z0-9_-]+$/.test(type)) {
                 this.log(`Security Alert: Invalid agent type '${type}' rejected.`, 'ERROR');
                 return;
             }
@@ -1077,6 +1100,13 @@ class DonCore {
                 this.agentComms.push(commsEntry);
                 if (this.agentComms.length > 200) this.agentComms = this.agentComms.slice(-200);
                 this.broadcast({ type: 'AGENT_COMMS', ...commsEntry });
+
+                // Forward to other agents for autonomous chatter
+                Object.values(this.processes).forEach(proc => {
+                    if (proc && proc.connected && proc !== child) {
+                        proc.send({ type: 'AGENT_COMMS', ...commsEntry });
+                    }
+                });
 
                 // ── COLLABORATION ENGINE ──
                 // If this is a PROPOSAL, trigger a review from another agent

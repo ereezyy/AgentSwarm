@@ -138,7 +138,7 @@ async function scrapeBounties() {
         console.log(chalk.cyan(`[SCAVENGER #${id}]: 🔍 Triggering Shadow Scraper (Bounty Mode)...`));
         const scraperPath = path.join(__dirname, 'shadow_scraper.js');
         // maxBuffer: 5MB cap so we never OOM on binary output
-        const rawOutput = execFileSync('node', [scraperPath, 'Solana Web3 Bounty', '10', '--bounty'], {
+        const rawOutput = execFileSync(process.execPath, [scraperPath, 'Solana Web3 Bounty', '10', '--bounty'], {
             encoding: 'utf8',
             maxBuffer: 5 * 1024 * 1024,
             timeout: 60000
@@ -179,12 +179,14 @@ async function scrapeBounties() {
         console.log(chalk.green(`[SCAVENGER #${id}]: 🎯 ${leads.length} potential bounties discovered.`));
 
         const tracker = loadTracker();
+        const foundSet = new Set(tracker.found);
 
         for (const lead of leads) {
-            if (tracker.found.includes(lead.id)) continue;
+            if (foundSet.has(lead.id)) continue;
 
             console.log(chalk.yellow(`[SCAVENGER #${id}]: 💎 New Bounty: ${lead?.title || 'Unknown'} (${lead?.budget?.range || lead?.budget?.amount || 'Unknown'})`));
             tracker.found.push(lead.id);
+            foundSet.add(lead.id);
 
             // Draft Proposal via Jules if it's technical
             const isTechnical = lead.skills?.some(s => ['python', 'node', 'solana', 'javascript', 'ts', 'web3'].includes(s.toLowerCase()));

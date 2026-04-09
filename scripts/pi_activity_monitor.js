@@ -2,7 +2,6 @@
 // Deploy this to the Pi to run as a background service
 const http = require('http');
 const fs = require('fs');
-const { execSync } = require('child_process');
 
 const PORT = 8888;
 const STATUS_FILE = '/tmp/syndicate_status.json';

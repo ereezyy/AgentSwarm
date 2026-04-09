@@ -47,6 +47,20 @@ try {
 }
 
 // ── Dynamic Risk Engine (Tuned for Profitability) ──
+
+// ── Creator Cooldown Cache ──
+let creatorCooldowns = {};
+function refreshCreatorCooldowns() {
+    try {
+        const cooldownPath = path.join(__dirname, '../missions/creator_cooldowns.json');
+        if (fs.existsSync(cooldownPath)) {
+            creatorCooldowns = JSON.parse(fs.readFileSync(cooldownPath, 'utf8'));
+        }
+    } catch (e) { }
+}
+setInterval(refreshCreatorCooldowns, 60000).unref(); // Sync every minute
+refreshCreatorCooldowns(); // Initial load
+
 let riskParams = {
     slippage: 0.05,      // [TIGHTENED] Max 10% slippage. Reject bad entries. Walk away if it's too volatile.
     stopLoss: -15,       // [WIDENED] Let the trade breathe. meme coins have 15% wicks. Cut at -25%.
@@ -600,18 +614,12 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
         const creatorAddr = metadata.creator;
 
         if (creatorAddr !== "UNKNOWN_CREATOR") {
-            // Check for post-cascade cooldown
-            try {
-                const cooldownPath = path.join(__dirname, '../missions/creator_cooldowns.json');
-                if (fs.existsSync(cooldownPath)) {
-                    const cooldowns = JSON.parse(fs.readFileSync(cooldownPath, 'utf8'));
-                    if (cooldowns[creatorAddr] && cooldowns[creatorAddr] > Date.now()) {
-                        const remainingMin = Math.ceil((cooldowns[creatorAddr] - Date.now()) / 60000);
-                        console.log(chalk.yellow.bold(`[SNIPER #${id}]: 🛑 CASCADE PROTECT: Dev ${creatorAddr.substring(0, 8)}... is on cooldown for ${remainingMin}m. Skipping ${mintStr}.`));
-                        return;
-                    }
-                }
-            } catch (e) { }
+            // Check for post-cascade cooldown (using in-memory cache)
+            if (creatorCooldowns[creatorAddr] && creatorCooldowns[creatorAddr] > Date.now()) {
+                const remainingMin = Math.ceil((creatorCooldowns[creatorAddr] - Date.now()) / 60000);
+                console.log(chalk.yellow.bold(`[SNIPER #${id}]: 🛑 CASCADE PROTECT: Dev ${creatorAddr.substring(0, 8)}... is on cooldown for ${remainingMin}m. Skipping ${mintStr}.`));
+                return;
+            }
 
             const currentForCreator = trades.filter(t => t.creator === creatorAddr).length;
             if (currentForCreator >= MAX_PER_CREATOR) {
@@ -682,7 +690,7 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
                     prediction: { rug_probability: rugProb, threshold: neuralConfig.rug_threshold }
                 });
                 saveTrades(trades);
-                console.log(chalk.green(`[SNIPER #${id}]: 📌 Position recorded | Entry: ${realEntryPrice.toFixed(10)} SOL/uiToken | Amount: ${uiAmount.toLocaleString()} tokens`));
+                console.log(chalk.green(`[SNIPER #${id}]: 📌 Position recorded | Entry: ${realEntryPrice.toFixed(10)} SOL/uiToken | Amount: *** tokens`));
                 GlobalMemory.addMemory('SNIPER', `[TRADE_ENTRY] Entered ${mintStr} via Jupiter. ${SOL_AMOUNT} SOL @ ${realEntryPrice.toExponential(3)}. Risk: ${(rugProb * 100).toFixed(1)}%. Threshold: ${neuralConfig.rug_threshold}`, 7);
                 if (process.send) process.send({ type: 'TRADE_EXECUTED', mint: mintStr, amount: SOL_AMOUNT, source: 'JUPITER' });
             }

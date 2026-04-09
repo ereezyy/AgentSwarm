@@ -641,14 +641,15 @@ export default function SyndicateDashboard() {
                         {/* SPL tokens with exit signals */}
                         {walletData.tokens.map((token: any, i: number) => {
                           const sig = token.exitSignal;
-                          const signalColor = {
+                          const signalMap: Record<string, string> = {
                             STRONG_SELL: 'bg-green-500/20 text-green-300 border-green-500/30',
                             TAKE_PROFIT: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/20',
                             WATCH: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/20',
                             STOP_LOSS: 'bg-red-500/20 text-red-400 border-red-500/30',
                             DUMP: 'bg-red-600/30 text-red-300 border-red-600/40',
                             HOLD: 'bg-gray-800/40 text-gray-500 border-gray-700/30',
-                          }[sig?.signal] || 'bg-gray-800/40 text-gray-500 border-gray-700/30';
+                          };
+                          const signalColor = sig?.signal && typeof sig.signal === 'string' && signalMap[sig.signal] ? signalMap[sig.signal] : 'bg-gray-800/40 text-gray-500 border-gray-700/30';
                           const rowGlow = sig?.signal === 'STRONG_SELL' || sig?.signal === 'TAKE_PROFIT'
                             ? 'bg-green-500/[0.03]' : sig?.signal === 'DUMP' || sig?.signal === 'STOP_LOSS'
                               ? 'bg-red-500/[0.03]' : '';
@@ -940,7 +941,7 @@ export default function SyndicateDashboard() {
                           <td className="py-2 text-gray-400">
                             {t.exitPrice ? `$${parseFloat(t.exitPrice).toFixed(6)}` : <span className="text-amber-500 animate-pulse">HOLDING</span>}
                           </td>
-                          <td className={`py-2 pr-2 text-right font-bold ${parseFloat(t.pnl) >= 0 ? "text-green-400" : "text-red-400"}`}>
+                          <td className={`py-2 pr-2 text-right font-bold ${t.pnl && parseFloat(t.pnl) >= 0 ? "text-green-400" : "text-red-400"}`}>
                             {t.pnl ? `${parseFloat(t.pnl) > 0 ? "+" : ""}${t.pnl}%` : "---"}
                           </td>
                         </tr>
