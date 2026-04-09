@@ -1,11 +1,19 @@
 // don/outpost.js - THE SYNDICATE OUTPOST (Pi5 Node)
 // Runs 24/7 on Raspberry Pi to offload monitoring tasks.
 // Connects to The Don (Main PC) via WebSocket.
+require('dotenv').config();
 
 const WebSocket = require('ws');
 const chalk = require('chalk');
 const os = require('os');
+const { execFile } = require('child_process');
 const { scourMoltbook } = require('./moltbook');
+
+// SECURITY: Outpost requires a command secret for sensitive actions
+if (!process.env.COMMAND_SECRET) {
+    console.error(chalk.red('[OUTPOST]: ❌ CRITICAL ERROR: COMMAND_SECRET not set in environment. Exiting.'));
+    process.exit(1);
+}
 
 // Main PC IP (The Don) - sourced from env or argument
 const DON_IP = process.env.DON_IP || '192.168.1.175';
@@ -59,7 +67,12 @@ function handleCommand(cmd) {
         ws.send(JSON.stringify({ type: 'PONG', id: id }));
     }
     if (cmd.type === 'REBOOT') {
-        require('child_process').exec('sudo reboot');
+        if (cmd.secret === process.env.COMMAND_SECRET) {
+            console.log(chalk.yellow(`[OUTPOST]: 🔄 Authorized REBOOT command received. Executing...`));
+            execFile('sudo', ['reboot']);
+        } else {
+            console.warn(chalk.red(`[OUTPOST]: ⚠️ UNAUTHORIZED REBOOT attempt detected from source. IP: ${cmd.ip || 'Unknown'}`));
+        }
     }
 }
 
