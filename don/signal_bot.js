@@ -17,14 +17,16 @@ const TELEGRAM_CHANNEL_ID = process.env.TELEGRAM_CHANNEL_ID;  // e.g. @Syndicate
 const SIGNAL_LOG = path.resolve(__dirname, '../missions/signal_log.json');
 const SIGNAL_REPORT = path.resolve(__dirname, '../missions/signal_report.md');
 const missionsDir = path.join(__dirname, '../missions');
-if (!fs.existsSync(missionsDir)) fs.mkdirSync(missionsDir);
+if (require.main === module) { if (!fs.existsSync(missionsDir)) fs.mkdirSync(missionsDir); }
 
 const SB = (msg) => chalk.hex('#FFD700').bold(`[SIGNAL BOT #${id}]: ${msg}`);
 const sb = (msg) => chalk.hex('#FFD700')(`[SIGNAL BOT #${id}]: ${msg}`);
 
+if (require.main === module) {
 console.log(SB('📡 Copy-Trade Signal Bot ONLINE.'));
 console.log(sb(`Telegram: ${TELEGRAM_BOT_TOKEN ? 'CONNECTED' : '⚠️ NO TOKEN — logging locally only'}`));
 console.log(sb(`Channel: ${TELEGRAM_CHANNEL_ID || '⚠️ NOT SET'}`));
+}
 
 // ============================================================
 // SIGNAL QUEUE & STATE
@@ -80,7 +82,7 @@ async function sendTelegram(message, parseMode = 'HTML') {
     }
 }
 
-// ============================================================
+/// ============================================================
 // SIGNAL FORMATTERS
 // ============================================================
 function formatCopyTradeSignal(data) {
@@ -93,25 +95,27 @@ function formatCopyTradeSignal(data) {
 🪙 <b>Token:</b> <code>${data.mint}</code>
 📊 <b>Amount:</b> ${data.detectedAmount ? data.detectedAmount.toFixed(4) : 'Analyzing...'}
 🎯 <b>Confidence:</b> ${data.confidence || 'MEDIUM'}
+🛡️ <b>Risk Score:</b> ${data.riskScore || 'N/A'}
 ⏰ <b>Time:</b> ${time}
 
-${data.mint ? `🔗 <a href="https://solscan.io/token/${data.mint}">View on Solscan</a> | <a href="https://birdeye.so/token/${data.mint}">Birdeye</a>` : ''}
+${data.mint ? `🔗 <a href="https://solscan.io/token/${data.mint}">View on Solscan</a> | <a href="https://dexscreener.com/solana/${data.mint}">DexScreener</a>` : ''}
 
 <i>⚠️ NFA/DYOR — Signals from whale tracking only</i>
 ━━━━━━━━━━━━━━━━━━━━
-<b>📡 The Syndicate Signal Service</b>`;
+<b>📡 The Syndicate Signal Service</b>`.trim();
 }
 
 function formatWhaleMovement(data) {
-    const time = new Date().toLocaleTimeString('en-US', { hour12: false });
+    return `
+🐋 <b>WHALE MOVEMENT DETECTED</b> 🐋
 
-    return `🐋 <b>WHALE MOVEMENT</b>
+👤 <b>Whale:</b> ${data.whaleName || 'Unknown Wallet'}
+💳 <b>Wallet:</b> <code>${data.address || 'Unknown'}</code>
+📉 <b>Action:</b> Transacted <b>${data.amountSol || '0'} SOL</b>
+🔥 <b>Target:</b> <code>${data.tokenName || 'Unknown'}</code>
 
-${data.data || data.message || 'Movement detected'}
-
-⏰ ${time}
-━━━━━━━━━━━━━━━━━━━━
-<b>📡 The Syndicate Signal Service</b>`;
+🔗 <a href="https://solscan.io/account/${data.address}">Solscan</a>
+`.trim();
 }
 
 function formatMarketAlert(data) {
@@ -145,7 +149,6 @@ ${copyTrades.length > 0 ? `\n<b>Today's Tokens:</b>\n${copyTrades.map(s => `  �
 <i>Subscribe for real-time whale tracking alerts</i>`;
 }
 
-// ============================================================
 // SIGNAL PROCESSING
 // ============================================================
 async function processSignal(signal) {
@@ -206,6 +209,7 @@ async function processSignal(signal) {
 // ============================================================
 // IPC MESSAGE HANDLER (from The Don)
 // ============================================================
+if (require.main === module) {
 process.on('message', async (msg) => {
     switch (msg.type) {
         case 'COPY_TRADE_SIGNAL':
@@ -259,6 +263,7 @@ process.on('message', async (msg) => {
             break;
     }
 });
+}
 
 // ============================================================
 // DAILY DIGEST SCHEDULER
@@ -318,9 +323,13 @@ function writeReport() {
 }
 
 // Status report every 15 min
+if (require.main === module) {
 setInterval(writeReport, 900000);
 
 // Boot
 console.log(SB('📡 Signal Bot ready. Waiting for whale signals...'));
 scheduleDailyDigest();
 setInterval(() => { }, 100000); // Keep alive
+}
+
+module.exports = { formatCopyTradeSignal, formatWhaleMovement, formatMarketAlert, formatDailyDigest };
