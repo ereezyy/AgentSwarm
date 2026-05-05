@@ -370,9 +370,10 @@ function recoverOrphanedPositions(holdings, trades) {
 // For each holding, compute PnL vs recorded entry price, assign exit signal.
 function computeExitSignals(holdings, trades) {
     const signals = [];
+    const tradesMap = new Map(trades.map(t => [t.mint, t]));
 
     for (const holding of holdings) {
-        const trade = trades.find(t => t.mint === holding.mint);
+        const trade = tradesMap.get(holding.mint);
         if (!trade || !holding.priceNative) {
             signals.push({ mint: holding.mint, signal: 'HOLD', pnl: null, reason: 'No entry data' });
             continue;
