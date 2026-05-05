@@ -150,7 +150,7 @@ async function searchRealSources() {
         console.log(chalk.red(`  ❌ Reddit Scan Error: ${e.message}`));
     }
 
-    // 2. HACKER NEWS (Job Stories)
+    // 2. Hacker News (Job Stories)
     try {
         console.log(hh('  • Scanning Hacker News (Job Stories)...'));
         const storyIds = (await axios.get('https://hacker-news.firebaseio.com/v0/jobstories.json')).data.slice(0, 10);
