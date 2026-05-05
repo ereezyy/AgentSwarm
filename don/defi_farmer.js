@@ -29,7 +29,7 @@ const PROTOCOLS = {
     marinade: {
         name: 'Marinade Finance',
         type: 'liquid_staking',
-        // Updated API endpoint (v1 was deprecated, now using public stats)
+        // API endpoint for public stats
         url: 'https://api.marinade.finance/v1/msol/apy/365d',
         parser: (data) => ({ apy: data?.value || data?.apy || data?.stakingApy || 6.5, token: 'mSOL' }),
         fallbackApy: 6.5, // Use this if API is down
