@@ -74,6 +74,12 @@ async function snipeToken(chain, tokenAddress, amount) {
     }
 }
 
+
+function sleep(ms) {
+    if (process.env.NODE_ENV === 'test') return Promise.resolve();
+    return new Promise(r => setTimeout(r, ms));
+}
+
 // ── Aggregator API Execution Stubs ──────────────────────────────
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
