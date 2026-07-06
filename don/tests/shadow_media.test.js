@@ -83,4 +83,17 @@ describe('Shadow Media Upload', () => {
         expect(mockUploadMedia).toHaveBeenCalledWith(mediaPath);
         expect(mockTweet).toHaveBeenCalledWith({ text: content });
     });
+
+    test('should handle media file not found gracefully', async () => {
+        const content = 'Test tweet with missing media';
+        const mediaPath = '/path/to/missing_media.jpg';
+
+        fs.existsSync.mockReturnValueOnce(false);
+
+        await postTweet(content, mediaPath);
+
+        expect(fs.existsSync).toHaveBeenCalledWith(mediaPath);
+        expect(mockUploadMedia).not.toHaveBeenCalled();
+        expect(mockTweet).toHaveBeenCalledWith({ text: content });
+    });
 });
