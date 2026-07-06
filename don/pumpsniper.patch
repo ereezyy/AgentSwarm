@@ -1,0 +1,10 @@
+--- don/pumpsniper.js
++++ don/pumpsniper.js
+@@ -506,3 +506,7 @@
+         console.log(chalk.cyan(`   → Rule: ${reflection.actionable_heuristic}`));
+     }
+ }, 1 * 60 * 60 * 1000); // 1 hour reflection loop
++
++if (process.env.NODE_ENV === 'test') {
++    module.exports = { executeJupiterSwap };
++}

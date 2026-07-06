@@ -1,0 +1,27 @@
+--- don/pumpsniper.js
++++ don/pumpsniper.js
+@@ -62,3 +62,5 @@
+ function loadNeuralConfig() {
+     try {
+         const path = require('path');
+         const brainDir = path.resolve(__dirname, '../missions');
+         const file = path.join(brainDir, 'pumpsniper_neural_config.json');
+@@ -74,2 +76,3 @@
+
+-setInterval(loadNeuralConfig, 30000); // Reload every 30s for adaptivity
++if (process.env.NODE_ENV !== 'test') {
++    setInterval(loadNeuralConfig, 30000); // Reload every 30s for adaptivity
++}
+@@ -467,2 +470,3 @@
+
+-setInterval(() => {
++if (process.env.NODE_ENV !== 'test') {
++    setInterval(() => {
+     const now = Date.now();
+     const cutoff = DECISION_WINDOW_MS + 10000;
+     for (const [mint, tracker] of liveTokens.entries()) {
+@@ -473,2 +477,3 @@
+     }
+-}, 60000);
++    }, 60000);
++}
