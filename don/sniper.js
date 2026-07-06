@@ -1235,40 +1235,26 @@ function scoreToken(pair) {
  * Main autonomous scanner — runs on interval.
  * Fetches latest Solana pairs from DexScreener, scores them, buys top candidates.
  */
-async function runAutonomousScan() {
-    const trades = loadTrades();
-    const MAX_CONCURRENT = parseInt(process.env.MAX_CONCURRENT || 6);
-    if (trades.length >= MAX_CONCURRENT) {
-        console.log(chalk.gray(`[SNIPER #${id}]: 📊 At position limit (${trades.length}/${MAX_CONCURRENT}). Skipping scan.`));
-        return;
-    }
 
-    if (!canBuy('__scan_gate__')) return; // daily cap check (reuse canBuy without cooldown)
-
-    console.log(chalk.cyan(`[SNIPER #${id}]: 🔭 AUTONOMOUS SCAN: Looking for high-score opportunities...`));
-
-    let candidates = [];
-    try {
-        // Pull latest new pairs on Solana (sorted by creation time)
-        const res = await axios.get(
+async function fetchScanProfiles() {
+    let solProfiles = [];
+    const res = await axios.get(
             'https://api.dexscreener.com/token-profiles/latest/v1',
             { timeout: 12000 }
         );
         const profiles = Array.isArray(res.data) ? res.data : [];
 
-        // Filter for Solana tokens only, not already scanned
-        const solProfiles = profiles.filter(p =>
+        solProfiles = profiles.filter(p =>
             p.chainId === 'solana' &&
             !scannedThisSession.has(p.tokenAddress) &&
             p.tokenAddress
-        ).slice(0, 20); // Process top 20 new ones
+        ).slice(0, 20);
 
         for (const profile of solProfiles) {
             scannedThisSession.add(profile.tokenAddress);
         }
 
         if (solProfiles.length === 0) {
-            // Fallback: check trending pairs
             const trendRes = await axios.get(
                 'https://api.dexscreener.com/token-boosts/latest/v1',
                 { timeout: 12000 }
@@ -1277,48 +1263,41 @@ async function runAutonomousScan() {
             const solBoosted = boosted.filter(p => p.chainId === 'solana').slice(0, 15);
             solProfiles.push(...solBoosted);
         }
+    return solProfiles;
+}
 
-        // Get pair data for each token address
-        const tokenAddresses = solProfiles.map(p => p.tokenAddress).filter(Boolean).slice(0, 15);
-        if (tokenAddresses.length === 0) return;
+async function fetchPairsForAddresses(tokenAddresses) {
+    if (tokenAddresses.length === 0) return [];
+    const pairRes = await axios.get(
+        `https://api.dexscreener.com/tokens/v1/solana/${tokenAddresses.join(',')}`,
+        { timeout: 12000 }
+    );
+    return Array.isArray(pairRes.data) ? pairRes.data : [];
+}
 
-        const pairRes = await axios.get(
-            `https://api.dexscreener.com/tokens/v1/solana/${tokenAddresses.join(',')}`,
-            { timeout: 12000 }
-        );
-        const pairs = Array.isArray(pairRes.data) ? pairRes.data : [];
-
-        // Score each unique token (pick best pair per token)
-        const tokenMap = new Map();
-        for (const pair of pairs) {
-            const mint = pair.baseToken?.address;
-            if (!mint) continue;
-            const existing = tokenMap.get(mint);
-            const vol = pair.volume?.m5 || 0;
-            if (!existing || vol > (existing.volume?.m5 || 0)) tokenMap.set(mint, pair);
-        }
-
-        for (const [mint, pair] of tokenMap) {
-            const { score, reasons } = scoreToken(pair);
-            if (score >= 8) {
-                candidates.push({ mint, pair, score, reasons });
-            }
-        }
-
-        candidates.sort((a, b) => b.score - a.score);
-
-    } catch (e) {
-        console.log(chalk.gray(`[SNIPER #${id}]: Scanner fetch error: ${e.message}`));
-        return;
+function evaluateCandidates(pairs) {
+    const tokenMap = new Map();
+    for (const pair of pairs) {
+        const mint = pair.baseToken?.address;
+        if (!mint) continue;
+        const existing = tokenMap.get(mint);
+        const vol = pair.volume?.m5 || 0;
+        if (!existing || vol > (existing.volume?.m5 || 0)) tokenMap.set(mint, pair);
     }
 
-    if (candidates.length === 0) {
-        console.log(chalk.gray(`[SNIPER #${id}]: 🔭 No qualifying candidates this scan.`));
-        return;
+    const candidates = [];
+    for (const [mint, pair] of tokenMap) {
+        const { score, reasons } = scoreToken(pair);
+        if (score >= 8) {
+            candidates.push({ mint, pair, score, reasons });
+        }
     }
 
-    // Execute buy on highest-scoring candidate we haven't bought recently
-    const openMints = new Set(loadTrades().map(t => t.mint));
+    candidates.sort((a, b) => b.score - a.score);
+    return candidates;
+}
+
+async function executeBestCandidate(candidates, openMints) {
     const BLOCKED_MINTS = new Set([
         'So11111111111111111111111111111111111111112',
         'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
@@ -1338,8 +1317,44 @@ async function runAutonomousScan() {
         const associatedBondingCurve = await getAssociatedTokenAddress(mintPub, bondingCurve, true);
         await buyToken(mintPub, bondingCurve, associatedBondingCurve);
 
-        break; // One buy per scan cycle
+        return true; // One buy per scan cycle
     }
+    return false;
+}
+
+async function runAutonomousScan() {
+    const trades = loadTrades();
+    const MAX_CONCURRENT = parseInt(process.env.MAX_CONCURRENT || 6);
+    if (trades.length >= MAX_CONCURRENT) {
+        console.log(chalk.gray(`[SNIPER #${id}]: 📊 At position limit (${trades.length}/${MAX_CONCURRENT}). Skipping scan.`));
+        return;
+    }
+
+    if (!canBuy('__scan_gate__')) return; // daily cap check (reuse canBuy without cooldown)
+
+    console.log(chalk.cyan(`[SNIPER #${id}]: 🔭 AUTONOMOUS SCAN: Looking for high-score opportunities...`));
+
+    let candidates = [];
+    try {
+        const solProfiles = await fetchScanProfiles();
+        const tokenAddresses = solProfiles.map(p => p.tokenAddress).filter(Boolean).slice(0, 15);
+
+        if (tokenAddresses.length > 0) {
+            const pairs = await fetchPairsForAddresses(tokenAddresses);
+            candidates = evaluateCandidates(pairs);
+        }
+    } catch (e) {
+        console.log(chalk.gray(`[SNIPER #${id}]: Scanner fetch error: ${e.message}`));
+        return;
+    }
+
+    if (candidates.length === 0) {
+        console.log(chalk.gray(`[SNIPER #${id}]: 🔭 No qualifying candidates this scan.`));
+        return;
+    }
+
+    const openMints = new Set(loadTrades().map(t => t.mint));
+    await executeBestCandidate(candidates, openMints);
 }
 
 // Kick off the autonomous scanner — runs every 2 minutes
