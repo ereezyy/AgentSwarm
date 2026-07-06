@@ -151,56 +151,42 @@ async function fireAtomicBundle(buyQuote, sellQuote, margin) {
             'https://lite-api.jup.ag/swap/v1/swap'
         ];
 
-        // 1. Construct Jupiter Swap 1
-        let buySwapRes = null;
-        for (const apiUrl of JUPITER_SWAP_APIS) {
-            if (buySwapRes?.data) break;
-            for (let attempt = 1; attempt <= 4; attempt++) {
-                try {
-                    buySwapRes = await axios.post(apiUrl, {
-                        quoteResponse: buyQuote,
-                        userPublicKey: wallet.publicKey.toString(),
-                        wrapAndUnwrapSol: true,
-                        prioritizationFeeLamports: PRIORITY_FEE_LAMPORTS
-                    }, { timeout: 8000 });
-                    if (buySwapRes?.data) break;
-                } catch (e) {
-                    if (e.response?.status === 429 && attempt < 4) {
-                        await new Promise(r => setTimeout(r, (attempt ** 2) * 1000 + Math.random() * 500));
-                        continue;
+        // 1. & 2. Construct Jupiter Swaps in Parallel
+        const fetchSwap = async (quote) => {
+            return Promise.any(
+                JUPITER_SWAP_APIS.map(async (apiUrl) => {
+                    for (let attempt = 1; attempt <= 4; attempt++) {
+                        try {
+                            const res = await axios.post(apiUrl, {
+                                quoteResponse: quote,
+                                userPublicKey: wallet.publicKey.toString(),
+                                wrapAndUnwrapSol: true,
+                                prioritizationFeeLamports: PRIORITY_FEE_LAMPORTS
+                            }, { timeout: 8000 });
+                            if (res?.data) return res;
+                        } catch (e) {
+                            if (e.response?.status === 429 && attempt < 4) {
+                                await new Promise(r => setTimeout(r, (attempt ** 2) * 1000 + Math.random() * 500));
+                                continue;
+                            }
+                            throw e;
+                        }
                     }
-                    break;
-                }
-            }
-        }
+                    throw new Error("Failed after retries");
+                })
+            );
+        };
+
+        const [buySwapRes, sellSwapRes] = await Promise.all([
+            fetchSwap(buyQuote),
+            fetchSwap(sellQuote)
+        ]);
+
         if (!buySwapRes?.data) throw new Error("Buy Swap API failed");
+        if (!sellSwapRes?.data) throw new Error("Sell Swap API failed");
 
         const buyTx = VersionedTransaction.deserialize(Buffer.from(buySwapRes.data.swapTransaction, 'base64'));
         buyTx.sign([wallet]);
-
-        // 2. Construct Jupiter Swap 2
-        let sellSwapRes = null;
-        for (const apiUrl of JUPITER_SWAP_APIS) {
-            if (sellSwapRes?.data) break;
-            for (let attempt = 1; attempt <= 4; attempt++) {
-                try {
-                    sellSwapRes = await axios.post(apiUrl, {
-                        quoteResponse: sellQuote,
-                        userPublicKey: wallet.publicKey.toString(),
-                        wrapAndUnwrapSol: true,
-                        prioritizationFeeLamports: PRIORITY_FEE_LAMPORTS
-                    }, { timeout: 8000 });
-                    if (sellSwapRes?.data) break;
-                } catch (e) {
-                    if (e.response?.status === 429 && attempt < 4) {
-                        await new Promise(r => setTimeout(r, (attempt ** 2) * 1000 + Math.random() * 500));
-                        continue;
-                    }
-                    break;
-                }
-            }
-        }
-        if (!sellSwapRes?.data) throw new Error("Sell Swap API failed");
 
         const sellTx = VersionedTransaction.deserialize(Buffer.from(sellSwapRes.data.swapTransaction, 'base64'));
         sellTx.sign([wallet]);
