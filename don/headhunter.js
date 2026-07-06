@@ -4,10 +4,12 @@ const axios = require('axios');
 const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
-const { execFile } = require('child_process');
+const { execFile, exec } = require('child_process');
 require('dotenv').config();
 
 const id = process.argv[2] || 'Headhunter';
+const { SyndicateCore } = require('./syndicate_core');
+const core = new SyndicateCore();
 const { ask } = require('./brain');
 const UPWORK_TOKEN = process.env.UPWORK_ACCESS_TOKEN;
 const UPWORK_API = 'https://www.upwork.com/api';
@@ -25,6 +27,19 @@ const hh = (msg) => chalk.hex('#FF6600')(`[HEADHUNTER #${id}]: ${msg}`);
 
 console.log(HH('🎯 Headhunter (Real-World Ops) ONLINE.'));
 console.log(hh(`API Mode: ${UPWORK_TOKEN ? 'OFFICIAL API (OAuth)' : 'CLEADNET (Reddit/HN/WWR)'}`));
+
+async function withRetry(operation, retries = 3, delay = 1000) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            return await operation();
+        } catch (error) {
+            if (i === retries - 1) throw error;
+            console.log(chalk.yellow(`[HEADHUNTER #${id}]: Network failure. Retrying in ${delay}ms... (${i + 1}/${retries})`));
+            await new Promise(res => setTimeout(res, delay));
+            delay *= 2;
+        }
+    }
+}
 
 // ============================================================
 // SEARCH CONFIGURATION
@@ -66,12 +81,12 @@ async function searchJobsAPI() {
 
     try {
         console.log(hh(`🔍 API search: "${query}"...`));
-        const response = await axios.get(
+        const response = await withRetry(() => axios.get(
             `${UPWORK_API}/profiles/v2/search/jobs.json`, {
             params: { q: query, sort: 'recency', paging: '0;10', days_posted: 3, job_type: 'all', budget: '[100 TO 99999]' },
             headers: apiHeaders(),
             timeout: 15000
-        });
+        }));
 
         const jobs = (response.data.jobs || response.data.results || []).map(j => ({
             id: j.id || j.ciphertext || '',
@@ -98,10 +113,12 @@ async function searchJobsAPI() {
         await sleep(2000);
 
     } catch (e) {
+        const errorMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
         if (e.response?.status === 401) {
             console.log(chalk.red(`[HEADHUNTER #${id}]: ❌ OAuth token expired/invalid. Fallback active.`));
             return null;
         }
+        console.log(chalk.red(`[HEADHUNTER #${id}]: ❌ API Search Error: ${errorMsg}\nStack: ${e?.stack || 'Not available'}`));
     }
     return dedup(allJobs);
 }
@@ -123,9 +140,9 @@ async function searchRealSources() {
     // 1. REDDIT (r/forhire)
     try {
         console.log(hh('  • Scanning Reddit (r/forhire)...'));
-        const res = await axios.get('https://www.reddit.com/r/forhire/new.json?limit=25', {
+        const res = await withRetry(() => axios.get('https://www.reddit.com/r/forhire/new.json?limit=25', {
             headers: { 'User-Agent': 'Syndicate/1.0' }
-        });
+        }));
 
         if (res.data && res.data.data && res.data.data.children) {
             const posts = res.data.data.children
@@ -147,17 +164,18 @@ async function searchRealSources() {
             })));
         }
     } catch (e) {
-        console.log(chalk.red(`  ❌ Reddit Scan Error: ${e.message}`));
+        const errorMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+        console.log(chalk.red(`  ❌ Reddit Scan Error: ${errorMsg}\nStack: ${e?.stack || 'Not available'}`));
     }
 
     // 2. Hacker News (Job Stories)
     try {
         console.log(hh('  • Scanning Hacker News (Job Stories)...'));
-        const storyIds = (await axios.get('https://hacker-news.firebaseio.com/v0/jobstories.json')).data.slice(0, 10);
+        const storyIds = (await withRetry(() => axios.get('https://hacker-news.firebaseio.com/v0/jobstories.json'))).data.slice(0, 10);
 
         const hnJobs = (await Promise.all(storyIds.map(async (id) => {
             try {
-                const item = (await axios.get(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)).data;
+                const item = (await withRetry(() => axios.get(`https://hacker-news.firebaseio.com/v0/item/${id}.json`))).data;
                 if (item && !item.deleted && !item.dead) {
                     return {
                         id: `hn-${item.id}`,
@@ -173,23 +191,29 @@ async function searchRealSources() {
                         applicants: 0
                     };
                 }
-            } catch (err) { return null; }
+            } catch (err) {
+                const errorMsg = err?.response?.data?.error || err?.response?.data?.msg || err?.message || 'Unknown error';
+                console.log(chalk.red(`  ❌ HN Item Scan Error: ${errorMsg}\nStack: ${err?.stack || 'Not available'}`));
+                return null;
+            }
         }))).filter(j => j !== null);
 
         jobs.push(...hnJobs);
     } catch (e) {
-        console.log(chalk.red(`  ❌ HN Scan Error: ${e.message}`));
+        const errorMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+        console.log(chalk.red(`  ❌ HN Scan Error: ${errorMsg}\nStack: ${e?.stack || 'Not available'}`));
     }
 
 
     // 3. WeWorkRemotely RSS
     try {
         console.log(hh('  • Scanning WeWorkRemotely RSS...'));
-        const rssRes = await axios.get('https://weworkremotely.com/categories/remote-programming-jobs.rss');
+        const rssRes = await withRetry(() => axios.get('https://weworkremotely.com/categories/remote-programming-jobs.rss'));
         const rssJobs = parseRSS(rssRes.data).slice(0, 10);
         jobs.push(...rssJobs.map(j => ({ ...j, source: 'weworkremotely' })));
     } catch (e) {
-        console.log(chalk.red(`  ❌ WWR RSS Error: ${e.message}`));
+        const errorMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+        console.log(chalk.red(`  ❌ WWR RSS Error: ${errorMsg}\nStack: ${e?.stack || 'Not available'}`));
     }
 
     console.log(hh(`⚡ CLEADNET SCAN COMPLETE. Found ${jobs.length} REAL opportunities.`));
@@ -223,7 +247,8 @@ async function searchShadowNet() {
                 console.log(hh(`🕶️ Shadow Scraper returned ${jobs.length} LIVE Upwork listings!`));
                 resolve(jobs);
             } catch (e) {
-                console.log(chalk.red(`[HEADHUNTER #${id}]: ❌ Shadow Scraper parse error: ${e.message}`));
+                const errorMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+                console.log(chalk.red(`[HEADHUNTER #${id}]: ❌ Shadow Scraper parse error: ${errorMsg}\nStack: ${e?.stack || 'Not available'}`));
                 resolve([]);
             }
         });
@@ -321,7 +346,8 @@ async function deepResearch(job) {
                     resolve(research);
                 }
             } catch (e) {
-                console.log(chalk.red(`  ❌ Research Muscle parse error: ${e.message}`));
+                const errorMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+                console.log(chalk.red(`  ❌ Research Muscle parse error: ${errorMsg}\nStack: ${e?.stack || 'Not available'}`));
                 resolve(null);
             }
         });
@@ -340,6 +366,8 @@ async function summarizeResearch(content) {
             try {
                 resolve(JSON.parse(stdout));
             } catch (e) {
+                const errorMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+                console.log(chalk.red(`  ❌ Summarization Parse Error: ${errorMsg}\nStack: ${e?.stack || 'Not available'}`));
                 resolve({ summary: "Parse failed during summarization", key_signals: ["ERROR"] });
             }
         });
@@ -371,6 +399,8 @@ async function logToHubSpot(leads) {
                 console.log(hh(`✅ HubSpot Sync Complete. ${results.length} records processed.`));
                 resolve(results);
             } catch (e) {
+                const errorMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+                console.log(chalk.red(`  ❌ HubSpot Parse Error: ${errorMsg}\nStack: ${e?.stack || 'Not available'}`));
                 resolve(null);
             }
         });
@@ -417,7 +447,8 @@ SNIPE = match 7+, we can do it.`,
 
         if (content) return parseEval(content, jobs);
     } catch (e) {
-        console.error(chalk.red(`[HEADHUNTER #${id}]: Grok eval failed: ${e.message}`));
+        const errorMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+        console.error(chalk.red(`[HEADHUNTER #${id}]: Grok eval failed: ${errorMsg}\nStack: ${e?.stack || 'Not available'}`));
     }
     return jobs.map(j => ({ ...j, matchScore: 5, verdict: 'CONSIDER', estimatedProfit: 'Unknown' }));
 }
@@ -431,7 +462,11 @@ async function generateProposal(job) {
             { agentName: `HEADHUNTER #${id}` }
         );
         return content;
-    } catch (e) { return null; }
+    } catch (e) {
+        const errorMsg = e?.response?.data?.error || e?.response?.data?.msg || e?.message || 'Unknown error';
+        console.error(chalk.red(`[HEADHUNTER #${id}]: Generate proposal failed: ${errorMsg}\nStack: ${e?.stack || 'Not available'}`));
+        return null;
+    }
 }
 
 function parseEval(evalText, originalJobs) {
@@ -472,6 +507,13 @@ async function runHuntLoop() {
         console.log(HH('═══════════════════════════════════'));
         console.log(HH('🎯 HUNT CYCLE STARTING (REAL MODE)'));
         console.log(HH('═══════════════════════════════════\n'));
+
+        const walletBalance = await core.checkWalletBalance();
+        if (walletBalance === null || walletBalance < 0.005) {
+            console.log(chalk.red(`[HEADHUNTER #${id}]: ❌ Insufficient SOL balance (${walletBalance}). Halting execution.`));
+            setTimeout(runHuntLoop, 300000);
+            return;
+        }
 
         let jobs = await searchJobsAPI();
         let source = 'api';
@@ -544,7 +586,8 @@ async function runHuntLoop() {
         }
 
     } catch (error) {
-        console.error(chalk.red(`[HEADHUNTER #${id}]: Hunt cycle FAILED: ${error.message}`));
+        const errorMsg = error?.response?.data?.error || error?.response?.data?.msg || error?.message || 'Unknown error';
+        console.error(chalk.red(`[HEADHUNTER #${id}]: Hunt cycle FAILED: ${errorMsg}\nStack: ${error?.stack || 'Not available'}`));
     }
     setTimeout(runHuntLoop, 1800000); // 30 min
 }
