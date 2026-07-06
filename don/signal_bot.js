@@ -13,11 +13,15 @@ const id = process.argv[2] || 'SignalBot';
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHANNEL_ID = process.env.TELEGRAM_CHANNEL_ID;  // e.g. @SyndicateAlpha or -100123456789
 
+// Wallet Guard Requirement
+const { SyndicateCore } = require('./syndicate_core');
+const syndicateAPI = new SyndicateCore();
+
 // File paths
 const SIGNAL_LOG = path.resolve(__dirname, '../missions/signal_log.json');
 const SIGNAL_REPORT = path.resolve(__dirname, '../missions/signal_report.md');
-const missionsDir = path.join(__dirname, '../missions');
-if (!fs.existsSync(missionsDir)) fs.mkdirSync(missionsDir);
+const missionsDir = path.resolve(__dirname, '../missions');
+if (!fs.existsSync(missionsDir)) fs.mkdirSync(missionsDir, { recursive: true });
 
 const SB = (msg) => chalk.hex('#FFD700').bold(`[SIGNAL BOT #${id}]: ${msg}`);
 const sb = (msg) => chalk.hex('#FFD700')(`[SIGNAL BOT #${id}]: ${msg}`);
@@ -56,27 +60,58 @@ function saveSignalLog(log) {
 // ============================================================
 // TELEGRAM INTEGRATION
 // ============================================================
+async function sendTelegramWithRetry(url, data, config, retries = 3) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            return await axios.post(url, data, config);
+        } catch (error) {
+            if (i === retries - 1) throw error;
+            console.log(chalk.yellow(`[SIGNAL BOT]: Telegram send failed, retrying (${i + 1}/${retries})...`));
+            await new Promise(resolve => setTimeout(resolve, 2000 * Math.pow(2, i))); // Exponential backoff
+        }
+    }
+}
+
 async function sendTelegram(message, parseMode = 'HTML') {
     if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHANNEL_ID) {
         console.log(sb(`📋 [LOCAL] ${message.replace(/<[^>]*>/g, '')}`));
         return false;
     }
 
-    try {
-        await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-            chat_id: TELEGRAM_CHANNEL_ID,
-            text: message,
-            parse_mode: parseMode,
-            disable_web_page_preview: true,
-        }, { timeout: 10000 });
+    const primaryUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    const fallbackUrl = process.env.TELEGRAM_API_FALLBACK_URL ? `${process.env.TELEGRAM_API_FALLBACK_URL}/bot${TELEGRAM_BOT_TOKEN}/sendMessage` : null;
 
+    const payload = {
+        chat_id: TELEGRAM_CHANNEL_ID,
+        text: message,
+        parse_mode: parseMode,
+        disable_web_page_preview: true,
+    };
+    const config = { timeout: 10000 };
+
+    try {
+        await sendTelegramWithRetry(primaryUrl, payload, config);
         stats.telegramSent++;
         console.log(sb('✅ Signal sent to Telegram'));
         return true;
     } catch (e) {
-        stats.telegramFailed++;
-        console.log(chalk.red(`[SIGNAL BOT]: Telegram send failed: ${e.response?.data?.description || e.message}`));
-        return false;
+        console.log(chalk.yellow(`[SIGNAL BOT]: Primary Telegram send failed: ${e?.response?.data?.description || e?.message}. Attempting fallback...`));
+        if (fallbackUrl) {
+            try {
+                await sendTelegramWithRetry(fallbackUrl, payload, config);
+                stats.telegramSent++;
+                console.log(sb('✅ Signal sent to Telegram (via fallback)'));
+                return true;
+            } catch (fallbackError) {
+                stats.telegramFailed++;
+                console.log(chalk.red(`[SIGNAL BOT]: Telegram fallback send failed: ${fallbackError?.response?.data?.description || fallbackError?.message}`));
+                return false;
+            }
+        } else {
+            stats.telegramFailed++;
+            console.log(chalk.red(`[SIGNAL BOT]: No fallback URL configured. Telegram send completely failed.`));
+            return false;
+        }
     }
 }
 
@@ -207,22 +242,29 @@ async function processSignal(signal) {
 // IPC MESSAGE HANDLER (from The Don)
 // ============================================================
 process.on('message', async (msg) => {
-    switch (msg.type) {
+    const msgType = msg?.type || 'UNKNOWN';
+    const msgWhale = msg?.whale ? String(msg.whale) : 'UNKNOWN_WHALE';
+    const msgMint = msg?.mint ? String(msg.mint) : 'UNKNOWN_MINT';
+    const msgData = msg?.data ? String(msg.data) : 'No data provided';
+    const msgSource = msg?.source ? String(msg.source) : 'UNKNOWN_SOURCE';
+    const msgText = msg?.text ? String(msg.text) : '';
+
+    switch (msgType) {
         case 'COPY_TRADE_SIGNAL':
-            console.log(SB(`🔥 COPY-TRADE SIGNAL: ${msg.whale} → ${msg.mint}`));
+            console.log(SB(`🔥 COPY-TRADE SIGNAL: ${msgWhale} → ${msgMint}`));
             await processSignal(msg);
             break;
 
         case 'INTEL_DATA':
             // Only forward whale surveillance to Telegram
-            if (msg.source === 'WATCHER_SURVEILLANCE') {
-                console.log(sb(`🐋 Whale movement: ${msg.data}`));
-                await processSignal({ type: 'WHALE_MOVEMENT', data: msg.data, message: msg.data });
+            if (msgSource === 'WATCHER_SURVEILLANCE') {
+                console.log(sb(`🐋 Whale movement: ${msgData}`));
+                await processSignal({ type: 'WHALE_MOVEMENT', data: msgData, message: msgData });
             }
             break;
 
         case 'SNIPE_SUCCESS':
-            console.log(SB(`🎯 Snipe success: ${msg.mint}`));
+            console.log(SB(`🎯 Snipe success: ${msgMint}`));
             await processSignal(msg);
             break;
 
@@ -252,8 +294,8 @@ process.on('message', async (msg) => {
 
         case 'BROADCAST':
             // Manual broadcast from CLI
-            if (msg.text) {
-                const formatted = `📢 <b>SYNDICATE BROADCAST</b>\n\n${msg.text}\n\n━━━━━━━━━━━━━━━━━━━━\n<b>📡 The Syndicate Signal Service</b>`;
+            if (msgText) {
+                const formatted = `📢 <b>SYNDICATE BROADCAST</b>\n\n${msgText}\n\n━━━━━━━━━━━━━━━━━━━━\n<b>📡 The Syndicate Signal Service</b>`;
                 await sendTelegram(formatted);
             }
             break;
@@ -321,6 +363,22 @@ function writeReport() {
 setInterval(writeReport, 900000);
 
 // Boot
-console.log(SB('📡 Signal Bot ready. Waiting for whale signals...'));
-scheduleDailyDigest();
-setInterval(() => { }, 100000); // Keep alive
+async function startBot() {
+    try {
+        console.log(SB('🛡️ Running Wallet Guard verification...'));
+        const balance = await syndicateAPI.checkWalletBalance();
+        if (balance === null || balance < 0.005) {
+            console.log(chalk.red('[SIGNAL BOT] ⚠️ WARNING: Wallet balance insufficient (< 0.005 SOL) or unavailable. Signal Bot may fail on associated on-chain transactions.'));
+        } else {
+            console.log(SB(`🛡️ Wallet Guard passed (Balance: ${balance} SOL)`));
+        }
+    } catch (e) {
+        console.log(chalk.red(`[SIGNAL BOT] ⚠️ WARNING: Wallet Guard check failed: ${e?.message || e}`));
+    }
+
+    console.log(SB('📡 Signal Bot ready. Waiting for whale signals...'));
+    scheduleDailyDigest();
+    setInterval(() => { }, 100000); // Keep alive
+}
+
+startBot();
