@@ -998,9 +998,58 @@ async function checkPositions() {
 
 
     try {
+        // ── Pre-fetch all price data concurrently ──
+        const evaluatedTrades = await Promise.all(trades.map(async (trade, index) => {
+            let pnl = null;
+            let currentSolValue = 0;
+            let currentPrice = 0;
+
+            try {
+                const mintPub = new PublicKey(trade.mint);
+                const bondingCurve = getBondingCurvePDA(mintPub);
+                const curve = await getBondingCurveAccount(bondingCurve);
+
+                if (curve && !curve.complete) {
+                    const quote = calculateSellQuote(curve, BigInt(trade.amount));
+                    currentSolValue = Number(quote.solAmount) / 1e9;
+
+                    // standardizing to UI units: SOL per UI token (6 decimals for pump.fun)
+                    const decimals = 6;
+                    const uiAmount = Number(trade.amount) / Math.pow(10, decimals);
+                    currentPrice = uiAmount > 0 ? (currentSolValue / uiAmount) : 0;
+
+                    // Use stored entryPrice (always SOL/uiToken in new format)
+                    const entryPrice = trade.entryPrice || currentPrice;
+                    if (entryPrice > 0) {
+                        pnl = ((currentPrice - entryPrice) / entryPrice) * 100;
+                    }
+                } else {
+                    const priceData = await fetchCurrentPrice(trade.mint, trade.amount, curve);
+                    if (priceData) {
+                        currentSolValue = priceData.solValue;
+                        currentPrice = priceData.currentPrice; // fetchCurrentPrice returns price per UI token
+                        const entryPrice = trade.entryPrice || currentPrice;
+                        if (entryPrice > 0) {
+                            pnl = ((currentPrice - entryPrice) / entryPrice) * 100;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.log(chalk.yellow(`  ⚠️ ${trade.mint.substring(0, 6)}: Price check error: ${err.message}`));
+            }
+
+            return {
+                originalIndex: index,
+                pnl,
+                currentSolValue
+            };
+        }));
+
         for (let i = trades.length - 1; i >= 0; i--) {
             const trade = trades[i];
-            let pnl = null; // Declare pnl here so the catch block ALWAYS has access to it
+            const evalData = evaluatedTrades.find(e => e.originalIndex === i);
+            const pnl = evalData ? evalData.pnl : null;
+            const currentSolValue = evalData ? evalData.currentSolValue : 0;
 
             // ── FORCE EXIT FIRST: check max hold time BEFORE price (so expired positions always close) ──
             if (trade.maxHoldUntil && Date.now() > trade.maxHoldUntil) {
@@ -1012,41 +1061,11 @@ async function checkPositions() {
                 continue;
             }
 
-            // ── Price check for PnL-based exits ──
-            let currentSolValue = 0;
-
-            const mintPub = new PublicKey(trade.mint);
-            const bondingCurve = getBondingCurvePDA(mintPub);
-            const curve = await getBondingCurveAccount(bondingCurve);
-
-            if (curve && !curve.complete) {
-                const quote = calculateSellQuote(curve, BigInt(trade.amount));
-                currentSolValue = Number(quote.solAmount) / 1e9;
-
-                // standardizing to UI units: SOL per UI token (6 decimals for pump.fun)
-                const decimals = 6;
-                const uiAmount = Number(trade.amount) / Math.pow(10, decimals);
-                const currentPrice = uiAmount > 0 ? (currentSolValue / uiAmount) : 0;
-
-                // Use stored entryPrice (always SOL/uiToken in new format)
-                const entryPrice = trade.entryPrice || currentPrice;
-                if (entryPrice > 0) {
-                    pnl = ((currentPrice - entryPrice) / entryPrice) * 100;
-                }
-            } else {
-                const priceData = await fetchCurrentPrice(trade.mint, trade.amount, curve);
-                if (priceData) {
-                    currentSolValue = priceData.solValue;
-                    const currentPrice = priceData.currentPrice; // fetchCurrentPrice returns price per UI token
-                    const entryPrice = trade.entryPrice || currentPrice;
-                    pnl = ((currentPrice - entryPrice) / entryPrice) * 100;
-                } else {
-                    console.log(chalk.yellow(`  ⚠️ ${trade.mint.substring(0, 6)}: Price unavailable, skipping PnL check.`));
-                    continue; // SKIP rest of the loop since PnL isn't populated
-                }
+            if (pnl === null) {
+                // If PnL is null, it means price fetching failed or returned nothing
+                console.log(chalk.yellow(`  ⚠️ ${trade.mint.substring(0, 6)}: Price unavailable, skipping PnL check.`));
+                continue;
             }
-
-            if (pnl === null) continue;
 
             console.log(chalk.blue(`  💎 ${trade.mint.substring(0, 6)}: ${pnl > 0 ? '+' : ''}${pnl.toFixed(2)}% | Val: ${currentSolValue.toFixed(4)} SOL`));
 
