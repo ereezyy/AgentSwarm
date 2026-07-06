@@ -63,10 +63,8 @@ async def main():
         leads = json.loads(sys.argv[1])
         engine = HubSpotEngine()
         
-        results = []
-        for lead in leads:
-            result = await engine.sync_lead(lead)
-            results.append(result)
+        tasks = [engine.sync_lead(lead) for lead in leads]
+        results = await asyncio.gather(*tasks)
             
         print(json.dumps(results))
     except Exception as e:
