@@ -110,15 +110,7 @@ async function scanYields() {
                 const pools = protocol.parser(resp.data);
                 if (Array.isArray(pools)) {
                     pools.forEach(pool => {
-                        opportunities.push({
-                            protocol: protocol.name,
-                            type: protocol.type,
-                            pool: pool.pool,
-                            apy: pool.apy,
-                            tvl: pool.tvl,
-                            volume24h: pool.volume24h,
-                            risk: assessRisk(pool.apy, pool.tvl),
-                        });
+                        opportunities.push(formatPoolOpportunity(protocol, pool));
                     });
                 }
             } else {
@@ -188,6 +180,19 @@ async function scanYields() {
     lastScanTime = now;
 
     return opportunities;
+}
+
+
+function formatPoolOpportunity(protocol, pool) {
+    return {
+        protocol: protocol.name,
+        type: protocol.type,
+        pool: pool.pool,
+        apy: pool.apy,
+        tvl: pool.tvl,
+        volume24h: pool.volume24h,
+        risk: assessRisk(pool.apy, pool.tvl),
+    };
 }
 
 function assessRisk(apy, tvl) {
