@@ -1,0 +1,44 @@
+{
+  "whales": {
+    "G9S1fW53xWc3UQQv5iJv5jHkX5a3WnFzJ2C9V7h1V9fV": {
+      "address": "G9S1fW53xWc3UQQv5iJv5jHkX5a3WnFzJ2C9V7h1V9fV",
+      "alias": null,
+      "tier": "C",
+      "trades": [],
+      "stats": {
+        "wins": 0,
+        "losses": 0,
+        "totalPnL": 0,
+        "winRate": 0,
+        "avgReturn": 0
+      },
+      "firstSeen": "2026-03-03T05:16:53.098Z",
+      "lastSeen": "2026-03-03T05:16:53.098Z",
+      "approved": false
+    }
+  },
+  "config": {
+    "minWinRate": 0.55,
+    "minTrades": 3,
+    "minPnL": 0.5,
+    "decayDays": 30,
+    "tiers": {
+      "S": {
+        "minWinRate": 0.7,
+        "minPnL": 5
+      },
+      "A": {
+        "minWinRate": 0.6,
+        "minPnL": 2
+      },
+      "B": {
+        "minWinRate": 0.55,
+        "minPnL": 0.5
+      },
+      "C": {
+        "minWinRate": 0,
+        "minPnL": 0
+      }
+    }
+  }
+}
