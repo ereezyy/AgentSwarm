@@ -55,7 +55,7 @@ function runNetworkScan() {
 }
 
 // ── Port Probe (Lightweight, No nmap Needed) ─────────────────
-async function probePort(host, port, timeout = 2000) {
+async function probePort(host, port, timeout = process.env.PROBE_TIMEOUT ? parseInt(process.env.PROBE_TIMEOUT) : 2000) {
     return new Promise((resolve) => {
         const net = require('net');
         const socket = new net.Socket();
