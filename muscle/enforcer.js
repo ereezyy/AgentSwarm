@@ -1,8 +1,9 @@
 // muscle/enforcer.js - The Muscle (RobotJS Edition)
 // NUT-JS failed. We use RobotJS. Tougher. Older. Meaner.
 
+let robot;
 try {
-    var robot = require("robotjs");
+    robot = require("robotjs");
 } catch (e) {
     console.error("Looks like robotjs didn't compile. We might need a crowbar (python/powershell).");
     process.exit(1);
