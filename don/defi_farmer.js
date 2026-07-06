@@ -89,7 +89,16 @@ function savePositions(data) {
 // ============================================================
 // YIELD SCANNER
 // ============================================================
+let cachedYields = null;
+let lastScanTime = 0;
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
 async function scanYields() {
+    const now = Date.now();
+    if (cachedYields && now - lastScanTime < CACHE_TTL) {
+        return cachedYields;
+    }
+
     const opportunities = [];
 
     // Scan each protocol
@@ -174,6 +183,9 @@ async function scanYields() {
 
     // Sort by APY
     opportunities.sort((a, b) => b.apy - a.apy);
+
+    cachedYields = opportunities;
+    lastScanTime = now;
 
     return opportunities;
 }
