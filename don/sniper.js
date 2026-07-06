@@ -121,14 +121,22 @@ function getTrigrams(str) {
     return Array.from(trigrams);
 }
 
+const trigramCache = new Map();
+
 function calculateSimilarity(str1, str2) {
     if (!str1 || !str2) return 0;
-    const t1 = getTrigrams(str1);
-    const t2 = getTrigrams(str2);
+    const t1 = Array.isArray(str1) ? str1 : getTrigrams(str1);
+    const t2 = Array.isArray(str2) ? str2 : getTrigrams(str2);
     if (t1.length === 0 || t2.length === 0) return 0;
-    const intersection = t1.filter(x => t2.includes(x)).length;
-    const union = new Set([...t1, ...t2]).size;
-    return (intersection / union);
+
+    let intersection = 0;
+    const t2Set = new Set(t2);
+    for (let i = 0; i < t1.length; i++) {
+        if (t2Set.has(t1[i])) intersection++;
+    }
+
+    const union = t1.length + t2.length - intersection;
+    return union === 0 ? 0 : (intersection / union);
 }
 
 function canBuy(mintStr) {
@@ -636,12 +644,21 @@ async function buyToken(mint, bondingCurve, associatedBondingCurve) {
 
         if (metadata.name || metadata.description) {
             const currentDesc = (metadata.name + " " + metadata.description).trim();
-            for (const t of trades) {
-                const heldDesc = (t.name || "") + " " + (t.description || "");
-                if (heldDesc.trim()) {
-                    const sim = calculateSimilarity(currentDesc, heldDesc);
-                    if (sim >= CORRELATION_THEME_THRESHOLD) {
-                        similarThemesCount++;
+            const currentTrigrams = getTrigrams(currentDesc);
+
+            if (currentTrigrams.length > 0) {
+                for (const t of trades) {
+                    const heldDesc = (t.name || "") + " " + (t.description || "");
+                    if (heldDesc.trim()) {
+                        let heldTrigrams = trigramCache.get(t.mint);
+                        if (!heldTrigrams) {
+                            heldTrigrams = getTrigrams(heldDesc);
+                            if (t.mint) trigramCache.set(t.mint, heldTrigrams);
+                        }
+                        const sim = calculateSimilarity(currentTrigrams, heldTrigrams);
+                        if (sim >= CORRELATION_THEME_THRESHOLD) {
+                            similarThemesCount++;
+                        }
                     }
                 }
             }
