@@ -57,7 +57,9 @@ async function executeOnChainLiquidation(targetData) {
 
         // Use a robust failover chain for Jupiter APIs
         const JUPITER_QUOTE_APIS = [
-            'https://lite-api.jup.ag/swap/v1/quote'
+            'https://lite-api.jup.ag/swap/v1/quote',
+            'https://quote-api.jup.ag/v6/quote',
+            'https://api.jup.ag/swap/v1/quote'
         ];
 
         let qRes = null;
@@ -69,26 +71,32 @@ async function executeOnChainLiquidation(targetData) {
             slippageBps: 50
         };
 
-        for (const apiUrl of JUPITER_QUOTE_APIS) {
-            if (qRes && qRes.data) break;
-
-            for (let attempt = 1; attempt <= 4; attempt++) {
-                try {
-                    qRes = await axios.get(apiUrl, { params: swapParams, timeout: 5000 });
-                    if (qRes && qRes.data) break;
-                } catch (e) {
-                    lastErr = e.response?.status === 429 ? '429 Rate Limit' : e.message;
-                    if (e.response?.status === 400) lastErr = `400 Bad Request: ${JSON.stringify(e.response.data)}`;
-                    if (e.response?.status === 429 && attempt < 4) {
-                        const backoff = (attempt ** 2) * 1000 + Math.random() * 500;
-                        console.log(chalk.yellow(`[LIQUIDATOR]: ⏳ Quote 429 Rate Limit on ${apiUrl}... retrying in ${(backoff / 1000).toFixed(1)}s (${attempt}/4)`));
-                        await new Promise(r => setTimeout(r, backoff));
-                        continue;
+        try {
+            qRes = await Promise.any(
+                JUPITER_QUOTE_APIS.map(async (apiUrl) => {
+                    for (let attempt = 1; attempt <= 4; attempt++) {
+                        try {
+                            const res = await axios.get(apiUrl, { params: swapParams, timeout: 5000 });
+                            if (res && res.data) return res;
+                        } catch (e) {
+                            lastErr = e.response?.status === 429 ? '429 Rate Limit' : e.message;
+                            if (e.response?.status === 400) lastErr = `400 Bad Request: ${JSON.stringify(e.response.data)}`;
+                            if (e.response?.status === 429 && attempt < 4) {
+                                const backoff = (attempt ** 2) * 1000 + Math.random() * 500;
+                                console.log(chalk.yellow(`[LIQUIDATOR]: ⏳ Quote 429 Rate Limit on ${apiUrl}... retrying in ${(backoff / 1000).toFixed(1)}s (${attempt}/4)`));
+                                await new Promise(r => setTimeout(r, backoff));
+                                continue;
+                            }
+                            console.log(chalk.yellow(`[LIQUIDATOR]: Quote API failed on ${apiUrl}: ${lastErr}`));
+                            throw e;
+                        }
                     }
-                    console.log(chalk.yellow(`[LIQUIDATOR]: Quote API failed on ${apiUrl}: ${lastErr}`));
-                    break;
-                }
-            }
+                    throw new Error("All attempts failed for " + apiUrl);
+                })
+            );
+        } catch (aggregateErr) {
+            // All promises rejected
+            // lastErr will hold the last error encountered
         }
 
         if (!qRes || !qRes.data) {
@@ -100,7 +108,9 @@ async function executeOnChainLiquidation(targetData) {
         console.log(chalk.magenta(`[LIQUIDATOR]: 🏗️ Composing Atomic Bundle...`));
 
         const JUPITER_SWAP_APIS = [
-            'https://lite-api.jup.ag/swap/v1/swap'
+            'https://lite-api.jup.ag/swap/v1/swap',
+            'https://quote-api.jup.ag/v6/swap',
+            'https://api.jup.ag/swap/v1/swap'
         ];
 
         let swapRes = null;
@@ -111,25 +121,30 @@ async function executeOnChainLiquidation(targetData) {
             prioritizationFeeLamports: 2500000
         };
 
-        for (const apiUrl of JUPITER_SWAP_APIS) {
-            if (swapRes && swapRes.data) break;
-
-            for (let attempt = 1; attempt <= 4; attempt++) {
-                try {
-                    swapRes = await axios.post(apiUrl, swapPayload, { timeout: 8000 });
-                    if (swapRes && swapRes.data) break;
-                } catch (e) {
-                    lastErr = e.response?.status === 429 ? '429 Rate Limit' : (e.response?.data?.error || e.message);
-                    if (e.response?.status === 429 && attempt < 4) {
-                        const backoff = (attempt ** 2) * 1000 + Math.random() * 500;
-                        console.log(chalk.yellow(`[LIQUIDATOR]: ⏳ Swap 429 Rate Limit on ${apiUrl}... retrying in ${(backoff / 1000).toFixed(1)}s (${attempt}/4)`));
-                        await new Promise(r => setTimeout(r, backoff));
-                        continue;
+        try {
+            swapRes = await Promise.any(
+                JUPITER_SWAP_APIS.map(async (apiUrl) => {
+                    for (let attempt = 1; attempt <= 4; attempt++) {
+                        try {
+                            const res = await axios.post(apiUrl, swapPayload, { timeout: 8000 });
+                            if (res && res.data) return res;
+                        } catch (e) {
+                            lastErr = e.response?.status === 429 ? '429 Rate Limit' : (e.response?.data?.error || e.message);
+                            if (e.response?.status === 429 && attempt < 4) {
+                                const backoff = (attempt ** 2) * 1000 + Math.random() * 500;
+                                console.log(chalk.yellow(`[LIQUIDATOR]: ⏳ Swap 429 Rate Limit on ${apiUrl}... retrying in ${(backoff / 1000).toFixed(1)}s (${attempt}/4)`));
+                                await new Promise(r => setTimeout(r, backoff));
+                                continue;
+                            }
+                            console.log(chalk.yellow(`[LIQUIDATOR]: Swap API failed on ${apiUrl}: ${lastErr}`));
+                            throw e;
+                        }
                     }
-                    console.log(chalk.yellow(`[LIQUIDATOR]: Swap API failed on ${apiUrl}: ${lastErr}`));
-                    break;
-                }
-            }
+                    throw new Error("All attempts failed for " + apiUrl);
+                })
+            );
+        } catch (aggregateErr) {
+            // All promises rejected
         }
 
         if (!swapRes || !swapRes.data) {
