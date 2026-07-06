@@ -38,11 +38,15 @@ async function playCue(type) {
     }
 }
 
+
+function sanitizeTTS(text) {
+    if (!text) return '';
+    return text.replace(/\*/g, '').replace(/\s+/g, ' ').trim();
+}
 async function speak(text, options = {}) {
     if (!text) return;
 
-    // Sanitize text for TTS (replace * to prevent "Star")
-    let cleanText = text.replace(/\*/g, '').replace(/\s+/g, ' ').trim();
+    let cleanText = sanitizeTTS(text);
 
     console.log(chalk.white(`[CALLER #${id}] 🎙️: "${cleanText.substring(0, 100)}..."`));
 
@@ -165,8 +169,6 @@ async function weeklyCleanup() {
 }
 
 // Run cleanup on launch and every 24 hours
-weeklyCleanup();
-setInterval(weeklyCleanup, 86400000);
 
 // ── 30-MINUTE RECAP (DATA-DRIVEN, NASTY, VISCERAL) ──────────────
 let pendingRecapResolve = null;
@@ -220,31 +222,38 @@ async function runRecap() {
 }
 
 // Initial greeting on launch (quick, not a full recap)
-setTimeout(async () => {
-    try {
-        const greeting = await ask(
-            "The swarm just booted up. Give a one-sentence launch announcement.",
-            "You are a foul-mouthed AI swarm narrator. One nasty sentence announcing the swarm is online. Keep it short and mean.",
-            { agentName: `CALLER #${id}` }
-        );
-        await speak(greeting, { cue: 'GOOD' });
-    } catch (e) { }
-}, 5000);
 
 // 30 Minute Recap Interval
-setInterval(runRecap, 1800000);
 
 // IPC Listener
-process.on('message', (msg) => {
-    if (msg.type === 'SPEAK_ALERT') {
-        speak(msg.text, { cue: msg.cue || (msg.level === 'ERROR' ? 'BAD' : null) });
-    } else if (msg.type === 'PLAY_CUE') {
-        playCue(msg.cue);
-    } else if (msg.type === 'RECAP_DATA') {
-        // Response from Don with activity buffer
-        if (pendingRecapResolve) {
-            pendingRecapResolve(msg);
-            pendingRecapResolve = null;
+
+if (require.main === module) {
+    weeklyCleanup();
+    setInterval(weeklyCleanup, 86400000);
+    setTimeout(async () => {
+        try {
+            const greeting = await ask(
+                "The swarm just booted up. Give a one-sentence launch announcement.",
+                "You are a foul-mouthed AI swarm narrator. One nasty sentence announcing the swarm is online. Keep it short and mean.",
+                { agentName: `CALLER #${id}` }
+            );
+            await speak(greeting, { cue: 'GOOD' });
+        } catch (e) { }
+    }, 5000);
+    setInterval(runRecap, 1800000);
+    process.on('message', (msg) => {
+        if (msg.type === 'SPEAK_ALERT') {
+            speak(msg.text, { cue: msg.cue || (msg.level === 'ERROR' ? 'BAD' : null) });
+        } else if (msg.type === 'PLAY_CUE') {
+            playCue(msg.cue);
+        } else if (msg.type === 'RECAP_DATA') {
+            // Response from Don with activity buffer
+            if (pendingRecapResolve) {
+                pendingRecapResolve(msg);
+                pendingRecapResolve = null;
+            }
         }
-    }
-});
+    });
+}
+
+module.exports = { sanitizeTTS, speak, playCue };
